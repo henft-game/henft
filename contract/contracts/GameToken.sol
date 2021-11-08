@@ -1,54 +1,108 @@
 pragma solidity 0.8.9;
 
-import "../node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "../node_modules/@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import "../node_modules/@openzeppelin/contracts/utils/Counters.sol";
 import "../node_modules/@openzeppelin/contracts/access/Ownable.sol";
 
-contract GameToken is ERC721, Ownable {
+contract GameToken is ERC721URIStorage, Ownable {
+    using Counters for Counters.Counter;
+    Counters.Counter private _currentHeroId;
+
     enum HeroType {
-        TANK,
+        FIGHTER,
         ROGUE,
         MAGE,
-        FIGHTER
+        TANK
     }
     enum HeroRarity {
         COMMON,
         UNCOMMON,
+        RARE,
         LEGENDARY
     }
 
     struct Hero {
         string name;
         HeroType heroType;
+        HeroRarity rarity;
         uint8 str;
         uint8 con;
         uint8 dex;
         uint8 inte;
-        uint16 level;
+        uint8 level;
     }
-
-    uint256 private _currentHeroId = 0;
 
     mapping(uint256 => Hero) private _heroes;
     mapping(uint256 => uint256) private _sellingHeroes;
 
+    mapping(HeroType => uint8[]) private _mapMint;
+
     constructor(string memory name, string memory symbol) ERC721(name, symbol) {
-        mint("first one", HeroType.TANK, 1, 1, 1, 1);
-        mint("second one", HeroType.ROGUE, 1, 1, 1, 1);
-        mint("third one", HeroType.MAGE, 1, 1, 1, 1);
+        _mapMint[HeroType.FIGHTER] = [0, 1, 0, 2, 3, 1];
+        _mapMint[HeroType.ROGUE] = [2, 2, 0, 3, 0, 2];
+        _mapMint[HeroType.MAGE] = [3, 3, 2, 1, 0, 3];
+        _mapMint[HeroType.TANK] = [1, 1, 0, 2, 3, 1];
     }
 
-    function mint(
-        string memory name,
-        HeroType heroType,
-        uint8 str,
-        uint8 con,
-        uint8 dex,
-        uint8 inte
-    ) public onlyOwner {
-        _safeMint(msg.sender, _currentHeroId);
-        _heroes[_currentHeroId] = Hero(name, heroType, str, con, dex, inte, 1);
+    function mint(HeroType heroType) public onlyOwner {
+        uint256 newHeroId = _currentHeroId.current();
 
-        _currentHeroId++;
+        uint256 rarity = rand(100) + 1;
+
+        HeroRarity heroRarity;
+        uint8 minAttr;
+        uint8 maxAttr;
+
+        if (rarity <= 60) {
+            heroRarity = HeroRarity.COMMON;
+            minAttr = 4;
+            maxAttr = 6;
+        } else if (rarity <= 85) {
+            heroRarity = HeroRarity.UNCOMMON;
+            minAttr = 7;
+            maxAttr = 8;
+        } else if (rarity <= 99) {
+            heroRarity = HeroRarity.RARE;
+            minAttr = 9;
+            maxAttr = 10;
+        } else {
+            heroRarity = HeroRarity.LEGENDARY;
+            minAttr = 11;
+            maxAttr = 12;
+        }
+
+        uint256 attrsSize = rand(maxAttr - minAttr) + minAttr;
+
+        uint8[] memory attrs = new uint8[](4);
+        attrs[0] = 1;
+        attrs[1] = 1;
+        attrs[2] = 1;
+        attrs[3] = 1;
+        uint8 attrCounter = 0;
+
+        for (uint8 i = 1; i <= attrsSize; i++) {
+            attrs[_mapMint[heroType][attrCounter]]++;
+            if (attrCounter == 5) {
+                attrCounter = 0;
+            } else {
+                attrCounter++;
+            }
+        }
+
+        _safeMint(msg.sender, newHeroId);
+        _setTokenURI(newHeroId, "teste");
+        _heroes[newHeroId] = Hero(
+            "",
+            heroType,
+            heroRarity,
+            attrs[0],
+            attrs[1],
+            attrs[2],
+            attrs[3],
+            1
+        );
+
+        _currentHeroId.increment();
     }
 
     function getHeroesByAddress(address owner)
@@ -65,7 +119,7 @@ contract GameToken is ERC721, Ownable {
             uint256 i;
             uint256 curIndex = 0;
 
-            for (i = 0; i < _currentHeroId; i++) {
+            for (i = 0; i < _currentHeroId.current(); i++) {
                 if (ownerOf(i) == owner) {
                     ret[curIndex] = i;
                 }
