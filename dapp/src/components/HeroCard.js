@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/styles';
 import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { Web3Context } from '../providers/Web3Provider';
 import Text from './Text';
+import SellDialog from './SellDialog';
 
 export default function HeroCard({ hero, token, levelUp }) {
 
@@ -63,8 +64,9 @@ export default function HeroCard({ hero, token, levelUp }) {
         setSelling(await contract.methods.getSelling(token).call({ from: accounts[0] }));
     }
 
-    const allowBuy = async function () {
-        await contract.methods.allowBuy(token, web3.utils.toWei('1')).send({ from: accounts[0] });
+    const allowBuy = async function (value) {
+        await contract.methods.allowBuy(token, web3.utils.toWei(value)).send({ from: accounts[0] });
+        handleCloseSellDialog();
         reload();
     }
 
@@ -95,59 +97,73 @@ export default function HeroCard({ hero, token, levelUp }) {
         loadOwner();
     }, [token]);
 
+    
+    const [openedSellDialog, setOpenedSellDialog] = useState(false);
+
+    const openSellDialog = () => {
+        setOpenedSellDialog(true);
+    }
+
+    const handleCloseSellDialog = () => {
+        setOpenedSellDialog(false);
+    }
+
     return (
-        <Card className={classes.root} sx={{ padding: "0" }}>
+        <Fragment>
+            <Card className={classes.root} sx={{ padding: "0" }}>
 
-            <CardHeader className={classes.header} sx={{ padding: "10px" }} title={`#${token} ${!!hero.name ? ` - ${hero.name}` : ''}`} subheader={`Level: ${hero.level}`} />
+                <CardHeader className={classes.header} sx={{ padding: "10px" }} title={`#${token} ${!!hero.name ? ` - ${hero.name}` : ''}`} subheader={`Level: ${hero.level}`} />
 
-            <CardContent className={classes.headerSubTitleDiv} sx={{ padding: "1px" }}>
-                <Grid container>
-                    <Grid item xs={12}>
-                        <Grid container justify="flex-start">
-                            <Grid item xs={12} md={6}>
-                                <img className={classes.nft} src={`/imgs/common_warrior.gif`} alt={`#${token}`} />
-                            </Grid>
-                            <Grid item xs={12} md={6} lg className={classes.status}>
-                                <Grid item>
-                                    <Text label="Rarity" value={rarity[hero.rarity]} />
-                                    <Text label="Type" value={heroType[hero.heroType]} />
+                <CardContent className={classes.headerSubTitleDiv} sx={{ padding: "1px" }}>
+                    <Grid container>
+                        <Grid item xs={12}>
+                            <Grid container justify="flex-start">
+                                <Grid item xs={12} md={6}>
+                                    <img className={classes.nft} src={`/imgs/common_warrior.gif`} alt={`#${token}`} />
                                 </Grid>
-                                <Grid item sx={{ marginTop: "20px" }}>
-                                    <Text label="STR" value={hero.str} />
-                                    <Text label="CON" value={hero.con} />
-                                    <Text label="DEX" value={hero.dex} />
-                                    <Text label="WIS" value={hero.inte} />
+                                <Grid item xs={12} md={6} lg className={classes.status}>
+                                    <Grid item>
+                                        <Text label="Rarity" value={rarity[hero.rarity]} />
+                                        <Text label="Type" value={heroType[hero.heroType]} />
+                                    </Grid>
+                                    <Grid item sx={{ marginTop: "20px" }}>
+                                        <Text label="STR" value={hero.str} />
+                                        <Text label="CON" value={hero.con} />
+                                        <Text label="DEX" value={hero.dex} />
+                                        <Text label="WIS" value={hero.inte} />
+                                    </Grid>
                                 </Grid>
                             </Grid>
+                            <Typography sx={{ fontSize: "9px", padding: "5px" }}>{`Owner: ${owner}`}</Typography>
                         </Grid>
-                        <Typography sx={{ fontSize: "9px", padding: "5px" }}>{`Owner: ${owner}`}</Typography>
                     </Grid>
-                </Grid>
 
-            </CardContent>
+                </CardContent>
 
-            <CardActions>
-                {!!accounts && accounts[0] === owner ?
-                    <Fragment>
-                        <Button size="small" onClick={() => { levelUp(token) }} sx={{ background: "#EEEEEE" }}>LVL UP</Button>
-                        {auction.minValue === '0' && selling === '0' &&
-                            <Fragment>
-                                <Button size="small" onClick={() => { allowBuy() }} sx={{ background: "#EEEEEE" }}>SELL</Button>
-                                <Button size="small" onClick={() => { createAuction() }} sx={{ background: "#EEEEEE" }}>AUCTION</Button>
-                            </Fragment>
-                        }
-                    </Fragment>
-                    :
-                    <Fragment>
-                        {auction.minValue === '0' && selling !== '0' &&
-                            <Button size="small" onClick={() => { buy() }} sx={{ background: "#EEEEEE" }}>BUY {web3.utils.fromWei(selling, 'ether')}</Button>
-                        }
-                        {auction.minValue !== '0' && selling === '0' &&
-                            <Button size="small" sx={{ background: "#EEEEEE" }}>BID</Button>
-                        }
-                    </Fragment>
-                }
-            </CardActions>
-        </Card>
+                <CardActions>
+                    {!!accounts && accounts[0] === owner ?
+                        <Fragment>
+                            <Button size="small" onClick={() => { levelUp(token) }} sx={{ background: "#EEEEEE" }}>LVL UP</Button>
+                            {auction.minValue === '0' && selling === '0' &&
+                                <Fragment>
+                                    <Button size="small" onClick={() => { openSellDialog() }} sx={{ background: "#EEEEEE" }}>SELL</Button>
+                                    <Button size="small" onClick={() => { createAuction() }} sx={{ background: "#EEEEEE" }}>AUCTION</Button>
+                                </Fragment>
+                            }
+                        </Fragment>
+                        :
+                        <Fragment>
+                            {auction.minValue === '0' && selling !== '0' &&
+                                <Button size="small" onClick={() => { buy() }} sx={{ background: "#EEEEEE" }}>BUY {web3.utils.fromWei(selling, 'ether')}</Button>
+                            }
+                            {auction.minValue !== '0' && selling === '0' &&
+                                <Button size="small" sx={{ background: "#EEEEEE" }}>BID</Button>
+                            }
+                        </Fragment>
+                    }
+                </CardActions>
+            </Card>
+            <SellDialog token={token} open={openedSellDialog} handleClose={handleCloseSellDialog} allowBuy={allowBuy} />
+        </Fragment>
     );
 }

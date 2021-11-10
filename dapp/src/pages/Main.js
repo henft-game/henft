@@ -1,5 +1,5 @@
 import { Grid } from '@material-ui/core';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, Fragment } from 'react';
 import HeroCard from '../components/HeroCard';
 import { Web3Context } from '../providers/Web3Provider';
 
@@ -29,7 +29,6 @@ const Main = () => {
     }
 
     useEffect(() => {
-        console.log(accounts);
         if (!!contract && !!accounts[0]) {
             setLoading(true);
             loadHeroes();
@@ -38,21 +37,22 @@ const Main = () => {
         }
     }, [contract, accounts])
 
-
-
     return (
-        <Grid container spacing={2}>
-            {!loading && !!myHeroes && !!heroes && heroes.map((hero, heroId) => {
-                return (
-                    <Grid key={heroId} item xs={12} md={6} lg={4} xl={3}>
-                        <HeroCard hero={hero} token={heroId}
-                            ownedByMe={myHeroes.indexOf(heroId + '') > -1}
-                            levelUp={levelUpHero}
-                        />
-                    </Grid>
-                );
-            })}
-        </Grid>
+        <Fragment>
+            <Grid container spacing={2}>
+                {!loading && !!myHeroes && !!heroes && heroes.map((hero, heroId) => {
+                    return (
+                        <Grid key={heroId} item xs={12} md={6} lg={4} xl={3}>
+                            <HeroCard hero={hero} token={heroId}
+                                ownedByMe={myHeroes.indexOf(heroId + '') > -1}
+                                levelUp={levelUpHero}
+                            />
+                        </Grid>
+                    );
+                })}
+            </Grid>
+            
+        </Fragment>
     )
 }
 
