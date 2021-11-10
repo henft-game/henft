@@ -39,7 +39,7 @@ contract GameToken is ERC721URIStorage, Ownable {
         address lastBidAddress;
     }
 
-    mapping(uint256 => Hero) private _heroes;
+    Hero[] private _heroes;
     mapping(uint256 => uint256) private _sellingHeroes;
 
     mapping(uint256 => Auction) private _sellingHeroesAuction;
@@ -47,6 +47,7 @@ contract GameToken is ERC721URIStorage, Ownable {
     uint16 private _minBidIncrement = 110;
     uint16 private _minAuctionTime = 60;
 
+    //static final
     mapping(HeroType => uint8[]) private _mapMint;
 
     constructor(string memory name, string memory symbol) ERC721(name, symbol) {
@@ -62,6 +63,10 @@ contract GameToken is ERC721URIStorage, Ownable {
 
     function setMinAuctionTime(uint16 _newMinAuctionTime) public onlyOwner {
         _minAuctionTime = _newMinAuctionTime;
+    }
+
+    function getHeroes() external view returns (Hero[] memory) {
+        return _heroes;
     }
 
     function mint(HeroType _heroType, HeroRarity _heroRarity) public onlyOwner {
@@ -104,15 +109,17 @@ contract GameToken is ERC721URIStorage, Ownable {
 
         _safeMint(msg.sender, newHeroId);
         _setTokenURI(newHeroId, "teste");
-        _heroes[newHeroId] = Hero(
-            "",
-            _heroType,
-            _heroRarity,
-            attrs[0],
-            attrs[1],
-            attrs[2],
-            attrs[3],
-            1
+        _heroes.push(
+            Hero(
+                "",
+                _heroType,
+                _heroRarity,
+                attrs[0],
+                attrs[1],
+                attrs[2],
+                attrs[3],
+                1
+            )
         );
 
         _currentHeroId.increment();
@@ -134,7 +141,7 @@ contract GameToken is ERC721URIStorage, Ownable {
 
             for (i = 0; i < _currentHeroId.current(); i++) {
                 if (ownerOf(i) == owner) {
-                    ret[curIndex] = i;
+                    ret[curIndex++] = i;
                 }
             }
 
@@ -150,6 +157,15 @@ contract GameToken is ERC721URIStorage, Ownable {
         return _heroes[_heroId];
     }
 
+    function getSelling(uint256 _heroId)
+        external
+        view
+        returns (uint256)
+    {
+        return _sellingHeroes[_heroId];
+    }
+
+
     function getAuction(uint256 _heroId)
         external
         view
@@ -158,8 +174,15 @@ contract GameToken is ERC721URIStorage, Ownable {
         return _sellingHeroesAuction[_heroId];
     }
 
+    function setName(uint256 _heroId, string memory _name) external {
+        require(msg.sender == ownerOf(_heroId), "Not owner");
+        Hero storage hero = _heroes[_heroId];
+
+        hero.name = _name;
+    }
+
     function levelUp(uint256 _heroId) external {
-        require(msg.sender == ownerOf(_heroId), "Not owner of this hero");
+        require(msg.sender == ownerOf(_heroId), "Not owner");
 
         Hero storage hero = _heroes[_heroId];
 
@@ -179,7 +202,7 @@ contract GameToken is ERC721URIStorage, Ownable {
     }
 
     function allowBuy(uint256 _heroId, uint256 _price) external {
-        require(msg.sender == ownerOf(_heroId), "Not owner of this hero");
+        require(msg.sender == ownerOf(_heroId), "Not owner");
         require(_price > 0, "Price zero");
 
         require(
@@ -191,13 +214,13 @@ contract GameToken is ERC721URIStorage, Ownable {
     }
 
     function disallowBuy(uint256 _heroId) external {
-        require(msg.sender == ownerOf(_heroId), "Not owner of this hero");
+        require(msg.sender == ownerOf(_heroId), "Not owner");
         _sellingHeroes[_heroId] = 0;
     }
 
     function buy(uint256 _heroId) external payable {
         uint256 price = _sellingHeroes[_heroId];
-        require(price > 0, "This hero is not for sale");
+        require(price > 0, "Hero not for sale");
         require(msg.value == price, "Incorrect value");
 
         address seller = ownerOf(_heroId);
@@ -213,21 +236,17 @@ contract GameToken is ERC721URIStorage, Ownable {
         uint256 _endTime,
         uint256 _minPrice
     ) external {
-        require(msg.sender == ownerOf(_heroId), "Not owner of this hero");
+        require(msg.sender == ownerOf(_heroId), "Not owner");
         require(
             _endTime >= (block.timestamp + _minAuctionTime) * 1_000,
-            "Auction must have end time of minimum of ten minutes"
+            "Auction must have end time"
         );
-        require(_minPrice > 0, "Minimum Price greater then zero");
+        require(_minPrice > 0, "Minimum Price");
         require(
             _sellingHeroesAuction[_heroId].endTime <= 0,
             "Auction already created"
         );
-        require(
-            _sellingHeroes[_heroId] <= 0,
-            "This token is setted to sell"
-        );
-
+        require(_sellingHeroes[_heroId] <= 0, "Hero is setted to sell");
 
         _sellingHeroesAuction[_heroId] = Auction(
             _endTime,
@@ -238,13 +257,13 @@ contract GameToken is ERC721URIStorage, Ownable {
     }
 
     function cancelAuction(uint256 _heroId) external {
-        require(msg.sender == ownerOf(_heroId), "Not owner of this hero");
+        require(msg.sender == ownerOf(_heroId), "Not owner");
 
         Auction memory auction = _sellingHeroesAuction[_heroId];
 
         require(
             auction.currValue <= 0,
-            "Already has a bid, can not cancel this auction more"
+            "Can not cancel this auction"
         );
 
         delete _sellingHeroesAuction[_heroId];
@@ -279,15 +298,16 @@ contract GameToken is ERC721URIStorage, Ownable {
             _sellingHeroesAuction[_heroId].endTime > 0,
             "Auction not found"
         );
-        require(auction.endTime <= block.timestamp * 1_000, "Auction not ended");
+        require(
+            auction.endTime <= block.timestamp * 1_000,
+            "Auction not ended"
+        );
 
         if (auction.currValue > 0) {
-
             address seller = ownerOf(_heroId);
 
             payable(seller).transfer(auction.currValue);
             _safeTransfer(seller, auction.lastBidAddress, _heroId, "");
-
         }
 
         delete _sellingHeroesAuction[_heroId];
