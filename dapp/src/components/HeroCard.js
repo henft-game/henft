@@ -75,7 +75,7 @@ export default function HeroCard({ hero, token, levelUp }) {
     }
 
     const buy = async function () {
-        await contract.methods.buy(token).send({ from: accounts[0], value: web3.utils.toWei('1') });
+        await contract.methods.buy(token).send({ from: accounts[0], value: web3.utils.toWei(selling) });
         reload();
     }
 
