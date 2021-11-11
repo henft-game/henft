@@ -1,4 +1,4 @@
-import { Grid } from '@material-ui/core';
+import { Grid } from '@mui/material';
 import React, { useContext, useEffect, useState, Fragment } from 'react';
 import HeroCard from '../components/HeroCard';
 import { Web3Context } from '../providers/Web3Provider';

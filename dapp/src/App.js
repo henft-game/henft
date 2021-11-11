@@ -4,7 +4,7 @@ import Application from './pages/Application';
 
 import "@fontsource/press-start-2p";
 
-import { ThemeProvider, createTheme } from '@material-ui/core/styles';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 const theme = createTheme({
   typography: {

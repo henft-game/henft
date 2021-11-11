@@ -41,7 +41,6 @@ contract GameToken is ERC721URIStorage, Ownable {
 
     Hero[] private _heroes;
     mapping(uint256 => uint256) private _sellingHeroes;
-
     mapping(uint256 => Auction) private _sellingHeroesAuction;
 
     uint16 private _minBidIncrement = 110;
@@ -246,7 +245,7 @@ contract GameToken is ERC721URIStorage, Ownable {
             _sellingHeroesAuction[_heroId].endTime <= 0,
             "Auction already created"
         );
-        require(_sellingHeroes[_heroId] <= 0, "Hero is setted to sell");
+        require(_sellingHeroes[_heroId] <= 0, "Hero is selling");
 
         _sellingHeroesAuction[_heroId] = Auction(
             _endTime,
@@ -263,7 +262,7 @@ contract GameToken is ERC721URIStorage, Ownable {
 
         require(
             auction.currValue <= 0,
-            "Can not cancel this auction"
+            "Can't cancel this auction"
         );
 
         delete _sellingHeroesAuction[_heroId];
@@ -275,7 +274,7 @@ contract GameToken is ERC721URIStorage, Ownable {
             _sellingHeroesAuction[_heroId].endTime > 0,
             "Auction not found"
         );
-        require(auction.endTime > block.timestamp, "Auction ended");
+        require(auction.endTime > block.timestamp * 1_000, "Auction ended");
         require(
             msg.value >= uint256((auction.currValue * _minBidIncrement) / 100),
             "Incorrect value"
