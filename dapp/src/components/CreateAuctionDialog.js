@@ -12,7 +12,7 @@ const Transition = forwardRef((props, ref) => {
 const CreateAuctionDialog = (props) => {
 
     const [minBid, setMinBid] = useState(1.0);
-    const [auctionEnd, setAuctionEnd] = useState();
+    const [auctionEnd, setAuctionEnd] = useState(new Date(new Date().getTime() + 120000));
 
     return (
 

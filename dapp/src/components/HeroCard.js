@@ -32,7 +32,18 @@ export default function HeroCard({ hero, token, levelUp }) {
             background: '#EEEEEE',
             padding: 10,
         },
-
+        common: {
+            color: "#747474",
+        },
+        uncommon: {
+            color: "#85a1b6",
+        },
+        rare: {
+            color: "#e4e493",
+        },
+        legendary: {
+            color: "#f2ba83",
+        },
     });
 
     const classes = useStyles();
