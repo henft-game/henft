@@ -32,18 +32,6 @@ export default function HeroCard({ hero, token, levelUp }) {
             background: '#EEEEEE',
             padding: 10,
         },
-        common: {
-            color: "#747474",
-        },
-        uncommon: {
-            color: "#85a1b6",
-        },
-        rare: {
-            color: "#e4e493",
-        },
-        legendary: {
-            color: "#f2ba83",
-        },
     });
 
     const classes = useStyles();
@@ -53,6 +41,13 @@ export default function HeroCard({ hero, token, levelUp }) {
         '1': 'UNCOMMON',
         '2': 'RARE',
         '3': 'LEGENDARY',
+    }
+
+    const rarityColors = {
+        '0': '#747474',
+        '1': '#85a1b6',
+        '2': '#e4e493',
+        '3': '#f2ba83',
     }
 
     const heroType = {
@@ -173,11 +168,11 @@ export default function HeroCard({ hero, token, levelUp }) {
                         <Grid item xs={12}>
                             <Grid container justify="flex-start">
                                 <Grid item xs={12} md={6}>
-                                    <img className={classes.nft} src={`/imgs/common_warrior.gif`} alt={`#${token}`} />
+                                    <img className={classes.nft} src={`/imgs/${token}.gif`} alt={`#${token}`} />
                                 </Grid>
                                 <Grid item xs={12} md={6} lg className={classes.status}>
                                     <Grid item>
-                                        <Text label="Rarity" value={rarity[hero.rarity]} />
+                                        <Typography sx={{ color: rarityColors[hero.rarity] }}>{`Rarity: ${rarity[hero.rarity]}`}</Typography>
                                         <Text label="Type" value={heroType[hero.heroType]} />
                                     </Grid>
                                     <Grid item sx={{ marginTop: "20px" }}>

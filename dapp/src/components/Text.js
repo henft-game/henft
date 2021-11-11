@@ -10,7 +10,7 @@ const Text = (props) => {
                     <span >{props.label}{!!props.showSeparator ? '' : ': '}</span>{props.value}
                 </Typography>
                 :
-                <Typography>{props.value}</Typography>
+                <Typography sx={{color: props.color}}>{props.value}</Typography>
             }
         </Fragment>
     );

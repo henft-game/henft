@@ -39,7 +39,7 @@ const Main = () => {
 
     return (
         <Fragment>
-            <Grid container spacing={2}>
+            <Grid container spacing={2} sx={{padding: "10px"}}>
                 {!loading && !!myHeroes && !!heroes && heroes.map((hero, heroId) => {
                     return (
                         <Grid key={heroId} item xs={12} md={6} lg={4} xl={3}>
