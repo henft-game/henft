@@ -1,6 +1,4 @@
-import { CardContent, CardHeader, Grid, Typography, Button } from '@mui/material';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
+import { Card, CardActions, CardContent, CardHeader, Grid, Typography, Button, Divider } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { Web3Context } from '../providers/Web3Provider';
@@ -17,10 +15,6 @@ export default function HeroCard({ hero, token, levelUp }) {
             boxShadow: '2px 2px 5px 0 rgb(0,0,0,75%)',
             borderRadius: 0,
             padding: 10,
-            background: '#CCCCCC',
-            border: 1,
-            borderStyle: 'solid',
-            borderColor: '#AAAAAA',
             maxWidth: 700
         },
         nft: {
@@ -29,7 +23,6 @@ export default function HeroCard({ hero, token, levelUp }) {
             height: '100%',
         },
         status: {
-            background: '#EEEEEE',
             padding: 10,
         },
     });
@@ -45,6 +38,13 @@ export default function HeroCard({ hero, token, levelUp }) {
 
     const rarityColors = {
         '0': '#747474',
+        '1': '#7a92a6',
+        '2': '#d1d186',
+        '3': '#e1ad79',
+    }
+
+    const rarityColors2 = {
+        '0': '#8c8c8c',
         '1': '#85a1b6',
         '2': '#e4e493',
         '3': '#f2ba83',
@@ -115,16 +115,15 @@ export default function HeroCard({ hero, token, levelUp }) {
 
 
     const reload = async function () {
-        loadAuction();
-        loadSelling();
-        loadOwner();
+        await loadAuction();
+        await loadSelling();
+        await loadOwner();
     }
 
     useEffect(() => {
-        loadAuction();
-        loadSelling();
-        loadOwner();
-    }, [token]);
+        reload();
+
+    }, [contract, accounts, token]);
 
 
     const [openedSellDialog, setOpenedSellDialog] = useState(false);
@@ -159,7 +158,7 @@ export default function HeroCard({ hero, token, levelUp }) {
 
     return (
         <Fragment>
-            <Card className={classes.root} sx={{ padding: "0" }}>
+            <Card className={classes.root} sx={{ padding: "0", background: rarityColors2[hero.rarity] }}>
 
                 <CardHeader className={classes.header} sx={{ padding: "10px" }} title={`#${token} ${!!hero.name ? ` - ${hero.name}` : ''}`} subheader={`Level: ${hero.level}`} />
 
@@ -170,12 +169,17 @@ export default function HeroCard({ hero, token, levelUp }) {
                                 <Grid item xs={12} md={6}>
                                     <img className={classes.nft} src={`/imgs/${token}.gif`} alt={`#${token}`} />
                                 </Grid>
-                                <Grid item xs={12} md={6} lg className={classes.status}>
-                                    <Grid item>
-                                        <Typography sx={{ color: rarityColors[hero.rarity] }}>{`Rarity: ${rarity[hero.rarity]}`}</Typography>
+                                <Grid item xs={12} md={6} lg className={classes.status} sx={{ background: rarityColors[hero.rarity] }}>
+                                    <Grid item sx={{ marginBottom: "10px" }}>
+                                        <Typography sx={{ textAlign: "center", fontSize: "20px" }}>Basic Info</Typography>
+                                    </Grid>
+                                    <Divider />
+                                    <Grid item sx={{ marginTop: "10px", marginBottom: "10px" }}>
+                                        <Text label="Rarity" value={rarity[hero.rarity]} />
                                         <Text label="Type" value={heroType[hero.heroType]} />
                                     </Grid>
-                                    <Grid item sx={{ marginTop: "20px" }}>
+                                    <Divider />
+                                    <Grid item sx={{ marginTop: "10px" }}>
                                         <Text label="STR" value={hero.str} />
                                         <Text label="CON" value={hero.con} />
                                         <Text label="DEX" value={hero.dex} />
@@ -192,30 +196,30 @@ export default function HeroCard({ hero, token, levelUp }) {
                 <CardActions>
                     {!!accounts && accounts[0] === owner ?
                         <Fragment>
-                            <Button size="small" onClick={() => { levelUp(token) }} sx={{ background: "#EEEEEE" }}>LVL UP</Button>
+                            <Button size="small" onClick={() => { levelUp(token) }} sx={{ background: "#DDD", color: "#000" }}>LVL UP</Button>
                             {auction.minValue === '0' && selling === '0' &&
                                 <Fragment>
-                                    <Button size="small" onClick={() => { openSellDialog() }} sx={{ background: "#EEEEEE" }}>SELL</Button>
-                                    <Button size="small" onClick={() => { openCreateAuctionDialog() }} sx={{ background: "#EEEEEE" }}>AUCTION</Button>
+                                    <Button size="small" onClick={() => { openSellDialog() }} sx={{ background: "#DDD", color: "#000" }}>SELL</Button>
+                                    <Button size="small" onClick={() => { openCreateAuctionDialog() }} sx={{ background: "#DDD", color: "#000" }}>AUCTION</Button>
                                 </Fragment>
                             }
                             {selling !== '0' &&
-                                <Button size="small" onClick={() => { disallowBuy() }} sx={{ background: "#EEEEEE" }}>CANCEL SELL</Button>
+                                <Button size="small" onClick={() => { disallowBuy() }} sx={{ background: "#DDD", color: "#000" }}>CANCEL SELL</Button>
                             }
                             {auction.minValue !== '0' && auction.currValue === '0' &&
-                                <Button size="small" onClick={() => { cancelAuction() }} sx={{ background: "#EEEEEE" }}>CANCEL AUCTION</Button>
+                                <Button size="small" onClick={() => { cancelAuction() }} sx={{ background: "#DDD", color: "#000" }}>CANCEL AUCTION</Button>
                             }
                         </Fragment>
                         :
                         <Fragment>
                             {auction.minValue === '0' && selling !== '0' &&
-                                <Button size="small" onClick={() => { buy() }} sx={{ background: "#EEEEEE" }}>BUY {web3.utils.fromWei(selling, 'ether')}</Button>
+                                <Button size="small" onClick={() => { buy() }} sx={{ background: "#DDD", color: "#000" }}>BUY {web3.utils.fromWei(selling, 'ether')}</Button>
                             }
                             {auction.minValue !== '0' && selling === '0' && auction.endTime >= new Date().getTime() &&
-                                <Button size="small" onClick={() => { openBidDialog() }} sx={{ background: "#EEEEEE" }}>BID</Button>
+                                <Button size="small" onClick={() => { openBidDialog() }} sx={{ background: "#DDD", color: "#000" }}>BID</Button>
                             }
                             {auction.minValue !== '0' && selling === '0' && auction.endTime < new Date().getTime() &&
-                                <Button size="small" onClick={() => { finishAuction() }} sx={{ background: "#EEEEEE" }}>FINISH AUCTION</Button>
+                                <Button size="small" onClick={() => { finishAuction() }} sx={{ background: "#DDD", color: "#000" }}>FINISH AUCTION</Button>
                             }
                         </Fragment>
                     }
