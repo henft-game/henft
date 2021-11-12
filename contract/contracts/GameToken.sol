@@ -8,6 +8,8 @@ contract GameToken is ERC721URIStorage, Ownable {
     using Counters for Counters.Counter;
     Counters.Counter private _currentHeroId;
 
+    address private _battleAddress;
+
     enum HeroType {
         FIGHTER,
         ROGUE,
@@ -52,8 +54,16 @@ contract GameToken is ERC721URIStorage, Ownable {
         _mapMint[HeroType.TANK] = [1, 1, 0, 2, 3, 1];
     }
 
+    function setBattleAddress(address _newBattleAddress) public onlyOwner {
+        _battleAddress = _newBattleAddress;
+    }
+
     function getHeroes() external view returns (Hero[] memory) {
         return _heroes;
+    }
+
+    function getCurrentHeroId() external view returns (uint256) {
+        return _currentHeroId.current();
     }
 
     function mint(
@@ -157,7 +167,8 @@ contract GameToken is ERC721URIStorage, Ownable {
     }
 
     function levelUp(uint256 _heroId) external {
-        require(msg.sender == ownerOf(_heroId), "Not owner");
+        require(_battleAddress != address(0), "Battle contract not defined");
+        require(msg.sender == _battleAddress, "Only battle contract can execute");
 
         Hero storage hero = _heroes[_heroId];
 

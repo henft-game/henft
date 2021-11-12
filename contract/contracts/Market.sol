@@ -27,7 +27,6 @@ contract Market is Ownable {
 
     constructor(address gameTokenAddress) {
         _gameTokenAddress = gameTokenAddress;
-
     }
 
     function setMinBidIncrement(uint16 _newMinBidIncrement) public onlyOwner {
@@ -110,8 +109,8 @@ contract Market is Ownable {
             _endTime,
             _minPrice,
             0,
-            address(0),
-            msg.sender
+            msg.sender,
+            address(0)
         );
     }
 
