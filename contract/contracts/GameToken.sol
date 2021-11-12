@@ -32,43 +32,35 @@ contract GameToken is ERC721URIStorage, Ownable {
         uint8 level;
     }
 
-    struct Auction {
-        uint256 endTime;
-        uint256 minValue;
-        uint256 currValue;
-        address lastBidAddress;
-    }
-
     Hero[] private _heroes;
-    mapping(uint256 => uint256) private _sellingHeroes;
-    mapping(uint256 => Auction) private _sellingHeroesAuction;
 
-    uint16 private _minBidIncrement = 110;
-    uint16 private _minAuctionTime = 60;
+    string private _baseTokenURI;
 
     //static final
     mapping(HeroType => uint8[]) private _mapMint;
 
-    constructor(string memory name, string memory symbol) ERC721(name, symbol) {
+    constructor(
+        string memory name,
+        string memory symbol,
+        string memory baseTokenURI
+    ) ERC721(name, symbol) {
+        _baseTokenURI = baseTokenURI;
+
         _mapMint[HeroType.FIGHTER] = [0, 1, 0, 2, 3, 1];
         _mapMint[HeroType.ROGUE] = [2, 2, 0, 3, 0, 2];
         _mapMint[HeroType.MAGE] = [3, 3, 2, 1, 0, 3];
         _mapMint[HeroType.TANK] = [1, 1, 0, 2, 3, 1];
     }
 
-    function setMinBidIncrement(uint16 _newMinBidIncrement) public onlyOwner {
-        _minBidIncrement = _newMinBidIncrement;
-    }
-
-    function setMinAuctionTime(uint16 _newMinAuctionTime) public onlyOwner {
-        _minAuctionTime = _newMinAuctionTime;
-    }
-
     function getHeroes() external view returns (Hero[] memory) {
         return _heroes;
     }
 
-    function mint(HeroType _heroType, HeroRarity _heroRarity) public onlyOwner {
+    function mint(
+        HeroType _heroType,
+        HeroRarity _heroRarity,
+        string memory _tokenURI
+    ) public onlyOwner {
         uint256 newHeroId = _currentHeroId.current();
 
         uint8 minAttr;
@@ -107,7 +99,7 @@ contract GameToken is ERC721URIStorage, Ownable {
         }
 
         _safeMint(msg.sender, newHeroId);
-        _setTokenURI(newHeroId, "teste");
+        _setTokenURI(newHeroId, _tokenURI);
         _heroes.push(
             Hero(
                 "",
@@ -156,23 +148,7 @@ contract GameToken is ERC721URIStorage, Ownable {
         return _heroes[_heroId];
     }
 
-    function getSelling(uint256 _heroId)
-        external
-        view
-        returns (uint256)
-    {
-        return _sellingHeroes[_heroId];
-    }
-
-
-    function getAuction(uint256 _heroId)
-        external
-        view
-        returns (Auction memory)
-    {
-        return _sellingHeroesAuction[_heroId];
-    }
-
+    
     function setName(uint256 _heroId, string memory _name) external {
         require(msg.sender == ownerOf(_heroId), "Not owner");
         Hero storage hero = _heroes[_heroId];
@@ -200,118 +176,6 @@ contract GameToken is ERC721URIStorage, Ownable {
         }
     }
 
-    function allowBuy(uint256 _heroId, uint256 _price) external {
-        require(msg.sender == ownerOf(_heroId), "Not owner");
-        require(_price > 0, "Price zero");
-
-        require(
-            _sellingHeroesAuction[_heroId].endTime <= 0,
-            "There is a active auction"
-        );
-
-        _sellingHeroes[_heroId] = _price;
-    }
-
-    function disallowBuy(uint256 _heroId) external {
-        require(msg.sender == ownerOf(_heroId), "Not owner");
-        _sellingHeroes[_heroId] = 0;
-    }
-
-    function buy(uint256 _heroId) external payable {
-        uint256 price = _sellingHeroes[_heroId];
-        require(price > 0, "Hero not for sale");
-        require(msg.value == price, "Incorrect value");
-
-        address seller = ownerOf(_heroId);
-
-        payable(seller).transfer(msg.value);
-
-        _safeTransfer(seller, msg.sender, _heroId, "");
-        _sellingHeroes[_heroId] = 0;
-    }
-
-    function createAuction(
-        uint256 _heroId,
-        uint256 _endTime,
-        uint256 _minPrice
-    ) external {
-        require(msg.sender == ownerOf(_heroId), "Not owner");
-        require(
-            _endTime >= (block.timestamp + _minAuctionTime) * 1_000,
-            "Auction must have end time"
-        );
-        require(_minPrice > 0, "Minimum Price");
-        require(
-            _sellingHeroesAuction[_heroId].endTime <= 0,
-            "Auction already created"
-        );
-        require(_sellingHeroes[_heroId] <= 0, "Hero is selling");
-
-        _sellingHeroesAuction[_heroId] = Auction(
-            _endTime,
-            _minPrice,
-            0,
-            address(0)
-        );
-    }
-
-    function cancelAuction(uint256 _heroId) external {
-        require(msg.sender == ownerOf(_heroId), "Not owner");
-
-        Auction memory auction = _sellingHeroesAuction[_heroId];
-
-        require(
-            auction.currValue <= 0,
-            "Can't cancel this auction"
-        );
-
-        delete _sellingHeroesAuction[_heroId];
-    }
-
-    function bid(uint256 _heroId) external payable {
-        Auction storage auction = _sellingHeroesAuction[_heroId];
-        require(
-            _sellingHeroesAuction[_heroId].endTime > 0,
-            "Auction not found"
-        );
-        require(auction.endTime > block.timestamp * 1_000, "Auction ended");
-        require(
-            msg.value >= uint256((auction.currValue * _minBidIncrement) / 100),
-            "Incorrect value"
-        );
-
-        //payable(address(this)).transfer(msg.value);
-
-        if (auction.lastBidAddress != address(0)) {
-            payable(auction.lastBidAddress).transfer(auction.currValue);
-        }
-
-        auction.currValue = msg.value;
-        auction.lastBidAddress = msg.sender;
-    }
-
-    function finishAuction(uint256 _heroId) external {
-        Auction memory auction = _sellingHeroesAuction[_heroId];
-
-        require(
-            _sellingHeroesAuction[_heroId].endTime > 0,
-            "Auction not found"
-        );
-        require(
-            auction.endTime <= block.timestamp * 1_000,
-            "Auction not ended"
-        );
-
-        if (auction.currValue > 0) {
-            address seller = ownerOf(_heroId);
-
-            payable(seller).transfer(auction.currValue);
-            _safeTransfer(seller, auction.lastBidAddress, _heroId, "");
-        }
-
-        delete _sellingHeroesAuction[_heroId];
-    }
-
     function rand(uint8 limit) private view returns (uint256) {
         uint256 seed = uint256(
             keccak256(
@@ -330,6 +194,16 @@ contract GameToken is ERC721URIStorage, Ownable {
         );
 
         return (seed - ((seed / (limit + 1)) * (limit + 1)));
+    }
+
+    function tokenURI(uint256 tokenId)
+        public
+        view
+        virtual
+        override
+        returns (string memory)
+    {
+        return string(abi.encodePacked(_baseTokenURI, super.tokenURI(tokenId)));
     }
 
     function receiver() external payable {}

@@ -1,15 +1,18 @@
 import React, { useState, useEffect, createContext } from "react";
 import Web3 from 'web3';
 import GameToken from 'contracts/GameToken.json';
+import Market from 'contracts/Market.json';
 
-export const Web3Context = createContext({ web3: null, accounts: null, contract: null, networkId: null, networkAddress: null });
+export const Web3Context = createContext({ web3: null, accounts: null, contract: null, networkId: null, contractAddress: null, market: null, marketAddress: null });
 
 const Web3Provider = (props) => {
     const [web3, setWeb3] = useState();
     const [accounts, setAccounts] = useState();
     const [contract, setContract] = useState();
+    const [market, setMarket] = useState();
     const [networkId, setNetworkId] = useState();
-    const [networkAddress, setNetworkAddress] = useState();
+    const [contractAddress, setContractAddress] = useState();
+    const [marketAddress, setMarketAddress] = useState();
 
 
     const createContext = async function () {
@@ -32,14 +35,17 @@ const Web3Provider = (props) => {
         const networkId = await web3.eth.net.getId();
         setNetworkId(networkId);
         const networkData = GameToken.networks[networkId];
+        const networkMarketData = Market.networks[networkId];
 
         if (networkData) {
             const abi = GameToken.abi;
             const address = networkData.address;
-            setNetworkAddress(address);
-            const contract = new web3.eth.Contract(abi, address);
-
-            setContract(contract);
+            const abiMarket = Market.abi;
+            const addressMarket = networkMarketData.address;
+            setContractAddress(address);
+            setContract(new web3.eth.Contract(abi, address));
+            setMarketAddress(addressMarket);
+            setMarket(new web3.eth.Contract(abiMarket, addressMarket));
 
         }
     }
@@ -49,7 +55,7 @@ const Web3Provider = (props) => {
     }, []);
 
     return (
-        <Web3Context.Provider value={{ web3, accounts, contract, networkId, networkAddress }}>
+        <Web3Context.Provider value={{ web3, accounts, contract, networkId, contractAddress, market, marketAddress }}>
             {props.children}
         </Web3Context.Provider>
     );

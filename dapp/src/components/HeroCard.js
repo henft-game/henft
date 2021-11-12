@@ -6,8 +6,9 @@ import Text from './Text';
 import SellDialog from './SellDialog';
 import CreateAuctionDialog from './CreateAuctionDialog';
 import BidDialog from './BidDialog';
+import ConfirmMarketDialog from './ConfirmMarketDialog';
 
-export default function HeroCard({ hero, token, levelUp }) {
+export default function HeroCard({ hero, token, levelUp, isApprovalForAll, isApprovedForAll }) {
 
 
     const useStyles = makeStyles({
@@ -57,28 +58,29 @@ export default function HeroCard({ hero, token, levelUp }) {
         '3': 'TANK',
     }
 
-    const { contract, accounts, web3 } = useContext(Web3Context);
+    const { contract, accounts, market, web3, marketAddress } = useContext(Web3Context);
 
-    const [auction, setAuction] = useState({ minValue: '0', currValue: '0' });
-    const [selling, setSelling] = useState('0');
+    const [auction, setAuction] = useState({ minValue: '0', currValue: '0', seller: '' });
+    const [selling, setSelling] = useState({ value: '0', seller: '' });
     const [owner, setOwner] = useState('');
+    const [tokenURI, setTokenURI] = useState('');
 
     const loadAuction = async function () {
-        setAuction(await contract.methods.getAuction(token).call({ from: accounts[0] }));
+        setAuction(await market.methods.getAuction(token).call({ from: accounts[0] }));
     }
 
     const loadSelling = async function () {
-        setSelling(await contract.methods.getSelling(token).call({ from: accounts[0] }));
+        setSelling(await market.methods.getSelling(token).call({ from: accounts[0] }));
     }
 
     const allowBuy = async function (value) {
-        await contract.methods.allowBuy(token, web3.utils.toWei(value)).send({ from: accounts[0] });
+        await market.methods.allowBuy(token, web3.utils.toWei(value)).send({ from: accounts[0] });
         handleCloseSellDialog();
         reload();
     }
 
     const disallowBuy = async function () {
-        await contract.methods.disallowBuy(token).send({ from: accounts[0] });
+        await market.methods.disallowBuy(token).send({ from: accounts[0] });
         reload();
     }
 
@@ -86,30 +88,40 @@ export default function HeroCard({ hero, token, levelUp }) {
         setOwner(await contract.methods.ownerOf(token).call({ from: accounts[0] }));
     }
 
+    const loadTokenURI = async function () {
+        setTokenURI(await contract.methods.tokenURI(token).call({ from: accounts[0] }));
+    }
+
+    const setApprovalForAll = async function () {
+        await contract.methods.setApprovalForAll(marketAddress, true).send({ from: accounts[0] });
+        handleCloseConfirmMarketDialog();
+        isApprovalForAll();
+    }
+
     const buy = async function () {
-        await contract.methods.buy(token).send({ from: accounts[0], value: selling });
+        await market.methods.buy(token).send({ from: accounts[0], value: selling.value });
         reload();
     }
 
     const bid = async function (value) {
-        await contract.methods.bid(token).send({ from: accounts[0], value: web3.utils.toWei(value) });
+        await market.methods.bid(token).send({ from: accounts[0], value: web3.utils.toWei(value) });
         handleCloseBidDialog();
         reload();
     }
 
     const createAuction = async function (auctionEnd, value) {
-        await contract.methods.createAuction(token, auctionEnd, web3.utils.toWei(value)).send({ from: accounts[0] });
+        await market.methods.createAuction(token, auctionEnd, web3.utils.toWei(value)).send({ from: accounts[0] });
         handleCloseCreateAuctionDialog();
         reload();
     }
 
     const cancelAuction = async function () {
-        await contract.methods.cancelAuction(token).send({ from: accounts[0] });
+        await market.methods.cancelAuction(token).send({ from: accounts[0] });
         reload();
     }
 
     const finishAuction = async function () {
-        await contract.methods.finishAuction(token).send({ from: accounts[0] });
+        await market.methods.finishAuction(token).send({ from: accounts[0] });
         reload();
     }
 
@@ -122,9 +134,8 @@ export default function HeroCard({ hero, token, levelUp }) {
 
     useEffect(() => {
         reload();
-
+        loadTokenURI();
     }, [contract, accounts, token]);
-
 
     const [openedSellDialog, setOpenedSellDialog] = useState(false);
 
@@ -156,6 +167,16 @@ export default function HeroCard({ hero, token, levelUp }) {
         setOpenedBidDialog(false);
     }
 
+    const [openedConfirmMarketDialog, setOpenedConfirmMarketDialog] = useState(false);
+
+    const openConfirmMarketDialog = () => {
+        setOpenedConfirmMarketDialog(true);
+    }
+
+    const handleCloseConfirmMarketDialog = () => {
+        setOpenedConfirmMarketDialog(false);
+    }
+
     return (
         <Fragment>
             <Card className={classes.root} sx={{ padding: "0", background: rarityColors2[hero.rarity] }}>
@@ -167,7 +188,11 @@ export default function HeroCard({ hero, token, levelUp }) {
                         <Grid item xs={12}>
                             <Grid container justify="flex-start">
                                 <Grid item xs={12} md={6}>
-                                    <img className={classes.nft} src={`/imgs/${token}.gif`} alt={`#${token}`} />
+                                    {!!tokenURI ?
+                                        <img className={classes.nft} src={tokenURI} alt={`#${token}`} />
+                                        :
+                                        <img className={classes.nft} src={'/imgs/0.gif'} alt={`#${token}`} />
+                                    }
                                 </Grid>
                                 <Grid item xs={12} md={6} lg className={classes.status} sx={{ background: rarityColors[hero.rarity] }}>
                                     <Grid item sx={{ marginBottom: "10px" }}>
@@ -194,16 +219,16 @@ export default function HeroCard({ hero, token, levelUp }) {
                 </CardContent>
 
                 <CardActions>
-                    {!!accounts && accounts[0] === owner ?
+                    {!!accounts && (owner === accounts[0] || selling.seller === accounts[0] || auction.seller === accounts[0]) ?
                         <Fragment>
                             <Button size="small" onClick={() => { levelUp(token) }} sx={{ background: "#DDD", color: "#000" }}>LVL UP</Button>
-                            {auction.minValue === '0' && selling === '0' &&
+                            {auction.minValue === '0' && selling.value === '0' &&
                                 <Fragment>
-                                    <Button size="small" onClick={() => { openSellDialog() }} sx={{ background: "#DDD", color: "#000" }}>SELL</Button>
-                                    <Button size="small" onClick={() => { openCreateAuctionDialog() }} sx={{ background: "#DDD", color: "#000" }}>AUCTION</Button>
+                                    <Button size="small" onClick={() => { isApprovedForAll ? openSellDialog() : openConfirmMarketDialog() }} sx={{ background: "#DDD", color: "#000" }}>SELL</Button>
+                                    <Button size="small" onClick={() => { isApprovedForAll ? openCreateAuctionDialog() : openConfirmMarketDialog() }} sx={{ background: "#DDD", color: "#000" }}>AUCTION</Button>
                                 </Fragment>
                             }
-                            {selling !== '0' &&
+                            {selling.value !== '0' &&
                                 <Button size="small" onClick={() => { disallowBuy() }} sx={{ background: "#DDD", color: "#000" }}>CANCEL SELL</Button>
                             }
                             {auction.minValue !== '0' && auction.currValue === '0' &&
@@ -212,19 +237,20 @@ export default function HeroCard({ hero, token, levelUp }) {
                         </Fragment>
                         :
                         <Fragment>
-                            {auction.minValue === '0' && selling !== '0' &&
-                                <Button size="small" onClick={() => { buy() }} sx={{ background: "#DDD", color: "#000" }}>BUY {web3.utils.fromWei(selling, 'ether')}</Button>
+                            {auction.minValue === '0' && selling.value !== '0' &&
+                                <Button size="small" onClick={() => { buy() }} sx={{ background: "#DDD", color: "#000" }}>BUY {web3.utils.fromWei(selling.value, 'ether')}</Button>
                             }
-                            {auction.minValue !== '0' && selling === '0' && auction.endTime >= new Date().getTime() &&
+                            {auction.minValue !== '0' && selling.value === '0' && auction.endTime >= new Date().getTime() &&
                                 <Button size="small" onClick={() => { openBidDialog() }} sx={{ background: "#DDD", color: "#000" }}>BID</Button>
                             }
-                            {auction.minValue !== '0' && selling === '0' && auction.endTime < new Date().getTime() &&
+                            {auction.minValue !== '0' && selling.value === '0' && auction.endTime < new Date().getTime() &&
                                 <Button size="small" onClick={() => { finishAuction() }} sx={{ background: "#DDD", color: "#000" }}>FINISH AUCTION</Button>
                             }
                         </Fragment>
                     }
                 </CardActions>
             </Card>
+            <ConfirmMarketDialog open={openedConfirmMarketDialog} handleClose={handleCloseConfirmMarketDialog} setApprovalForAll={setApprovalForAll} />
             <SellDialog token={token} open={openedSellDialog} handleClose={handleCloseSellDialog} allowBuy={allowBuy} />
             <CreateAuctionDialog token={token} open={openedCreateAuctionDialog} handleClose={handleCloseCreateAuctionDialog} createAuction={createAuction} />
             <BidDialog token={token} open={openedBidDialog} handleClose={handleCloseBidDialog} bid={bid} minBid={auction.currValue === '0' ? auction.minValue : (parseInt(auction.currValue) * 1.1) + ''} />
