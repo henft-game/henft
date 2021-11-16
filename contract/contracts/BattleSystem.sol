@@ -25,14 +25,18 @@ contract BattleSystem is Ownable {
         _gameTokenAddress = gameTokenAddress;
     }
 
-    function battle(uint256 _aHeroId, uint256 _bHeroId) external {
+    function battle(uint256 _aHeroId, uint256 _bHeroId) external payable {
         require(_aHeroId != _bHeroId, "You can't battle against yourself");
         require(
             msg.sender == GameToken(_gameTokenAddress).ownerOf(_aHeroId),
             "Not owner of attacker"
         );
 
-        _battles[_aHeroId].push(Battle(_aHeroId, _bHeroId, combat(_aHeroId, _bHeroId), block.timestamp));
+        uint8 points = combat(_aHeroId, _bHeroId);
+
+        _battles[_aHeroId].push(Battle(_aHeroId, _bHeroId, points , block.timestamp));
+
+        GameToken(_gameTokenAddress).levelUp(_aHeroId, uint16(1));
 
     }
 
@@ -88,8 +92,8 @@ contract BattleSystem is Ownable {
         return
             (aHP > 0)
                 ? (
-                    (aHero.level - bHero.level) > 0
-                        ? aHero.level - bHero.level
+                    (bHero.level - aHero.level) > 0
+                        ? bHero.level - aHero.level
                         : 1
                 )
                 : 0;

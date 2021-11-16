@@ -5,10 +5,14 @@ import "../node_modules/@openzeppelin/contracts/utils/Counters.sol";
 import "../node_modules/@openzeppelin/contracts/access/Ownable.sol";
 
 contract GameToken is ERC721URIStorage, Ownable {
+
+    event HeroLevelUp(uint256 indexed tokenId, uint8 indexed level);
+
     using Counters for Counters.Counter;
     Counters.Counter private _currentHeroId;
 
-    address private _battleAddress;
+    address public _battleAddress;
+    address public _itemShopAddress;
 
     enum HeroType {
         FIGHTER,
@@ -32,6 +36,7 @@ contract GameToken is ERC721URIStorage, Ownable {
         uint8 dex;
         uint8 wis;
         uint8 level;
+        uint16 currXP;
     }
 
     Hero[] private _heroes;
@@ -55,6 +60,10 @@ contract GameToken is ERC721URIStorage, Ownable {
 
     function setBattleAddress(address _newBattleAddress) public onlyOwner {
         _battleAddress = _newBattleAddress;
+    }
+
+    function setItemShopAddress(address _newItemShopAddress) public onlyOwner {
+        _itemShopAddress = _newItemShopAddress;
     }
 
     function getHeroes() external view returns (Hero[] memory) {
@@ -118,7 +127,8 @@ contract GameToken is ERC721URIStorage, Ownable {
                 attrs[1],
                 attrs[2],
                 attrs[3],
-                1
+                1,
+                0
             )
         );
 
@@ -157,7 +167,6 @@ contract GameToken is ERC721URIStorage, Ownable {
         return _heroes[_heroId];
     }
 
-    
     function setName(uint256 _heroId, string memory _name) external {
         require(msg.sender == ownerOf(_heroId), "Not owner");
         Hero storage hero = _heroes[_heroId];
@@ -165,24 +174,33 @@ contract GameToken is ERC721URIStorage, Ownable {
         hero.name = _name;
     }
 
-    function levelUp(uint256 _heroId) external {
-        require(_battleAddress != address(0), "Battle contract not defined");
-        require(msg.sender == _battleAddress, "Only battle contract can execute");
+    function levelUp(uint256 _heroId, uint16 _xp) external {
+        require(
+            msg.sender == _battleAddress || msg.sender == _itemShopAddress ,
+            "Only battle or item shop contract can execute it"
+        );
 
         Hero storage hero = _heroes[_heroId];
 
-        hero.level++;
+        hero.currXP += _xp;
 
-        uint256 random = rand(3);
+        if (hero.currXP >= 2**(hero.level + 1)) {
+            hero.level++;
+            hero.currXP = 0;
 
-        if (random == 0) {
-            hero.str++;
-        } else if (random == 1) {
-            hero.con++;
-        } else if (random == 2) {
-            hero.dex++;
-        } else if (random == 3) {
-            hero.wis++;
+            uint256 random = rand(3);
+
+            if (random == 0) {
+                hero.str++;
+            } else if (random == 1) {
+                hero.con++;
+            } else if (random == 2) {
+                hero.dex++;
+            } else if (random == 3) {
+                hero.wis++;
+            }
+
+            emit HeroLevelUp(_heroId, hero.level);
         }
     }
 
@@ -215,5 +233,4 @@ contract GameToken is ERC721URIStorage, Ownable {
     {
         return string(abi.encodePacked(_baseTokenURI, super.tokenURI(tokenId)));
     }
-
 }

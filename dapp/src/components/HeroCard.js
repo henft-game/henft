@@ -8,7 +8,7 @@ import CreateAuctionDialog from './CreateAuctionDialog';
 import BidDialog from './BidDialog';
 import ConfirmMarketDialog from './ConfirmMarketDialog';
 
-export default function HeroCard({ hero, token, levelUp, isApprovalForAll, isApprovedForAll }) {
+export default function HeroCard({ hero, token, isApprovalForAll, isApprovedForAll }) {
 
 
     const useStyles = makeStyles({
@@ -58,7 +58,7 @@ export default function HeroCard({ hero, token, levelUp, isApprovalForAll, isApp
         '3': 'TANK',
     }
 
-    const { contract, accounts, market, web3, marketAddress } = useContext(Web3Context);
+    const { contract, accounts, market, web3, marketAddress, battleSystem } = useContext(Web3Context);
 
     const [auction, setAuction] = useState({ minValue: '0', currValue: '0', seller: '' });
     const [selling, setSelling] = useState({ value: '0', seller: '' });
@@ -76,12 +76,10 @@ export default function HeroCard({ hero, token, levelUp, isApprovalForAll, isApp
     const allowBuy = async function (value) {
         await market.methods.allowBuy(token, web3.utils.toWei(value)).send({ from: accounts[0] });
         handleCloseSellDialog();
-        reload();
     }
 
     const disallowBuy = async function () {
         await market.methods.disallowBuy(token).send({ from: accounts[0] });
-        reload();
     }
 
     const loadOwner = async function () {
@@ -100,29 +98,28 @@ export default function HeroCard({ hero, token, levelUp, isApprovalForAll, isApp
 
     const buy = async function () {
         await market.methods.buy(token).send({ from: accounts[0], value: selling.value });
-        reload();
     }
 
     const bid = async function (value) {
         await market.methods.bid(token).send({ from: accounts[0], value: web3.utils.toWei(value) });
         handleCloseBidDialog();
-        reload();
     }
 
     const createAuction = async function (auctionEnd, value) {
         await market.methods.createAuction(token, auctionEnd, web3.utils.toWei(value)).send({ from: accounts[0] });
         handleCloseCreateAuctionDialog();
-        reload();
     }
 
     const cancelAuction = async function () {
         await market.methods.cancelAuction(token).send({ from: accounts[0] });
-        reload();
     }
 
     const finishAuction = async function () {
         await market.methods.finishAuction(token).send({ from: accounts[0] });
-        reload();
+    }
+
+    const battle = async function () {
+        await battleSystem.methods.battle(token, '0').send({ from: accounts[0] });
     }
 
 
@@ -132,31 +129,27 @@ export default function HeroCard({ hero, token, levelUp, isApprovalForAll, isApp
         await loadOwner();
     }
 
+    const eventListener = function (err, event) {
+        const tokenId = event.returnValues.tokenId + '';
+        const heroId = token + '';
+        if (tokenId === heroId) {
+            reload();
+        }
+    }
+
     useEffect(() => {
         reload();
         loadTokenURI();
 
-        market.events.NewAuction((err, event) => {
-            reload();
-        })
-        market.events.CancelAuction((err, event) => {
-            reload();
-        })
-        market.events.NewSellingItem((err, event) => {
-            reload();
-        })
-        market.events.CancelSellingItem((err, event) => {
-            reload();
-        })
-        market.events.NewBid((err, event) => {
-            reload();
-        })
-        market.events.AuctionEnded((err, event) => {
-            reload();
-        })
-        market.events.ItemBought((err, event) => {
-            reload();
-        })
+        market.events.NewAuction(eventListener)
+        market.events.CancelAuction(eventListener)
+        market.events.NewSellingItem(eventListener)
+        market.events.CancelSellingItem(eventListener)
+        market.events.NewBid(eventListener)
+        market.events.AuctionEnded(eventListener)
+        market.events.ItemBought(eventListener)
+
+        contract.events.HeroLevelUp(eventListener)
 
     }, [contract, market, accounts, token]);
 
@@ -246,7 +239,7 @@ export default function HeroCard({ hero, token, levelUp, isApprovalForAll, isApp
                         <Fragment>
                             {(owner === accounts[0] || selling.seller === accounts[0] || auction.seller === accounts[0]) ?
                                 <Fragment>
-                                    <Button size="small" onClick={() => { levelUp(token) }} sx={{ background: "#DDD", color: "#000" }}>LVL UP</Button>
+                                    <Button size="small" onClick={() => { battle() }} sx={{ background: "#DDD", color: "#000" }}>RANDOM BATTLE</Button>
                                     {auction.minValue === '0' && selling.value === '0' &&
                                         <Fragment>
                                             <Button size="small" onClick={() => { isApprovedForAll ? openSellDialog() : openConfirmMarketDialog() }} sx={{ background: "#DDD", color: "#000" }}>SELL</Button>

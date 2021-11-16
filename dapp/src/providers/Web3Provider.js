@@ -2,17 +2,23 @@ import React, { useState, useEffect, createContext } from "react";
 import Web3 from 'web3';
 import GameToken from 'contracts/GameToken.json';
 import Market from 'contracts/Market.json';
+import BattleSystem from 'contracts/BattleSystem.json';
 
-export const Web3Context = createContext({ web3: null, accounts: null, contract: null, networkId: null, contractAddress: null, market: null, marketAddress: null });
+export const Web3Context = createContext({ web3: null, accounts: null, contract: null, networkId: null, contractAddress: null, market: null, marketAddress: null, battleSystem: null, battleSystemAddress: null });
 
 const Web3Provider = (props) => {
     const [web3, setWeb3] = useState();
     const [accounts, setAccounts] = useState();
-    const [contract, setContract] = useState();
-    const [market, setMarket] = useState();
     const [networkId, setNetworkId] = useState();
+    
+    const [contract, setContract] = useState();
     const [contractAddress, setContractAddress] = useState();
+    
+    const [market, setMarket] = useState();
     const [marketAddress, setMarketAddress] = useState();
+    
+    const [battleSystem, setBattleSystem] = useState();
+    const [battleSystemAddress, setBattleSystemAddress] = useState();
 
 
     const createContext = async function () {
@@ -34,16 +40,20 @@ const Web3Provider = (props) => {
         setNetworkId(networkId);
         const networkData = GameToken.networks[networkId];
         const networkMarketData = Market.networks[networkId];
+        const networkBattleData = BattleSystem.networks[networkId];
 
         if (networkData) {
-            const abi = GameToken.abi;
             const address = networkData.address;
-            const abiMarket = Market.abi;
-            const addressMarket = networkMarketData.address;
             setContractAddress(address);
-            setContract(new web3.eth.Contract(abi, address));
+            setContract(new web3.eth.Contract(GameToken.abi, address));
+
+            const addressMarket = networkMarketData.address;
             setMarketAddress(addressMarket);
-            setMarket(new web3.eth.Contract(abiMarket, addressMarket));
+            setMarket(new web3.eth.Contract( Market.abi, addressMarket));
+
+            const addressBattle = networkBattleData.address;
+            setBattleSystemAddress(addressBattle);
+            setBattleSystem(new web3.eth.Contract(BattleSystem.abi, addressBattle));
 
         }
     }
@@ -53,7 +63,7 @@ const Web3Provider = (props) => {
     }, []);
 
     return (
-        <Web3Context.Provider value={{ web3, accounts, contract, networkId, contractAddress, market, marketAddress }}>
+        <Web3Context.Provider value={{ web3, accounts, contract, networkId, contractAddress, market, marketAddress, battleSystem, battleSystemAddress }}>
             {props.children}
         </Web3Context.Provider>
     );

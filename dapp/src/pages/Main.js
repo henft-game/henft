@@ -28,12 +28,6 @@ const Main = () => {
         setMyHeroes(await contract.methods.getMyHeroes().call({ from: accounts[0] }));
     }
 
-    const levelUpHero = async function (heroId) {
-        await contract.methods.levelUp(heroId).send({ from: accounts[0] });
-
-        await loadHero(heroId);
-    }
-
     const isApprovalForAll = async function () {
         setIsApprovedForAll(await contract.methods.isApprovedForAll(accounts[0], marketAddress).call({ from: accounts[0] }));
     }
@@ -63,7 +57,7 @@ const Main = () => {
                         <Grid key={heroId} item xs={12} md={6} lg={4} xl={3}>
                             <HeroCard hero={hero} token={heroId}
                                 ownedByMe={myHeroes.indexOf(heroId + '') > -1}
-                                levelUp={levelUpHero} isApprovalForAll={isApprovalForAll} isApprovedForAll={isApprovedForAll}
+                                isApprovalForAll={isApprovalForAll} isApprovedForAll={isApprovedForAll}
                             />
                         </Grid>
                     );
