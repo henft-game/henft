@@ -13,7 +13,7 @@ const ConfirmMarketDialog = (props) => {
         <Dialog scroll="body" open={props.open} onClose={props.handleClose} TransitionComponent={Transition}>
             <DialogContent>
                 <DialogContentText>
-                    Do you give permission to your marketplace access your tokens?
+                    Do you give permission to our marketplace to access your tokens?
                 </DialogContentText>
             </DialogContent>
             <DialogActions>

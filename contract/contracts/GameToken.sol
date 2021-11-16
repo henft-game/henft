@@ -30,7 +30,7 @@ contract GameToken is ERC721URIStorage, Ownable {
         uint8 str;
         uint8 con;
         uint8 dex;
-        uint8 inte;
+        uint8 wis;
         uint8 level;
     }
 
@@ -38,7 +38,6 @@ contract GameToken is ERC721URIStorage, Ownable {
 
     string private _baseTokenURI;
 
-    //static final
     mapping(HeroType => uint8[]) private _mapMint;
 
     constructor(
@@ -183,7 +182,7 @@ contract GameToken is ERC721URIStorage, Ownable {
         } else if (random == 2) {
             hero.dex++;
         } else if (random == 3) {
-            hero.inte++;
+            hero.wis++;
         }
     }
 
@@ -217,5 +216,4 @@ contract GameToken is ERC721URIStorage, Ownable {
         return string(abi.encodePacked(_baseTokenURI, super.tokenURI(tokenId)));
     }
 
-    function receiver() external payable {}
 }

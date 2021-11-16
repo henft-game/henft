@@ -4,6 +4,16 @@ import "../node_modules/@openzeppelin/contracts/access/Ownable.sol";
 import "../node_modules/@openzeppelin/contracts/token/ERC721/IERC721.sol";
 
 contract Market is Ownable {
+
+    event NewAuction(uint256 indexed tokenId, uint256 indexed endTime, uint256 indexed minValue);
+    event NewBid(uint256 indexed tokenId, uint256 indexed value);
+    event CancelAuction(uint256 indexed tokenId);
+    event AuctionEnded(uint256 indexed tokenId, uint256 indexed currValue);
+
+    event NewSellingItem(uint256 indexed tokenId, uint256 indexed value);
+    event CancelSellingItem(uint256 indexed tokenId);
+    event ItemBought(uint256 indexed tokenId, uint256 indexed value);
+
     address private _gameTokenAddress;
 
     struct Auction {
@@ -65,6 +75,8 @@ contract Market is Ownable {
         IERC721(_gameTokenAddress).transferFrom(msg.sender, address(this), _heroId);
 
         _sellingHeroes[_heroId] = SellItem(_price, msg.sender);
+
+        emit NewSellingItem(_heroId, _price);
     }
 
     function disallowBuy(uint256 _heroId) external {
@@ -73,6 +85,8 @@ contract Market is Ownable {
         IERC721(_gameTokenAddress).transferFrom(address(this), msg.sender, _heroId);
 
         delete _sellingHeroes[_heroId];
+
+        emit CancelSellingItem(_heroId);
     }
 
     function buy(uint256 _heroId) external payable {
@@ -84,6 +98,8 @@ contract Market is Ownable {
         IERC721(_gameTokenAddress).transferFrom(address(this), msg.sender, _heroId);
 
         delete _sellingHeroes[_heroId];
+
+        emit ItemBought(_heroId, msg.value);
     }
 
     function createAuction(
@@ -112,6 +128,8 @@ contract Market is Ownable {
             msg.sender,
             address(0)
         );
+
+        emit NewAuction(_heroId, _endTime, _minPrice);
     }
 
     function cancelAuction(uint256 _heroId) external {
@@ -128,6 +146,8 @@ contract Market is Ownable {
         IERC721(_gameTokenAddress).transferFrom(address(this), msg.sender, _heroId);
 
         delete _sellingHeroesAuction[_heroId];
+
+        emit CancelAuction(_heroId);
     }
 
     function bid(uint256 _heroId) external payable {
@@ -150,6 +170,8 @@ contract Market is Ownable {
 
         auction.currValue = msg.value;
         auction.lastBidAddress = msg.sender;
+
+        emit NewBid(_heroId, msg.value);
     }
 
     function finishAuction(uint256 _heroId) external {
@@ -174,5 +196,9 @@ contract Market is Ownable {
         }
 
         delete _sellingHeroesAuction[_heroId];
+
+        emit AuctionEnded(_heroId, _sellingHeroesAuction[_heroId].currValue);
     }
+
+    function receiver() external payable {}
 }

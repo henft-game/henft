@@ -5,6 +5,7 @@ import "./GameToken.sol";
 
 contract BattleSystem is Ownable {
     address private _gameTokenAddress;
+    address private _itemAddress;
 
     struct Battle {
         uint256 aHeroId;
@@ -32,6 +33,7 @@ contract BattleSystem is Ownable {
         );
 
         _battles[_aHeroId].push(Battle(_aHeroId, _bHeroId, combat(_aHeroId, _bHeroId), block.timestamp));
+
     }
 
     function combat(uint256 _aHeroId, uint256 _bHeroId)
@@ -49,14 +51,14 @@ contract BattleSystem is Ownable {
 
         bool aHighDex;
 
-        if (aHero.dex != bHero.dex) {
-            aHighDex = aHero.dex > bHero.dex;
+        if (getDex(aHero) != getDex(bHero)) {
+            aHighDex = getDex(aHero) > getDex(bHero);
         } else {
             aHighDex = (rand(1) == 0);
         }
 
-        int16 aHP = int16(uint16(8 + (aHero.con * 2)));
-        int16 bHP = int16(uint16(8 + (bHero.con * 2)));
+        int16 aHP = getHP(aHero);
+        int16 bHP = getHP(bHero);
 
         while (aHP > 0 && bHP > 0) {
             uint256 dodgeRandom = rand(100) + 1;
@@ -67,7 +69,7 @@ contract BattleSystem is Ownable {
                     bHP -= aDmg;
                 }
                 if (bHP > 0) {
-                    if (dodgeRandom >= uint256(getDodgeChance(aHero, bHero))) {
+                    if (dodgeRandom >= getDodgeChance(aHero, bHero)) {
                         aHP -= bDmg;
                     }
                 }
@@ -76,7 +78,7 @@ contract BattleSystem is Ownable {
                     aHP -= bDmg;
                 }
                 if (aHP > 0) {
-                    if (dodgeRandom >= uint256(getDodgeChance(bHero, aHero))) {
+                    if (dodgeRandom >= getDodgeChance(bHero, aHero)) {
                         bHP -= aDmg;
                     }
                 }
@@ -93,26 +95,46 @@ contract BattleSystem is Ownable {
                 : 0;
     }
 
+    function getDex(GameToken.Hero memory _hero) internal pure returns(uint8) {
+        return _hero.dex;
+    }
+
+    function getStr(GameToken.Hero memory _hero) internal pure returns(uint8) {
+        return _hero.str;
+    }
+
+    function getCon(GameToken.Hero memory _hero) internal pure returns(uint8) {
+        return _hero.con;
+    }
+
+    function getWis(GameToken.Hero memory _hero) internal pure returns(uint8) {
+        return _hero.wis;
+    }
+
+    function getHP(GameToken.Hero memory _hero) internal pure returns(int16) {
+        return int16(uint16(8 + (getCon(_hero) * 2)));
+    }
+
     function getDodgeChance(
         GameToken.Hero memory _aHero,
         GameToken.Hero memory _bHero
-    ) internal view returns (uint8) {
-        uint8 dodgeChance = (_aHero.dex - _bHero.dex) * 5;
+    ) internal pure returns (uint256) {
+        uint8 dodgeChance = (getDex(_aHero) - getDex(_bHero)) * 5;
         if (dodgeChance >= 50) {
             dodgeChance = 50;
         }
 
-        return dodgeChance;
+        return uint256(dodgeChance);
     }
 
     function getDmg(GameToken.Hero memory _hero) internal view returns (int16) {
         uint256 critRandom = rand(100) + 1;
 
-        uint8 critChance = _hero.inte * 2;
+        uint8 critChance = getWis(_hero) * 2;
 
         return
             int16(
-                uint16(_hero.str * (critRandom <= uint256(critChance) ? 2 : 1))
+                uint16(getStr(_hero) * (critRandom <= uint256(critChance) ? 2 : 1))
             );
     }
 

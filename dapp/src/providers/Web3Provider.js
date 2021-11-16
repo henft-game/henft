@@ -28,9 +28,7 @@ const Web3Provider = (props) => {
 
         const web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");;
         setWeb3(web3);
-        const accounts = await web3.eth.getAccounts();
-
-        setAccounts(accounts);
+        setAccounts(await web3.eth.getAccounts());
 
         const networkId = await web3.eth.net.getId();
         setNetworkId(networkId);

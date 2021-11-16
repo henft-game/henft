@@ -8,14 +8,20 @@ const Main = () => {
     const { contract, accounts, marketAddress } = useContext(Web3Context);
 
     const [heroes, setHeroes] = useState();
-    const [myHeroes, setMyHeroes] = useState();
+    const [myHeroes, setMyHeroes] = useState([]);
 
     const [loading, setLoading] = useState(true);
 
     const [isApprovedForAll, setIsApprovedForAll] = useState(false);
 
     const loadHeroes = async function () {
-        setHeroes(await contract.methods.getHeroes().call({ from: accounts[0] }));
+        setHeroes(await contract.methods.getHeroes().call());
+    }
+
+    const loadHero = async function (heroId) {
+        const hero = await contract.methods.getHero(heroId).call({ from: accounts[0] })
+
+        setHeroes([...heroes.slice(0, heroId), hero, ...heroes.slice(heroId + 1)]);
     }
 
     const loadMyHeroes = async function () {
@@ -25,9 +31,7 @@ const Main = () => {
     const levelUpHero = async function (heroId) {
         await contract.methods.levelUp(heroId).send({ from: accounts[0] });
 
-        const hero = await contract.methods.getHero(heroId).call({ from: accounts[0] })
-
-        setHeroes([...heroes.slice(0, heroId), hero, ...heroes.slice(heroId + 1)]);
+        await loadHero(heroId);
     }
 
     const isApprovalForAll = async function () {
@@ -35,19 +39,26 @@ const Main = () => {
     }
 
     useEffect(() => {
-        if (!!contract && !!accounts[0] && !!marketAddress) {
+        if (!!contract && !!marketAddress) {
             setLoading(true);
             loadHeroes();
-            loadMyHeroes();
+            if (!!accounts[0]) {
+                loadMyHeroes();
+                isApprovalForAll();
+            }
+
+            contract.events.Transfer((err, event) => {
+                loadHeroes();
+            });
             setLoading(false);
-            isApprovalForAll();
+
         }
     }, [contract, accounts, marketAddress])
 
     return (
         <Fragment>
-            <Grid container spacing={1} sx={{padding: "10px"}}>
-                {!loading && !!myHeroes && !!heroes && heroes.map((hero, heroId) => {
+            <Grid container spacing={1} sx={{ padding: "10px" }}>
+                {!loading && !!heroes && heroes.map((hero, heroId) => {
                     return (
                         <Grid key={heroId} item xs={12} md={6} lg={4} xl={3}>
                             <HeroCard hero={hero} token={heroId}
@@ -58,7 +69,7 @@ const Main = () => {
                     );
                 })}
             </Grid>
-            
+
         </Fragment>
     )
 }
