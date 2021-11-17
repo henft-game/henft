@@ -25,7 +25,7 @@ contract BattleSystem is Ownable {
         _gameTokenAddress = gameTokenAddress;
     }
 
-    function battle(uint256 _aHeroId, uint256 _bHeroId) external payable {
+    function battle(uint256 _aHeroId, uint256 _bHeroId) external {
         require(_aHeroId != _bHeroId, "You can't battle against yourself");
         require(
             msg.sender == GameToken(_gameTokenAddress).ownerOf(_aHeroId),
@@ -34,10 +34,11 @@ contract BattleSystem is Ownable {
 
         uint8 points = combat(_aHeroId, _bHeroId);
 
-        _battles[_aHeroId].push(Battle(_aHeroId, _bHeroId, points , block.timestamp));
+        _battles[_aHeroId].push(
+            Battle(_aHeroId, _bHeroId, points, block.timestamp)
+        );
 
         GameToken(_gameTokenAddress).levelUp(_aHeroId, uint16(1));
-
     }
 
     function combat(uint256 _aHeroId, uint256 _bHeroId)
@@ -90,32 +91,32 @@ contract BattleSystem is Ownable {
         }
 
         return
-            (aHP > 0)
+            aHP > 0
                 ? (
-                    (bHero.level - aHero.level) > 0
+                    int8(bHero.level) - int8(aHero.level) > 0
                         ? bHero.level - aHero.level
                         : 1
                 )
                 : 0;
     }
 
-    function getDex(GameToken.Hero memory _hero) internal pure returns(uint8) {
+    function getDex(GameToken.Hero memory _hero) internal pure returns (uint8) {
         return _hero.dex;
     }
 
-    function getStr(GameToken.Hero memory _hero) internal pure returns(uint8) {
+    function getStr(GameToken.Hero memory _hero) internal pure returns (uint8) {
         return _hero.str;
     }
 
-    function getCon(GameToken.Hero memory _hero) internal pure returns(uint8) {
+    function getCon(GameToken.Hero memory _hero) internal pure returns (uint8) {
         return _hero.con;
     }
 
-    function getWis(GameToken.Hero memory _hero) internal pure returns(uint8) {
+    function getWis(GameToken.Hero memory _hero) internal pure returns (uint8) {
         return _hero.wis;
     }
 
-    function getHP(GameToken.Hero memory _hero) internal pure returns(int16) {
+    function getHP(GameToken.Hero memory _hero) internal pure returns (int16) {
         return int16(uint16(8 + (getCon(_hero) * 2)));
     }
 
@@ -138,7 +139,9 @@ contract BattleSystem is Ownable {
 
         return
             int16(
-                uint16(getStr(_hero) * (critRandom <= uint256(critChance) ? 2 : 1))
+                uint16(
+                    getStr(_hero) * (critRandom <= uint256(critChance) ? 2 : 1)
+                )
             );
     }
 

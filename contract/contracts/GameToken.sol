@@ -5,8 +5,8 @@ import "../node_modules/@openzeppelin/contracts/utils/Counters.sol";
 import "../node_modules/@openzeppelin/contracts/access/Ownable.sol";
 
 contract GameToken is ERC721URIStorage, Ownable {
-
     event HeroLevelUp(uint256 indexed tokenId, uint8 indexed level);
+    event NewCurrXP(uint256 indexed tokenId, uint16 indexed currXP);
 
     using Counters for Counters.Counter;
     Counters.Counter private _currentHeroId;
@@ -176,7 +176,7 @@ contract GameToken is ERC721URIStorage, Ownable {
 
     function levelUp(uint256 _heroId, uint16 _xp) external {
         require(
-            msg.sender == _battleAddress || msg.sender == _itemShopAddress ,
+            msg.sender == _battleAddress || msg.sender == _itemShopAddress,
             "Only battle or item shop contract can execute it"
         );
 
@@ -184,7 +184,9 @@ contract GameToken is ERC721URIStorage, Ownable {
 
         hero.currXP += _xp;
 
-        if (hero.currXP >= 2**(hero.level + 1)) {
+        emit NewCurrXP(_heroId, hero.currXP);
+
+        if (hero.currXP >= 2**hero.level) {
             hero.level++;
             hero.currXP = 0;
 

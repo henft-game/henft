@@ -18,12 +18,6 @@ const Main = () => {
         setHeroes(await contract.methods.getHeroes().call());
     }
 
-    const loadHero = async function (heroId) {
-        const hero = await contract.methods.getHero(heroId).call({ from: accounts[0] })
-
-        setHeroes([...heroes.slice(0, heroId), hero, ...heroes.slice(heroId + 1)]);
-    }
-
     const loadMyHeroes = async function () {
         setMyHeroes(await contract.methods.getMyHeroes().call({ from: accounts[0] }));
     }
@@ -55,7 +49,7 @@ const Main = () => {
                 {!loading && !!heroes && heroes.map((hero, heroId) => {
                     return (
                         <Grid key={heroId} item xs={12} md={6} lg={4} xl={3}>
-                            <HeroCard hero={hero} token={heroId}
+                            <HeroCard heroInstance={hero} token={heroId}
                                 ownedByMe={myHeroes.indexOf(heroId + '') > -1}
                                 isApprovalForAll={isApprovalForAll} isApprovedForAll={isApprovedForAll}
                             />
