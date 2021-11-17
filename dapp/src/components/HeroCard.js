@@ -1,4 +1,5 @@
 import { Card, CardActions, CardContent, CardHeader, Grid, Typography, Button, Divider, LinearProgress } from '@mui/material';
+import { linearProgressClasses } from '@mui/material/LinearProgress';
 import { makeStyles } from '@mui/styles';
 import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { Web3Context } from '../providers/Web3Provider';
@@ -7,7 +8,7 @@ import SellDialog from './SellDialog';
 import CreateAuctionDialog from './CreateAuctionDialog';
 import BidDialog from './BidDialog';
 import ConfirmMarketDialog from './ConfirmMarketDialog';
-import { linearProgressClasses } from '@mui/material/LinearProgress';
+import BattleHistoryDialog from './BattleHistoryDialog';
 
 export default function HeroCard({ heroInstance, token, isApprovalForAll, isApprovedForAll }) {
 
@@ -66,6 +67,7 @@ export default function HeroCard({ heroInstance, token, isApprovalForAll, isAppr
     const [owner, setOwner] = useState('');
     const [tokenURI, setTokenURI] = useState('');
     const [hero, setHero] = useState();
+    const [battles, setBattles] = useState([]);
 
     const loadHero = async function () {
         setHero(await contract.methods.getHero(token).call({ from: accounts[0] }));
@@ -201,6 +203,19 @@ export default function HeroCard({ heroInstance, token, isApprovalForAll, isAppr
         setOpenedConfirmMarketDialog(false);
     }
 
+    const [openedBattleHistoryDialog, setOpenedBattleHistoryDialog] = useState(false);
+
+    const openBattleHistoryDialog = async () => {
+        setOpenedBattleHistoryDialog(true);
+        const ret = await battleSystem.methods.getBattles(token).call({ from: accounts[0] });
+        setBattles([...ret].reverse());
+
+    }
+
+    const handleCloseBattleHistoryDialog = () => {
+        setOpenedBattleHistoryDialog(false);
+    }
+
     return (
         <Fragment>
             {!!hero &&
@@ -264,6 +279,7 @@ export default function HeroCard({ heroInstance, token, isApprovalForAll, isAppr
                         <CardActions sx={{ minHeight: "31px" }}>
                             {!!accounts && !!accounts[0] &&
                                 <Fragment>
+                                    <Button size="small" onClick={() => { openBattleHistoryDialog() }} sx={{ background: "#DDD", color: "#000" }}>BATTLE HISTORY</Button>
                                     {owner === accounts[0] &&
                                         <Button size="small" onClick={() => { battle() }} sx={{ background: "#DDD", color: "#000" }}>RANDOM BATTLE</Button>
                                     }
@@ -303,6 +319,7 @@ export default function HeroCard({ heroInstance, token, isApprovalForAll, isAppr
                     <SellDialog token={token} open={openedSellDialog} handleClose={handleCloseSellDialog} allowBuy={allowBuy} />
                     <CreateAuctionDialog token={token} open={openedCreateAuctionDialog} handleClose={handleCloseCreateAuctionDialog} createAuction={createAuction} />
                     <BidDialog token={token} open={openedBidDialog} handleClose={handleCloseBidDialog} bid={bid} minBid={auction.currValue === '0' ? auction.minValue : (parseInt(auction.currValue) * 1.1) + ''} />
+                    <BattleHistoryDialog token={token} battles={battles} open={openedBattleHistoryDialog} handleClose={handleCloseBattleHistoryDialog} />
                 </Fragment>
             }
         </Fragment>

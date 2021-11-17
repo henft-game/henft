@@ -14,6 +14,14 @@ contract BattleSystem is Ownable {
         uint256 date;
     }
 
+    struct BattleDTO {
+        uint256 aHeroId;
+        uint256 dHeroId;
+        uint8 points;
+        uint256 date;
+        string tokenURI;
+    }
+
     struct Rank {
         uint256 heroId;
         uint32 points;
@@ -175,9 +183,22 @@ contract BattleSystem is Ownable {
     function getBattles(uint256 _heroId)
         external
         view
-        returns (Battle[] memory)
+        returns (BattleDTO[] memory)
     {
-        return _battles[_heroId];
+        BattleDTO[] memory ret = new BattleDTO[](_battles[_heroId].length);
+
+        for (uint256 index = 0; index < _battles[_heroId].length; index++) {
+            Battle memory b = _battles[_heroId][index];
+            ret[index] = BattleDTO(
+                b.aHeroId,
+                b.dHeroId,
+                b.points,
+                b.date,
+                GameToken(_gameTokenAddress).tokenURI(b.dHeroId)
+            );
+        }
+
+        return ret;
     }
 
     function rand(uint8 limit) private view returns (uint256) {
