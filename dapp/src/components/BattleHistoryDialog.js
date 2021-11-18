@@ -1,8 +1,7 @@
-import React, { forwardRef, useContext, useEffect, useState, Fragment } from 'react';
+import React, { forwardRef, Fragment } from 'react';
 
 import { Slide, Dialog, DialogContent, DialogContentText, List, DialogActions, Button, ListItem, ListItemAvatar, ListItemText, Typography, Divider } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { Web3Context } from '../providers/Web3Provider';
 
 const Transition = forwardRef((props, ref) => {
     return <Slide direction="up" ref={ref} {...props} />;

@@ -1,4 +1,4 @@
-import { Card, CardActions, CardContent, CardHeader, Grid, Typography, Button, Divider, LinearProgress } from '@mui/material';
+import { Card, CardActions, CardContent, CardHeader, Grid, Typography, Button, Divider, LinearProgress, ButtonGroup } from '@mui/material';
 import { linearProgressClasses } from '@mui/material/LinearProgress';
 import { makeStyles } from '@mui/styles';
 import React, { Fragment, useContext, useEffect, useState } from 'react';
@@ -9,6 +9,12 @@ import CreateAuctionDialog from './CreateAuctionDialog';
 import BidDialog from './BidDialog';
 import ConfirmMarketDialog from './ConfirmMarketDialog';
 import BattleHistoryDialog from './BattleHistoryDialog';
+
+export function ActionButton(props) {
+    return (
+        <Button size="small" {...props} sx={{ background: "#DDD", color: "#000", borderColor: "#000", borderRadius: "0" }}>{props.label}</Button>
+    );
+}
 
 export default function HeroCard({ heroInstance, token, isApprovalForAll, isApprovedForAll }) {
 
@@ -28,6 +34,34 @@ export default function HeroCard({ heroInstance, token, isApprovalForAll, isAppr
         status: {
             padding: 10,
         },
+        battle: {
+            marginTop: 20,
+            position: 'relative',
+            display: 'flex',
+            "&:before": {
+                position: 'absolute',
+                content: '"Battle"',
+                fontSize: 9,
+                top: -13,
+                left: '50%',
+                marginLeft: -25,
+                width: 55,
+            }
+        },
+        market: {
+            marginTop: 20,
+            position: 'relative',
+            display: 'flex',
+            "&:before": {
+                position: 'absolute',
+                content: '"Marketplace"',
+                fontSize: 9,
+                top: -13,
+                left: '50%',
+                marginLeft: -45,
+                width: 100,
+            }
+        }
     });
 
     const classes = useStyles();
@@ -269,49 +303,64 @@ export default function HeroCard({ heroInstance, token, isApprovalForAll, isAppr
                                                 <Text label="WIS" value={hero.wis} />
                                             </Grid>
                                         </Grid>
+                                        <Grid item xs={12}>
+                                            <Typography sx={{ fontSize: "7px", paddingTop: "4px", textAlign: "right", color: "#444" }}>{`Owner: ${owner}`}</Typography>
+                                        </Grid>
                                     </Grid>
-                                    <Typography sx={{ fontSize: "9px", padding: "5px" }}>{`Owner: ${owner}`}</Typography>
                                 </Grid>
                             </Grid>
 
                         </CardContent>
 
-                        <CardActions sx={{ minHeight: "31px" }}>
+                        <CardActions sx={{ minHeight: "31px", padding: "4px" }}>
                             {!!accounts && !!accounts[0] &&
-                                <Fragment>
-                                    <Button size="small" onClick={() => { openBattleHistoryDialog() }} sx={{ background: "#DDD", color: "#000" }}>BATTLE HISTORY</Button>
-                                    {owner === accounts[0] &&
-                                        <Button size="small" onClick={() => { battle() }} sx={{ background: "#DDD", color: "#000" }}>RANDOM BATTLE</Button>
-                                    }
-                                    {(owner === accounts[0] || selling.seller === accounts[0] || auction.seller === accounts[0]) ?
-                                        <Fragment>
-                                            {auction.minValue === '0' && selling.value === '0' &&
-                                                <Fragment>
-                                                    <Button size="small" onClick={() => { isApprovedForAll ? openSellDialog() : openConfirmMarketDialog() }} sx={{ background: "#DDD", color: "#000" }}>SELL</Button>
-                                                    <Button size="small" onClick={() => { isApprovedForAll ? openCreateAuctionDialog() : openConfirmMarketDialog() }} sx={{ background: "#DDD", color: "#000" }}>AUCTION</Button>
-                                                </Fragment>
+                                <Grid container>
+                                    <Grid item xs={12} md="auto" sx={{ marginRight: "4px" }}>
+                                        <ButtonGroup size="small" aria-label="small button group" className={classes.battle}>
+                                            <ActionButton onClick={() => { openBattleHistoryDialog() }} label="HISTORY" />
+                                            {owner === accounts[0] &&
+                                                <ActionButton onClick={() => { battle() }} label="NEW" />
                                             }
-                                            {selling.value !== '0' &&
-                                                <Button size="small" onClick={() => { disallowBuy() }} sx={{ background: "#DDD", color: "#000" }}>CANCEL SELL</Button>
-                                            }
-                                            {auction.minValue !== '0' && auction.currValue === '0' &&
-                                                <Button size="small" onClick={() => { cancelAuction() }} sx={{ background: "#DDD", color: "#000" }}>CANCEL AUCTION</Button>
-                                            }
-                                        </Fragment>
-                                        :
-                                        <Fragment>
-                                            {auction.minValue === '0' && selling.value !== '0' &&
-                                                <Button size="small" onClick={() => { buy() }} sx={{ background: "#DDD", color: "#000" }}>BUY {web3.utils.fromWei(selling.value, 'ether')}</Button>
-                                            }
-                                            {auction.minValue !== '0' && selling.value === '0' && auction.endTime >= new Date().getTime() &&
-                                                <Button size="small" onClick={() => { openBidDialog() }} sx={{ background: "#DDD", color: "#000" }}>BID</Button>
-                                            }
-                                            {auction.minValue !== '0' && selling.value === '0' && auction.endTime < new Date().getTime() &&
-                                                <Button size="small" onClick={() => { finishAuction() }} sx={{ background: "#DDD", color: "#000" }}>FINISH AUCTION</Button>
-                                            }
-                                        </Fragment>
-                                    }
-                                </Fragment>
+                                        </ButtonGroup>
+                                    </Grid>
+                                    <Grid item xs={12} md="auto">
+                                        {(owner === accounts[0] || selling.seller === accounts[0] || auction.seller === accounts[0]) ?
+                                            <ButtonGroup size="small" aria-label="small button group" className={classes.market}>
+                                                {auction.minValue === '0' && selling.value === '0' &&
+                                                    <Fragment>
+                                                        <ActionButton onClick={() => { isApprovedForAll ? openSellDialog() : openConfirmMarketDialog() }} label="SELL" />
+                                                        <ActionButton onClick={() => { isApprovedForAll ? openCreateAuctionDialog() : openConfirmMarketDialog() }} label="AUCTION" />
+                                                    </Fragment>
+                                                }
+                                                {selling.value !== '0' &&
+                                                    <ActionButton onClick={() => { disallowBuy() }} label="CANCEL SELL" />
+                                                }
+                                                {auction.minValue !== '0' && auction.currValue === '0' &&
+                                                    <ActionButton onClick={() => { cancelAuction() }} label="CANCEL AUCTION" />
+                                                }
+                                                {auction.minValue !== '0' && auction.currValue !== '0' &&
+                                                    <ActionButton label={`CURR VALUE  ${web3.utils.fromWei(auction.currValue, 'ether')}`} />
+                                                }
+                                            </ButtonGroup>
+                                            :
+                                            <Fragment>
+                                                {(auction.minValue !== '0' || selling.value !== '0') &&
+                                                    <ButtonGroup size="small" aria-label="small button group" className={classes.market}>
+                                                        {auction.minValue === '0' && selling.value !== '0' &&
+                                                            <ActionButton onClick={() => { buy() }} label={`BUY ${web3.utils.fromWei(selling.value, 'ether')}`} />
+                                                        }
+                                                        {auction.minValue !== '0' && selling.value === '0' && auction.endTime >= new Date().getTime() &&
+                                                            <ActionButton onClick={() => { openBidDialog() }} label="NEW BID" />
+                                                        }
+                                                        {auction.minValue !== '0' && selling.value === '0' && auction.endTime < new Date().getTime() &&
+                                                            <ActionButton onClick={() => { finishAuction() }} label="FINISH AUCTION" />
+                                                        }
+                                                    </ButtonGroup>
+                                                }
+                                            </Fragment>
+                                        }
+                                    </Grid>
+                                </Grid>
                             }
                         </CardActions>
                     </Card>
