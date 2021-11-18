@@ -4,6 +4,15 @@ import "../node_modules/@openzeppelin/contracts/access/Ownable.sol";
 import "./GameToken.sol";
 
 contract BattleSystem is Ownable {
+    event BattleEnd(
+        address indexed owner,
+        uint256 indexed aHeroId,
+        uint256 indexed dHeroId,
+        uint8 points,
+        uint256 date,
+        string tokenURI
+    );
+
     address private _gameTokenAddress;
     address private _itemAddress;
 
@@ -42,11 +51,20 @@ contract BattleSystem is Ownable {
 
         uint8 points = combat(_aHeroId, _bHeroId);
 
-        _battles[_aHeroId].push(
-            Battle(_aHeroId, _bHeroId, points, block.timestamp)
-        );
+        Battle memory b = Battle(_aHeroId, _bHeroId, points, block.timestamp);
+
+        _battles[_aHeroId].push(b);
 
         GameToken(_gameTokenAddress).levelUp(_aHeroId, uint16(1));
+
+        emit BattleEnd(
+            msg.sender,
+            b.aHeroId,
+            b.dHeroId,
+            b.points,
+            b.date,
+            GameToken(_gameTokenAddress).tokenURI(b.dHeroId)
+        );
     }
 
     function combat(uint256 _aHeroId, uint256 _bHeroId)
