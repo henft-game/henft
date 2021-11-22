@@ -2,6 +2,7 @@ pragma solidity 0.8.9;
 
 import "../node_modules/@openzeppelin/contracts/access/Ownable.sol";
 import "./GameToken.sol";
+import "./interfaces/IConsumable.sol";
 
 contract BattleSystem is Ownable {
     event BattleEnd(
@@ -14,7 +15,7 @@ contract BattleSystem is Ownable {
     );
 
     address private _gameTokenAddress;
-    address private _itemAddress;
+    address private _consumableAddress;
 
     struct Battle {
         uint256 aHeroId;
@@ -42,20 +43,56 @@ contract BattleSystem is Ownable {
         _gameTokenAddress = gameTokenAddress;
     }
 
-    function battle(uint256 _aHeroId, uint256 _bHeroId) external {
-        require(_aHeroId != _bHeroId, "You can't battle against yourself");
+    function setConsumableAddress(address _newConsumableAddress)
+        external
+        onlyOwner
+    {
+        _consumableAddress = _newConsumableAddress;
+    }
+
+    function battle(uint256 _aHeroId) external {
         require(
             msg.sender == GameToken(_gameTokenAddress).ownerOf(_aHeroId),
             "Not owner of attacker"
         );
 
-        uint8 points = combat(_aHeroId, _bHeroId);
+        GameToken.Hero memory aHero = GameToken(_gameTokenAddress).getHero(
+            _aHeroId
+        );
 
-        Battle memory b = Battle(_aHeroId, _bHeroId, points, block.timestamp);
+        uint256 seed1 = GameToken(_gameTokenAddress).getNextHeroId() +
+            aHero.currXP +
+            _aHeroId;
+        uint256 seed2 = seed1;
 
-        _battles[_aHeroId].push(b);
+        uint256 _bHeroId = rand(
+            seed1,
+            seed2,
+            GameToken(_gameTokenAddress).getNextHeroId() - 1
+        );
+
+        seed2 += _bHeroId;
+
+        uint8 points = 0;
+        if (_aHeroId != _bHeroId) {
+            //hero auto lose versus himself
+            points = combat(seed1, seed2, _aHeroId, _bHeroId);
+        }
+
+        _battles[_aHeroId].push(
+            Battle(_aHeroId, _bHeroId, points, block.timestamp)
+        );
+
+        Battle memory b = _battles[_aHeroId][_battles[_aHeroId].length - 1];
 
         GameToken(_gameTokenAddress).levelUp(_aHeroId, uint16(1));
+
+        seed1 += points;
+        seed2 += (_aHeroId + _bHeroId);
+
+        if (_consumableAddress != address(0) && b.points > 0) {
+            IConsumable(_consumableAddress).mint(msg.sender);
+        }
 
         emit BattleEnd(
             msg.sender,
@@ -67,11 +104,12 @@ contract BattleSystem is Ownable {
         );
     }
 
-    function combat(uint256 _aHeroId, uint256 _bHeroId)
-        internal
-        view
-        returns (uint8)
-    {
+    function combat(
+        uint256 seed1,
+        uint256 seed2,
+        uint256 _aHeroId,
+        uint256 _bHeroId
+    ) internal view returns (uint8) {
         GameToken.Hero memory aHero = GameToken(_gameTokenAddress).getHero(
             _aHeroId
         );
@@ -82,19 +120,30 @@ contract BattleSystem is Ownable {
 
         bool aHighDex;
 
+        seed1 += getDex(aHero);
+        seed2 += getDex(bHero);
+
         if (getDex(aHero) != getDex(bHero)) {
             aHighDex = getDex(aHero) > getDex(bHero);
         } else {
-            aHighDex = (rand(1) == 0);
+            aHighDex = (rand(seed1, seed2, 1) == 0);
         }
 
         int16 aHP = getHP(aHero);
         int16 bHP = getHP(bHero);
 
         while (aHP > 0 && bHP > 0) {
-            uint256 dodgeRandom = rand(100) + 1;
-            int16 aDmg = getDmg(aHero);
-            int16 bDmg = getDmg(bHero);
+            seed1 += uint16(aHP);
+            seed2 += uint16(bHP);
+            uint256 dodgeRandom = rand(seed1, seed2, 100) + 1;
+
+            seed1 += dodgeRandom;
+            int16 aDmg = getDmg(seed1, seed2, aHero);
+
+            seed2 += uint16(aDmg);
+            int16 bDmg = getDmg(seed1, seed2, bHero);
+
+            seed1 += uint16(bDmg);
             if (aHighDex) {
                 if (aHP > 0) {
                     bHP -= aDmg;
@@ -158,8 +207,15 @@ contract BattleSystem is Ownable {
         return uint256(dodgeChance);
     }
 
-    function getDmg(GameToken.Hero memory _hero) internal view returns (int16) {
-        uint256 critRandom = rand(100) + 1;
+    function getDmg(
+        uint256 seed1,
+        uint256 seed2,
+        GameToken.Hero memory _hero
+    ) internal view returns (int16) {
+        seed1 += getStr(_hero);
+        seed2 += getWis(_hero);
+
+        uint256 critRandom = rand(seed1, seed2, 100) + 1;
 
         uint8 critChance = getWis(_hero) * 2;
 
@@ -176,7 +232,7 @@ contract BattleSystem is Ownable {
         view
         returns (Rank[] memory)
     {
-        uint256 heroSize = GameToken(_gameTokenAddress).getCurrentHeroId();
+        uint256 heroSize = GameToken(_gameTokenAddress).getNextHeroId();
 
         Rank[] memory ret = new Rank[](heroSize);
 
@@ -219,12 +275,18 @@ contract BattleSystem is Ownable {
         return ret;
     }
 
-    function rand(uint8 limit) private view returns (uint256) {
+    function rand(
+        uint256 seed1,
+        uint256 seed2,
+        uint256 limit
+    ) private view returns (uint256) {
         uint256 seed = uint256(
             keccak256(
                 abi.encodePacked(
                     block.timestamp +
                         block.difficulty +
+                        seed1 +
+                        seed2 +
                         ((
                             uint256(keccak256(abi.encodePacked(block.coinbase)))
                         ) / (block.timestamp)) +

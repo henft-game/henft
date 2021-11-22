@@ -1,0 +1,413 @@
+{
+  "contractName": "SharedStructs",
+  "abi": [],
+  "metadata": "{\"compiler\":{\"version\":\"0.8.9+commit.e5eed63a\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/library/SharedStructs.sol\":\"SharedStructs\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/library/SharedStructs.sol\":{\"keccak256\":\"0xf10ddd2300aaa1ffa42d150295fdb25fd2e4dc6470167c36ff3863784dbdf674\",\"urls\":[\"bzz-raw://26b320d5fd2bafbf66c751859ec41f4ee48b5bb5fa9363b9c62cb24abcfa7c42\",\"dweb:/ipfs/QmRNvV7aULrHHXBdtztaA9aFfFGGonA7R7pW9iwNfk4CBu\"]}},\"version\":1}",
+  "bytecode": "0x60566050600b82828239805160001a6073146043577f4e487b7100000000000000000000000000000000000000000000000000000000600052600060045260246000fd5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea2646970667358221220aeecbf4974ed3726d0f09a5b06c1134998d1a912a5cacbd85c13bf223c86e31c64736f6c63430008090033",
+  "deployedBytecode": "0x73000000000000000000000000000000000000000030146080604052600080fdfea2646970667358221220aeecbf4974ed3726d0f09a5b06c1134998d1a912a5cacbd85c13bf223c86e31c64736f6c63430008090033",
+  "immutableReferences": {},
+  "generatedSources": [],
+  "deployedGeneratedSources": [],
+  "sourceMap": "25:211:6:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;",
+  "deployedSourceMap": "25:211:6:-:0;;;;;;;;",
+  "source": "pragma solidity ^0.8.0;\n\nlibrary SharedStructs {\n     struct Consumable {\n        uint8 percXPGain;\n        uint8 maxXPGain;\n        bool generateArenaTicket;\n        bool generateEquipment;\n        bool generateMysteriousChest;\n    }\n}",
+  "sourcePath": "/home/rfaita/game/nft-game/contract/contracts/library/SharedStructs.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/library/SharedStructs.sol",
+    "exportedSymbols": {
+      "SharedStructs": [
+        3017
+      ]
+    },
+    "id": 3018,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 3005,
+        "literals": [
+          "solidity",
+          "^",
+          "0.8",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:6"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "SharedStructs",
+        "contractDependencies": [],
+        "contractKind": "library",
+        "fullyImplemented": true,
+        "id": 3017,
+        "linearizedBaseContracts": [
+          3017
+        ],
+        "name": "SharedStructs",
+        "nameLocation": "33:13:6",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "canonicalName": "SharedStructs.Consumable",
+            "id": 3016,
+            "members": [
+              {
+                "constant": false,
+                "id": 3007,
+                "mutability": "mutable",
+                "name": "percXPGain",
+                "nameLocation": "88:10:6",
+                "nodeType": "VariableDeclaration",
+                "scope": 3016,
+                "src": "82:16:6",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint8",
+                  "typeString": "uint8"
+                },
+                "typeName": {
+                  "id": 3006,
+                  "name": "uint8",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "82:5:6",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint8",
+                    "typeString": "uint8"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 3009,
+                "mutability": "mutable",
+                "name": "maxXPGain",
+                "nameLocation": "114:9:6",
+                "nodeType": "VariableDeclaration",
+                "scope": 3016,
+                "src": "108:15:6",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint8",
+                  "typeString": "uint8"
+                },
+                "typeName": {
+                  "id": 3008,
+                  "name": "uint8",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "108:5:6",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint8",
+                    "typeString": "uint8"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 3011,
+                "mutability": "mutable",
+                "name": "generateArenaTicket",
+                "nameLocation": "138:19:6",
+                "nodeType": "VariableDeclaration",
+                "scope": 3016,
+                "src": "133:24:6",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bool",
+                  "typeString": "bool"
+                },
+                "typeName": {
+                  "id": 3010,
+                  "name": "bool",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "133:4:6",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 3013,
+                "mutability": "mutable",
+                "name": "generateEquipment",
+                "nameLocation": "172:17:6",
+                "nodeType": "VariableDeclaration",
+                "scope": 3016,
+                "src": "167:22:6",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bool",
+                  "typeString": "bool"
+                },
+                "typeName": {
+                  "id": 3012,
+                  "name": "bool",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "167:4:6",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 3015,
+                "mutability": "mutable",
+                "name": "generateMysteriousChest",
+                "nameLocation": "204:23:6",
+                "nodeType": "VariableDeclaration",
+                "scope": 3016,
+                "src": "199:28:6",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bool",
+                  "typeString": "bool"
+                },
+                "typeName": {
+                  "id": 3014,
+                  "name": "bool",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "199:4:6",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  }
+                },
+                "visibility": "internal"
+              }
+            ],
+            "name": "Consumable",
+            "nameLocation": "61:10:6",
+            "nodeType": "StructDefinition",
+            "scope": 3017,
+            "src": "54:180:6",
+            "visibility": "public"
+          }
+        ],
+        "scope": 3018,
+        "src": "25:211:6",
+        "usedErrors": []
+      }
+    ],
+    "src": "0:236:6"
+  },
+  "legacyAST": {
+    "absolutePath": "project:/contracts/library/SharedStructs.sol",
+    "exportedSymbols": {
+      "SharedStructs": [
+        3017
+      ]
+    },
+    "id": 3018,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 3005,
+        "literals": [
+          "solidity",
+          "^",
+          "0.8",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:6"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "SharedStructs",
+        "contractDependencies": [],
+        "contractKind": "library",
+        "fullyImplemented": true,
+        "id": 3017,
+        "linearizedBaseContracts": [
+          3017
+        ],
+        "name": "SharedStructs",
+        "nameLocation": "33:13:6",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "canonicalName": "SharedStructs.Consumable",
+            "id": 3016,
+            "members": [
+              {
+                "constant": false,
+                "id": 3007,
+                "mutability": "mutable",
+                "name": "percXPGain",
+                "nameLocation": "88:10:6",
+                "nodeType": "VariableDeclaration",
+                "scope": 3016,
+                "src": "82:16:6",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint8",
+                  "typeString": "uint8"
+                },
+                "typeName": {
+                  "id": 3006,
+                  "name": "uint8",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "82:5:6",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint8",
+                    "typeString": "uint8"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 3009,
+                "mutability": "mutable",
+                "name": "maxXPGain",
+                "nameLocation": "114:9:6",
+                "nodeType": "VariableDeclaration",
+                "scope": 3016,
+                "src": "108:15:6",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint8",
+                  "typeString": "uint8"
+                },
+                "typeName": {
+                  "id": 3008,
+                  "name": "uint8",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "108:5:6",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint8",
+                    "typeString": "uint8"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 3011,
+                "mutability": "mutable",
+                "name": "generateArenaTicket",
+                "nameLocation": "138:19:6",
+                "nodeType": "VariableDeclaration",
+                "scope": 3016,
+                "src": "133:24:6",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bool",
+                  "typeString": "bool"
+                },
+                "typeName": {
+                  "id": 3010,
+                  "name": "bool",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "133:4:6",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 3013,
+                "mutability": "mutable",
+                "name": "generateEquipment",
+                "nameLocation": "172:17:6",
+                "nodeType": "VariableDeclaration",
+                "scope": 3016,
+                "src": "167:22:6",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bool",
+                  "typeString": "bool"
+                },
+                "typeName": {
+                  "id": 3012,
+                  "name": "bool",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "167:4:6",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 3015,
+                "mutability": "mutable",
+                "name": "generateMysteriousChest",
+                "nameLocation": "204:23:6",
+                "nodeType": "VariableDeclaration",
+                "scope": 3016,
+                "src": "199:28:6",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bool",
+                  "typeString": "bool"
+                },
+                "typeName": {
+                  "id": 3014,
+                  "name": "bool",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "199:4:6",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  }
+                },
+                "visibility": "internal"
+              }
+            ],
+            "name": "Consumable",
+            "nameLocation": "61:10:6",
+            "nodeType": "StructDefinition",
+            "scope": 3017,
+            "src": "54:180:6",
+            "visibility": "public"
+          }
+        ],
+        "scope": 3018,
+        "src": "25:211:6",
+        "usedErrors": []
+      }
+    ],
+    "src": "0:236:6"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.8.9+commit.e5eed63a.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.3",
+  "updatedAt": "2021-11-22T18:13:54.933Z",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  }
+}

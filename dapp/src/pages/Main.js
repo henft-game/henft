@@ -1,22 +1,37 @@
 import { Grid } from '@mui/material';
-import React, { useContext, useEffect, useState, Fragment } from 'react';
+import React, { useContext, useEffect, useState, Fragment, useRef, useCallback } from 'react';
 import HeroCard from '../components/HeroCard';
+import useHeroes from '../hooks/useHeroes';
 import { Web3Context } from '../providers/Web3Provider';
 
 const Main = () => {
 
     const { contract, accounts, marketAddress } = useContext(Web3Context);
 
-    const [heroes, setHeroes] = useState();
     const [myHeroes, setMyHeroes] = useState([]);
-
-    const [loading, setLoading] = useState(true);
-
     const [isApprovedForAll, setIsApprovedForAll] = useState(false);
+    const [page, setPage] = useState(0);
 
-    const loadHeroes = async function () {
-        setHeroes(await contract.methods.getHeroes().call());
-    }
+    const { loading, heroes, hasMore } = useHeroes(page);
+
+    const observer = useRef();
+    const lastElementRef = useCallback(node => {
+        if (loading) {
+            return;
+        }
+        if (observer.current) {
+            observer.current.disconnect();
+        }
+        observer.current = new IntersectionObserver(entries => {
+            if (entries[0].isIntersecting && hasMore) {
+                setPage(prevPage => prevPage + 1);
+            }
+        });
+        if (node) {
+            observer.current.observe(node);
+        }
+    }, [loading, hasMore]);
+
 
     const loadMyHeroes = async function () {
         setMyHeroes(await contract.methods.getMyHeroes().call({ from: accounts[0] }));
@@ -28,27 +43,25 @@ const Main = () => {
 
     useEffect(() => {
         if (!!contract && !!marketAddress) {
-            setLoading(true);
-            loadHeroes();
             if (!!accounts[0]) {
                 loadMyHeroes();
                 isApprovalForAll();
             }
 
             contract.events.Transfer((err, event) => {
-                loadHeroes();
+                //loadHeroes();
             });
-            setLoading(false);
 
         }
     }, [contract, accounts, marketAddress])
 
     return (
         <Fragment>
+            {loading && <div>loading...</div>}
             <Grid container spacing={1} sx={{ padding: "10px" }}>
-                {!loading && !!heroes && heroes.map((hero, heroId) => {
+                {heroes.map((hero, heroId) => {
                     return (
-                        <Grid key={heroId} item xs={12} md={6} lg={4} xl={3}>
+                        <Grid ref={heroes.length === heroId + 1 ? lastElementRef : null} key={heroId} item xs={12} md={6} lg={4} xl={3}>
                             <HeroCard heroInstance={hero} token={heroId}
                                 ownedByMe={myHeroes.indexOf(heroId + '') > -1}
                                 isApprovalForAll={isApprovalForAll} isApprovedForAll={isApprovedForAll}

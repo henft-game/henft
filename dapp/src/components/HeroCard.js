@@ -1,7 +1,7 @@
 import { Card, CardActions, CardContent, CardHeader, Grid, Typography, Button, Divider, LinearProgress, ButtonGroup } from '@mui/material';
 import { linearProgressClasses } from '@mui/material/LinearProgress';
 import { makeStyles } from '@mui/styles';
-import React, { Fragment, useContext, useEffect, useState } from 'react';
+import React, { Fragment, useContext, useEffect, useState, useRef, useCallback } from 'react';
 import { Web3Context } from '../providers/Web3Provider';
 import Text from './Text';
 import SellDialog from './SellDialog';
@@ -99,14 +99,13 @@ export default function HeroCard({ heroInstance, token, isApprovalForAll, isAppr
 
     const [auction, setAuction] = useState({ minValue: '0', currValue: '0', seller: '' });
     const [selling, setSelling] = useState({ value: '0', seller: '' });
-    const [owner, setOwner] = useState('');
-    const [tokenURI, setTokenURI] = useState('');
+
     const [hero, setHero] = useState();
     const [battles, setBattles] = useState([]);
     const [battleResult, setBattleResult] = useState();
 
     const loadHero = async function () {
-        setHero(await contract.methods.getHero(token).call({ from: accounts[0] }));
+        setHero(await contract.methods.getHeroComplete(token).call({ from: accounts[0] }));
     }
 
     const loadAuction = async function () {
@@ -124,14 +123,6 @@ export default function HeroCard({ heroInstance, token, isApprovalForAll, isAppr
 
     const disallowBuy = async function () {
         await market.methods.disallowBuy(token).send({ from: accounts[0] });
-    }
-
-    const loadOwner = async function () {
-        setOwner(await contract.methods.ownerOf(token).call({ from: accounts[0] }));
-    }
-
-    const loadTokenURI = async function () {
-        setTokenURI(await contract.methods.tokenURI(token).call({ from: accounts[0] }));
     }
 
     const setApprovalForAll = async function () {
@@ -163,18 +154,18 @@ export default function HeroCard({ heroInstance, token, isApprovalForAll, isAppr
     }
 
     const battle = async function () {
-        await battleSystem.methods.battle(token, '0').send({ from: accounts[0] });
+        await battleSystem.methods.battle(token).send({ from: accounts[0] });
 
     }
 
-    const reload = async function () {
+    const loadMarket = async function () {
         await loadAuction();
         await loadSelling();
-        await loadOwner();
     }
 
     const eventListener = function (err, event) {
-        reload();
+        loadMarket();
+        loadHero();
     }
 
     const eventLoadHeroListener = function (err, event) {
@@ -182,31 +173,46 @@ export default function HeroCard({ heroInstance, token, isApprovalForAll, isAppr
     }
 
     const eventBattleResultListener = function (err, event) {
-        console.log(event)
         setBattleResult(event.returnValues);
         openBattleResultDialog();
     }
 
     useEffect(() => {
         setHero(heroInstance);
+    }, [heroInstance]);
 
-        reload();
-        loadTokenURI();
 
-        market.events.NewAuction({ filter: { tokenId: token + '' } }, eventListener);
-        market.events.CancelAuction({ filter: { tokenId: token + '' } }, eventListener);
-        market.events.NewSellingItem({ filter: { tokenId: token + '' } }, eventListener);
-        market.events.CancelSellingItem({ filter: { tokenId: token + '' } }, eventListener);
-        market.events.NewBid({ filter: { tokenId: token + '' } }, eventListener);
-        market.events.AuctionEnded({ filter: { tokenId: token + '' } }, eventListener);
-        market.events.ItemBought({ filter: { tokenId: token + '' } }, eventListener);
+    const observer = useRef();
+    const myselfElementRef = useCallback(node => {
+        if (token !== '' && !!contract && !!market && !!battleSystem && !!accounts) {
+            if (observer.current) {
+                observer.current.disconnect();
+            }
+            observer.current = new IntersectionObserver(entries => {
+                if (entries[0].isIntersecting) {
 
-        contract.events.HeroLevelUp({ filter: { tokenId: token + '' } }, eventLoadHeroListener);
-        contract.events.NewCurrXP({ filter: { tokenId: token + '' } }, eventLoadHeroListener);
+                    loadMarket();
 
-        battleSystem.events.BattleEnd({ filter: { owner: accounts[0], aHeroId: token + '' } }, eventBattleResultListener);
+                    contract.events.HeroLevelUp({ filter: { tokenId: token + '' } }, eventLoadHeroListener);
+                    contract.events.NewCurrXP({ filter: { tokenId: token + '' } }, eventLoadHeroListener);
 
-    }, [contract, market, battleSystem, accounts, token, heroInstance]);
+                    market.events.NewAuction({ filter: { tokenId: token + '' } }, eventListener);
+                    market.events.CancelAuction({ filter: { tokenId: token + '' } }, eventListener);
+                    market.events.NewSellingItem({ filter: { tokenId: token + '' } }, eventListener);
+                    market.events.CancelSellingItem({ filter: { tokenId: token + '' } }, eventListener);
+                    market.events.NewBid({ filter: { tokenId: token + '' } }, eventListener);
+                    market.events.AuctionEnded({ filter: { tokenId: token + '' } }, eventListener);
+                    market.events.ItemBought({ filter: { tokenId: token + '' } }, eventListener);
+
+                    battleSystem.events.BattleEnd({ filter: { owner: accounts[0], aHeroId: token + '' } }, eventBattleResultListener);
+                }
+            });
+            if (node) {
+                observer.current.observe(node);
+            }
+        }
+    }, [token, contract, market, battleSystem, accounts]);
+
 
     const [openedSellDialog, setOpenedSellDialog] = useState(false);
 
@@ -276,8 +282,7 @@ export default function HeroCard({ heroInstance, token, isApprovalForAll, isAppr
         <Fragment>
             {!!hero &&
                 <Fragment>
-                    <Card className={classes.root} sx={{ padding: "0", background: rarityColors2[hero.rarity] }}>
-
+                    <Card ref={myselfElementRef} className={classes.root} sx={{ padding: "0", background: rarityColors2[hero.rarity] }}>
                         <CardHeader className={classes.header} sx={{ padding: "1px" }}
                             title={`#${token} ${!!hero.name ? ` - ${hero.name}` : ''}`}
                             subheader={
@@ -302,8 +307,8 @@ export default function HeroCard({ heroInstance, token, isApprovalForAll, isAppr
                                 <Grid item xs={12}>
                                     <Grid container justify="flex-start">
                                         <Grid item xs={12} md={6}>
-                                            {!!tokenURI ?
-                                                <img className={classes.nft} src={tokenURI} alt={`#${token}`} />
+                                            {!!hero.tokenURI ?
+                                                <img className={classes.nft} src={hero.tokenURI} alt={`#${token}`} />
                                                 :
                                                 <img className={classes.nft} src={'/imgs/0.gif'} alt={`#${token}`} />
                                             }
@@ -326,7 +331,7 @@ export default function HeroCard({ heroInstance, token, isApprovalForAll, isAppr
                                             </Grid>
                                         </Grid>
                                         <Grid item xs={12}>
-                                            <Typography sx={{ fontSize: "7px", paddingTop: "4px", textAlign: "right", color: "#444" }}>{`Owner: ${owner}`}</Typography>
+                                            <Typography sx={{ fontSize: "7px", paddingTop: "4px", textAlign: "right", color: "#444" }}>{`Owner: ${hero.owner}`}</Typography>
                                         </Grid>
                                     </Grid>
                                 </Grid>
@@ -340,13 +345,13 @@ export default function HeroCard({ heroInstance, token, isApprovalForAll, isAppr
                                     <Grid item xs={12} md="auto" sx={{ marginRight: "4px" }}>
                                         <ButtonGroup size="small" aria-label="small button group" className={classes.battle}>
                                             <ActionButton onClick={() => { openBattleHistoryDialog() }} label="HISTORY" />
-                                            {owner === accounts[0] &&
+                                            {hero.owner === accounts[0] &&
                                                 <ActionButton onClick={() => { battle() }} label="NEW" />
                                             }
                                         </ButtonGroup>
                                     </Grid>
                                     <Grid item xs={12} md="auto">
-                                        {(owner === accounts[0] || selling.seller === accounts[0] || auction.seller === accounts[0]) ?
+                                        {(hero.owner === accounts[0] || selling.seller === accounts[0] || auction.seller === accounts[0]) ?
                                             <ButtonGroup size="small" aria-label="small button group" className={classes.market}>
                                                 {auction.minValue === '0' && selling.value === '0' &&
                                                     <Fragment>
