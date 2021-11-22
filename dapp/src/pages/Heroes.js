@@ -4,7 +4,7 @@ import HeroCard from '../components/HeroCard';
 import useHeroes from '../hooks/useHeroes';
 import { Web3Context } from '../providers/Web3Provider';
 
-const Main = () => {
+const Heroes = () => {
 
     const { contract, accounts, marketAddress } = useContext(Web3Context);
 
@@ -75,4 +75,4 @@ const Main = () => {
     )
 }
 
-export default Main;
+export default Heroes;

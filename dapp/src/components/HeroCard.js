@@ -21,12 +21,6 @@ export default function HeroCard({ heroInstance, token, isApprovalForAll, isAppr
 
 
     const useStyles = makeStyles({
-        root: {
-            boxShadow: '2px 2px 5px 0 rgb(0,0,0,75%)',
-            borderRadius: 0,
-            padding: 10,
-            maxWidth: 700
-        },
         nft: {
             marginRight: 5,
             width: '100%',
@@ -282,7 +276,13 @@ export default function HeroCard({ heroInstance, token, isApprovalForAll, isAppr
         <Fragment>
             {!!hero &&
                 <Fragment>
-                    <Card ref={myselfElementRef} className={classes.root} sx={{ padding: "0", background: rarityColors2[hero.rarity] }}>
+                    <Card ref={myselfElementRef} className={classes.root}
+                        sx={{
+                            padding: '10px',
+                            borderRadius: '0', maxWidth: '700px',
+                            boxShadow: '2px 2px 5px 0 rgb(0,0,0,75%)',
+                            background: rarityColors2[hero.rarity]
+                        }}>
                         <CardHeader className={classes.header} sx={{ padding: "1px" }}
                             title={`#${token} ${!!hero.name ? ` - ${hero.name}` : ''}`}
                             subheader={

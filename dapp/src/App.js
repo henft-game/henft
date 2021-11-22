@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserRouter } from "react-router-dom";
 import Web3Provider from './providers/Web3Provider';
 import Application from './pages/Application';
 
@@ -16,9 +17,11 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Web3Provider>
-        <Application />
-      </Web3Provider>
+      <BrowserRouter>
+        <Web3Provider>
+          <Application />
+        </Web3Provider>
+      </BrowserRouter>
     </ThemeProvider>
   );
 }
