@@ -57,11 +57,10 @@ const Heroes = () => {
 
     return (
         <Fragment>
-            {loading && <div>loading...</div>}
-            <Grid container spacing={1} sx={{ padding: "10px" }}>
+            <Grid container spacing={2} sx={{ padding: "10px" }}>
                 {heroes.map((hero, heroId) => {
                     return (
-                        <Grid ref={heroes.length === heroId + 1 ? lastElementRef : null} key={heroId} item xs={12} md={6} lg={4} xl={3}>
+                        <Grid ref={heroes.length - 5 === heroId + 1 ? lastElementRef : null} key={heroId} item xs={12} md={6} lg={6} xl={3}>
                             <HeroCard heroInstance={hero} token={heroId}
                                 ownedByMe={myHeroes.indexOf(heroId + '') > -1}
                                 isApprovalForAll={isApprovalForAll} isApprovedForAll={isApprovedForAll}
@@ -69,6 +68,15 @@ const Heroes = () => {
                         </Grid>
                     );
                 })}
+                {loading &&
+                    <Grid key={-1} item xs={12} md={6} lg={6} xl={3}>
+                        <HeroCard heroInstance={{ rarity: '0', currXP: '0', level: '9999', str: '0', wis: '0', con: '0', dex: '0', owner: 'loading...', tokenURI: 'loading...' }}
+                            token={''}
+                            ownedByMe={false}
+                            isApprovalForAll={isApprovalForAll} isApprovedForAll={false}
+                        />
+                    </Grid>
+                }
             </Grid>
 
         </Fragment>

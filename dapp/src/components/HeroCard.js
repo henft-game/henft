@@ -10,6 +10,7 @@ import BidDialog from './BidDialog';
 import ConfirmMarketDialog from './ConfirmMarketDialog';
 import BattleHistoryDialog from './BattleHistoryDialog';
 import BattleResultDialog from './BattleResultDialog';
+import LazyLoad from 'react-lazyload';
 
 export function ActionButton(props) {
     return (
@@ -273,132 +274,133 @@ export default function HeroCard({ heroInstance, token, isApprovalForAll, isAppr
     }
 
     return (
-        <Fragment>
-            {!!hero &&
-                <Fragment>
-                    <Card ref={myselfElementRef} className={classes.root}
-                        sx={{
-                            padding: '10px',
-                            borderRadius: '0', maxWidth: '700px',
-                            boxShadow: '2px 2px 5px 0 rgb(0,0,0,75%)',
-                            background: rarityColors2[hero.rarity]
-                        }}>
-                        <CardHeader className={classes.header} sx={{ padding: "1px" }}
-                            title={`#${token} ${!!hero.name ? ` - ${hero.name}` : ''}`}
-                            subheader={
-                                <Fragment>
-                                    <Typography>Level {hero.level} (XP:{hero.currXP}/{Math.pow(2, parseInt(hero.level))})</Typography>
-                                    <LinearProgress sx={{
-                                        height: "10px",
-                                        background: rarityColors2[hero.rarity],
-                                        border: "2px solid",
-                                        borderColor: rarityColors[hero.rarity],
-                                        [`& .${linearProgressClasses.bar}`]: {
-                                            background: rarityColors[hero.rarity]
-                                        }
-                                    }}
-                                        variant="determinate" value={hero.currXP / Math.pow(2, parseInt(hero.level)) * 100} />
-                                </Fragment>
-                            }
-                        />
+        <LazyLoad offset={700} once placeholder={<div>loading...</div>}>
+            <Fragment>
+                <Card ref={myselfElementRef} className={classes.root}
+                    sx={{
+                        padding: '10px',
+                        borderRadius: '0', maxWidth: '700px',
+                        boxShadow: '2px 2px 5px 0 rgb(0,0,0,75%)',
+                        background: rarityColors2[hero?.rarity]
+                    }}>
+                    <CardHeader className={classes.header} sx={{ padding: "1px" }}
+                        title={`#${token} ${!!hero?.name ? ` - ${hero?.name}` : ''}`}
+                        subheader={
+                            <Fragment>
+                                <Typography>Level {hero?.level} (XP:{hero?.currXP}/{Math.pow(2, parseInt(hero?.level))})</Typography>
+                                <LinearProgress sx={{
+                                    height: "10px",
+                                    background: rarityColors2[hero?.rarity],
+                                    border: "2px solid",
+                                    borderColor: rarityColors[hero?.rarity],
+                                    [`& .${linearProgressClasses.bar}`]: {
+                                        background: rarityColors[hero?.rarity]
+                                    }
+                                }}
+                                    variant="determinate" value={hero?.currXP / Math.pow(2, parseInt(hero?.level)) * 100} />
+                            </Fragment>
+                        }
+                    />
 
-                        <CardContent className={classes.headerSubTitleDiv} sx={{ padding: "1px" }}>
-                            <Grid container>
-                                <Grid item xs={12}>
-                                    <Grid container justify="flex-start">
-                                        <Grid item xs={12} md={6}>
-                                            {!!hero.tokenURI ?
-                                                <img className={classes.nft} src={hero.tokenURI} alt={`#${token}`} />
+                    <CardContent className={classes.headerSubTitleDiv} sx={{ padding: "1px" }}>
+                        <Grid container>
+                            <Grid item xs={12}>
+                                <Grid container justify="flex-start">
+                                    <Grid item xs={12} md={6}>
+
+                                        {!!hero?.tokenURI ?
+                                            hero?.tokenURI === 'loading...' ?
+                                                <div className={classes.nft}>{hero?.tokenURI}</div>
                                                 :
-                                                <img className={classes.nft} src={'/imgs/0.gif'} alt={`#${token}`} />
-                                            }
+                                                <img className={classes.nft} src={hero?.tokenURI} alt={`#${token}`} />
+                                            :
+                                            <img className={classes.nft} src={'/imgs/0.gif'} alt={`#${token}`} />
+                                        }
+                                    </Grid>
+                                    <Grid item xs={12} md={6} lg className={classes.status} sx={{ background: rarityColors[hero?.rarity] }}>
+                                        <Grid item sx={{ marginBottom: "10px" }}>
+                                            <Typography sx={{ textAlign: "center", fontSize: "20px" }}>Basic Info</Typography>
                                         </Grid>
-                                        <Grid item xs={12} md={6} lg className={classes.status} sx={{ background: rarityColors[hero.rarity] }}>
-                                            <Grid item sx={{ marginBottom: "10px" }}>
-                                                <Typography sx={{ textAlign: "center", fontSize: "20px" }}>Basic Info</Typography>
-                                            </Grid>
-                                            <Divider />
-                                            <Grid item sx={{ marginTop: "10px", marginBottom: "10px" }}>
-                                                <Text label="Rarity" value={rarity[hero.rarity]} />
-                                                <Text label="Type" value={heroType[hero.heroType]} />
-                                            </Grid>
-                                            <Divider />
-                                            <Grid item sx={{ marginTop: "10px" }}>
-                                                <Text label="STR" value={hero.str} />
-                                                <Text label="CON" value={hero.con} />
-                                                <Text label="DEX" value={hero.dex} />
-                                                <Text label="WIS" value={hero.wis} />
-                                            </Grid>
+                                        <Divider />
+                                        <Grid item sx={{ marginTop: "10px", marginBottom: "10px" }}>
+                                            <Text label="Rarity" value={rarity[hero?.rarity]} />
+                                            <Text label="Type" value={heroType[hero?.heroType]} />
                                         </Grid>
-                                        <Grid item xs={12}>
-                                            <Typography sx={{ fontSize: "7px", paddingTop: "4px", textAlign: "right", color: "#444" }}>{`Owner: ${hero.owner}`}</Typography>
+                                        <Divider />
+                                        <Grid item sx={{ marginTop: "10px" }}>
+                                            <Text label="STR" value={hero?.str} />
+                                            <Text label="CON" value={hero?.con} />
+                                            <Text label="DEX" value={hero?.dex} />
+                                            <Text label="WIS" value={hero?.wis} />
                                         </Grid>
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <Typography sx={{ fontSize: "7px", paddingTop: "4px", textAlign: "right", color: "#444" }}>{`Owner: ${hero?.owner}`}</Typography>
                                     </Grid>
                                 </Grid>
                             </Grid>
+                        </Grid>
 
-                        </CardContent>
-
-                        <CardActions sx={{ minHeight: "31px", padding: "4px" }}>
-                            {!!accounts && !!accounts[0] &&
-                                <Grid container>
-                                    <Grid item xs={12} md="auto" sx={{ marginRight: "4px" }}>
-                                        <ButtonGroup size="small" aria-label="small button group" className={classes.battle}>
-                                            <ActionButton onClick={() => { openBattleHistoryDialog() }} label="HISTORY" />
-                                            {hero.owner === accounts[0] &&
-                                                <ActionButton onClick={() => { battle() }} label="NEW" />
+                    </CardContent>
+                    <CardActions sx={{ minHeight: "31px", padding: "4px" }}>
+                        {!!accounts && !!accounts[0] &&
+                            <Grid container>
+                                <Grid item xs={12} md="auto" sx={{ marginRight: "4px" }}>
+                                    <ButtonGroup size="small" aria-label="small button group" className={classes.battle}>
+                                        <ActionButton onClick={() => { openBattleHistoryDialog() }} label="HISTORY" />
+                                        {hero?.owner === accounts[0] &&
+                                            <ActionButton onClick={() => { battle() }} label="NEW" />
+                                        }
+                                    </ButtonGroup>
+                                </Grid>
+                                <Grid item xs={12} md="auto">
+                                    {(hero?.owner === accounts[0] || selling.seller === accounts[0] || auction.seller === accounts[0]) ?
+                                        <ButtonGroup size="small" aria-label="small button group" className={classes.market}>
+                                            {auction.minValue === '0' && selling.value === '0' &&
+                                                <Fragment>
+                                                    <ActionButton onClick={() => { isApprovedForAll ? openSellDialog() : openConfirmMarketDialog() }} label="SELL" />
+                                                    <ActionButton onClick={() => { isApprovedForAll ? openCreateAuctionDialog() : openConfirmMarketDialog() }} label="AUCTION" />
+                                                </Fragment>
+                                            }
+                                            {selling.value !== '0' &&
+                                                <ActionButton onClick={() => { disallowBuy() }} label="CANCEL SELL" />
+                                            }
+                                            {auction.minValue !== '0' && auction.currValue === '0' &&
+                                                <ActionButton onClick={() => { cancelAuction() }} label="CANCEL AUCTION" />
+                                            }
+                                            {auction.minValue !== '0' && auction.currValue !== '0' &&
+                                                <ActionButton label={`CURR VALUE  ${web3.utils.fromWei(auction.currValue, 'ether')}`} />
                                             }
                                         </ButtonGroup>
-                                    </Grid>
-                                    <Grid item xs={12} md="auto">
-                                        {(hero.owner === accounts[0] || selling.seller === accounts[0] || auction.seller === accounts[0]) ?
-                                            <ButtonGroup size="small" aria-label="small button group" className={classes.market}>
-                                                {auction.minValue === '0' && selling.value === '0' &&
-                                                    <Fragment>
-                                                        <ActionButton onClick={() => { isApprovedForAll ? openSellDialog() : openConfirmMarketDialog() }} label="SELL" />
-                                                        <ActionButton onClick={() => { isApprovedForAll ? openCreateAuctionDialog() : openConfirmMarketDialog() }} label="AUCTION" />
-                                                    </Fragment>
-                                                }
-                                                {selling.value !== '0' &&
-                                                    <ActionButton onClick={() => { disallowBuy() }} label="CANCEL SELL" />
-                                                }
-                                                {auction.minValue !== '0' && auction.currValue === '0' &&
-                                                    <ActionButton onClick={() => { cancelAuction() }} label="CANCEL AUCTION" />
-                                                }
-                                                {auction.minValue !== '0' && auction.currValue !== '0' &&
-                                                    <ActionButton label={`CURR VALUE  ${web3.utils.fromWei(auction.currValue, 'ether')}`} />
-                                                }
-                                            </ButtonGroup>
-                                            :
-                                            <Fragment>
-                                                {(auction.minValue !== '0' || selling.value !== '0') &&
-                                                    <ButtonGroup size="small" aria-label="small button group" className={classes.market}>
-                                                        {auction.minValue === '0' && selling.value !== '0' &&
-                                                            <ActionButton onClick={() => { buy() }} label={`BUY ${web3.utils.fromWei(selling.value, 'ether')}`} />
-                                                        }
-                                                        {auction.minValue !== '0' && selling.value === '0' && auction.endTime >= new Date().getTime() &&
-                                                            <ActionButton onClick={() => { openBidDialog() }} label="NEW BID" />
-                                                        }
-                                                        {auction.minValue !== '0' && selling.value === '0' && auction.endTime < new Date().getTime() &&
-                                                            <ActionButton onClick={() => { finishAuction() }} label="FINISH AUCTION" />
-                                                        }
-                                                    </ButtonGroup>
-                                                }
-                                            </Fragment>
-                                        }
-                                    </Grid>
+                                        :
+                                        <Fragment>
+                                            {(auction.minValue !== '0' || selling.value !== '0') &&
+                                                <ButtonGroup size="small" aria-label="small button group" className={classes.market}>
+                                                    {auction.minValue === '0' && selling.value !== '0' &&
+                                                        <ActionButton onClick={() => { buy() }} label={`BUY ${web3.utils.fromWei(selling.value, 'ether')}`} />
+                                                    }
+                                                    {auction.minValue !== '0' && selling.value === '0' && auction.endTime >= new Date().getTime() &&
+                                                        <ActionButton onClick={() => { openBidDialog() }} label="NEW BID" />
+                                                    }
+                                                    {auction.minValue !== '0' && selling.value === '0' && auction.endTime < new Date().getTime() &&
+                                                        <ActionButton onClick={() => { finishAuction() }} label="FINISH AUCTION" />
+                                                    }
+                                                </ButtonGroup>
+                                            }
+                                        </Fragment>
+                                    }
                                 </Grid>
-                            }
-                        </CardActions>
-                    </Card>
-                    <ConfirmMarketDialog open={openedConfirmMarketDialog} handleClose={handleCloseConfirmMarketDialog} setApprovalForAll={setApprovalForAll} />
-                    <SellDialog token={token} open={openedSellDialog} handleClose={handleCloseSellDialog} allowBuy={allowBuy} />
-                    <CreateAuctionDialog token={token} open={openedCreateAuctionDialog} handleClose={handleCloseCreateAuctionDialog} createAuction={createAuction} />
-                    <BidDialog token={token} open={openedBidDialog} handleClose={handleCloseBidDialog} bid={bid} minBid={auction.currValue === '0' ? auction.minValue : (parseInt(auction.currValue) * 1.1) + ''} />
-                    <BattleHistoryDialog token={token} battles={battles} open={openedBattleHistoryDialog} handleClose={handleCloseBattleHistoryDialog} />
-                    <BattleResultDialog token={token} battle={battleResult} open={openedBattleResultDialog} handleClose={handleCloseBattleResultDialog} />
-                </Fragment>
-            }
-        </Fragment>
+                            </Grid>
+                        }
+                    </CardActions>
+                </Card>
+                <ConfirmMarketDialog open={openedConfirmMarketDialog} handleClose={handleCloseConfirmMarketDialog} setApprovalForAll={setApprovalForAll} />
+                <SellDialog token={token} open={openedSellDialog} handleClose={handleCloseSellDialog} allowBuy={allowBuy} />
+                <CreateAuctionDialog token={token} open={openedCreateAuctionDialog} handleClose={handleCloseCreateAuctionDialog} createAuction={createAuction} />
+                <BidDialog token={token} open={openedBidDialog} handleClose={handleCloseBidDialog} bid={bid} minBid={auction.currValue === '0' ? auction.minValue : (parseInt(auction.currValue) * 1.1) + ''} />
+                <BattleHistoryDialog token={token} battles={battles} open={openedBattleHistoryDialog} handleClose={handleCloseBattleHistoryDialog} />
+                <BattleResultDialog token={token} battle={battleResult} open={openedBattleResultDialog} handleClose={handleCloseBattleResultDialog} />
+            </Fragment>
+        </LazyLoad>
     );
 }

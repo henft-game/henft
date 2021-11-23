@@ -17,11 +17,11 @@ const useHeroes = (page) => {
             setError(false);
 
 
-            contract.methods.getHeroes(50, page).call().then(res => {
+            contract.methods.getHeroes(10, page).call().then(res => {
                 setHeroes(prev => {
                     return [...prev, ...res];
                 });
-                setHasMore(res.length === 50);
+                setHasMore(res.length === 10);
                 setLoading(false);
 
             }).catch(e => {
