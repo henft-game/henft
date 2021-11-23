@@ -136,9 +136,9 @@ export default function DefaultAppBar(props) {
                     <Logo alt="logo" src="imgs/logo.png" />
                     <LinkMenu to="/">Home</LinkMenu>
                     <LinkMenu to="/hens">Hens</LinkMenu>
-                    <LinkMenu to="/">Roadmap</LinkMenu>
-                    <LinkMenu to="/">History</LinkMenu>
-                    <LinkMenu className={classes.lastMenu} to="/">About</LinkMenu>
+                    <LinkMenu to="/roadmap">Roadmap</LinkMenu>
+                    <LinkMenu to="/history">History</LinkMenu>
+                    <LinkMenu className={classes.lastMenu} to="/about">About</LinkMenu>
                     <Box sx={{ flexGrow: 1 }} />
                     {!!accounts && !!accounts[0] ?
                         <Button sx={{ color: '#61422D' }} startIcon={<Avatar sx={{ width: '33px', heigth: '38px' }} src={'imgs/connected.png'} />}>{shortAccount(accounts[0])}</Button>

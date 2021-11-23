@@ -5,6 +5,7 @@ import { styled } from '@mui/styles';
 import { Route, Routes } from 'react-router';
 import Home from './Home';
 import Heroes from './Heroes';
+import About from './Abouts';
 
 export default function Application() {
 
@@ -39,6 +40,7 @@ export default function Application() {
                     <Routes>
                         <Route exact path="/" element={<Home />} />
                         <Route exact path="/hens" element={<Heroes />} />
+                        <Route exact path="/about" element={<About />} />
                     </Routes>
                 </SubMain>
             </Main>
