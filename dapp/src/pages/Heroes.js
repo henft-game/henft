@@ -57,7 +57,7 @@ const Heroes = () => {
 
     return (
         <Fragment>
-            <Grid container spacing={2} sx={{ padding: "10px" }}>
+            <Grid container spacing={2}>
                 {heroes.map((hero, heroId) => {
                     return (
                         <Grid ref={heroes.length - 5 === heroId + 1 ? lastElementRef : null} key={heroId} item xs={12} md={6} lg={6} xl={3}>
