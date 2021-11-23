@@ -1,4 +1,5 @@
 import { Grid } from '@mui/material';
+import { styled } from '@mui/styles';
 import React, { useContext, useEffect, useState, Fragment, useRef, useCallback } from 'react';
 import HeroCard from '../components/HeroCard';
 import useHeroes from '../hooks/useHeroes';
@@ -55,6 +56,10 @@ const Heroes = () => {
         }
     }, [contract, accounts, marketAddress])
 
+    const Loading = styled('div')(({ theme }) => ({
+        padding: 20,
+    }));
+
     return (
         <Fragment>
             <Grid container spacing={2}>
@@ -69,13 +74,7 @@ const Heroes = () => {
                     );
                 })}
                 {loading &&
-                    <Grid key={-1} item xs={12} md={6} lg={6} xl={3}>
-                        <HeroCard heroInstance={{ rarity: '0', currXP: '0', level: '9999', str: '0', wis: '0', con: '0', dex: '0', owner: 'loading...', tokenURI: 'loading...' }}
-                            token={''}
-                            ownedByMe={false}
-                            isApprovalForAll={isApprovalForAll} isApprovedForAll={false}
-                        />
-                    </Grid>
+                    <Loading>loading...</Loading>
                 }
             </Grid>
 

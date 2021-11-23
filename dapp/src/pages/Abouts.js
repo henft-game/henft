@@ -61,8 +61,7 @@ const About = () => {
             <Grid container spacing={2}>
                 <Grid item xs={12} md={6} lg={6} xl={4}>
                     <Card sx={{
-                        padding: '10px',
-                        borderRadius: '0', maxWidth: '700px',
+                        borderRadius: '0',
                         boxShadow: '2px 2px 5px 0 rgb(0,0,0,75%)',
                     }}>
                         <CardMedia
@@ -82,8 +81,7 @@ const About = () => {
                 </Grid>
                 <Grid item xs={12} md={6} lg={6} xl={4}>
                     <Card sx={{
-                        padding: '10px',
-                        borderRadius: '0', maxWidth: '700px',
+                        borderRadius: '0',
                         boxShadow: '2px 2px 5px 0 rgb(0,0,0,75%)',
                     }}>
                         <CardMedia
@@ -104,8 +102,7 @@ const About = () => {
                 </Grid>
                 <Grid item xs={12} md={6} lg={6} xl={4}>
                     <Card sx={{
-                        padding: '10px',
-                        borderRadius: '0', maxWidth: '700px',
+                        borderRadius: '0',
                         boxShadow: '2px 2px 5px 0 rgb(0,0,0,75%)',
                     }}>
                         <CardMedia

@@ -149,7 +149,7 @@ export default function HeroCard({ heroInstance, token, isApprovalForAll, isAppr
     }
 
     const battle = async function () {
-        await battleSystem.methods.battle(token).send({ from: accounts[0] });
+        await battleSystem.methods.battle(token).send({ from: accounts[0], gas: '500000' });
 
     }
 
