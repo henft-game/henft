@@ -17,7 +17,6 @@ const useHeroes = () => {
 
 
             contract.methods.getHeroes().call().then(res => {
-                console.log(res);
                 setHeroes(prev => {
                     return [...prev, ...res];
                 });
