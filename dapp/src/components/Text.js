@@ -6,11 +6,11 @@ const Text = (props) => {
     return (
         <Fragment>
             {!!props.label ?
-                <Typography>
-                    <span >{props.label}{!!props.showSeparator ? '' : ': '}</span>{props.value}
+                <Typography sx={{ fontSize: "12px" }}>
+                    <span>{props.label}{!!props.showSeparator ? '' : ': '}</span>{props.value}
                 </Typography>
                 :
-                <Typography sx={{color: props.color}}>{props.value}</Typography>
+                <Typography sx={{ color: props.color, fontSize: "12px" }}>{props.value}</Typography>
             }
         </Fragment>
     );

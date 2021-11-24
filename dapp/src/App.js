@@ -11,6 +11,16 @@ const theme = createTheme({
   typography: {
     fontFamily: "'Press Start 2P', sans-serif",
   },
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 800,
+      md: 1024,
+      lg: 1400,
+      xl: 1700,
+      xxl: 2560,
+    },
+  },
 });
 
 function App() {

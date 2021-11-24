@@ -32,7 +32,7 @@ export default function DefaultAppBar(props) {
     const LinkMenu = styled(Link)(({ theme }) => ({
         borderRadius: 0,
         padding: 10,
-        borderRight: "3px solid #61422D",
+        borderRight: "4px solid #61422D",
         textDecoration: 'none',
         color: "#61422D",
         "&:hover": {
@@ -54,10 +54,10 @@ export default function DefaultAppBar(props) {
             right: 0,
             padding: 10,
             background: '#DCC1A1',
-            borderTop: '3px solid #61422D',
-            borderBottom: '3px solid #61422D',
-            borderLeft: '3px solid #61422D',
-            borderRadius: 0,
+            borderTop: '4px solid #61422D',
+            borderBottom: '4px solid #61422D',
+            borderLeft: '4px solid #61422D',
+            borderRadius: 4,
             display: 'none',
         },
         "&&:hover": {
@@ -105,7 +105,7 @@ export default function DefaultAppBar(props) {
 
         menuOpened: {
             "&&": {
-                right: 253,
+                right: 254,
             }
         },
 
@@ -131,7 +131,7 @@ export default function DefaultAppBar(props) {
 
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBarMenu position="fixed" sx={{ background: "#DCC1A1", borderBottom: "3px solid #61422D", color: "#61422D" }}>
+            <AppBarMenu position="fixed" sx={{ background: "#DCC1A1", borderBottom: "4px solid #61422D", color: "#61422D" }}>
                 <ToolbarMenu>
                     <Logo alt="logo" src="imgs/logo.png" />
                     <LinkMenu to="/">Home</LinkMenu>

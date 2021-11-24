@@ -17,6 +17,7 @@ const About = () => {
     const AboutBox = styled(Box)(({ theme }) => ({
         "&&": {
             paddingTop: '140px',
+
         },
     }));
 
@@ -24,7 +25,7 @@ const About = () => {
     return (
         <AboutBox>
             <Grid container>
-                <Grid item sx={{ margin: 'auto', background: '#DCC1A1', border: '3px solid #61422D', padding: '10px' }} xs={12} md={10} lg={8} xl={6}>
+                <Grid item sx={{ margin: 'auto', background: '#DCC1A1', border: '4px solid #61422D', padding: '10px', borderRadius: '4px' }} xs={12} md={10} lg={8} xl={6}>
                     <h3>The Project</h3>
 
                     <Text>
