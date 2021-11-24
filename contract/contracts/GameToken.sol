@@ -80,43 +80,8 @@ contract GameToken is ERC721URIStorage, Ownable {
         _itemShopAddress = _newItemShopAddress;
     }
 
-    function getHeroes(uint8 size, uint256 page)
-        external
-        view
-        returns (HeroDTO[] memory)
-    {
-        uint256 initialIndex = size * page;
-
-        uint256 retSize = size;
-        if ((initialIndex + size) > _heroes.length) {
-            retSize = _heroes.length - initialIndex;
-        }
-
-        HeroDTO[] memory ret = new HeroDTO[](retSize);
-        uint256 retIndex = 0;
-
-        for (
-            uint256 currIndex = initialIndex;
-            currIndex <= (initialIndex + retSize - 1);
-            currIndex++
-        ) {
-            Hero memory h = _heroes[currIndex];
-            ret[retIndex++] = HeroDTO(
-                h.name,
-                h.heroType,
-                h.rarity,
-                h.str,
-                h.con,
-                h.dex,
-                h.wis,
-                h.level,
-                h.currXP,
-                ownerOf(currIndex),
-                tokenURI(currIndex)
-            );
-        }
-
-        return ret;
+    function getHeroes() external view returns (Hero[] memory) {
+        return _heroes;
     }
 
     function getNextHeroId() external view returns (uint256) {
@@ -216,7 +181,11 @@ contract GameToken is ERC721URIStorage, Ownable {
         return _heroes[_heroId];
     }
 
-    function getHeroComplete(uint256 _heroId) external view returns (HeroDTO memory) {
+    function getHeroComplete(uint256 _heroId)
+        external
+        view
+        returns (HeroDTO memory)
+    {
         Hero memory h = _heroes[_heroId];
 
         return

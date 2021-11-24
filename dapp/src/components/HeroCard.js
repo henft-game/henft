@@ -1,10 +1,17 @@
 import { Card, CardActions, CardContent, CardHeader, Grid, Typography, Button, Divider, LinearProgress, ButtonGroup } from '@mui/material';
 import { linearProgressClasses } from '@mui/material/LinearProgress';
 import { makeStyles, styled } from '@mui/styles';
-import React, { Fragment, useContext, useEffect, useState, useRef, useCallback } from 'react';
+import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { Web3Context } from '../providers/Web3Provider';
 import Text from './Text';
-import LazyLoad from 'react-lazyload';
+import SellDialog from './SellDialog';
+import CreateAuctionDialog from './CreateAuctionDialog';
+import BidDialog from './BidDialog';
+import ConfirmMarketDialog from './ConfirmMarketDialog';
+import BattleHistoryDialog from './BattleHistoryDialog';
+import BattleResultDialog from './BattleResultDialog';
+import useHeroTokenURI from '../hooks/useHeroTokenURI';
+import useHeroOwner from '../hooks/useHeroOwner';
 
 export function ActionButton(props) {
     return (
@@ -24,11 +31,7 @@ export function ActionButton(props) {
     );
 }
 
-export default function HeroCard({ heroInstance, token,
-    isApprovedForAll, setBattleResult, openBattleResultDialog,
-    openCreateAuctionDialog, openSellDialog, openConfirmMarketDialog,
-    openBidDialog, openBattleHistoryDialog
-}) {
+export default function HeroCard({ heroInstance, token, isApprovedForAll }) {
 
 
     const useStyles = makeStyles({
@@ -136,11 +139,14 @@ export default function HeroCard({ heroInstance, token,
         '3': 'TANK',
     }
 
-    const { contract, accounts, market, web3, battleSystem } = useContext(Web3Context);
+    const { marketAddress, contract, accounts, market, web3, battleSystem } = useContext(Web3Context);
 
     const [auction, setAuction] = useState({ minValue: '0', currValue: '0', seller: '' });
     const [selling, setSelling] = useState({ value: '0', seller: '' });
     const [equipment, setEquipment] = useState();
+
+    const [battles, setBattles] = useState([]);
+    const [battleResult, setBattleResult] = useState();
 
     const [hero, setHero] = useState();
 
@@ -177,6 +183,26 @@ export default function HeroCard({ heroInstance, token,
 
     }
 
+    const bid = async function (value) {
+        await market.methods.bid(token).send({ from: accounts[0], value: web3.utils.toWei(value) });
+        handleCloseBidDialog();
+    }
+
+    const createAuction = async function (auctionEnd, value) {
+        await market.methods.createAuction(token, auctionEnd, web3.utils.toWei(value)).send({ from: accounts[0] });
+        handleCloseCreateAuctionDialog();
+    }
+
+    const setApprovalForAll = async function () {
+        await contract.methods.setApprovalForAll(marketAddress, true).send({ from: accounts[0] });
+        window.location.reload();
+    }
+
+    const allowBuy = async function (value) {
+        await market.methods.allowBuy(token, web3.utils.toWei(value)).send({ from: accounts[0] });
+        handleCloseSellDialog();
+    }
+
     const loadMarket = async function () {
         await loadAuction();
         await loadSelling();
@@ -198,45 +224,116 @@ export default function HeroCard({ heroInstance, token,
 
     useEffect(() => {
         setHero(heroInstance);
+
+        return () => {
+
+        }
     }, [heroInstance]);
 
-
-    const observer = useRef();
-    const myselfElementRef = useCallback(node => {
+    useEffect(() => {
         if (token !== '' && !!contract && !!market && !!battleSystem && !!accounts) {
-            if (observer.current) {
-                observer.current.disconnect();
-            }
-            observer.current = new IntersectionObserver(entries => {
-                if (entries[0].isIntersecting) {
 
-                    loadMarket();
+            console.log("mount: " + token);
 
-                    contract.events.HeroLevelUp({ filter: { tokenId: token + '' } }, eventLoadHeroListener);
-                    contract.events.NewCurrXP({ filter: { tokenId: token + '' } }, eventLoadHeroListener);
+            loadMarket();
 
-                    market.events.NewAuction({ filter: { tokenId: token + '' } }, eventListener);
-                    market.events.CancelAuction({ filter: { tokenId: token + '' } }, eventListener);
-                    market.events.NewSellingItem({ filter: { tokenId: token + '' } }, eventListener);
-                    market.events.CancelSellingItem({ filter: { tokenId: token + '' } }, eventListener);
-                    market.events.NewBid({ filter: { tokenId: token + '' } }, eventListener);
-                    market.events.AuctionEnded({ filter: { tokenId: token + '' } }, eventListener);
-                    market.events.ItemBought({ filter: { tokenId: token + '' } }, eventListener);
+            const subs = [];
 
-                    battleSystem.events.BattleEnd({ filter: { owner: accounts[0], aHeroId: token + '' } }, eventBattleResultListener);
+            subs.push(contract.events.HeroLevelUp({ filter: { tokenId: token + '' } }, eventLoadHeroListener));
+            subs.push(contract.events.NewCurrXP({ filter: { tokenId: token + '' } }, eventLoadHeroListener));
+
+            subs.push(market.events.NewAuction({ filter: { tokenId: token + '' } }, eventListener));
+            subs.push(market.events.CancelAuction({ filter: { tokenId: token + '' } }, eventListener));
+            subs.push(market.events.NewSellingItem({ filter: { tokenId: token + '' } }, eventListener));
+            subs.push(market.events.CancelSellingItem({ filter: { tokenId: token + '' } }, eventListener));
+            subs.push(market.events.NewBid({ filter: { tokenId: token + '' } }, eventListener));
+            subs.push(market.events.AuctionEnded({ filter: { tokenId: token + '' } }, eventListener));
+            subs.push(market.events.ItemBought({ filter: { tokenId: token + '' } }, eventListener));
+
+            subs.push(battleSystem.events.BattleEnd({ filter: { owner: accounts[0], aHeroId: token + '' } }, eventBattleResultListener));
+
+            return () => {
+                console.log("unmount: " + token);
+                for (let index = 0; index < subs.length; index++) {
+                    subs[index].unsubscribe();
                 }
-            });
-            if (node) {
-                observer.current.observe(node);
             }
         }
     }, [token, contract, market, battleSystem, accounts]);
 
+    const { tokenURI } = useHeroTokenURI(token);
+    const { owner } = useHeroOwner(token);
+
+    const [minBid, setMinBid] = useState('0');
+    const [openedSellDialog, setOpenedSellDialog] = useState(false);
+
+    const openSellDialog = () => {
+        setOpenedSellDialog(true);
+    }
+
+    const handleCloseSellDialog = () => {
+        setOpenedSellDialog(false);
+    }
+
+    const [openedCreateAuctionDialog, setOpenedCreateAuctionDialog] = useState(false);
+
+    const openCreateAuctionDialog = () => {
+        setOpenedCreateAuctionDialog(true);
+    }
+
+    const handleCloseCreateAuctionDialog = () => {
+        setOpenedCreateAuctionDialog(false);
+    }
+
+    const [openedBidDialog, setOpenedBidDialog] = useState(false);
+
+    const openBidDialog = (minBid) => {
+        setMinBid(minBid);
+        setOpenedBidDialog(true);
+    }
+
+    const handleCloseBidDialog = () => {
+        setOpenedBidDialog(false);
+    }
+
+    const [openedConfirmMarketDialog, setOpenedConfirmMarketDialog] = useState(false);
+
+    const openConfirmMarketDialog = () => {
+        setOpenedConfirmMarketDialog(true);
+    }
+
+    const handleCloseConfirmMarketDialog = () => {
+        setOpenedConfirmMarketDialog(false);
+    }
+
+    const [openedBattleHistoryDialog, setOpenedBattleHistoryDialog] = useState(false);
+
+    const openBattleHistoryDialog = async () => {
+        const ret = await battleSystem.methods.getBattles(token).call({ from: accounts[0] });
+        setBattles([...ret].reverse());
+        setOpenedBattleHistoryDialog(true);
+
+    }
+
+    const handleCloseBattleHistoryDialog = () => {
+        setOpenedBattleHistoryDialog(false);
+    }
+
+    const [openedBattleResultDialog, setOpenedBattleResultDialog] = useState(false);
+
+    const openBattleResultDialog = async () => {
+        setOpenedBattleResultDialog(true);
+
+    }
+
+    const handleCloseBattleResultDialog = () => {
+        setOpenedBattleResultDialog(false);
+    }
 
     return (
-        <LazyLoad offset={700} once placeholder={<div>loading...</div>}>
+        <Fragment>
             <Fragment>
-                <Card ref={myselfElementRef} className={classes.root}
+                <Card className={classes.root}
                     sx={{
                         padding: '10px',
                         maxWidth: '700px',
@@ -269,10 +366,10 @@ export default function HeroCard({ heroInstance, token,
                             <Grid item xs={12}>
                                 <Grid container justify="flex-start" sx={{ color: '#61422D', padding: "7px" }}>
                                     <Grid item xs={12} md={6} sx={{ paddingRight: "7px" }}>
-                                        {!!hero?.tokenURI ?
-                                            <img className={classes.nft} src={hero?.tokenURI} alt={`#${token}`} />
+                                        {!!tokenURI ?
+                                            <img className={classes.nft} src={tokenURI} alt={`#${token}`} />
                                             :
-                                            <img className={classes.nft} src={'/imgs/0.gif'} alt={`#${token}`} />
+                                            <img className={classes.nft} src="imgs/new_hen.gif" alt={`#${token}`} />
                                         }
                                     </Grid>
                                     <StatusGrid item xs={12} md={6}>
@@ -301,7 +398,7 @@ export default function HeroCard({ heroInstance, token,
                                         <Typography sx={{
                                             fontSize: "7px", paddingTop: "4px", textAlign: "right", color: "#61422D"
                                         }}>
-                                            {`Owner: ${hero?.owner}`}
+                                            {`Owner: ${owner}`}
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -315,13 +412,13 @@ export default function HeroCard({ heroInstance, token,
                                 <Grid item xs={12} md="auto" sx={{ marginRight: "4px" }}>
                                     <ButtonGroup size="small" aria-label="small button group" className={classes.battle}>
                                         <ActionButton onClick={() => { openBattleHistoryDialog(token) }} label="History" />
-                                        {hero?.owner === accounts[0] &&
+                                        {owner === accounts[0] &&
                                             <ActionButton onClick={() => { battle() }} label="New" />
                                         }
                                     </ButtonGroup>
                                 </Grid>
                                 <Grid item xs={12} md="auto">
-                                    {(hero?.owner === accounts[0] || selling.seller === accounts[0] || auction.seller === accounts[0]) ?
+                                    {(owner === accounts[0] || selling.seller === accounts[0] || auction.seller === accounts[0]) ?
                                         <ButtonGroup size="small" aria-label="small button group" className={classes.market}>
                                             {auction.minValue === '0' && selling.value === '0' &&
                                                 <Fragment>
@@ -347,7 +444,7 @@ export default function HeroCard({ heroInstance, token,
                                                         <ActionButton onClick={() => { buy() }} label={`BUY ${web3.utils.fromWei(selling.value, 'ether')}`} />
                                                     }
                                                     {auction.minValue !== '0' && selling.value === '0' && auction.endTime >= new Date().getTime() &&
-                                                        <ActionButton onClick={() => { openBidDialog(token, (auction.currValue === '0' ? auction.minValue : (parseInt(auction.currValue) * 1.1) + '')) }} label="New Bid" />
+                                                        <ActionButton onClick={() => { openBidDialog((auction.currValue === '0' ? auction.minValue : (parseInt(auction.currValue) * 1.1) + '')) }} label="New Bid" />
                                                     }
                                                     {auction.minValue !== '0' && selling.value === '0' && auction.endTime < new Date().getTime() &&
                                                         <ActionButton onClick={() => { finishAuction() }} label="Finish Auction" />
@@ -362,6 +459,12 @@ export default function HeroCard({ heroInstance, token,
                     </CardActions>
                 </Card>
             </Fragment>
-        </LazyLoad>
+            <ConfirmMarketDialog open={openedConfirmMarketDialog} handleClose={handleCloseConfirmMarketDialog} setApprovalForAll={setApprovalForAll} />
+            <SellDialog token={token} open={openedSellDialog} handleClose={handleCloseSellDialog} allowBuy={allowBuy} />
+            <CreateAuctionDialog token={token} open={openedCreateAuctionDialog} handleClose={handleCloseCreateAuctionDialog} createAuction={createAuction} />
+            <BidDialog token={token} open={openedBidDialog} handleClose={handleCloseBidDialog} bid={bid} minBid={minBid} />
+            <BattleHistoryDialog token={token} battles={battles} open={openedBattleHistoryDialog} handleClose={handleCloseBattleHistoryDialog} />
+            <BattleResultDialog token={token} battle={battleResult} open={openedBattleResultDialog} handleClose={handleCloseBattleResultDialog} />
+        </Fragment>
     );
 }

@@ -15,14 +15,14 @@
     "absolutePath": "project:/contracts/library/SharedStructs.sol",
     "exportedSymbols": {
       "SharedStructs": [
-        3017
+        2915
       ]
     },
-    "id": 3018,
+    "id": 2916,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 3005,
+        "id": 2903,
         "literals": [
           "solidity",
           "^",
@@ -39,9 +39,9 @@
         "contractDependencies": [],
         "contractKind": "library",
         "fullyImplemented": true,
-        "id": 3017,
+        "id": 2915,
         "linearizedBaseContracts": [
-          3017
+          2915
         ],
         "name": "SharedStructs",
         "nameLocation": "33:13:6",
@@ -49,16 +49,16 @@
         "nodes": [
           {
             "canonicalName": "SharedStructs.Consumable",
-            "id": 3016,
+            "id": 2914,
             "members": [
               {
                 "constant": false,
-                "id": 3007,
+                "id": 2905,
                 "mutability": "mutable",
                 "name": "percXPGain",
                 "nameLocation": "88:10:6",
                 "nodeType": "VariableDeclaration",
-                "scope": 3016,
+                "scope": 2914,
                 "src": "82:16:6",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -67,7 +67,7 @@
                   "typeString": "uint8"
                 },
                 "typeName": {
-                  "id": 3006,
+                  "id": 2904,
                   "name": "uint8",
                   "nodeType": "ElementaryTypeName",
                   "src": "82:5:6",
@@ -80,12 +80,12 @@
               },
               {
                 "constant": false,
-                "id": 3009,
+                "id": 2907,
                 "mutability": "mutable",
                 "name": "maxXPGain",
                 "nameLocation": "114:9:6",
                 "nodeType": "VariableDeclaration",
-                "scope": 3016,
+                "scope": 2914,
                 "src": "108:15:6",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -94,7 +94,7 @@
                   "typeString": "uint8"
                 },
                 "typeName": {
-                  "id": 3008,
+                  "id": 2906,
                   "name": "uint8",
                   "nodeType": "ElementaryTypeName",
                   "src": "108:5:6",
@@ -107,12 +107,12 @@
               },
               {
                 "constant": false,
-                "id": 3011,
+                "id": 2909,
                 "mutability": "mutable",
                 "name": "generateArenaTicket",
                 "nameLocation": "138:19:6",
                 "nodeType": "VariableDeclaration",
-                "scope": 3016,
+                "scope": 2914,
                 "src": "133:24:6",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -121,7 +121,7 @@
                   "typeString": "bool"
                 },
                 "typeName": {
-                  "id": 3010,
+                  "id": 2908,
                   "name": "bool",
                   "nodeType": "ElementaryTypeName",
                   "src": "133:4:6",
@@ -134,12 +134,12 @@
               },
               {
                 "constant": false,
-                "id": 3013,
+                "id": 2911,
                 "mutability": "mutable",
                 "name": "generateEquipment",
                 "nameLocation": "172:17:6",
                 "nodeType": "VariableDeclaration",
-                "scope": 3016,
+                "scope": 2914,
                 "src": "167:22:6",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -148,7 +148,7 @@
                   "typeString": "bool"
                 },
                 "typeName": {
-                  "id": 3012,
+                  "id": 2910,
                   "name": "bool",
                   "nodeType": "ElementaryTypeName",
                   "src": "167:4:6",
@@ -161,12 +161,12 @@
               },
               {
                 "constant": false,
-                "id": 3015,
+                "id": 2913,
                 "mutability": "mutable",
                 "name": "generateMysteriousChest",
                 "nameLocation": "204:23:6",
                 "nodeType": "VariableDeclaration",
-                "scope": 3016,
+                "scope": 2914,
                 "src": "199:28:6",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -175,7 +175,7 @@
                   "typeString": "bool"
                 },
                 "typeName": {
-                  "id": 3014,
+                  "id": 2912,
                   "name": "bool",
                   "nodeType": "ElementaryTypeName",
                   "src": "199:4:6",
@@ -190,12 +190,12 @@
             "name": "Consumable",
             "nameLocation": "61:10:6",
             "nodeType": "StructDefinition",
-            "scope": 3017,
+            "scope": 2915,
             "src": "54:180:6",
             "visibility": "public"
           }
         ],
-        "scope": 3018,
+        "scope": 2916,
         "src": "25:211:6",
         "usedErrors": []
       }
@@ -206,14 +206,14 @@
     "absolutePath": "project:/contracts/library/SharedStructs.sol",
     "exportedSymbols": {
       "SharedStructs": [
-        3017
+        2915
       ]
     },
-    "id": 3018,
+    "id": 2916,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 3005,
+        "id": 2903,
         "literals": [
           "solidity",
           "^",
@@ -230,9 +230,9 @@
         "contractDependencies": [],
         "contractKind": "library",
         "fullyImplemented": true,
-        "id": 3017,
+        "id": 2915,
         "linearizedBaseContracts": [
-          3017
+          2915
         ],
         "name": "SharedStructs",
         "nameLocation": "33:13:6",
@@ -240,16 +240,16 @@
         "nodes": [
           {
             "canonicalName": "SharedStructs.Consumable",
-            "id": 3016,
+            "id": 2914,
             "members": [
               {
                 "constant": false,
-                "id": 3007,
+                "id": 2905,
                 "mutability": "mutable",
                 "name": "percXPGain",
                 "nameLocation": "88:10:6",
                 "nodeType": "VariableDeclaration",
-                "scope": 3016,
+                "scope": 2914,
                 "src": "82:16:6",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -258,7 +258,7 @@
                   "typeString": "uint8"
                 },
                 "typeName": {
-                  "id": 3006,
+                  "id": 2904,
                   "name": "uint8",
                   "nodeType": "ElementaryTypeName",
                   "src": "82:5:6",
@@ -271,12 +271,12 @@
               },
               {
                 "constant": false,
-                "id": 3009,
+                "id": 2907,
                 "mutability": "mutable",
                 "name": "maxXPGain",
                 "nameLocation": "114:9:6",
                 "nodeType": "VariableDeclaration",
-                "scope": 3016,
+                "scope": 2914,
                 "src": "108:15:6",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -285,7 +285,7 @@
                   "typeString": "uint8"
                 },
                 "typeName": {
-                  "id": 3008,
+                  "id": 2906,
                   "name": "uint8",
                   "nodeType": "ElementaryTypeName",
                   "src": "108:5:6",
@@ -298,12 +298,12 @@
               },
               {
                 "constant": false,
-                "id": 3011,
+                "id": 2909,
                 "mutability": "mutable",
                 "name": "generateArenaTicket",
                 "nameLocation": "138:19:6",
                 "nodeType": "VariableDeclaration",
-                "scope": 3016,
+                "scope": 2914,
                 "src": "133:24:6",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -312,7 +312,7 @@
                   "typeString": "bool"
                 },
                 "typeName": {
-                  "id": 3010,
+                  "id": 2908,
                   "name": "bool",
                   "nodeType": "ElementaryTypeName",
                   "src": "133:4:6",
@@ -325,12 +325,12 @@
               },
               {
                 "constant": false,
-                "id": 3013,
+                "id": 2911,
                 "mutability": "mutable",
                 "name": "generateEquipment",
                 "nameLocation": "172:17:6",
                 "nodeType": "VariableDeclaration",
-                "scope": 3016,
+                "scope": 2914,
                 "src": "167:22:6",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -339,7 +339,7 @@
                   "typeString": "bool"
                 },
                 "typeName": {
-                  "id": 3012,
+                  "id": 2910,
                   "name": "bool",
                   "nodeType": "ElementaryTypeName",
                   "src": "167:4:6",
@@ -352,12 +352,12 @@
               },
               {
                 "constant": false,
-                "id": 3015,
+                "id": 2913,
                 "mutability": "mutable",
                 "name": "generateMysteriousChest",
                 "nameLocation": "204:23:6",
                 "nodeType": "VariableDeclaration",
-                "scope": 3016,
+                "scope": 2914,
                 "src": "199:28:6",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -366,7 +366,7 @@
                   "typeString": "bool"
                 },
                 "typeName": {
-                  "id": 3014,
+                  "id": 2912,
                   "name": "bool",
                   "nodeType": "ElementaryTypeName",
                   "src": "199:4:6",
@@ -381,12 +381,12 @@
             "name": "Consumable",
             "nameLocation": "61:10:6",
             "nodeType": "StructDefinition",
-            "scope": 3017,
+            "scope": 2915,
             "src": "54:180:6",
             "visibility": "public"
           }
         ],
-        "scope": 3018,
+        "scope": 2916,
         "src": "25:211:6",
         "usedErrors": []
       }
@@ -399,7 +399,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.3",
-  "updatedAt": "2021-11-23T12:33:32.944Z",
+  "updatedAt": "2021-11-24T20:58:29.410Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},
