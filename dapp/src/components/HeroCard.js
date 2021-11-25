@@ -98,6 +98,18 @@ const HeroCard = ({ heroInstance, token, isApprovedForAll }) => {
         }
     }));
 
+    const NftGrid = styled(Grid)(({ theme }) => ({
+
+        "&&": {
+            paddingRight: "7px",
+        },
+        [theme.breakpoints.down('sm')]: {
+            "&&": {
+                paddingRight: "0px",
+            },
+        },
+    }));
+
     const StatusGrid = styled(Grid)(({ theme }) => ({
 
         "&&": {
@@ -109,7 +121,7 @@ const HeroCard = ({ heroInstance, token, isApprovedForAll }) => {
         },
         [theme.breakpoints.down('sm')]: {
             "&&": {
-                margin: '13px 0px 0px 7px',
+                margin: '13px 0px 0px 0px',
             },
         },
         "&:before": {
@@ -337,13 +349,13 @@ const HeroCard = ({ heroInstance, token, isApprovedForAll }) => {
                         <Grid container>
                             <Grid item xs={12}>
                                 <Grid container justify="flex-start" sx={{ color: '#61422D', padding: "7px" }}>
-                                    <Grid item xs={12} md={6} sx={{ paddingRight: "7px" }}>
+                                    <NftGrid item xs={12} md={6}>
                                         {!!tokenURI ?
                                             <img className={classes.nft} src={tokenURI} alt={`#${token}`} />
                                             :
                                             <img className={classes.nft} src="imgs/new_hen.gif" alt={`#${token}`} />
                                         }
-                                    </Grid>
+                                    </NftGrid>
                                     <StatusGrid item xs={12} md={6}>
                                         <Grid item sx={{ marginTop: "7px", marginBottom: "7px" }}>
                                             <Text label="Rarity" value={rarity[getHero().rarity]} />
