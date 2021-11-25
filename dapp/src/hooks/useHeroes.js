@@ -3,7 +3,7 @@ import { Web3Context } from '../providers/Web3Provider';
 
 const useHeroes = () => {
 
-    const { contract } = useContext(Web3Context);
+    const { data } = useContext(Web3Context);
 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
@@ -11,30 +11,28 @@ const useHeroes = () => {
 
     useEffect(() => {
 
-        if (!!contract) {
-            setLoading(true);
-            setError(false);
+        setLoading(true);
+        setError(false);
 
-
-            contract.methods.getHeroes().call().then(res => {
-                setHeroes(prev => {
-                    return [...prev, ...res];
-                });
-                setLoading(false);
-
-            }).catch(e => {
-                setError(true);
-                setLoading(false);
+        data?.contract?.methods.getHeroes().call().then(res => {
+            console.log("setHeroes");
+            setHeroes(prev => {
+                return [...prev, ...res];
             });
+            setLoading(false);
 
-        }
+        }).catch(e => {
+            setError(true);
+            setLoading(false);
+        });
+
 
         return () => {
-
+            setHeroes([]);
         };
 
 
-    }, [contract]);
+    }, [data]);
 
     return { loading, error, heroes };
 }

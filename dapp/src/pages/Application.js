@@ -24,7 +24,6 @@ export default function Application() {
         paddingTop: 30,
         paddingLeft: 10,
         paddingRight: 10,
-        minHeight: 500,
         [theme.breakpoints.down('md')]: {
             paddingTop: 10,
             paddingLeft: 5,

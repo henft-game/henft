@@ -1,24 +1,23 @@
 import { useContext, useEffect, useState } from 'react';
 import { Web3Context } from '../providers/Web3Provider';
 
-const useHeroOwner = (heroId, reload) => {
+const useHeroLoadSelling = (heroId, reload) => {
 
     const { data } = useContext(Web3Context);
 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
-    const [owner, setOwner] = useState('loading...');
+    const [selling, setSelling] = useState({ value: '0', seller: '' });
 
     useEffect(() => {
 
-        console.log("loading owner: " + heroId);
-
         setLoading(true);
         setError(false);
-        setOwner('loading...');
 
-        data?.contract?.methods.ownerOf(heroId).call().then(res => {
-            setOwner(res);
+        console.log("loading selling: " + heroId);
+
+        data?.market?.methods.getSelling(heroId).call().then(res => {
+            setSelling(res);
             setLoading(false);
 
         }).catch(e => {
@@ -28,13 +27,13 @@ const useHeroOwner = (heroId, reload) => {
 
 
         return () => {
-            setOwner('');
+            setSelling({ value: '0', seller: '' });
         };
 
 
     }, [heroId, data, reload]);
 
-    return { loading, error, owner };
+    return { loading, error, selling };
 }
 
-export default useHeroOwner;
+export default useHeroLoadSelling;

@@ -4,22 +4,10 @@ import GameToken from 'contracts/GameToken.json';
 import Market from 'contracts/Market.json';
 import BattleSystem from 'contracts/BattleSystem.json';
 
-export const Web3Context = createContext({ web3: null, accounts: null, contract: null, networkId: null, contractAddress: null, market: null, marketAddress: null, battleSystem: null, battleSystemAddress: null });
+export const Web3Context = createContext({ data: null });
 
 const Web3Provider = (props) => {
-    const [web3, setWeb3] = useState();
-    const [accounts, setAccounts] = useState();
-    const [networkId, setNetworkId] = useState();
-    
-    const [contract, setContract] = useState();
-    const [contractAddress, setContractAddress] = useState();
-    
-    const [market, setMarket] = useState();
-    const [marketAddress, setMarketAddress] = useState();
-    
-    const [battleSystem, setBattleSystem] = useState();
-    const [battleSystemAddress, setBattleSystemAddress] = useState();
-
+    const [data, setData] = useState({});
 
     const createContext = async function () {
 
@@ -32,30 +20,34 @@ const Web3Provider = (props) => {
             })
         }
 
-        const web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");;
-        setWeb3(web3);
-        setAccounts(await web3.eth.getAccounts());
+        const ret = {};
 
-        const networkId = await web3.eth.net.getId();
-        setNetworkId(networkId);
-        const networkData = GameToken.networks[networkId];
-        const networkMarketData = Market.networks[networkId];
-        const networkBattleData = BattleSystem.networks[networkId];
+        ret.web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");;
+        ret.networkId = await ret.web3.eth.net.getId();
+        ret.accounts = await ret.web3.eth.getAccounts();
 
-        if (networkData) {
-            const address = networkData.address;
-            setContractAddress(address);
-            setContract(new web3.eth.Contract(GameToken.abi, address));
 
-            const addressMarket = networkMarketData.address;
-            setMarketAddress(addressMarket);
-            setMarket(new web3.eth.Contract( Market.abi, addressMarket));
+        ret.networkData = GameToken.networks[ret.networkId];
+        ret.networkMarketData = Market.networks[ret.networkId];
+        ret.networkBattleData = BattleSystem.networks[ret.networkId];
 
-            const addressBattle = networkBattleData.address;
-            setBattleSystemAddress(addressBattle);
-            setBattleSystem(new web3.eth.Contract(BattleSystem.abi, addressBattle));
-
+        if (ret.networkData) {
+            ret.contractAddress = ret.networkData.address;
+            ret.contract = new ret.web3.eth.Contract(GameToken.abi, ret.contractAddress);
         }
+
+        if (ret.networkMarketData) {
+            ret.marketAddress = ret.networkMarketData.address;
+            ret.market = new ret.web3.eth.Contract(Market.abi, ret.marketAddress);
+        }
+
+        if (ret.networkBattleData) {
+            ret.battleSystemAddress = ret.networkBattleData.address;
+            ret.battleSystem = new ret.web3.eth.Contract(BattleSystem.abi, ret.battleSystemAddress);
+        }
+
+        setData(ret);
+
     }
 
     useEffect(() => {
@@ -63,7 +55,7 @@ const Web3Provider = (props) => {
     }, []);
 
     return (
-        <Web3Context.Provider value={{ web3, accounts, contract, networkId, contractAddress, market, marketAddress, battleSystem, battleSystemAddress }}>
+        <Web3Context.Provider value={{ data }}>
             {props.children}
         </Web3Context.Provider>
     );

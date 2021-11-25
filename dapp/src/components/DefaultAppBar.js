@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -113,7 +113,7 @@ export default function DefaultAppBar(props) {
 
     const classes = useStyles();
 
-    const { accounts } = React.useContext(Web3Context);
+    const { data } = useContext(Web3Context);
 
     const shortAccount = function (account) {
         return `${account.substr(0, 4)}...${account.substr(-3)}`;
@@ -140,8 +140,8 @@ export default function DefaultAppBar(props) {
                     <LinkMenu to="/history">History</LinkMenu>
                     <LinkMenu className={classes.lastMenu} to="/about">About</LinkMenu>
                     <Box sx={{ flexGrow: 1 }} />
-                    {!!accounts && !!accounts[0] ?
-                        <Button sx={{ color: '#61422D' }} startIcon={<Avatar sx={{ width: '33px', heigth: '38px' }} src={'imgs/connected.png'} />}>{shortAccount(accounts[0])}</Button>
+                    {!!data?.accounts && !!data?.accounts[0] ?
+                        <Button sx={{ color: '#61422D' }} startIcon={<Avatar sx={{ width: '33px', heigth: '38px' }} src={'imgs/connected.png'} />}>{shortAccount(data?.accounts[0])}</Button>
                         :
                         <Button sx={{ color: '#61422D' }} onClick={login} startIcon={<Avatar sx={{ width: '33px', heigth: '38px' }} src={'imgs/no_connection.png'} />}>No Wallet Connected</Button>
                     }

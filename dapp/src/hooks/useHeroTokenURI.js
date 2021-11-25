@@ -3,7 +3,7 @@ import { Web3Context } from '../providers/Web3Provider';
 
 const useHeroTokenURI = (heroId) => {
 
-    const { contract } = useContext(Web3Context);
+    const { data } = useContext(Web3Context);
 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
@@ -11,27 +11,28 @@ const useHeroTokenURI = (heroId) => {
 
     useEffect(() => {
 
-        if (!!contract) {
-            setLoading(true);
-            setError(false);
 
-            contract.methods.tokenURI(heroId).call().then(res => {
-                setTokenURI(res);
-                setLoading(false);
+        console.log("loading tokenURI: " + heroId);
 
-            }).catch(e => {
-                setError(true);
-                setLoading(false);
-            });
+        setLoading(true);
+        setError(false);
 
-        }
+        data?.contract?.methods.tokenURI(heroId).call().then(res => {
+            setTokenURI(res);
+            setLoading(false);
+
+        }).catch(e => {
+            setError(true);
+            setLoading(false);
+        });
+
 
         return () => {
-
+            setTokenURI('');
         };
 
 
-    }, [heroId, contract]);
+    }, [heroId, data]);
 
     return { loading, error, tokenURI };
 }

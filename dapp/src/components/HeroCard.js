@@ -1,7 +1,7 @@
 import { Card, CardActions, CardContent, CardHeader, Grid, Typography, Button, Divider, LinearProgress, ButtonGroup } from '@mui/material';
 import { linearProgressClasses } from '@mui/material/LinearProgress';
 import { makeStyles, styled } from '@mui/styles';
-import React, { Fragment, useContext, useEffect, useState } from 'react';
+import React, { Fragment, useContext, useState, useCallback } from 'react';
 import { Web3Context } from '../providers/Web3Provider';
 import Text from './Text';
 import SellDialog from './SellDialog';
@@ -12,26 +12,12 @@ import BattleHistoryDialog from './BattleHistoryDialog';
 import BattleResultDialog from './BattleResultDialog';
 import useHeroTokenURI from '../hooks/useHeroTokenURI';
 import useHeroOwner from '../hooks/useHeroOwner';
+import useHeroLoadAuction from '../hooks/useHeroLoadAuction';
+import useHeroLoadSelling from '../hooks/useHeroLoadSelling';
+import useHero from '../hooks/useHero';
+import useHeroListener from '../hooks/useHeroListener';
 
-export function ActionButton(props) {
-    return (
-        <Button size="small" {...props}
-            sx={{
-                background: '#DCC1A1', color: '#61422D',
-                borderColor: '#61422D', borderRadius: '1',
-                textTransform: 'capitalize',
-                borderWidth: '2px',
-                '&:hover': {
-                    borderColor: '#61422D', borderRadius: '1',
-                    borderWidth: '2px',
-                }
-            }}>
-            {props.label}
-        </Button>
-    );
-}
-
-export default function HeroCard({ heroInstance, token, isApprovedForAll }) {
+const HeroCard = ({ heroInstance, token, isApprovedForAll }) => {
 
 
     const useStyles = makeStyles({
@@ -96,6 +82,22 @@ export default function HeroCard({ heroInstance, token, isApprovedForAll }) {
 
     const classes = useStyles();
 
+    const ActionButton = styled(Button)(({ theme }) => ({
+
+        "&&": {
+            background: '#DCC1A1',
+            color: '#61422D',
+            borderColor: '#61422D',
+            borderRadius: '1',
+            textTransform: 'capitalize',
+            borderWidth: '2px',
+        },
+        '&&:hover': {
+            borderColor: '#61422D', borderRadius: '1',
+            borderWidth: '2px',
+        }
+    }));
+
     const StatusGrid = styled(Grid)(({ theme }) => ({
 
         "&&": {
@@ -139,132 +141,103 @@ export default function HeroCard({ heroInstance, token, isApprovedForAll }) {
         '3': 'TANK',
     }
 
-    const { marketAddress, contract, accounts, market, web3, battleSystem } = useContext(Web3Context);
+    const { data } = useContext(Web3Context);
 
-    const [auction, setAuction] = useState({ minValue: '0', currValue: '0', seller: '' });
-    const [selling, setSelling] = useState({ value: '0', seller: '' });
     const [equipment, setEquipment] = useState();
 
     const [battles, setBattles] = useState([]);
     const [battleResult, setBattleResult] = useState();
 
-    const [hero, setHero] = useState();
+    const [reloadMarket, setReloadMarket] = useState(0);
+    const [reloadOwner, setReloadOwner] = useState(0);
+    const [reloadHero, setReloadHero] = useState(0);
 
-    const loadHero = async function () {
-        setHero(await contract.methods.getHeroComplete(token).call({ from: accounts[0] }));
+    const loadHero = () => {
+        setReloadHero(prev => prev + 1);
     }
 
-    const loadAuction = async function () {
-        setAuction(await market.methods.getAuction(token).call({ from: accounts[0] }));
-    }
+    const loadMarket = () => {
+        setReloadMarket(prev => prev + 1);
+    };
 
-    const loadSelling = async function () {
-        setSelling(await market.methods.getSelling(token).call({ from: accounts[0] }));
-    }
+    const loadOwner = () => {
+        setReloadOwner(prev => prev + 1);
+    };
 
     const disallowBuy = async function () {
-        await market.methods.disallowBuy(token).send({ from: accounts[0] });
+        await data?.market.methods.disallowBuy(token).send({ from: data?.accounts[0] });
     }
 
     const buy = async function () {
-        await market.methods.buy(token).send({ from: accounts[0], value: selling.value });
+        await data?.market.methods.buy(token).send({ from: data?.accounts[0], value: selling?.value });
     }
 
     const cancelAuction = async function () {
-        await market.methods.cancelAuction(token).send({ from: accounts[0] });
+        await data?.market.methods.cancelAuction(token).send({ from: data?.accounts[0] });
     }
 
     const finishAuction = async function () {
-        await market.methods.finishAuction(token).send({ from: accounts[0] });
+        await data?.market.methods.finishAuction(token).send({ from: data?.accounts[0] });
     }
 
     const battle = async function () {
-        await battleSystem.methods.battle(token).send({ from: accounts[0], gas: '500000' });
+        await data?.battleSystem.methods.battle(token).send({ from: data?.accounts[0], gas: '500000' });
 
     }
 
     const bid = async function (value) {
-        await market.methods.bid(token).send({ from: accounts[0], value: web3.utils.toWei(value) });
+        await data?.market.methods.bid(token).send({ from: data?.accounts[0], value: data?.web3.utils.toWei(value) });
         handleCloseBidDialog();
     }
 
     const createAuction = async function (auctionEnd, value) {
-        await market.methods.createAuction(token, auctionEnd, web3.utils.toWei(value)).send({ from: accounts[0] });
+        await data?.market.methods.createAuction(token, auctionEnd, data?.web3.utils.toWei(value)).send({ from: data?.accounts[0] });
         handleCloseCreateAuctionDialog();
     }
 
     const setApprovalForAll = async function () {
-        await contract.methods.setApprovalForAll(marketAddress, true).send({ from: accounts[0] });
+        await data?.contract.methods.setApprovalForAll(data?.marketAddress, true).send({ from: data?.accounts[0] });
         window.location.reload();
     }
 
     const allowBuy = async function (value) {
-        await market.methods.allowBuy(token, web3.utils.toWei(value)).send({ from: accounts[0] });
+        await data?.market.methods.allowBuy(token, data?.web3.utils.toWei(value)).send({ from: data?.accounts[0] });
         handleCloseSellDialog();
     }
 
-    const loadMarket = async function () {
-        await loadAuction();
-        await loadSelling();
-    }
 
-    const eventListener = function (err, event) {
+    const eventMarketListener = useCallback((err, event) => {
         loadMarket();
-        loadHero();
-    }
+        loadOwner();
+    }, []);
 
-    const eventLoadHeroListener = function (err, event) {
+    const eventHeroListener = useCallback((err, event) => {
         loadHero();
-    }
+    }, []);
 
-    const eventBattleResultListener = function (err, event) {
+    const eventBattleListener = useCallback((err, event) => {
         setBattleResult(event.returnValues);
         openBattleResultDialog(token);
+    }, [token]);
+
+    const getHero = function () {
+        if (!!hero) {
+            return hero;
+        }
+        return heroInstance;
     }
 
-    useEffect(() => {
-        setHero(heroInstance);
+    const { hero } = useHero(token, reloadHero);
 
-        return () => {
-
-        }
-    }, [heroInstance]);
-
-    useEffect(() => {
-        if (token !== '' && !!contract && !!market && !!battleSystem && !!accounts) {
-
-            console.log("mount: " + token);
-
-            loadMarket();
-
-            const subs = [];
-
-            subs.push(contract.events.HeroLevelUp({ filter: { tokenId: token + '' } }, eventLoadHeroListener));
-            subs.push(contract.events.NewCurrXP({ filter: { tokenId: token + '' } }, eventLoadHeroListener));
-
-            subs.push(market.events.NewAuction({ filter: { tokenId: token + '' } }, eventListener));
-            subs.push(market.events.CancelAuction({ filter: { tokenId: token + '' } }, eventListener));
-            subs.push(market.events.NewSellingItem({ filter: { tokenId: token + '' } }, eventListener));
-            subs.push(market.events.CancelSellingItem({ filter: { tokenId: token + '' } }, eventListener));
-            subs.push(market.events.NewBid({ filter: { tokenId: token + '' } }, eventListener));
-            subs.push(market.events.AuctionEnded({ filter: { tokenId: token + '' } }, eventListener));
-            subs.push(market.events.ItemBought({ filter: { tokenId: token + '' } }, eventListener));
-
-            subs.push(battleSystem.events.BattleEnd({ filter: { owner: accounts[0], aHeroId: token + '' } }, eventBattleResultListener));
-
-            return () => {
-                console.log("unmount: " + token);
-                for (let index = 0; index < subs.length; index++) {
-                    subs[index].unsubscribe();
-                }
-            }
-        }
-    }, [token, contract, market, battleSystem, accounts]);
+    useHeroListener(token, eventHeroListener, eventBattleListener, eventMarketListener);
 
     const { tokenURI } = useHeroTokenURI(token);
-    const { owner } = useHeroOwner(token);
+    const { owner } = useHeroOwner(token, reloadOwner);
 
-    const [minBid, setMinBid] = useState('0');
+    const { auction } = useHeroLoadAuction(token, reloadMarket);
+    const { selling } = useHeroLoadSelling(token, reloadMarket);
+
+
     const [openedSellDialog, setOpenedSellDialog] = useState(false);
 
     const openSellDialog = () => {
@@ -287,8 +260,7 @@ export default function HeroCard({ heroInstance, token, isApprovedForAll }) {
 
     const [openedBidDialog, setOpenedBidDialog] = useState(false);
 
-    const openBidDialog = (minBid) => {
-        setMinBid(minBid);
+    const openBidDialog = () => {
         setOpenedBidDialog(true);
     }
 
@@ -309,7 +281,7 @@ export default function HeroCard({ heroInstance, token, isApprovedForAll }) {
     const [openedBattleHistoryDialog, setOpenedBattleHistoryDialog] = useState(false);
 
     const openBattleHistoryDialog = async () => {
-        const ret = await battleSystem.methods.getBattles(token).call({ from: accounts[0] });
+        const ret = await data?.battleSystem.methods.getBattles(token).call();
         setBattles([...ret].reverse());
         setOpenedBattleHistoryDialog(true);
 
@@ -343,10 +315,10 @@ export default function HeroCard({ heroInstance, token, isApprovedForAll }) {
 
                     }}>
                     <CardHeader className={classes.header} sx={{ padding: "0", marginBottom: "3px" }}
-                        title={`#${token} ${!!hero?.name ? ` - ${hero?.name}` : ''}`}
+                        title={`#${token} ${!!getHero().name ? ` - ${getHero().name}` : ''}`}
                         subheader={
                             <Fragment>
-                                <Typography>Level {hero?.level} (XP:{hero?.currXP}/{Math.pow(2, parseInt(hero?.level))})</Typography>
+                                <Typography>Level {getHero().level} (XP:{getHero().currXP}/{Math.pow(2, parseInt(getHero().level))})</Typography>
                                 <LinearProgress sx={{
                                     height: "10px",
                                     background: '#FEEDD9',
@@ -356,7 +328,7 @@ export default function HeroCard({ heroInstance, token, isApprovedForAll }) {
                                         background: '#61422D'
                                     }
                                 }}
-                                    variant="determinate" value={hero?.currXP / Math.pow(2, parseInt(hero?.level)) * 100} />
+                                    variant="determinate" value={getHero().currXP / Math.pow(2, parseInt(getHero().level)) * 100} />
                             </Fragment>
                         }
                     />
@@ -374,16 +346,16 @@ export default function HeroCard({ heroInstance, token, isApprovedForAll }) {
                                     </Grid>
                                     <StatusGrid item xs={12} md={6}>
                                         <Grid item sx={{ marginTop: "7px", marginBottom: "7px" }}>
-                                            <Text label="Rarity" value={rarity[hero?.rarity]} />
-                                            <Text label="Type" value={heroType[hero?.heroType]} />
+                                            <Text label="Rarity" value={rarity[getHero().rarity]} />
+                                            <Text label="Type" value={heroType[getHero().heroType]} />
                                         </Grid>
                                         <Divider />
                                         <Grid container sx={{ marginTop: "7px" }}>
                                             <Grid item xs>
-                                                <Typography sx={{ fontSize: "13px" }}>{`STR:${hero?.str}`}</Typography>
-                                                <Typography sx={{ fontSize: "13px" }}>{`CON:${hero?.con}`}</Typography>
-                                                <Typography sx={{ fontSize: "13px" }}>{`DEX:${hero?.dex}`}</Typography>
-                                                <Typography sx={{ fontSize: "13px" }}>{`WIS:${hero?.wis}`}</Typography>
+                                                <Typography sx={{ fontSize: "13px" }}>{`STR:${getHero().str}`}</Typography>
+                                                <Typography sx={{ fontSize: "13px" }}>{`CON:${getHero().con}`}</Typography>
+                                                <Typography sx={{ fontSize: "13px" }}>{`DEX:${getHero().dex}`}</Typography>
+                                                <Typography sx={{ fontSize: "13px" }}>{`WIS:${getHero().wis}`}</Typography>
                                             </Grid>
                                             {!!equipment &&
                                                 <Grid item xs>
@@ -407,64 +379,84 @@ export default function HeroCard({ heroInstance, token, isApprovedForAll }) {
 
                     </CardContent>
                     <CardActions sx={{ minHeight: "31px", padding: "4px" }}>
-                        {!!accounts && !!accounts[0] &&
-                            <Grid container>
-                                <Grid item xs={12} md="auto" sx={{ marginRight: "4px" }}>
-                                    <ButtonGroup size="small" aria-label="small button group" className={classes.battle}>
-                                        <ActionButton onClick={() => { openBattleHistoryDialog(token) }} label="History" />
-                                        {owner === accounts[0] &&
-                                            <ActionButton onClick={() => { battle() }} label="New" />
-                                        }
-                                    </ButtonGroup>
-                                </Grid>
+                        <Grid container>
+                            <Grid item xs={12} md="auto" sx={{ marginRight: "4px" }}>
+                                <ButtonGroup size="small" aria-label="small button group" className={classes.battle}>
+                                    <ActionButton size="small" onClick={() => { openBattleHistoryDialog() }}>History</ActionButton>
+                                    {!!data?.accounts && !!data?.accounts[0] && owner === data?.accounts[0] &&
+                                        <ActionButton size="small" onClick={() => { battle() }}>New</ActionButton>
+                                    }
+                                </ButtonGroup>
+                            </Grid>
+                            {!!data?.accounts && !!data?.accounts[0] &&
                                 <Grid item xs={12} md="auto">
-                                    {(owner === accounts[0] || selling.seller === accounts[0] || auction.seller === accounts[0]) ?
+                                    {(owner === data?.accounts[0] || selling?.seller === data?.accounts[0] || auction?.seller === data?.accounts[0]) ?
                                         <ButtonGroup size="small" aria-label="small button group" className={classes.market}>
-                                            {auction.minValue === '0' && selling.value === '0' &&
+                                            {auction?.minValue === '0' && selling?.value === '0' &&
                                                 <Fragment>
-                                                    <ActionButton onClick={() => { isApprovedForAll ? openSellDialog(token) : openConfirmMarketDialog() }} label="Sell" />
-                                                    <ActionButton onClick={() => { isApprovedForAll ? openCreateAuctionDialog(token) : openConfirmMarketDialog() }} label="Auction" />
+                                                    <ActionButton size="small" onClick={() => { isApprovedForAll ? openSellDialog(token) : openConfirmMarketDialog() }}>
+                                                        Sell
+                                                    </ActionButton>
+                                                    <ActionButton size="small" onClick={() => { isApprovedForAll ? openCreateAuctionDialog(token) : openConfirmMarketDialog() }}>
+                                                        Auction
+                                                    </ActionButton>
                                                 </Fragment>
                                             }
-                                            {selling.value !== '0' &&
-                                                <ActionButton onClick={() => { disallowBuy() }} label="Cancel Sell" />
+                                            {selling?.value !== '0' &&
+                                                <ActionButton size="small" onClick={() => { disallowBuy() }}>Cancel Sell</ActionButton>
                                             }
-                                            {auction.minValue !== '0' && auction.currValue === '0' &&
-                                                <ActionButton onClick={() => { cancelAuction() }} label="Cancel Auction" />
+                                            {auction?.minValue !== '0' && auction?.currValue === '0' &&
+                                                <ActionButton size="small" onClick={() => { cancelAuction() }}>Cancel Auction</ActionButton>
                                             }
-                                            {auction.minValue !== '0' && auction.currValue !== '0' &&
-                                                <ActionButton label={`Curr. Value  ${web3.utils.fromWei(auction.currValue, 'ether')}`} />
+                                            {auction?.minValue !== '0' && auction?.currValue !== '0' &&
+                                                <ActionButton size="small">
+                                                    {`Curr. Value  ${data?.web3.utils.fromWei(auction?.currValue, 'ether')}`}
+                                                </ActionButton>
                                             }
                                         </ButtonGroup>
                                         :
                                         <Fragment>
-                                            {(auction.minValue !== '0' || selling.value !== '0') &&
+                                            {(auction?.minValue !== '0' || selling?.value !== '0') &&
                                                 <ButtonGroup size="small" aria-label="small button group" className={classes.market}>
-                                                    {auction.minValue === '0' && selling.value !== '0' &&
-                                                        <ActionButton onClick={() => { buy() }} label={`BUY ${web3.utils.fromWei(selling.value, 'ether')}`} />
+                                                    {auction?.minValue === '0' && selling?.value !== '0' &&
+                                                        <ActionButton size="small" onClick={() => { buy() }}>
+                                                            {`BUY ${data?.web3.utils.fromWei(selling?.value, 'ether')}`}
+                                                        </ActionButton>
                                                     }
-                                                    {auction.minValue !== '0' && selling.value === '0' && auction.endTime >= new Date().getTime() &&
-                                                        <ActionButton onClick={() => { openBidDialog((auction.currValue === '0' ? auction.minValue : (parseInt(auction.currValue) * 1.1) + '')) }} label="New Bid" />
+                                                    {auction?.minValue !== '0' && selling?.value === '0' && auction?.endTime >= new Date().getTime() &&
+                                                        <ActionButton size="small" onClick={() => { openBidDialog() }}>
+                                                            New Bid
+                                                        </ActionButton>
                                                     }
-                                                    {auction.minValue !== '0' && selling.value === '0' && auction.endTime < new Date().getTime() &&
-                                                        <ActionButton onClick={() => { finishAuction() }} label="Finish Auction" />
+                                                    {auction?.minValue !== '0' && selling?.value === '0' && auction?.endTime < new Date().getTime() &&
+                                                        <ActionButton size="small" onClick={() => { finishAuction() }}>
+                                                            Finish Auction
+                                                        </ActionButton>
                                                     }
                                                 </ButtonGroup>
                                             }
                                         </Fragment>
                                     }
                                 </Grid>
-                            </Grid>
-                        }
+                            }
+                        </Grid>
                     </CardActions>
                 </Card>
             </Fragment>
             <ConfirmMarketDialog open={openedConfirmMarketDialog} handleClose={handleCloseConfirmMarketDialog} setApprovalForAll={setApprovalForAll} />
             <SellDialog token={token} open={openedSellDialog} handleClose={handleCloseSellDialog} allowBuy={allowBuy} />
             <CreateAuctionDialog token={token} open={openedCreateAuctionDialog} handleClose={handleCloseCreateAuctionDialog} createAuction={createAuction} />
-            <BidDialog token={token} open={openedBidDialog} handleClose={handleCloseBidDialog} bid={bid} minBid={minBid} />
-            <BattleHistoryDialog token={token} battles={battles} open={openedBattleHistoryDialog} handleClose={handleCloseBattleHistoryDialog} />
-            <BattleResultDialog token={token} battle={battleResult} open={openedBattleResultDialog} handleClose={handleCloseBattleResultDialog} />
+            {!!auction &&
+                <BidDialog token={token} open={openedBidDialog} handleClose={handleCloseBidDialog} bid={bid} minBid={(auction?.currValue === '0' ? auction?.minValue : (parseInt(auction?.currValue) * 1.1) + '')} />
+            }
+            {!!battles &&
+                <BattleHistoryDialog token={token} battles={battles} open={openedBattleHistoryDialog} handleClose={handleCloseBattleHistoryDialog} />
+            }
+            {!!battleResult &&
+                <BattleResultDialog token={token} battle={battleResult} open={openedBattleResultDialog} handleClose={handleCloseBattleResultDialog} />
+            }
         </Fragment>
     );
-}
+};
+
+export default HeroCard;

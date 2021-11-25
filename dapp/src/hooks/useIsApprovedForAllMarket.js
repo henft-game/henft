@@ -3,7 +3,7 @@ import { Web3Context } from '../providers/Web3Provider';
 
 const useIsApprovedForAllMarket = () => {
 
-    const { accounts, contract, marketAddress } = useContext(Web3Context);
+    const { data } = useContext(Web3Context);
 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
@@ -11,27 +11,25 @@ const useIsApprovedForAllMarket = () => {
 
     useEffect(() => {
 
-        if (!!accounts && !!accounts[0] && !!marketAddress && !!contract) {
-            setLoading(true);
-            setError(false);
+        setLoading(true);
+        setError(false);
 
-            contract.methods.isApprovedForAll(accounts[0], marketAddress).call({ from: accounts[0] }).then(res => {
-                console.log(res);
-                setIsApprovedForAll(res);
-                setLoading(false);
 
-            }).catch(e => {
-                setError(true);
-                setLoading(false);
-            });
-        }
+        data?.contract?.methods.isApprovedForAll(data?.accounts[0], data?.marketAddress).call().then(res => {
+            setIsApprovedForAll(res);
+            setLoading(false);
+
+        }).catch(e => {
+            setError(true);
+            setLoading(false);
+        });
 
         return () => {
-
+            setIsApprovedForAll(null);
         };
 
 
-    }, [accounts, contract, marketAddress]);
+    }, [data]);
 
     return { loading, error, isApprovedForAll };
 }
