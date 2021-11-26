@@ -4,8 +4,11 @@ import "../node_modules/@openzeppelin/contracts/access/Ownable.sol";
 import "../node_modules/@openzeppelin/contracts/token/ERC721/IERC721.sol";
 
 contract Market is Ownable {
-
-    event NewAuction(uint256 indexed tokenId, uint256 indexed endTime, uint256 indexed minValue);
+    event NewAuction(
+        uint256 indexed tokenId,
+        uint256 indexed endTime,
+        uint256 indexed minValue
+    );
     event NewBid(uint256 indexed tokenId, uint256 indexed value);
     event CancelAuction(uint256 indexed tokenId);
     event AuctionEnded(uint256 indexed tokenId, uint256 indexed currValue);
@@ -64,7 +67,10 @@ contract Market is Ownable {
     }
 
     function allowBuy(uint256 _heroId, uint256 _price) external {
-        require(msg.sender == IERC721(_gameTokenAddress).ownerOf(_heroId), "Not owner");
+        require(
+            msg.sender == IERC721(_gameTokenAddress).ownerOf(_heroId),
+            "Not owner"
+        );
         require(_price > 0, "Price zero");
 
         require(
@@ -72,7 +78,11 @@ contract Market is Ownable {
             "There is a active auction"
         );
 
-        IERC721(_gameTokenAddress).transferFrom(msg.sender, address(this), _heroId);
+        IERC721(_gameTokenAddress).transferFrom(
+            msg.sender,
+            address(this),
+            _heroId
+        );
 
         _sellingHeroes[_heroId] = SellItem(_price, msg.sender);
 
@@ -82,7 +92,11 @@ contract Market is Ownable {
     function disallowBuy(uint256 _heroId) external {
         require(_sellingHeroes[_heroId].seller == msg.sender, "Not owner");
 
-        IERC721(_gameTokenAddress).transferFrom(address(this), msg.sender, _heroId);
+        IERC721(_gameTokenAddress).transferFrom(
+            address(this),
+            msg.sender,
+            _heroId
+        );
 
         delete _sellingHeroes[_heroId];
 
@@ -95,7 +109,11 @@ contract Market is Ownable {
 
         payable(_sellingHeroes[_heroId].seller).transfer(msg.value);
 
-        IERC721(_gameTokenAddress).transferFrom(address(this), msg.sender, _heroId);
+        IERC721(_gameTokenAddress).transferFrom(
+            address(this),
+            msg.sender,
+            _heroId
+        );
 
         delete _sellingHeroes[_heroId];
 
@@ -107,7 +125,10 @@ contract Market is Ownable {
         uint256 _endTime,
         uint256 _minPrice
     ) external {
-        require(msg.sender == IERC721(_gameTokenAddress).ownerOf(_heroId), "Not owner");
+        require(
+            msg.sender == IERC721(_gameTokenAddress).ownerOf(_heroId),
+            "Not owner"
+        );
         require(
             _endTime >= (block.timestamp + _minAuctionTime) * 1_000,
             "Auction must have end time"
@@ -119,7 +140,11 @@ contract Market is Ownable {
         );
         require(_sellingHeroes[_heroId].value <= 0, "Hero is selling");
 
-        IERC721(_gameTokenAddress).transferFrom(msg.sender, address(this), _heroId);
+        IERC721(_gameTokenAddress).transferFrom(
+            msg.sender,
+            address(this),
+            _heroId
+        );
 
         _sellingHeroesAuction[_heroId] = Auction(
             _endTime,
@@ -143,7 +168,11 @@ contract Market is Ownable {
             "Can't cancel this auction"
         );
 
-        IERC721(_gameTokenAddress).transferFrom(address(this), msg.sender, _heroId);
+        IERC721(_gameTokenAddress).transferFrom(
+            address(this),
+            msg.sender,
+            _heroId
+        );
 
         delete _sellingHeroesAuction[_heroId];
 

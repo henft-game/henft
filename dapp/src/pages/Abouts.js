@@ -17,6 +17,7 @@ const About = () => {
     const AboutBox = styled(Box)(({ theme }) => ({
         "&&": {
             paddingTop: '140px',
+            paddingBottom: '40px',
 
         },
     }));

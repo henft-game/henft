@@ -1,8 +1,7 @@
-import { Grid, Box, Select, MenuItem, InputLabel, FormControl, TextField } from '@mui/material';
+import { Grid, Box, Select, MenuItem, InputLabel, FormControl, TextField, FormControlLabel, Checkbox } from '@mui/material';
 import { styled } from '@mui/styles';
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import useHeroes from '../hooks/useHeroes';
-import useIsApprovedForAllMarket from '../hooks/useIsApprovedForAllMarket';
 import HeroGridItem from '../components/HeroGridItem';
 
 const Heroes = () => {
@@ -50,12 +49,12 @@ const Heroes = () => {
         }
     }));
 
-    const { isApprovedForAll } = useIsApprovedForAllMarket();
-    const { loading, heroes } = useHeroes();
+    const { loading, content } = useHeroes();
 
     const [type, setType] = useState('-1');
     const [rarity, setRarity] = useState('-1');
     const [filterHeroId, setFilterHeroId] = useState('');
+    const [onlySelling, setOnlySelling] = useState(false);
 
     const handleRarityChange = (event) => {
         setRarity(event.target.value);
@@ -67,13 +66,17 @@ const Heroes = () => {
     const handleFilterHeroIdChange = (event) => {
         setFilterHeroId(event.target.value);
     };
+    const handleOnlySellingChange = (event) => {
+        setOnlySelling(event.target.value);
+    };
+
 
     return (
         <HeroesBox>
             <Grid container>
                 <HeroesGrid item xs={12} md={12} lg={10} xl={8}>
                     <Grid container spacing={2}>
-                        <Grid itemxs={12} md={12} lg={12} xl={12} sx={{
+                        <Grid item xs={12} md={12} lg={12} xl={12} sx={{
                             "&&": {
                                 margin: "16px 0 0 16px ",
                                 padding: "24px 16px 16px 16px"
@@ -123,8 +126,9 @@ const Heroes = () => {
                                 onChange={handleFilterHeroIdChange}
                                 label="#Number" variant="outlined"
                             />
+                            <FormControlLabel control={<Checkbox value={onlySelling} onChange={handleOnlySellingChange} />} label="Only Selling" />
                         </Grid>
-                        {!!heroes && heroes
+                        {!!content && !!content.heroes && content.heroes
                             .map((hero, heroId) => {
                                 return (
                                     <Fragment key={heroId}>
@@ -133,8 +137,9 @@ const Heroes = () => {
                                             (filterHeroId === '' || (heroId + '') === filterHeroId) &&
                                             <HeroGridItem
                                                 hero={hero}
+                                                onlySelling={onlySelling}
                                                 token={heroId}
-                                                isApprovedForAll={isApprovedForAll} />
+                                                isApprovedForAll={content.isApprovedForAll} />
                                         }
                                     </Fragment>
                                 );

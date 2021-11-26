@@ -40605,14 +40605,152 @@
       "transactionHash": "0xaca18bb7a939609602b2a0a591f7e942fa2c40b81aea09862a9ae3538380a19e"
     },
     "1637846937645": {
+      "events": {
+        "0xe72551baf647f778ed07037580644e505b4d7cde9e7917f0a89c30f13fb8aca2": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "aHeroId",
+              "type": "uint256"
+            },
+            {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "dHeroId",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint8",
+              "name": "points",
+              "type": "uint8"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "date",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "string",
+              "name": "tokenURI",
+              "type": "string"
+            }
+          ],
+          "name": "BattleEnd",
+          "type": "event"
+        },
+        "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "previousOwner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address"
+            }
+          ],
+          "name": "OwnershipTransferred",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x0cc649C767d9e89bC81595A1F57fE7BF846d350c",
+      "transactionHash": "0x88cb22033ccfc403e3143946d4b9216b64a19c6c3fba5050d5c36ddfbe58ee25"
+    },
+    "1637954289342": {
       "events": {},
       "links": {},
-      "address": "0x6d16a6D019a1896B64adcbD74a796f0273ed5c66",
-      "transactionHash": "0x6c72acd3a0cae4445bd7bcf4d176ea9330e0f1e3864452903fdd050237098db3"
+      "address": "0x325D7b50cbF758FDc434b9128Bd386c8a6edBee2",
+      "transactionHash": "0xfa3802b5ab020933d2c36bec547a3941b3808f6b98280fb174e8c9d6e8e3a63f"
+    },
+    "1637954501229": {
+      "events": {
+        "0xe72551baf647f778ed07037580644e505b4d7cde9e7917f0a89c30f13fb8aca2": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "aHeroId",
+              "type": "uint256"
+            },
+            {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "dHeroId",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint8",
+              "name": "points",
+              "type": "uint8"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "date",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "string",
+              "name": "tokenURI",
+              "type": "string"
+            }
+          ],
+          "name": "BattleEnd",
+          "type": "event"
+        },
+        "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "previousOwner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address"
+            }
+          ],
+          "name": "OwnershipTransferred",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0xC8500aF08D3679c7F50570186e51bBEb80a7df85",
+      "transactionHash": "0xb9200236754d176b3a4d5d2540b0348aa6a7dbb94fe8d7d64672f9b5d760929c"
     }
   },
   "schemaVersion": "3.4.3",
-  "updatedAt": "2021-11-25T14:03:10.889Z",
+  "updatedAt": "2021-11-26T19:27:47.736Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
