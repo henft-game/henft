@@ -1,6 +1,6 @@
-import { Grid, Box, Select, MenuItem, InputLabel, FormControl, TextField, FormControlLabel, Checkbox } from '@mui/material';
+import { Grid, Box, Select, MenuItem, InputLabel, FormControl, FormControlLabel, Checkbox } from '@mui/material';
 import { styled } from '@mui/styles';
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useState } from 'react';
 import useHeroes from '../hooks/useHeroes';
 import HeroGridItem from '../components/HeroGridItem';
 
@@ -66,10 +66,6 @@ const Heroes = () => {
     const handleFilterHeroIdChange = (event) => {
         setFilterHeroId(event.target.value);
     };
-    const handleOnlySellingChange = (event) => {
-        setOnlySelling(event.target.value);
-    };
-
 
     return (
         <HeroesBox>
@@ -101,7 +97,7 @@ const Heroes = () => {
                                     <MenuItem value={'3'}>Tank</MenuItem>
                                 </FilterSelect>
                             </FormControl>
-                            <FormControl sx={{ minWidth: 150 }}>
+                            <FormControl sx={{ minWidth: 150, marginRight: "8px" }}>
                                 <InputLabel id="rarity-label">Rarity</InputLabel>
                                 <FilterSelect
                                     size="small"
@@ -118,15 +114,9 @@ const Heroes = () => {
                                     <MenuItem value={'3'}>Legendary</MenuItem>
                                 </FilterSelect>
                             </FormControl>
-                            <TextField
-                                sx={{ width: 150, marginTop: 0, marginLeft: "8px", "&": { background: '#DCC1A1', color: '#61422D' } }}
-                                size="small"
-                                margin="dense" id="filterHeroId"
-                                value={filterHeroId} autoComplete="false"
-                                onChange={handleFilterHeroIdChange}
-                                label="#Number" variant="outlined"
-                            />
-                            <FormControlLabel control={<Checkbox value={onlySelling} onChange={handleOnlySellingChange} />} label="Only Selling" />
+                            <FormControlLabel sx={{ "&": { color: '#61422D' } }} onChange={(e, newValue) => setOnlySelling(newValue)} control={
+                                <Checkbox sx={{ "&": { color: '#61422D' } }} checked={onlySelling} />
+                            } label="Only Selling" />
                         </Grid>
                         {!!content && !!content.heroes && content.heroes
                             .map((hero, heroId) => {

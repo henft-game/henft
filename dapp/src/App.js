@@ -11,6 +11,11 @@ const theme = createTheme({
   typography: {
     fontFamily: "'Press Start 2P', sans-serif",
   },
+  palette: {
+    primary: {
+      main: '#61422D'
+    }
+  },
   breakpoints: {
     values: {
       xs: 0,
