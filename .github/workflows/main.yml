@@ -31,7 +31,7 @@ jobs:
         cd dapp
         git config --global user.name $user_name
         git config --global user.email $user_email
-        git remote set-url origin https://${github_token}@github.com/henft-game/henft-game.git
+        git remote set-url origin https://${github_token}@github.com/henft-game/henft-game.github.io.git
         npm run deploy
       env:
         user_name: 'github-actions[bot]'
