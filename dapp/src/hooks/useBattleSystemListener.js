@@ -28,8 +28,15 @@ const useBattleSystemListener = (heroId, eventBattleSystemListener) => {
             }
 
             const listener = (err, event) => {
-                load();
-                eventBattleSystemListener(err, event);
+                if (!!err) {
+                    console.log(err);
+                }
+                if (!!event) {
+                    console.log("new event");
+                    console.log(event);
+                    load();
+                    eventBattleSystemListener(err, event);
+                }
             }
 
             const subs = [];

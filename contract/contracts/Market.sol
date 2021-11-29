@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 pragma solidity 0.8.9;
 
 import "../node_modules/@openzeppelin/contracts/access/Ownable.sol";
@@ -252,7 +253,7 @@ contract Market is Ownable {
     }
 
     function _getIndexSellingHeroesIds(uint256 _heroId)
-        internal
+        internal view
         returns (uint256)
     {
         for (uint256 i = 0; i < _sellingHeroesIds.length; i++) {

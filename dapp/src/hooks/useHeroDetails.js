@@ -13,25 +13,31 @@ const useHeroDetails = (heroId, reload) => {
 
         console.log("start hero detail listener: " + heroId);
 
-        const load = () => {
-            setLoading(true);
-
-            const promisses = [];
-
-            promisses.push(data?.market?.methods.getAuction(heroId).call());
-            promisses.push(data?.market?.methods.getSelling(heroId).call());
-            promisses.push(data?.contract?.methods.ownerOf(heroId).call());
-
-
-            Promise.all(promisses).then((values) => {
-                console.log("loading hero detail: " + heroId);
-                setHeroDetail({
-                    auction: values[0],
-                    selling: values[1],
-                    owner: values[2],
-                });
+        const load = (err, event) => {
+            if (!!err) {
+                console.log(err);
+            }
+            if (!!event) {
+                console.log(subs);
+                console.log("new event");
+                console.log(event);
                 setLoading(true);
-            });
+                const promisses = [];
+
+                promisses.push(data?.market?.methods.getAuction(heroId).call());
+                promisses.push(data?.market?.methods.getSelling(heroId).call());
+                promisses.push(data?.contract?.methods.ownerOf(heroId).call());
+
+                Promise.all(promisses).then((values) => {
+                    console.log("loading hero detail: " + heroId);
+                    setHeroDetail({
+                        auction: values[0],
+                        selling: values[1],
+                        owner: values[2],
+                    });
+                    setLoading(true);
+                });
+            }
         }
 
         const subs = [];
@@ -44,7 +50,7 @@ const useHeroDetails = (heroId, reload) => {
         subs.push(data?.market?.events.AuctionEnded({ filter: { tokenId: heroId + '' } }, load));
         subs.push(data?.market?.events.ItemBought({ filter: { tokenId: heroId + '' } }, load));
 
-        load();
+        load(false, true);
 
         return () => {
             console.log("stop hero detail listener: " + heroId);

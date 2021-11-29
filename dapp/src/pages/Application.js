@@ -1,11 +1,12 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 
 import DefaultAppBar from '../components/DefaultAppBar';
 import { styled } from '@mui/styles';
-import { Route, Routes } from 'react-router';
+import { Route, Routes, useLocation } from 'react-router';
 import Home from './Home';
 import Heroes from './Heroes';
 import About from './Abouts';
+import { initGA, pageView } from '../services/tracking';
 
 export default function Application() {
 
@@ -30,6 +31,18 @@ export default function Application() {
             paddingRight: 5,
         },
     }));
+
+    const location = useLocation();
+
+    useEffect(() => {
+        initGA();
+        pageView({ pathname: '/', search: '' });
+    }, []);
+
+    useEffect(() => {
+        console.log(location);
+        pageView(location);
+    }, [location])
 
     return (
         <Fragment>

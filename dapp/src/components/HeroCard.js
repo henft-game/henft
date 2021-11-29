@@ -13,6 +13,7 @@ import BattleResultDialog from './BattleResultDialog';
 import useBattleSystemListener from '../hooks/useBattleSystemListener';
 import useHeroDetails from '../hooks/useHeroDetails';
 import useHeroTokenURI from '../hooks/useHeroTokenURI';
+import { event } from '../services/tracking';
 
 const HeroCard = ({ heroInstance, token, isApprovedForAll }) => {
 
@@ -159,32 +160,61 @@ const HeroCard = ({ heroInstance, token, isApprovedForAll }) => {
 
     const disallowBuy = async function () {
         await data?.market.methods.disallowBuy(token).send({ from: data?.accounts[0] });
+        event({
+            category: 'Marketplace',
+            action: `Cancel Selling #${token}`,
+        });
     }
 
     const buy = async function () {
         await data?.market.methods.buy(token).send({ from: data?.accounts[0], value: heroDetail?.selling?.value });
+        event({
+            category: 'Marketplace',
+            action: `Buy #${token}: ${parseFloat(data?.web3.utils.fromWei(heroDetail?.selling?.value))}`,
+        });
     }
 
     const cancelAuction = async function () {
         await data?.market.methods.cancelAuction(token).send({ from: data?.accounts[0] });
+        event({
+            category: 'Marketplace',
+            action: `Cancel Auction #${token}`,
+        });
     }
 
     const finishAuction = async function () {
         await data?.market.methods.finishAuction(token).send({ from: data?.accounts[0] });
+        event({
+            category: 'Marketplace',
+            action: `Finish Auction #${token}`,
+        });
     }
 
     const battle = async function () {
         await data?.battleSystem.methods.battle(token).send({ from: data?.accounts[0], gas: '500000' });
+        event({
+            category: 'Battle System',
+            action: `New Battle #${token}`,
+        });
 
     }
 
     const bid = async function (value) {
         await data?.market.methods.bid(token).send({ from: data?.accounts[0], value: data?.web3.utils.toWei(value) });
+        event({
+            category: 'Marketplace',
+            action: `New Bid #${token}: ${parseFloat(value)}`,
+        });
+
         handleCloseBidDialog();
     }
 
     const createAuction = async function (auctionEnd, value) {
         await data?.market.methods.createAuction(token, auctionEnd, data?.web3.utils.toWei(value)).send({ from: data?.accounts[0] });
+        event({
+            category: 'Marketplace',
+            action: `New Auction #${token}`,
+        });
         handleCloseCreateAuctionDialog();
     }
 
@@ -195,11 +225,15 @@ const HeroCard = ({ heroInstance, token, isApprovedForAll }) => {
 
     const allowBuy = async function (value) {
         await data?.market.methods.allowBuy(token, data?.web3.utils.toWei(value)).send({ from: data?.accounts[0] });
+        event({
+            category: 'Marketplace',
+            action: `New Selling #${token}: ${parseFloat(value)}`,
+        });
         handleCloseSellDialog();
     }
 
     const eventBattleListener = useCallback((err, event) => {
-        setBattleResult(event.returnValues);
+        setBattleResult((event).returnValues);
         openBattleResultDialog(token);
     }, [token]);
 
