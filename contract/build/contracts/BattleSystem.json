@@ -15433,52 +15433,52 @@
     "absolutePath": "project:/contracts/BattleSystem.sol",
     "exportedSymbols": {
       "Address": [
-        4421
+        4529
       ],
       "BattleSystem": [
         937
       ],
       "Context": [
-        4443
+        4551
       ],
       "Counters": [
-        4517
+        4625
       ],
       "ERC165": [
-        4744
+        4852
       ],
       "ERC721": [
-        3835
+        3943
       ],
       "ERC721URIStorage": [
-        4097
+        4205
       ],
       "GameToken": [
         2183
       ],
       "IConsumable": [
-        2901
+        3009
       ],
       "IERC165": [
-        4756
+        4864
       ],
       "IERC721": [
-        3951
+        4059
       ],
       "IERC721Metadata": [
-        4124
+        4232
       ],
       "IERC721Receiver": [
-        3969
+        4077
       ],
       "Ownable": [
-        3019
+        3127
       ],
       "SharedStructs": [
-        2915
+        3023
       ],
       "Strings": [
-        4720
+        4828
       ]
     },
     "id": 938,
@@ -15501,7 +15501,7 @@
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
         "scope": 938,
-        "sourceUnit": 3020,
+        "sourceUnit": 3128,
         "src": "24:68:0",
         "symbolAliases": [],
         "unitAlias": ""
@@ -15525,7 +15525,7 @@
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
         "scope": 938,
-        "sourceUnit": 2902,
+        "sourceUnit": 3010,
         "src": "119:38:0",
         "symbolAliases": [],
         "unitAlias": ""
@@ -15538,7 +15538,7 @@
               "id": 5,
               "name": "Ownable",
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 3019,
+              "referencedDeclaration": 3127,
               "src": "184:7:0"
             },
             "id": 6,
@@ -15553,8 +15553,8 @@
         "id": 937,
         "linearizedBaseContracts": [
           937,
-          3019,
-          4443
+          3127,
+          4551
         ],
         "name": "BattleSystem",
         "nameLocation": "168:12:0",
@@ -16363,7 +16363,7 @@
                   "id": 69,
                   "name": "onlyOwner",
                   "nodeType": "IdentifierPath",
-                  "referencedDeclaration": 2962,
+                  "referencedDeclaration": 3070,
                   "src": "1049:9:0"
                 },
                 "nodeType": "ModifierInvocation",
@@ -16544,7 +16544,7 @@
                             "lValueRequested": false,
                             "memberName": "ownerOf",
                             "nodeType": "MemberAccess",
-                            "referencedDeclaration": 3165,
+                            "referencedDeclaration": 3273,
                             "src": "1216:36:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_external_view$_t_uint256_$returns$_t_address_$",
@@ -18425,10 +18425,10 @@
                                 "name": "IConsumable",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 2901,
+                                "referencedDeclaration": 3009,
                                 "src": "2322:11:0",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_type$_t_contract$_IConsumable_$2901_$",
+                                  "typeIdentifier": "t_type$_t_contract$_IConsumable_$3009_$",
                                   "typeString": "type(contract IConsumable)"
                                 }
                               },
@@ -18443,7 +18443,7 @@
                               "src": "2322:31:0",
                               "tryCall": false,
                               "typeDescriptions": {
-                                "typeIdentifier": "t_contract$_IConsumable_$2901",
+                                "typeIdentifier": "t_contract$_IConsumable_$3009",
                                 "typeString": "contract IConsumable"
                               }
                             },
@@ -18454,7 +18454,7 @@
                             "lValueRequested": false,
                             "memberName": "mint",
                             "nodeType": "MemberAccess",
-                            "referencedDeclaration": 2866,
+                            "referencedDeclaration": 2974,
                             "src": "2322:36:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_external_nonpayable$_t_address_$returns$__$",
@@ -27750,52 +27750,52 @@
     "absolutePath": "project:/contracts/BattleSystem.sol",
     "exportedSymbols": {
       "Address": [
-        4421
+        4529
       ],
       "BattleSystem": [
         937
       ],
       "Context": [
-        4443
+        4551
       ],
       "Counters": [
-        4517
+        4625
       ],
       "ERC165": [
-        4744
+        4852
       ],
       "ERC721": [
-        3835
+        3943
       ],
       "ERC721URIStorage": [
-        4097
+        4205
       ],
       "GameToken": [
         2183
       ],
       "IConsumable": [
-        2901
+        3009
       ],
       "IERC165": [
-        4756
+        4864
       ],
       "IERC721": [
-        3951
+        4059
       ],
       "IERC721Metadata": [
-        4124
+        4232
       ],
       "IERC721Receiver": [
-        3969
+        4077
       ],
       "Ownable": [
-        3019
+        3127
       ],
       "SharedStructs": [
-        2915
+        3023
       ],
       "Strings": [
-        4720
+        4828
       ]
     },
     "id": 938,
@@ -27818,7 +27818,7 @@
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
         "scope": 938,
-        "sourceUnit": 3020,
+        "sourceUnit": 3128,
         "src": "24:68:0",
         "symbolAliases": [],
         "unitAlias": ""
@@ -27842,7 +27842,7 @@
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
         "scope": 938,
-        "sourceUnit": 2902,
+        "sourceUnit": 3010,
         "src": "119:38:0",
         "symbolAliases": [],
         "unitAlias": ""
@@ -27855,7 +27855,7 @@
               "id": 5,
               "name": "Ownable",
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 3019,
+              "referencedDeclaration": 3127,
               "src": "184:7:0"
             },
             "id": 6,
@@ -27870,8 +27870,8 @@
         "id": 937,
         "linearizedBaseContracts": [
           937,
-          3019,
-          4443
+          3127,
+          4551
         ],
         "name": "BattleSystem",
         "nameLocation": "168:12:0",
@@ -28680,7 +28680,7 @@
                   "id": 69,
                   "name": "onlyOwner",
                   "nodeType": "IdentifierPath",
-                  "referencedDeclaration": 2962,
+                  "referencedDeclaration": 3070,
                   "src": "1049:9:0"
                 },
                 "nodeType": "ModifierInvocation",
@@ -28861,7 +28861,7 @@
                             "lValueRequested": false,
                             "memberName": "ownerOf",
                             "nodeType": "MemberAccess",
-                            "referencedDeclaration": 3165,
+                            "referencedDeclaration": 3273,
                             "src": "1216:36:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_external_view$_t_uint256_$returns$_t_address_$",
@@ -30742,10 +30742,10 @@
                                 "name": "IConsumable",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 2901,
+                                "referencedDeclaration": 3009,
                                 "src": "2322:11:0",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_type$_t_contract$_IConsumable_$2901_$",
+                                  "typeIdentifier": "t_type$_t_contract$_IConsumable_$3009_$",
                                   "typeString": "type(contract IConsumable)"
                                 }
                               },
@@ -30760,7 +30760,7 @@
                               "src": "2322:31:0",
                               "tryCall": false,
                               "typeDescriptions": {
-                                "typeIdentifier": "t_contract$_IConsumable_$2901",
+                                "typeIdentifier": "t_contract$_IConsumable_$3009",
                                 "typeString": "contract IConsumable"
                               }
                             },
@@ -30771,7 +30771,7 @@
                             "lValueRequested": false,
                             "memberName": "mint",
                             "nodeType": "MemberAccess",
-                            "referencedDeclaration": 2866,
+                            "referencedDeclaration": 2974,
                             "src": "2322:36:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_external_nonpayable$_t_address_$returns$__$",
@@ -40747,10 +40747,79 @@
       "links": {},
       "address": "0xC8500aF08D3679c7F50570186e51bBEb80a7df85",
       "transactionHash": "0xb9200236754d176b3a4d5d2540b0348aa6a7dbb94fe8d7d64672f9b5d760929c"
+    },
+    "1638187858346": {
+      "events": {
+        "0xe72551baf647f778ed07037580644e505b4d7cde9e7917f0a89c30f13fb8aca2": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "aHeroId",
+              "type": "uint256"
+            },
+            {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "dHeroId",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint8",
+              "name": "points",
+              "type": "uint8"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "date",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "string",
+              "name": "tokenURI",
+              "type": "string"
+            }
+          ],
+          "name": "BattleEnd",
+          "type": "event"
+        },
+        "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "previousOwner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address"
+            }
+          ],
+          "name": "OwnershipTransferred",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0xA4EB4b86B00A8d2cBeF200924F783a775F00D9aa",
+      "transactionHash": "0x153cbed248e8cdd3b485fa6102147d6600d9927e9c1bcf778f545d66d056c7e1"
     }
   },
   "schemaVersion": "3.4.3",
-  "updatedAt": "2021-11-26T19:27:47.736Z",
+  "updatedAt": "2021-11-29T13:19:54.847Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",

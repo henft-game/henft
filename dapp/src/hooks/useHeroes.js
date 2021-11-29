@@ -17,17 +17,22 @@ const useHeroes = () => {
         const promisses = [];
 
         promisses.push(data?.contract?.methods.getHeroes().call());
+        promisses.push(data?.market?.methods.getSellingHeroesIds().call());
         if (!!data?.accounts && !!data?.accounts[0]) {
+            promisses.push(data?.contract?.methods.getHeroesByAddress(data?.accounts[0]).call());
             promisses.push(data?.contract?.methods.isApprovedForAll(data?.accounts[0], data?.marketAddress).call());
         }
-
 
         Promise.all(promisses).then((values) => {
             console.log("loading initial date");
             setContent({
                 heroes: values[0],
-                isApprovedForAll: !!data?.accounts && !!data?.accounts[0] ? values[1] : false
+                sellingHeroesIds: values[1],
+                ownedByMe: !!data?.accounts && !!data?.accounts[0] ? values[2] : [],
+                isApprovedForAll: !!data?.accounts && !!data?.accounts[0] ? values[3] : false
             });
+
+            console.log(values);
             setLoading(false);
         });
 

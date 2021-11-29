@@ -35,6 +35,8 @@ contract Market is Ownable {
     mapping(uint256 => SellItem) private _sellingHeroes;
     mapping(uint256 => Auction) private _sellingHeroesAuction;
 
+    uint256[] private _sellingHeroesIds;
+
     uint16 private _minBidIncrement = 110;
     uint16 private _minAuctionTime = 60;
 
@@ -48,6 +50,10 @@ contract Market is Ownable {
 
     function setMinAuctionTime(uint16 _newMinAuctionTime) public onlyOwner {
         _minAuctionTime = _newMinAuctionTime;
+    }
+
+    function getSellingHeroesIds() public view returns (uint256[] memory) {
+        return _sellingHeroesIds;
     }
 
     function getAuction(uint256 _heroId)
@@ -85,6 +91,7 @@ contract Market is Ownable {
         );
 
         _sellingHeroes[_heroId] = SellItem(_price, msg.sender);
+        _sellingHeroesIds.push(_heroId);
 
         emit NewSellingItem(_heroId, _price);
     }
@@ -99,6 +106,7 @@ contract Market is Ownable {
         );
 
         delete _sellingHeroes[_heroId];
+        _removeSellingHeroesIds(_heroId);
 
         emit CancelSellingItem(_heroId);
     }
@@ -116,6 +124,7 @@ contract Market is Ownable {
         );
 
         delete _sellingHeroes[_heroId];
+        _removeSellingHeroesIds(_heroId);
 
         emit ItemBought(_heroId, msg.value);
     }
@@ -153,6 +162,7 @@ contract Market is Ownable {
             msg.sender,
             address(0)
         );
+        _sellingHeroesIds.push(_heroId);
 
         emit NewAuction(_heroId, _endTime, _minPrice);
     }
@@ -175,6 +185,7 @@ contract Market is Ownable {
         );
 
         delete _sellingHeroesAuction[_heroId];
+        _removeSellingHeroesIds(_heroId);
 
         emit CancelAuction(_heroId);
     }
@@ -225,8 +236,31 @@ contract Market is Ownable {
         }
 
         delete _sellingHeroesAuction[_heroId];
+        _removeSellingHeroesIds(_heroId);
 
         emit AuctionEnded(_heroId, _sellingHeroesAuction[_heroId].currValue);
+    }
+
+    function _removeSellingHeroesIds(uint256 _heroId) internal {
+        uint256 index = _getIndexSellingHeroesIds(_heroId);
+
+        require(index < _sellingHeroesIds.length);
+        _sellingHeroesIds[index] = _sellingHeroesIds[
+            _sellingHeroesIds.length - 1
+        ];
+        _sellingHeroesIds.pop();
+    }
+
+    function _getIndexSellingHeroesIds(uint256 _heroId)
+        internal
+        returns (uint256)
+    {
+        for (uint256 i = 0; i < _sellingHeroesIds.length; i++) {
+            if (_heroId == _sellingHeroesIds[i]) {
+                return i;
+            }
+        }
+        return _sellingHeroesIds.length;
     }
 
     function receiver() external payable {}

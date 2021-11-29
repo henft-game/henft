@@ -53,20 +53,15 @@ const Heroes = () => {
 
     const [type, setType] = useState('-1');
     const [rarity, setRarity] = useState('-1');
-    const [filterHeroId, setFilterHeroId] = useState('');
     const [onlySelling, setOnlySelling] = useState(false);
+    const [ownedByMe, setOwnedByMe] = useState(false);
 
     const handleRarityChange = (event) => {
         setRarity(event.target.value);
     };
-
     const handleTypeChange = (event) => {
         setType(event.target.value);
     };
-    const handleFilterHeroIdChange = (event) => {
-        setFilterHeroId(event.target.value);
-    };
-
     return (
         <HeroesBox>
             <Grid container>
@@ -117,6 +112,9 @@ const Heroes = () => {
                             <FormControlLabel sx={{ "&": { color: '#61422D' } }} onChange={(e, newValue) => setOnlySelling(newValue)} control={
                                 <Checkbox sx={{ "&": { color: '#61422D' } }} checked={onlySelling} />
                             } label="Only Selling" />
+                            <FormControlLabel sx={{ "&": { color: '#61422D' } }} onChange={(e, newValue) => setOwnedByMe(newValue)} control={
+                                <Checkbox sx={{ "&": { color: '#61422D' } }} checked={ownedByMe} />
+                            } label="Owned By Me" />
                         </Grid>
                         {!!content && !!content.heroes && content.heroes
                             .map((hero, heroId) => {
@@ -124,7 +122,8 @@ const Heroes = () => {
                                     <Fragment key={heroId}>
                                         {(type === '-1' || hero.heroType === type) &&
                                             (rarity === '-1' || hero.rarity === rarity) &&
-                                            (filterHeroId === '' || (heroId + '') === filterHeroId) &&
+                                            (!onlySelling || content.sellingHeroesIds.indexOf(heroId + '') > -1) &&
+                                            (!ownedByMe || content.ownedByMe.indexOf(heroId + '') > -1) &&
                                             <HeroGridItem
                                                 hero={hero}
                                                 onlySelling={onlySelling}
