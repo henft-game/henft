@@ -24,10 +24,11 @@ jobs:
       run: cd dapp && npm install
 
     - name: Build
-      run: npm run build
+      run: cd dapp && npm run build
 
     - name: Deploy
       run: |
+        cd dapp
         git config --global user.name $user_name
         git config --global user.email $user_email
         git remote set-url origin https://${github_token}@github.com/${repository}
