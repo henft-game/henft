@@ -153,7 +153,7 @@ const HeroCard = ({ heroInstance, token, isApprovedForAll }) => {
 
     const { data } = useContext(Web3Context);
 
-    const [equipment, setEquipment] = useState();
+    const [equipment] = useState();
 
     const [battles, setBattles] = useState([]);
     const [battleResult, setBattleResult] = useState();
