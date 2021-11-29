@@ -17,6 +17,7 @@
     "@testing-library/user-event": "^12.8.3",
     "contracts": "file:./../contract/build/contracts",
     "date-fns": "^2.25.0",
+    "gh-pages": "^3.2.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-ga": "^3.3.0",
