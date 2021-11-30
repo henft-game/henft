@@ -5,6 +5,8 @@ import "../../node_modules/@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "../library/SharedStructs.sol";
 
 interface IConsumable is IERC721 {
+    function totalSupply() external view returns (uint256);
+
     function setConsumableTokenURI(uint8 _type, string memory _tokenURI)
         external;
 

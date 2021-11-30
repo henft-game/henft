@@ -40071,10 +40071,73 @@
   },
   "networks": {
     "97": {
-      "events": {},
+      "events": {
+        "0xe72551baf647f778ed07037580644e505b4d7cde9e7917f0a89c30f13fb8aca2": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "aHeroId",
+              "type": "uint256"
+            },
+            {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "dHeroId",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint8",
+              "name": "points",
+              "type": "uint8"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "date",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "string",
+              "name": "tokenURI",
+              "type": "string"
+            }
+          ],
+          "name": "BattleEnd",
+          "type": "event"
+        },
+        "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "previousOwner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address"
+            }
+          ],
+          "name": "OwnershipTransferred",
+          "type": "event"
+        }
+      },
       "links": {},
-      "address": "0x8382aCA7805AE6dC6194f5E00418AF35bbe26f0b",
-      "transactionHash": "0x952d519430dc9b187ed999983585e7dc2d42bd8d3d70f04033b8c4e81bb70906"
+      "address": "0xFDEb0E491fF727af8A7B53755617554680a91f87",
+      "transactionHash": "0xdd7d32e30b7280424b1f5b07ffdfe913807ee34a52b57b165d8cd6aaed69001c"
     },
     "1636735531120": {
       "events": {
@@ -40896,7 +40959,7 @@
     }
   },
   "schemaVersion": "3.4.3",
-  "updatedAt": "2021-11-30T13:53:10.815Z",
+  "updatedAt": "2021-11-30T14:33:31.386Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",

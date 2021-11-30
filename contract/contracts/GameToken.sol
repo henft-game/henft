@@ -72,6 +72,10 @@ contract GameToken is ERC721URIStorage, Ownable {
         _mapMint[HeroType.TANK] = [1, 1, 0, 2, 3, 1];
     }
 
+    function totalSupply() external view returns (uint256) {
+        return _heroes.length;
+    }
+
     function addLevelUpPermittedAddress(address newAddress) external onlyOwner {
         _levelUpPermittedAddress[newAddress] = true;
     }
@@ -105,6 +109,9 @@ contract GameToken is ERC721URIStorage, Ownable {
         string memory _tokenURI
     ) public onlyOwner {
         uint256 newHeroId = _currentHeroId.current();
+
+        _safeMint(msg.sender, newHeroId);
+        _currentHeroId.increment();
 
         uint8 minAttr;
         uint8 maxAttr;
@@ -141,7 +148,7 @@ contract GameToken is ERC721URIStorage, Ownable {
             }
         }
 
-        _safeMint(msg.sender, newHeroId);
+        
         _setTokenURI(newHeroId, _tokenURI);
         _heroes.push(
             Hero(
@@ -157,7 +164,6 @@ contract GameToken is ERC721URIStorage, Ownable {
             )
         );
 
-        _currentHeroId.increment();
     }
 
     function getHeroesByAddress(address owner)
