@@ -11,7 +11,7 @@ module.exports = async function (deployer) {
   
   battleSystem.setConsumableAddress(consumable.address);
 
-  gameToken.setBattleAddress(BattleSystem.address);
+  gameToken.addLevelUpPermittedAddress(BattleSystem.address);
 
   consumable.addMintPermittedAddress(BattleSystem.address);
 };

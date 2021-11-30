@@ -5,10 +5,16 @@ import "../node_modules/@openzeppelin/contracts/token/ERC721/extensions/ERC721UR
 import "../node_modules/@openzeppelin/contracts/utils/Counters.sol";
 import "../node_modules/@openzeppelin/contracts/access/Ownable.sol";
 import "./interfaces/IConsumable.sol";
+import "./interfaces/IConsumableResolver.sol";
 import "./library/SharedStructs.sol";
 
 contract Consumable is IConsumable, ERC721URIStorage, Ownable {
+    event ConsumableMinted(uint256 indexed tokenId, uint8 consumableType);
+    event ConsumableUsed(uint256 indexed tokenId, uint8 consumableType);
+
     mapping(address => bool) private _mintPermittedAddress;
+    mapping(uint8 => address) private _consumableResolversAddress;
+    mapping(uint8 => string) private _consumableTokenURI;
 
     using Counters for Counters.Counter;
     Counters.Counter private _currentConsumableId;
@@ -23,6 +29,20 @@ contract Consumable is IConsumable, ERC721URIStorage, Ownable {
         string memory baseTokenURI
     ) ERC721(name, symbol) {
         _baseTokenURI = baseTokenURI;
+    }
+
+    function setConsumableTokenURI(uint8 _type, string memory _tokenURI)
+        external
+        onlyOwner
+    {
+        _consumableTokenURI[_type] = _tokenURI;
+    }
+
+    function setConsumableResolversAddress(uint8 _type, address _newAddress)
+        external
+        onlyOwner
+    {
+        _consumableResolversAddress[_type] = _newAddress;
     }
 
     function addMintPermittedAddress(address newAddress) external onlyOwner {
@@ -57,54 +77,97 @@ contract Consumable is IConsumable, ERC721URIStorage, Ownable {
         uint256 newConsumableId = _currentConsumableId.current();
 
         uint256 consumableChance = rand(newConsumableId, 1000) + 1;
+        uint8 consumableType;
 
         if (consumableChance <= 751) {
             _safeMint(owner, newConsumableId);
             _currentConsumableId.increment();
             if (consumableChance <= 500) {
                 _consumables.push(
-                    SharedStructs.Consumable(10, 10, false, false, false)
+                    SharedStructs.Consumable(
+                        newConsumableId,
+                        10,
+                        10,
+                        false,
+                        false,
+                        false
+                    )
                 );
+                consumableType = 0;
             } else if (consumableChance <= 600) {
                 _consumables.push(
-                    SharedStructs.Consumable(0, 0, true, false, false)
+                    SharedStructs.Consumable(
+                        newConsumableId,
+                        0,
+                        0,
+                        true,
+                        false,
+                        false
+                    )
                 );
+                consumableType = 2;
             } else if (consumableChance <= 700) {
                 _consumables.push(
-                    SharedStructs.Consumable(0, 0, false, true, false)
+                    SharedStructs.Consumable(
+                        newConsumableId,
+                        0,
+                        0,
+                        false,
+                        true,
+                        false
+                    )
                 );
+                consumableType = 3;
             } else if (consumableChance <= 750) {
                 _consumables.push(
-                    SharedStructs.Consumable(50, 100, false, false, false)
+                    SharedStructs.Consumable(
+                        newConsumableId,
+                        50,
+                        100,
+                        false,
+                        false,
+                        false
+                    )
                 );
+                consumableType = 1;
             } else {
                 _consumables.push(
-                    SharedStructs.Consumable(0, 0, false, false, true)
+                    SharedStructs.Consumable(
+                        newConsumableId,
+                        0,
+                        0,
+                        false,
+                        false,
+                        true
+                    )
                 );
+                consumableType = 4;
             }
-            
-            _setTokenURI(newConsumableId, "CHANGE IT");
-            
+
+            _setTokenURI(newConsumableId, _consumableTokenURI[consumableType]);
+
+            emit ConsumableMinted(newConsumableId, consumableType);
         }
     }
 
     function getConsumablesByAddress(address owner)
         public
         view
-        returns (uint256[] memory)
+        returns (SharedStructs.Consumable[] memory)
     {
         uint256 consumableCount = balanceOf(owner);
 
         if (consumableCount == 0) {
-            return new uint256[](0);
+            return new SharedStructs.Consumable[](0);
         } else {
-            uint256[] memory ret = new uint256[](consumableCount);
+            SharedStructs.Consumable[]
+                memory ret = new SharedStructs.Consumable[](consumableCount);
             uint256 i;
             uint256 curIndex = 0;
 
-            for (i = 0; i < _currentConsumableId.current(); i++) {
-                if (ownerOf(i) == owner) {
-                    ret[curIndex++] = i;
+            for (i = 0; i < _consumables.length; i++) {
+                if (ownerOf(_consumables[i].id) == owner) {
+                    ret[curIndex++] = _consumables[i];
                 }
             }
 
@@ -112,7 +175,11 @@ contract Consumable is IConsumable, ERC721URIStorage, Ownable {
         }
     }
 
-    function getMyConsumables() external view returns (uint256[] memory) {
+    function getMyConsumables()
+        external
+        view
+        returns (SharedStructs.Consumable[] memory)
+    {
         return getConsumablesByAddress(msg.sender);
     }
 
@@ -121,7 +188,75 @@ contract Consumable is IConsumable, ERC721URIStorage, Ownable {
         view
         returns (SharedStructs.Consumable memory)
     {
-        return _consumables[_consumableId];
+        return _getConsumable(_consumableId);
+    }
+
+    function _getConsumable(uint256 _consumableId)
+        internal
+        view
+        returns (SharedStructs.Consumable memory)
+    {
+        for (uint256 index = 0; index < _consumables.length; index++) {
+            if (_consumables[index].id == _consumableId) {
+                return _consumables[index];
+            }
+        }
+    }
+
+    function consume(uint256 _token, uint256 _consumableId) external {
+        require(msg.sender == ownerOf(_consumableId), "Not owner");
+
+        SharedStructs.Consumable memory consumable = _getConsumable(
+            _consumableId
+        );
+
+        uint8 consumableType;
+
+        if (consumable.maxXPGain == 10 && consumable.percXPGain == 10) {
+            consumableType = 0;
+        } else if (consumable.maxXPGain == 100 && consumable.percXPGain == 50) {
+            consumableType = 1;
+        } else if (consumable.generateArenaTicket) {
+            consumableType = 2;
+        } else if (consumable.generateEquipment) {
+            consumableType = 3;
+        } else if (consumable.generateMysteriousChest) {
+            consumableType = 4;
+        }
+
+        require(
+            _consumableResolversAddress[consumableType] != address(0),
+            "Consumable resolver not defined"
+        );
+
+        IConsumableResolver(_consumableResolversAddress[consumableType])
+            .resolve(_token, consumable);
+
+        _removeConsumable(_consumableId);
+        _burn(_consumableId);
+
+        emit ConsumableUsed(_consumableId, consumableType);
+    }
+
+    function _removeConsumable(uint256 _consumableId) internal {
+        uint256 index = _getIndexConsumable(_consumableId);
+
+        require(index < _consumables.length);
+        _consumables[index] = _consumables[_consumables.length - 1];
+        _consumables.pop();
+    }
+
+    function _getIndexConsumable(uint256 _consumableId)
+        internal
+        view
+        returns (uint256)
+    {
+        for (uint256 i = 0; i < _consumables.length; i++) {
+            if (_consumableId == _consumables[i].id) {
+                return i;
+            }
+        }
+        return _consumables.length;
     }
 
     function rand(uint256 seed1, uint256 limit) private view returns (uint256) {

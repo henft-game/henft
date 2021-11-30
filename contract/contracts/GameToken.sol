@@ -12,8 +12,7 @@ contract GameToken is ERC721URIStorage, Ownable {
     using Counters for Counters.Counter;
     Counters.Counter private _currentHeroId;
 
-    address public _battleAddress;
-    address public _itemShopAddress;
+    mapping(address => bool) private _levelUpPermittedAddress;
 
     enum HeroType {
         FIGHTER,
@@ -73,12 +72,23 @@ contract GameToken is ERC721URIStorage, Ownable {
         _mapMint[HeroType.TANK] = [1, 1, 0, 2, 3, 1];
     }
 
-    function setBattleAddress(address _newBattleAddress) public onlyOwner {
-        _battleAddress = _newBattleAddress;
+    function addLevelUpPermittedAddress(address newAddress) external onlyOwner {
+        _levelUpPermittedAddress[newAddress] = true;
     }
 
-    function setItemShopAddress(address _newItemShopAddress) public onlyOwner {
-        _itemShopAddress = _newItemShopAddress;
+    function removeLevelUpPermittedAddress(address newAddress)
+        external
+        onlyOwner
+    {
+        delete _levelUpPermittedAddress[newAddress];
+    }
+
+    modifier onlyLevelUpPermittedAddress() {
+        require(
+            _levelUpPermittedAddress[_msgSender()],
+            "Only permitted address can execute this action"
+        );
+        _;
     }
 
     function getHeroes() external view returns (Hero[] memory) {
@@ -212,12 +222,7 @@ contract GameToken is ERC721URIStorage, Ownable {
         hero.name = _name;
     }
 
-    function levelUp(uint256 _heroId, uint16 _xp) external {
-        require(
-            msg.sender == _battleAddress || msg.sender == _itemShopAddress,
-            "Only battle or item shop contract can execute it"
-        );
-
+    function levelUp(uint256 _heroId, uint16 _xp) external onlyLevelUpPermittedAddress {
         Hero storage hero = _heroes[_heroId];
 
         hero.currXP += _xp;
