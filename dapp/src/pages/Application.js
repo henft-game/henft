@@ -6,6 +6,7 @@ import { Route, Routes, useLocation } from 'react-router';
 import Home from './Home';
 import Heroes from './Heroes';
 import About from './Abouts';
+import Consumables from './Consumables';
 import { initGA, pageView } from '../services/tracking';
 
 export default function Application() {
@@ -25,10 +26,12 @@ export default function Application() {
         paddingTop: 30,
         paddingLeft: 10,
         paddingRight: 10,
+        minHeight: 'calc(100vh - 97px)',
         [theme.breakpoints.down('md')]: {
             paddingTop: 10,
             paddingLeft: 5,
             paddingRight: 5,
+            minHeight: 'calc(100vh - 69px)',
         },
     }));
 
@@ -52,6 +55,7 @@ export default function Application() {
                     <Routes>
                         <Route exact path="/" element={<Home />} />
                         <Route exact path="/hens" element={<Heroes />} />
+                        <Route exact path="/consumables" element={<Consumables />} />
                         <Route exact path="/about" element={<About />} />
                     </Routes>
                 </SubMain>

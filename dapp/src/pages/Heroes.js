@@ -126,7 +126,6 @@ const Heroes = () => {
                                             (!ownedByMe || content.ownedByMe.indexOf(heroId + '') > -1) &&
                                             <HeroGridItem
                                                 hero={hero}
-                                                onlySelling={onlySelling}
                                                 token={heroId}
                                                 isApprovedForAll={content.isApprovedForAll} />
                                         }

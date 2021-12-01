@@ -3,6 +3,7 @@ import Web3 from 'web3';
 import GameToken from 'contracts/GameToken.json';
 import Market from 'contracts/Market.json';
 import BattleSystem from 'contracts/BattleSystem.json';
+import Consumable from 'contracts/Consumable.json';
 
 export const Web3Context = createContext({ data: null });
 
@@ -30,6 +31,7 @@ const Web3Provider = (props) => {
         ret.networkData = GameToken.networks[ret.networkId];
         ret.networkMarketData = Market.networks[ret.networkId];
         ret.networkBattleData = BattleSystem.networks[ret.networkId];
+        ret.networkConsumableData = Consumable.networks[ret.networkId];
 
         if (ret.networkData) {
             ret.contractAddress = ret.networkData.address;
@@ -44,6 +46,11 @@ const Web3Provider = (props) => {
         if (ret.networkBattleData) {
             ret.battleSystemAddress = ret.networkBattleData.address;
             ret.battleSystem = new ret.web3.eth.Contract(BattleSystem.abi, ret.battleSystemAddress);
+        }
+
+        if (ret.networkConsumableData) {
+            ret.consumableAddress = ret.networkConsumableData.address;
+            ret.consumable = new ret.web3.eth.Contract(Consumable.abi, ret.consumableAddress);
         }
 
         setData(ret);

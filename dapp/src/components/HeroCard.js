@@ -158,6 +158,11 @@ const HeroCard = ({ heroInstance, token, isApprovedForAll }) => {
     const [battles, setBattles] = useState([]);
     const [battleResult, setBattleResult] = useState();
 
+    const loadHero = async function () {
+        console.log("reload hero: " + token);
+        setHero(await data?.contract?.methods.getHeroComplete(token).call())
+    }
+
     const disallowBuy = async function () {
         await data?.market.methods.disallowBuy(token).send({ from: data?.accounts[0] });
         event({
@@ -232,10 +237,12 @@ const HeroCard = ({ heroInstance, token, isApprovedForAll }) => {
         handleCloseSellDialog();
     }
 
-    const eventBattleListener = useCallback((err, event) => {
-        setBattleResult((event).returnValues);
-        openBattleResultDialog(token);
-    }, [token]);
+    const eventBattleListener = useCallback((battleResult) => {
+        if (!openedBattleResultDialog) {
+            setBattleResult(battleResult);
+            openBattleResultDialog();
+        }
+    }, []);
 
     const getHero = function () {
         if (!!hero) {
@@ -244,10 +251,12 @@ const HeroCard = ({ heroInstance, token, isApprovedForAll }) => {
         return heroInstance;
     }
 
-    const { hero } = useBattleSystemListener(token, eventBattleListener);
+
+    useBattleSystemListener(token, eventBattleListener);
     const { heroDetail } = useHeroDetails(token);
     const { tokenURI } = useHeroTokenURI(token);
 
+    const [hero, setHero] = useState();
 
     const [openedSellDialog, setOpenedSellDialog] = useState(false);
 
@@ -311,6 +320,7 @@ const HeroCard = ({ heroInstance, token, isApprovedForAll }) => {
 
     const handleCloseBattleResultDialog = () => {
         setOpenedBattleResultDialog(false);
+        loadHero();
     }
 
     return (
@@ -457,16 +467,16 @@ const HeroCard = ({ heroInstance, token, isApprovedForAll }) => {
             <ConfirmMarketDialog open={openedConfirmMarketDialog} handleClose={handleCloseConfirmMarketDialog} setApprovalForAll={setApprovalForAll} />
             <SellDialog token={token} open={openedSellDialog} handleClose={handleCloseSellDialog} allowBuy={allowBuy} />
             <CreateAuctionDialog token={token} open={openedCreateAuctionDialog} handleClose={handleCloseCreateAuctionDialog} createAuction={createAuction} />
-            {!!heroDetail?.auction &&
+            {!!openedBidDialog && !!heroDetail?.auction &&
                 <BidDialog token={token} open={openedBidDialog} handleClose={handleCloseBidDialog} bid={bid}
                     minBid={(heroDetail?.auction?.currValue === '0' ? heroDetail?.auction?.minValue : (parseInt(heroDetail?.auction?.currValue) * 1.1) + '')}
                 />
             }
-            {!!battles &&
+            {!! openedBattleHistoryDialog && !!battles &&
                 <BattleHistoryDialog token={token} battles={battles} open={openedBattleHistoryDialog} handleClose={handleCloseBattleHistoryDialog} />
             }
-            {!!battleResult &&
-                <BattleResultDialog token={token} battle={battleResult} open={openedBattleResultDialog} handleClose={handleCloseBattleResultDialog} />
+            {!!openedBattleResultDialog && !!battleResult &&
+                <BattleResultDialog battle={battleResult} open={openedBattleResultDialog} handleClose={handleCloseBattleResultDialog} />
             }
         </Fragment>
     );

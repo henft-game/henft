@@ -17,7 +17,7 @@ interface IConsumable is IERC721 {
 
     function removeMintPermittedAddress(address newAddress) external;
 
-    function mint(address owner) external;
+    function mint(uint256 tokenId, address owner) external;
 
     function getConsumables()
         external

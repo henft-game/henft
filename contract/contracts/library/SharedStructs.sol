@@ -8,6 +8,5 @@ library SharedStructs {
         uint8 maxXPGain;
         bool generateArenaTicket;
         bool generateEquipment;
-        bool generateMysteriousChest;
     }
 }

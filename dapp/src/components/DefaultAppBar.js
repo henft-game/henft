@@ -137,7 +137,7 @@ export default function DefaultAppBar(props) {
                     <LinkMenu to="/">Home</LinkMenu>
                     <LinkMenu to="/hens">Hens</LinkMenu>
                     <LinkMenu to="/roadmap">Roadmap</LinkMenu>
-                    <LinkMenu to="/history">History</LinkMenu>
+                    <LinkMenu to="/consumables">Consumables</LinkMenu>
                     <LinkMenu className={classes.lastMenu} to="/about">About</LinkMenu>
                     <Box sx={{ flexGrow: 1 }} />
                     {!!data?.accounts && !!data?.accounts[0] ?

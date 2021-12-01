@@ -92,7 +92,7 @@ contract BattleSystem is Ownable {
         seed2 += (_aHeroId + _bHeroId);
 
         if (_consumableAddress != address(0) && b.points > 0) {
-            IConsumable(_consumableAddress).mint(msg.sender);
+            IConsumable(_consumableAddress).mint(_aHeroId, msg.sender);
         }
 
         emit BattleEnd(

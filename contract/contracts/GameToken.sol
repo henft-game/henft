@@ -6,8 +6,13 @@ import "../node_modules/@openzeppelin/contracts/utils/Counters.sol";
 import "../node_modules/@openzeppelin/contracts/access/Ownable.sol";
 
 contract GameToken is ERC721URIStorage, Ownable {
-    event HeroLevelUp(uint256 indexed tokenId, uint8 indexed level);
-    event NewCurrXP(uint256 indexed tokenId, uint16 indexed currXP);
+    event HeroLevelUp(
+        address indexed owner,
+        uint256 indexed tokenId,
+        uint8 level,
+        uint16 currXP,
+        uint256 attribute
+    );
 
     using Counters for Counters.Counter;
     Counters.Counter private _currentHeroId;
@@ -148,7 +153,6 @@ contract GameToken is ERC721URIStorage, Ownable {
             }
         }
 
-        
         _setTokenURI(newHeroId, _tokenURI);
         _heroes.push(
             Hero(
@@ -163,7 +167,6 @@ contract GameToken is ERC721URIStorage, Ownable {
                 0
             )
         );
-
     }
 
     function getHeroesByAddress(address owner)
@@ -228,18 +231,23 @@ contract GameToken is ERC721URIStorage, Ownable {
         hero.name = _name;
     }
 
-    function levelUp(uint256 _heroId, uint16 _xp) external onlyLevelUpPermittedAddress {
+    function levelUp(uint256 _heroId, uint16 _xp)
+        external
+        onlyLevelUpPermittedAddress
+    {
         Hero storage hero = _heroes[_heroId];
 
         hero.currXP += _xp;
 
-        emit NewCurrXP(_heroId, hero.currXP);
+        address owner = ownerOf(_heroId);
+
+        uint256 random;
 
         if (hero.currXP >= 2**hero.level) {
             hero.level++;
             hero.currXP = 0;
 
-            uint256 random = rand(3);
+            random = rand(3);
 
             if (random == 0) {
                 hero.str++;
@@ -250,9 +258,9 @@ contract GameToken is ERC721URIStorage, Ownable {
             } else if (random == 3) {
                 hero.wis++;
             }
-
-            emit HeroLevelUp(_heroId, hero.level);
         }
+
+        emit HeroLevelUp(owner, _heroId, hero.level, hero.currXP, random);
     }
 
     function rand(uint8 limit) private view returns (uint256) {

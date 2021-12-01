@@ -9,8 +9,18 @@ import "./interfaces/IConsumableResolver.sol";
 import "./library/SharedStructs.sol";
 
 contract Consumable is IConsumable, ERC721URIStorage, Ownable {
-    event ConsumableMinted(uint256 indexed tokenId, uint8 consumableType);
-    event ConsumableUsed(uint256 indexed tokenId, uint8 consumableType);
+    event ConsumableMinted(
+        address indexed owner,
+        uint256 indexed tokenId,
+        uint256 indexed heroId,
+        int8 consumableType,
+        string tokenURI
+    );
+    event ConsumableUsed(
+        address indexed owner,
+        uint256 indexed tokenId,
+        uint8 consumableType
+    );
 
     mapping(address => bool) private _mintPermittedAddress;
     mapping(uint8 => address) private _consumableResolversAddress;
@@ -77,13 +87,13 @@ contract Consumable is IConsumable, ERC721URIStorage, Ownable {
         return _currentConsumableId.current();
     }
 
-    function mint(address owner) external onlyPermittedAddress {
+    function mint(uint256 heroId, address owner) external onlyPermittedAddress {
         uint256 newConsumableId = _currentConsumableId.current();
 
         uint256 consumableChance = rand(newConsumableId, 1000) + 1;
-        uint8 consumableType;
+        int8 consumableType = -1;
 
-        if (consumableChance <= 751) {
+        if (consumableChance <= 750) {
             _safeMint(owner, newConsumableId);
             _currentConsumableId.increment();
             if (consumableChance <= 500) {
@@ -92,7 +102,6 @@ contract Consumable is IConsumable, ERC721URIStorage, Ownable {
                         newConsumableId,
                         10,
                         10,
-                        false,
                         false,
                         false
                     )
@@ -105,7 +114,6 @@ contract Consumable is IConsumable, ERC721URIStorage, Ownable {
                         0,
                         0,
                         true,
-                        false,
                         false
                     )
                 );
@@ -117,8 +125,7 @@ contract Consumable is IConsumable, ERC721URIStorage, Ownable {
                         0,
                         0,
                         false,
-                        true,
-                        false
+                        true
                     )
                 );
                 consumableType = 3;
@@ -129,29 +136,16 @@ contract Consumable is IConsumable, ERC721URIStorage, Ownable {
                         50,
                         100,
                         false,
-                        false,
                         false
                     )
                 );
                 consumableType = 1;
-            } else {
-                _consumables.push(
-                    SharedStructs.Consumable(
-                        newConsumableId,
-                        0,
-                        0,
-                        false,
-                        false,
-                        true
-                    )
-                );
-                consumableType = 4;
             }
 
-            _setTokenURI(newConsumableId, _consumableTokenURI[consumableType]);
+            _setTokenURI(newConsumableId, _consumableTokenURI[uint8(consumableType)]);
 
-            emit ConsumableMinted(newConsumableId, consumableType);
         }
+        emit ConsumableMinted(owner, newConsumableId, heroId, consumableType, tokenURI(newConsumableId));
     }
 
     function getConsumablesByAddress(address owner)
@@ -224,8 +218,6 @@ contract Consumable is IConsumable, ERC721URIStorage, Ownable {
             consumableType = 2;
         } else if (consumable.generateEquipment) {
             consumableType = 3;
-        } else if (consumable.generateMysteriousChest) {
-            consumableType = 4;
         }
 
         require(
@@ -239,7 +231,7 @@ contract Consumable is IConsumable, ERC721URIStorage, Ownable {
         _removeConsumable(_consumableId);
         _burn(_consumableId);
 
-        emit ConsumableUsed(_consumableId, consumableType);
+        emit ConsumableUsed(msg.sender, _consumableId, consumableType);
     }
 
     function _removeConsumable(uint256 _consumableId) internal {
