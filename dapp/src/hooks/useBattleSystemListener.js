@@ -1,9 +1,16 @@
 import { useContext, useEffect, useState } from 'react';
 import { Web3Context } from '../providers/Web3Provider';
 
-const useBattleSystemListener = (heroId, eventBattleSystemListener) => {
+const useBattleSystemListener = (heroId, reset) => {
 
     const { data } = useContext(Web3Context);
+    const [battleResult, setBattleResult] = useState();
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        setLoading(true);
+        setBattleResult();
+    }, [reset])
 
     useEffect(() => {
         if (heroId !== '') {
@@ -22,8 +29,9 @@ const useBattleSystemListener = (heroId, eventBattleSystemListener) => {
                         console.log(event);
                         result[attr] = event.returnValues;
                         if (!!result.battleResult && (result.battleResult.points === '0' || !!result.consumable) && !!result.levelUp) {
-                            console.log("passei aqui");
-                            eventBattleSystemListener(result);
+                            console.log("setting new battle result " + heroId);
+                            setLoading(false);
+                            setBattleResult(result);
                             result = {};
                         }
                     }
@@ -43,9 +51,9 @@ const useBattleSystemListener = (heroId, eventBattleSystemListener) => {
                 }
             }
         }
-    }, [heroId, data, eventBattleSystemListener]);
+    }, [heroId, data]);
 
-    return {};
+    return { loading, battleResult };
 }
 
 

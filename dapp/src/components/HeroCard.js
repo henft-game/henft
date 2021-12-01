@@ -10,13 +10,11 @@ import BidDialog from './BidDialog';
 import ConfirmMarketDialog from './ConfirmMarketDialog';
 import BattleHistoryDialog from './BattleHistoryDialog';
 import BattleResultDialog from './BattleResultDialog';
-import useBattleSystemListener from '../hooks/useBattleSystemListener';
 import useHeroDetails from '../hooks/useHeroDetails';
 import useHeroTokenURI from '../hooks/useHeroTokenURI';
 import { event } from '../services/tracking';
 
 const HeroCard = ({ heroInstance, token, isApprovedForAll }) => {
-
 
     const useStyles = makeStyles({
         nft: {
@@ -156,7 +154,6 @@ const HeroCard = ({ heroInstance, token, isApprovedForAll }) => {
     const [equipment] = useState();
 
     const [battles, setBattles] = useState([]);
-    const [battleResult, setBattleResult] = useState();
 
     const loadHero = async function () {
         console.log("reload hero: " + token);
@@ -201,6 +198,7 @@ const HeroCard = ({ heroInstance, token, isApprovedForAll }) => {
             category: 'Battle System',
             action: `New Battle #${token}`,
         });
+        openBattleResultDialog();
 
     }
 
@@ -237,13 +235,6 @@ const HeroCard = ({ heroInstance, token, isApprovedForAll }) => {
         handleCloseSellDialog();
     }
 
-    const eventBattleListener = useCallback((battleResult) => {
-        if (!openedBattleResultDialog) {
-            setBattleResult(battleResult);
-            openBattleResultDialog();
-        }
-    }, []);
-
     const getHero = function () {
         if (!!hero) {
             return hero;
@@ -251,8 +242,6 @@ const HeroCard = ({ heroInstance, token, isApprovedForAll }) => {
         return heroInstance;
     }
 
-
-    useBattleSystemListener(token, eventBattleListener);
     const { heroDetail } = useHeroDetails(token);
     const { tokenURI } = useHeroTokenURI(token);
 
@@ -472,12 +461,10 @@ const HeroCard = ({ heroInstance, token, isApprovedForAll }) => {
                     minBid={(heroDetail?.auction?.currValue === '0' ? heroDetail?.auction?.minValue : (parseInt(heroDetail?.auction?.currValue) * 1.1) + '')}
                 />
             }
-            {!! openedBattleHistoryDialog && !!battles &&
+            {!!openedBattleHistoryDialog && !!battles &&
                 <BattleHistoryDialog token={token} battles={battles} open={openedBattleHistoryDialog} handleClose={handleCloseBattleHistoryDialog} />
             }
-            {!!openedBattleResultDialog && !!battleResult &&
-                <BattleResultDialog battle={battleResult} open={openedBattleResultDialog} handleClose={handleCloseBattleResultDialog} />
-            }
+            <BattleResultDialog token={token} open={openedBattleResultDialog} handleClose={handleCloseBattleResultDialog} />
         </Fragment>
     );
 };

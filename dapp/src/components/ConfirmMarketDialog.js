@@ -10,7 +10,17 @@ const ConfirmMarketDialog = (props) => {
 
     return (
 
-        <Dialog scroll="body" open={props.open} onClose={props.handleClose} TransitionComponent={Transition}>
+        <Dialog PaperProps={{
+            style: {
+                background: '#DCC1A1',
+                border: '4px solid #61422D',
+                borderRadius: 4,
+                background: '#FEEDD9',
+                color: '#61422D',
+                margin: '0px',
+            }
+        }}
+            scroll="body" maxWidth="false" open={props.open} onClose={props.handleClose} TransitionComponent={Transition}>
             <DialogContent>
                 <DialogContentText>
                     Do you give permission to our marketplace to access your tokens?

@@ -1,17 +1,22 @@
-import React, { forwardRef, Fragment } from 'react';
+import React, { forwardRef, Fragment, useState } from 'react';
 
 import {
     Slide, Dialog, DialogContent, DialogContentText, List, DialogActions,
     Button, ListItem, ListItemAvatar, ListItemText, Typography, LinearProgress,
     linearProgressClasses, typographyClasses
 } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import { makeStyles, styled } from '@mui/styles';
+import useBattleSystemListener from '../hooks/useBattleSystemListener';
 
 const Transition = forwardRef((props, ref) => {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
 const BattleResultDialog = (props) => {
+
+    const Loading = styled('div')(({ theme }) => ({
+        margin: 'auto',
+    }));
 
     const useStyles = makeStyles({
         nft: {
@@ -28,6 +33,14 @@ const BattleResultDialog = (props) => {
 
     const classes = useStyles();
 
+    const [isInitialized, setIsInitialized] = useState();
+    const resetState = () => {
+        setIsInitialized(new Date().getTime());
+        props.handleClose();
+    }
+
+    const { loading, battleResult } = useBattleSystemListener(props.token, isInitialized);
+
     return (
 
         <Dialog
@@ -41,8 +54,17 @@ const BattleResultDialog = (props) => {
                     margin: '0px',
                 }
             }}
-            scroll="body" maxWidth="false" open={props.open} onClose={props.handleClose} TransitionComponent={Transition}>
-            {!!props.battle &&
+            scroll="body" maxWidth="false"
+            disableEscapeKeyDown={loading}
+            open={props.open}
+            onClose={resetState} TransitionComponent={Transition}>
+
+            {loading &&
+                <DialogContent sx={{ padding: '10px' }}>
+                    <Loading><img src="imgs/loading.gif" alt="figthing" />figthing...</Loading>
+                </DialogContent>
+            }
+            {!!battleResult &&
                 <Fragment>
                     <DialogContent sx={{ padding: '10px' }}>
                         <DialogContentText>
@@ -50,17 +72,17 @@ const BattleResultDialog = (props) => {
                                 Battle Result:
                             </Typography>
                             <Typography component="span" sx={{ textAlign: 'center', display: 'block' }}>
-                                {`#${props.battle.battleResult.aHeroId} vs #${props.battle.battleResult.dHeroId}`}
+                                {`#${battleResult.battleResult.aHeroId} vs #${battleResult.battleResult.dHeroId}`}
                             </Typography>
                         </DialogContentText>
                         <List sx={{ color: '#61422D', background: '#DCC1A1', padding: '10px', borderRadius: 1, }}>
                             <ListItem sx={{ padding: "0" }}>
                                 <ListItemAvatar>
-                                    <img className={classes.nft} src={props.battle.battleResult.tokenURI} alt={`#${props.battle.battleResult.dHeroId}`} />
+                                    <img className={classes.nft} src={battleResult.battleResult.tokenURI} alt={`#${battleResult.battleResult.dHeroId}`} />
                                 </ListItemAvatar>
-                                <ListItemText sx={{ textAlign: 'center', [`& .${typographyClasses.body1}`]: { fontSize: '36px', color: props.battle.battleResult.points > 0 ? '#22673C' : '#C03C3B' } }}
-                                    primary={`${props.battle.battleResult.points > 0 ? "WON" : "LOSE"}`}
-                                    secondary={`${new Date(parseInt(props.battle.battleResult.date) * 1000).toLocaleString()}`} />
+                                <ListItemText sx={{ textAlign: 'center', [`& .${typographyClasses.body1}`]: { fontSize: '36px', color: battleResult.battleResult.points > 0 ? '#22673C' : '#C03C3B' } }}
+                                    primary={`${battleResult.battleResult.points > 0 ? "WON" : "LOSE"}`}
+                                    secondary={`${new Date(parseInt(battleResult.battleResult.date) * 1000).toLocaleString()}`} />
                             </ListItem>
                             <ListItem sx={{
                                 padding: '10px', background: '#FEEDD9',
@@ -83,12 +105,12 @@ const BattleResultDialog = (props) => {
                             }}>
                                 <List sx={{ padding: '0px', width: '100%' }}>
                                     <ListItem sx={{ padding: '0px' }}>
-                                        <ListItemText sx={{ [`& .${typographyClasses.body1}`]: { fontSize: '14px' } }} primary={`Points Received: ${props.battle.battleResult.points}`} />
+                                        <ListItemText sx={{ [`& .${typographyClasses.body1}`]: { fontSize: '14px' } }} primary={`Points Received: ${battleResult.battleResult.points}`} />
                                     </ListItem>
                                     <ListItem sx={{ padding: '0px' }}>
                                         <ListItemText sx={{ [`& .${typographyClasses.body1}`]: { fontSize: '14px' } }} primary={`This mount score: 0`} />
                                     </ListItem>
-                                    {!!props.battle.consumable && props.battle.consumable.consumableType !== '-1' &&
+                                    {!!battleResult.consumable && battleResult.consumable.consumableType !== '-1' &&
                                         <Fragment>
                                             <ListItem sx={{ padding: '0px' }}>
                                                 <ListItemText sx={{
@@ -96,18 +118,18 @@ const BattleResultDialog = (props) => {
                                                     [`& .${typographyClasses.body2}`]: { fontSize: '14px', color: '#61422D' }
                                                 }} primary={`You received a new item,`} secondary={`you can see it in the item menu.`} />
                                                 <ListItemAvatar>
-                                                    <img className={classes.item} src={props.battle.consumable.tokenURI} alt={`#${props.battle.consumable.consumableType}`} />
+                                                    <img className={classes.item} src={battleResult.consumable.tokenURI} alt={`#${battleResult.consumable.consumableType}`} />
                                                 </ListItemAvatar>
                                             </ListItem>
                                         </Fragment>
                                     }
                                     <ListItem sx={{ padding: '0px' }}>
-                                        {props.battle.levelUp.currXP === '0' ?
+                                        {battleResult.levelUp.currXP === '0' ?
                                             <ListItemText sx={{ [`& .${typographyClasses.body1}`]: { fontSize: '14px' } }}
-                                                primary={`NEW Level ${props.battle.levelUp.level} (XP:${props.battle.levelUp.currXP}/${Math.pow(2, parseInt(props.battle.levelUp.level))}) `} />
+                                                primary={`NEW Level ${battleResult.levelUp.level} (XP:${battleResult.levelUp.currXP}/${Math.pow(2, parseInt(battleResult.levelUp.level))}) `} />
                                             :
                                             <ListItemText sx={{ [`& .${typographyClasses.body1}`]: { fontSize: '14px' } }}
-                                                primary={`Level ${props.battle.levelUp.level} (XP:${props.battle.levelUp.currXP}/${Math.pow(2, parseInt(props.battle.levelUp.level))}) `} />
+                                                primary={`Level ${battleResult.levelUp.level} (XP:${battleResult.levelUp.currXP}/${Math.pow(2, parseInt(battleResult.levelUp.level))}) `} />
                                         }
                                     </ListItem>
                                     <ListItem sx={{ padding: '0px' }}>
@@ -121,14 +143,14 @@ const BattleResultDialog = (props) => {
                                                 background: '#61422D'
                                             }
                                         }}
-                                            variant="determinate" value={props.battle.levelUp.currXP / Math.pow(2, parseInt(props.battle.levelUp.level)) * 100} />
+                                            variant="determinate" value={battleResult.levelUp.currXP / Math.pow(2, parseInt(battleResult.levelUp.level)) * 100} />
                                     </ListItem>
                                 </List>
                             </ListItem>
                         </List>
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={props.handleClose}>Close</Button>
+                        <Button onClick={resetState}>Close</Button>
                     </DialogActions>
                 </Fragment>
             }
