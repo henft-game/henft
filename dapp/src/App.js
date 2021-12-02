@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter, BrowserRouter } from "react-router-dom";
 import Web3Provider from './providers/Web3Provider';
 import Application from './pages/Application';
 
@@ -32,11 +32,18 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <BrowserRouter>
-        <Web3Provider>
-          <Application />
-        </Web3Provider>
-      </BrowserRouter>
+      {process.env.REACT_APP_USE_HASH_ROUTER ?
+        <HashRouter>
+          <Web3Provider>
+            <Application />
+          </Web3Provider>
+        </HashRouter>
+        :
+        <BrowserRouter>
+          <Web3Provider>
+            <Application />
+          </Web3Provider>
+        </BrowserRouter>}
     </ThemeProvider>
   );
 }
