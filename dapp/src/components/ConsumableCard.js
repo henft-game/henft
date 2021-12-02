@@ -1,29 +1,81 @@
-import { Card, CardContent, Grid, Typography } from '@mui/material';
-import { makeStyles, styled } from '@mui/styles';
-import React, { Fragment, useContext, useState, useCallback } from 'react';
+import { Grid, Typography, Button } from '@mui/material';
+import { styled } from '@mui/styles';
+import React, { useContext, useState } from 'react';
 import { Web3Context } from '../providers/Web3Provider';
-import useConsumableTokenURI from '../hooks/useConsumableTokenURI';
 
-const ConsumableCard = ({ con, isApprovedForAll }) => {
+const ConsumableCard = ({ consumableType, consumable, isApprovedForAll }) => {
 
-    const useStyles = makeStyles({
-        nft: {
-            marginRight: 5,
-            width: '100%',
-            height: '100%',
+
+    const Consumable = styled('img')(({ theme }) => ({
+        marginRight: 5,
+        width: '100%',
+        height: '100%',
+        borderRadius: 2,
+    }));
+
+    const StatusGrid = styled(Grid)(({ theme }) => ({
+
+        "&&": {
+            margin: '6px 0px 0px 0px',
+            padding: 20,
+            border: '1px solid #61422D',
+            position: 'relative',
             borderRadius: 2,
-        },
-    });
+            display: 'flex',
 
-    const classes = useStyles();
+        },
+        [theme.breakpoints.down('sm')]: {
+            "&&": {
+                margin: '13px 0px 0px 0px',
+            },
+        },
+        "&:before": {
+            position: 'absolute',
+            content: '"Consumable"',
+            textAlign: 'center',
+            fontSize: 12,
+            top: -9,
+            padding: 3,
+            left: '50%',
+            marginLeft: -72,
+            width: 144,
+            border: '1px solid #61422D',
+            background: '#DCC1A1',
+            borderRadius: 2,
+        }
+    }));
+
+    const ActionButton = styled(Button)(({ theme }) => ({
+
+        "&&": {
+            background: '#FEEDD9',
+            color: '#61422D',
+            border: '2px solid #61422D',
+            borderRadius: '1',
+            textTransform: 'capitalize',
+            height: '26px',
+
+        },
+        '&&:hover': {
+            borderColor: '#61422D',
+            borderRadius: '1',
+            borderWidth: '2px',
+        }
+    }));
 
     const NftGrid = styled(Grid)(({ theme }) => ({
 
+        "&&": {
+            paddingRight: "7px",
+        },
+        [theme.breakpoints.down('sm')]: {
+            "&&": {
+                paddingRight: "0px",
+            },
+        },
     }));
 
     const { data } = useContext(Web3Context);
-
-    const { tokenURI } = useConsumableTokenURI(con.id);
 
     const [openedSellDialog, setOpenedSellDialog] = useState(false);
 
@@ -35,34 +87,45 @@ const ConsumableCard = ({ con, isApprovedForAll }) => {
         setOpenedSellDialog(false);
     }
 
-    return (
-        <Fragment>
-            <Fragment>
-                <Grid container sx={{
-                    padding: '3px',
-                    maxWidth: '128px',
-                    background: '#FEEDD9',
-                    border: '1px solid #61422D',
-                    borderRadius: '2px',
+    const consType = {
+        '0': 'imgs/xpGain10.gif',
+        '1': 'imgs/xpGain50.gif',
+        '2': 'imgs/arenaTicket.gif',
+        '3': 'imgs/chest.gif'
+    }
 
-                }}>
-                    <NftGrid item xs={12}>
-                        {!!tokenURI ?
-                            <img className={classes.nft} src={tokenURI} alt={`#${con.id}`} />
-                            :
-                            <img className={classes.nft} src="imgs/new_hen.gif" alt={`#${con.id}`} />
-                        }
-                    </NftGrid>
+    return (
+        <Grid container justify="flex-start" sx={{
+            color: '#61422D', padding: "7px",
+            background: '#DCC1A1',
+            border: 'none',
+        }}>
+            <NftGrid item xs={12} md={4}>
+                <Consumable src={consType[consumableType]} alt={consumableType} />
+            </NftGrid>
+            <StatusGrid item xs={12} md={8}>
+                <Grid container sx={{ marginTop: "7px", textAlign: 'center' }}>
                     <Grid item xs={12}>
-                        <Typography sx={{
-                            fontSize: "8px", paddingTop: "4px", textAlign: "right", color: "#61422D"
-                        }}>
-                            {`Total: ${con.total}`}
-                        </Typography>
+                        <Typography sx={{ fontSize: "13px" }}>{`0 available at the moment`}</Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <ActionButton size="small">Buy</ActionButton> <ActionButton size="small">Sell</ActionButton>
+                    </Grid>
+                    <Grid item xs={12}>
+                        {!!consumable ?
+                            <Typography sx={{ fontSize: "16px" }}>{`You have x${consumable.total}`}</Typography>
+                            :
+                            <Typography sx={{ fontSize: "16px" }}>{`You have x0`}</Typography>
+                        }
+                    </Grid>
+                    <Grid item xs={12}>
+                        {!!consumable && consumable.total > 0 &&
+                            <ActionButton size="small">Use</ActionButton>
+                        }
                     </Grid>
                 </Grid>
-            </Fragment>
-        </Fragment>
+            </StatusGrid>
+        </Grid>
     );
 };
 

@@ -25,7 +25,7 @@ export default function MobileMenu({ opened, toggle }) {
                 <ListItem><LinkMenu onClick={toggle} to="/">Home</LinkMenu></ListItem>
                 <ListItem><LinkMenu onClick={toggle} to="/hens">Hens</LinkMenu></ListItem>
                 <ListItem><LinkMenu onClick={toggle} to="/roadmap">Roadmap</LinkMenu></ListItem>
-                <ListItem><LinkMenu onClick={toggle} to="/consumables">Consumables</LinkMenu></ListItem>
+                <ListItem><LinkMenu onClick={toggle} to="/items">Items</LinkMenu></ListItem>
                 <ListItem><LinkMenu onClick={toggle} to="/about">About</LinkMenu></ListItem>
             </List>
         </Drawer>

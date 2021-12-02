@@ -61,7 +61,7 @@ const BattleResultDialog = (props) => {
 
             {loading &&
                 <DialogContent sx={{ padding: '10px' }}>
-                    <Loading><img src="imgs/loading.gif" alt="figthing" />figthing...</Loading>
+                    <Loading><img src="imgs/fighting.gif" alt="fighting" />fighting...</Loading>
                 </DialogContent>
             }
             {!!battleResult &&

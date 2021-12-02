@@ -315,7 +315,7 @@ const HeroCard = ({ heroInstance, token, isApprovedForAll }) => {
     return (
         <Fragment>
             <Fragment>
-                <Card className={classes.root}
+                <Card
                     sx={{
                         padding: '10px',
                         maxWidth: '700px',
@@ -324,7 +324,7 @@ const HeroCard = ({ heroInstance, token, isApprovedForAll }) => {
                         borderRadius: 1,
 
                     }}>
-                    <CardHeader className={classes.header} sx={{ padding: "0", marginBottom: "3px" }}
+                    <CardHeader sx={{ padding: "0", marginBottom: "3px" }}
                         title={`#${token} ${!!getHero().name ? ` - ${getHero().name}` : ''}`}
                         subheader={
                             <Fragment>
@@ -343,7 +343,7 @@ const HeroCard = ({ heroInstance, token, isApprovedForAll }) => {
                         }
                     />
 
-                    <CardContent className={classes.headerSubTitleDiv} sx={{ padding: "0", background: '#DCC1A1', borderRadius: "2px" }}>
+                    <CardContent sx={{ padding: "0", background: '#DCC1A1', borderRadius: "2px" }}>
                         <Grid container>
                             <Grid item xs={12}>
                                 <Grid container justify="flex-start" sx={{ color: '#61422D', padding: "7px" }}>

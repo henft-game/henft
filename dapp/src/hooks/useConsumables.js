@@ -23,7 +23,6 @@ const useConsumables = () => {
             setContent({
                 consumables: values[0],
             });
-
             setLoading(false);
         });
 

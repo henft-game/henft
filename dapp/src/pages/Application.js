@@ -6,8 +6,9 @@ import { Route, Routes, useLocation } from 'react-router';
 import Home from './Home';
 import Heroes from './Heroes';
 import About from './Abouts';
-import Consumables from './Consumables';
+import Items from './Items';
 import { initGA, pageView } from '../services/tracking';
+import Roadmap from './Roadmap';
 
 export default function Application() {
 
@@ -55,7 +56,8 @@ export default function Application() {
                     <Routes>
                         <Route exact path="/" element={<Home />} />
                         <Route exact path="/hens" element={<Heroes />} />
-                        <Route exact path="/consumables" element={<Consumables />} />
+                        <Route exact path="/items" element={<Items />} />
+                        <Route exact path="/roadmap" element={<Roadmap />} />
                         <Route exact path="/about" element={<About />} />
                     </Routes>
                 </SubMain>
