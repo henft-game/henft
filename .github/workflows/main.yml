@@ -25,6 +25,8 @@ jobs:
 
     - name: Build
       run: cd dapp && npm run build
+      env:
+          REACT_APP_WEB3_ADDRESS: https://data-seed-prebsc-1-s1.binance.org:8545
 
     - name: Deploy
       run: |

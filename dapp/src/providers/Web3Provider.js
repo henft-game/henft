@@ -23,7 +23,7 @@ const Web3Provider = (props) => {
 
         const ret = {};
 
-        ret.web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");;
+        ret.web3 = new Web3("https://data-seed-prebsc-1-s1.binance.org:8545/");
         ret.networkId = await ret.web3.eth.net.getId();
         ret.accounts = await ret.web3.eth.getAccounts();
 
