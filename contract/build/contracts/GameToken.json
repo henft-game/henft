@@ -52125,11 +52125,48 @@
           ],
           "name": "Transfer",
           "type": "event"
+        },
+        "0x7eb23c81fc2bbe298f46004d15584744c37b2c48e9f4f934d79f9439161e4b59": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "tokenId",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint8",
+              "name": "level",
+              "type": "uint8"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint16",
+              "name": "currXP",
+              "type": "uint16"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "attribute",
+              "type": "uint256"
+            }
+          ],
+          "name": "HeroLevelUp",
+          "type": "event"
         }
       },
       "links": {},
-      "address": "0xB97390Ad5112c1A5b8c4aCB03fec5AA28Aa399df",
-      "transactionHash": "0xb4db5260e4b0c6a75763daea1af882112cd61999032136169056688b6b6f095b"
+      "address": "0xF69251bC3D2f17c3C1b6019D97BA57449d11781e",
+      "transactionHash": "0x4627aba18679c85301cb53786bbdceb4e7abf5d9159172bc1233ad59982bd596"
     },
     "5777": {
       "events": {
@@ -55407,7 +55444,7 @@
     }
   },
   "schemaVersion": "3.4.3",
-  "updatedAt": "2021-12-01T18:38:50.630Z",
+  "updatedAt": "2021-12-02T13:46:20.519Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",

@@ -6,26 +6,28 @@ const useConsumables = () => {
 
     const { data } = useContext(Web3Context);
 
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [content, setContent] = useState();
 
 
     useEffect(() => {
 
-        setLoading(true);
+        if (!!data?.accounts && !!data?.accounts[0]) {
 
-        const promisses = [];
+            setLoading(true);
 
-        promisses.push(data?.consumable?.methods.getConsumablesByAddress(data?.accounts[0]).call());
+            const promisses = [];
 
-        Promise.all(promisses).then((values) => {
-            console.log("loading initial date consumables");
-            setContent({
-                consumables: values[0],
+            promisses.push(data?.consumable?.methods.getConsumablesByAddress(data?.accounts[0]).call());
+
+            Promise.all(promisses).then((values) => {
+                console.log("loading initial date consumables");
+                setContent({
+                    consumables: values[0],
+                });
+                setLoading(false);
             });
-            setLoading(false);
-        });
-
+        }
 
         return () => {
             setContent();

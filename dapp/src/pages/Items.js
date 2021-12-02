@@ -139,7 +139,7 @@ const Items = () => {
                         </Grid>
                         <Grid item xs={12} md={6} >
                             <SectionGrid container spacing={2} sx={{ "&:before": { content: '"Consumables"' } }}>
-                                {!!consumables &&
+                                {!loading &&
                                     <Fragment>
                                         <Box sx={{ height: 20 }} />
                                         <ConsumableGridItem consumableType={'0'} consumable={consumables?.filter(con => con.type === 0)[0]} />
