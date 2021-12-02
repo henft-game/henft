@@ -37,6 +37,8 @@ jobs:
         git remote set-url origin https://${github_token}@github.com/henft-game/henft-game.github.io.git
         npm run deploy
       env:
+        REACT_APP_WEB3_ADDRESS: 'https://data-seed-prebsc-1-s1.binance.org:8545'
+        REACT_APP_USE_HASH_ROUTER: true
         user_name: 'github-actions[bot]'
         user_email: 'github-actions[bot]@users.noreply.github.com'
         github_token: ${{ secrets.ACTIONS_DEPLOY_ACCESS_TOKEN }}
