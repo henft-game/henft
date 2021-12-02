@@ -20,12 +20,14 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
+    - name: Install dependencies
+      run: cd dapp && npm install
+
     - name: Build
-      run: cd dapp && npm ci --only=production && npm run build
+      run: cd dapp && npm run build
       env:
         REACT_APP_WEB3_ADDRESS: 'https://data-seed-prebsc-1-s1.binance.org:8545'
         REACT_APP_USE_HASH_ROUTER: true
-        CI: false
 
     - name: Deploy
       run: |
