@@ -23,7 +23,8 @@ const Web3Provider = (props) => {
 
         const ret = {};
 
-        console.log("custom address: " + process.env.REACT_APP_WEB3_ADDRESS);
+        console.log("current env: ");
+        console.log(process.env);
 
         ret.web3 = new Web3(Web3.givenProvider || process.env.REACT_APP_WEB3_ADDRESS);
         ret.networkId = await ret.web3.eth.net.getId();
