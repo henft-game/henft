@@ -66,13 +66,6 @@ m = await Market.deployed();
 b = await BattleSystem.deployed();
 c = await Consumable.deployed();
 
-enum HeroType {
-        FIGHTER,
-        ROGUE,
-        MAGE,
-        TANK
-    }
-
 g.mint(0, 0, 'QmfEJr9vjKT4MnaF24PfMnTj58rAm45tuccqKohYHKSTZh');
 g.mint(0, 0, 'QmSHa62XeZuT2Ddx15tZbdLgJrvWMBbpnSCVZC61UmcWwT');
 g.mint(0, 0, 'QmQeHuu6B8ztKjFUCDT8MQgjkUzABiHLL7WBR2Jw7vPdLm');

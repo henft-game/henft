@@ -1,7 +1,6 @@
 import { Grid, Typography, Button } from '@mui/material';
 import { styled } from '@mui/styles';
-import React, { useContext, useState } from 'react';
-import { Web3Context } from '../providers/Web3Provider';
+import React from 'react';
 
 const ConsumableCard = ({ consumableType, consumable, isApprovedForAll }) => {
 
@@ -74,18 +73,6 @@ const ConsumableCard = ({ consumableType, consumable, isApprovedForAll }) => {
             },
         },
     }));
-
-    const { data } = useContext(Web3Context);
-
-    const [openedSellDialog, setOpenedSellDialog] = useState(false);
-
-    const openSellDialog = () => {
-        setOpenedSellDialog(true);
-    }
-
-    const handleCloseSellDialog = () => {
-        setOpenedSellDialog(false);
-    }
 
     const consType = {
         '0': 'imgs/xpGain10.gif',

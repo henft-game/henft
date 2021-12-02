@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from 'react';
-import ConsumableGridItem from '../components/ConsumableGridItem';
 import { Web3Context } from '../providers/Web3Provider';
 
 const useConsumables = () => {

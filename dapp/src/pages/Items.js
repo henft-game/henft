@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { styled } from '@mui/styles';
 import useConsumables from '../hooks/useConsumables';
-import { Grid, Box, Typography, AppBar } from '@mui/material';
+import { Grid, Box } from '@mui/material';
 import ConsumableGridItem from '../components/ConsumableGridItem';
 import { Link } from 'react-router-dom';
 

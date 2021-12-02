@@ -46,7 +46,6 @@ const BattleResultDialog = (props) => {
         <Dialog
             PaperProps={{
                 style: {
-                    background: '#DCC1A1',
                     border: '4px solid #61422D',
                     borderRadius: 4,
                     background: '#FEEDD9',

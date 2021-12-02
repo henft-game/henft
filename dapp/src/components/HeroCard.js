@@ -1,7 +1,7 @@
 import { Card, CardActions, CardContent, CardHeader, Grid, Typography, Button, Divider, LinearProgress, ButtonGroup } from '@mui/material';
 import { linearProgressClasses } from '@mui/material/LinearProgress';
 import { makeStyles, styled } from '@mui/styles';
-import React, { Fragment, useContext, useState, useCallback } from 'react';
+import React, { Fragment, useContext, useState } from 'react';
 import { Web3Context } from '../providers/Web3Provider';
 import Text from './Text';
 import SellDialog from './SellDialog';
