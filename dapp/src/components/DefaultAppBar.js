@@ -48,6 +48,17 @@ export default function DefaultAppBar(props) {
         },
     }));
 
+    const RightBox = styled(Box)(({ theme }) => ({
+        "&&": {
+            display: 'inline-flex',
+        },
+        [theme.breakpoints.down('md')]: {
+            "&&": {
+                display: 'none',
+            },
+        },
+    }));
+
     const OpenMenuButton = styled(IconButton)(({ theme }) => ({
         "&&": {
             position: 'fixed',
@@ -62,12 +73,6 @@ export default function DefaultAppBar(props) {
         },
         "&&:hover": {
             background: '#DCC1A1',
-        },
-        [theme.breakpoints.down('md')]: {
-            "&&": {
-                top: 64,
-                display: 'inline-flex',
-            },
         },
         [theme.breakpoints.down('md')]: {
             "&&": {
@@ -179,11 +184,13 @@ export default function DefaultAppBar(props) {
                     <LinkMenu to="/items">Items</LinkMenu>
                     <LinkMenu className={classes.lastMenu} to="/about">About</LinkMenu>
                     <Box sx={{ flexGrow: 1 }} />
-                    {!!data?.accounts && !!data?.accounts[0] ?
-                        <Button sx={{ color: '#61422D' }} startIcon={<Avatar sx={{ width: '33px', heigth: '38px' }} src={'imgs/connected.png'} />}>{shortAccount(data?.accounts[0])}</Button>
-                        :
-                        <Button sx={{ color: '#61422D' }} onClick={login} startIcon={<Avatar sx={{ width: '33px', heigth: '38px' }} src={'imgs/no_connection.png'} />}>No Wallet Connected</Button>
-                    }
+                    <RightBox>
+                        {!!data?.accounts && !!data?.accounts[0] ?
+                            <Button sx={{ color: '#61422D' }} startIcon={<Avatar sx={{ width: '33px', heigth: '38px' }} src={'imgs/connected.png'} />}>{shortAccount(data?.accounts[0])}</Button>
+                            :
+                            <Button sx={{ color: '#61422D' }} onClick={login} startIcon={<Avatar sx={{ width: '33px', heigth: '38px' }} src={'imgs/no_connection.png'} />}>No Wallet Connected</Button>
+                        }
+                    </RightBox>
                     <OpenMenuButton className={mobileMenuOpened ? classes.menuOpened : null} onClick={toggleMobileMenu}>
                         <MenuOpenIcon />
                     </OpenMenuButton>

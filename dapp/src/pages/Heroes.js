@@ -8,7 +8,6 @@ const Heroes = () => {
 
     const Loading = styled('div')(({ theme }) => ({
         padding: 20,
-        width: '100%',
         margin: 'auto',
     }));
 
