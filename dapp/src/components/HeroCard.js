@@ -127,8 +127,9 @@ const HeroCard = ({ heroInstance, token, isApprovedForAll }) => {
             top: -9,
             padding: 3,
             left: '50%',
-            marginLeft: -72,
-            width: 144,
+            marginLeft: -75,
+            width: 150,
+            textAlign: 'center',
             border: '1px solid #61422D',
             background: '#DCC1A1',
             borderRadius: 2,
@@ -312,6 +313,10 @@ const HeroCard = ({ heroInstance, token, isApprovedForAll }) => {
         loadHero();
     }
 
+    const shortAccount = function (account) {
+        return `${account.substr(0, 4)}...${account.substr(-3)}`;
+    }
+
     return (
         <Fragment>
             <Fragment>
@@ -377,11 +382,18 @@ const HeroCard = ({ heroInstance, token, isApprovedForAll }) => {
                                         </Grid>
                                     </StatusGrid>
                                     <Grid item xs={12}>
-                                        <Typography sx={{
-                                            fontSize: "7px", paddingTop: "4px", textAlign: "right", color: "#61422D"
-                                        }}>
-                                            {`Owner: ${heroDetail?.owner}`}
-                                        </Typography>
+                                        <Grid container sx={{ paddingTop: "4px" }}>
+                                            <Grid item xs={6}>
+                                                <Typography sx={{ fontSize: "7px" }}>{`Season:${getHero().season}`}</Typography>
+                                            </Grid>
+                                            <Grid item xs={6}>
+                                                <Typography sx={{
+                                                    fontSize: "7px", textAlign: "right"
+                                                }}>
+                                                    {`Owner: ${!!heroDetail?.owner ? shortAccount(heroDetail?.owner) : 'loading...'}`}
+                                                </Typography>
+                                            </Grid>
+                                        </Grid>
                                     </Grid>
                                 </Grid>
                             </Grid>

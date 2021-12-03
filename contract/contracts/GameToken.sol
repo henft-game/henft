@@ -10,7 +10,7 @@ contract GameToken is ERC721URIStorage, Ownable {
         address indexed owner,
         uint256 indexed tokenId,
         uint8 level,
-        uint16 currXP,
+        uint256 currXP,
         uint256 attribute
     );
 
@@ -41,7 +41,8 @@ contract GameToken is ERC721URIStorage, Ownable {
         uint8 dex;
         uint8 wis;
         uint8 level;
-        uint16 currXP;
+        uint8 season;
+        uint256 currXP;
     }
 
     struct HeroDTO {
@@ -53,7 +54,8 @@ contract GameToken is ERC721URIStorage, Ownable {
         uint8 dex;
         uint8 wis;
         uint8 level;
-        uint16 currXP;
+        uint8 season;
+        uint256 currXP;
         address owner;
         string tokenURI;
     }
@@ -109,6 +111,7 @@ contract GameToken is ERC721URIStorage, Ownable {
     }
 
     function mint(
+        uint8 _season,
         HeroType _heroType,
         HeroRarity _heroRarity,
         string memory _tokenURI
@@ -164,6 +167,7 @@ contract GameToken is ERC721URIStorage, Ownable {
                 attrs[2],
                 attrs[3],
                 1,
+                _season,
                 0
             )
         );
@@ -218,6 +222,7 @@ contract GameToken is ERC721URIStorage, Ownable {
                 h.dex,
                 h.wis,
                 h.level,
+                h.season,
                 h.currXP,
                 ownerOf(_heroId),
                 tokenURI(_heroId)

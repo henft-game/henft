@@ -109,27 +109,15 @@ contract Consumable is IConsumable, ERC721URIStorage, Ownable {
                 consumableType = 0;
             } else if (consumableChance <= 600) {
                 _consumables.push(
-                    SharedStructs.Consumable(
-                        newConsumableId,
-                        0,
-                        0,
-                        true,
-                        false
-                    )
+                    SharedStructs.Consumable(newConsumableId, 0, 0, true, false)
                 );
                 consumableType = 2;
             } else if (consumableChance <= 700) {
                 _consumables.push(
-                    SharedStructs.Consumable(
-                        newConsumableId,
-                        0,
-                        0,
-                        false,
-                        true
-                    )
+                    SharedStructs.Consumable(newConsumableId, 0, 0, false, true)
                 );
                 consumableType = 3;
-            } else if (consumableChance <= 750) {
+            } else {
                 _consumables.push(
                     SharedStructs.Consumable(
                         newConsumableId,
@@ -142,10 +130,28 @@ contract Consumable is IConsumable, ERC721URIStorage, Ownable {
                 consumableType = 1;
             }
 
-            _setTokenURI(newConsumableId, _consumableTokenURI[uint8(consumableType)]);
-
+            _setTokenURI(
+                newConsumableId,
+                _consumableTokenURI[uint8(consumableType)]
+            );
         }
-        emit ConsumableMinted(owner, newConsumableId, heroId, consumableType, tokenURI(newConsumableId));
+        if (consumableType == -1) {
+            emit ConsumableMinted(
+                owner,
+                newConsumableId,
+                heroId,
+                consumableType,
+                ""
+            );
+        } else {
+            emit ConsumableMinted(
+                owner,
+                newConsumableId,
+                heroId,
+                consumableType,
+                tokenURI(newConsumableId)
+            );
+        }
     }
 
     function getConsumablesByAddress(address owner)
@@ -192,11 +198,11 @@ contract Consumable is IConsumable, ERC721URIStorage, Ownable {
     function _getConsumable(uint256 _consumableId)
         internal
         view
-        returns (SharedStructs.Consumable memory)
+        returns (SharedStructs.Consumable memory ret)
     {
         for (uint256 index = 0; index < _consumables.length; index++) {
             if (_consumables[index].id == _consumableId) {
-                return _consumables[index];
+                ret = _consumables[index];
             }
         }
     }

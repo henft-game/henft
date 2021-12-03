@@ -1,9 +1,9 @@
 import React from 'react';
-import { Drawer, List, ListItem } from '@mui/material';
+import { Avatar, Button, Drawer, List, ListItem } from '@mui/material';
 import { styled } from '@mui/styles';
 import { Link } from 'react-router-dom';
 
-export default function MobileMenu({ opened, toggle }) {
+export default function MobileMenu({ opened, data, toggle, shortAccount, login }) {
 
     const LinkMenu = styled(Link)(({ theme }) => ({
         borderRadius: 0,
@@ -22,6 +22,13 @@ export default function MobileMenu({ opened, toggle }) {
             onClose={toggle}
         >
             <List sx={{ marginTop: '57px', width: '250px', height: "100%", borderLeft: '4px solid #61422D', background: '#DCC1A1' }}>
+                <ListItem>
+                    {!!data?.accounts && !!data?.accounts[0] ?
+                        <Button sx={{ color: '#61422D' }} startIcon={<Avatar sx={{ width: '33px', heigth: '38px' }} src={'imgs/connected.png'} />}>{shortAccount(data?.accounts[0])}</Button>
+                        :
+                        <Button sx={{ color: '#61422D' }} onClick={login} startIcon={<Avatar sx={{ width: '33px', heigth: '38px' }} src={'imgs/no_connection.png'} />}>No Wallet Connected</Button>
+                    }
+                </ListItem>
                 <ListItem><LinkMenu onClick={toggle} to="/">Home</LinkMenu></ListItem>
                 <ListItem><LinkMenu onClick={toggle} to="/hens">Hens</LinkMenu></ListItem>
                 <ListItem><LinkMenu onClick={toggle} to="/roadmap">Roadmap</LinkMenu></ListItem>

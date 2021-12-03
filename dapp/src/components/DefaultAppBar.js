@@ -120,7 +120,46 @@ export default function DefaultAppBar(props) {
     }
 
     const login = async function () {
-        await window.ethereum.send('eth_requestAccounts');
+
+        if (window.ethereum) {
+            try {
+                // check if the chain to connect to is installed
+                if (window.ethereum.chainId === '0x61') {
+                    await window.ethereum.send('eth_requestAccounts');
+                } else {
+
+                    await window.ethereum.request({
+                        method: 'wallet_switchEthereumChain',
+                        params: [{ chainId: '0x61' }], // chainId must be in hexadecimal numbers
+                    });
+                }
+            } catch (error) {
+                // This error code indicates that the chain has not been added to MetaMask
+                // if it is not, then install it into the user MetaMask
+                if (error.code === 4902) {
+                    try {
+                        await window.ethereum.request({
+                            method: 'wallet_addEthereumChain',
+                            params: [
+                                {
+                                    chainId: '0x61',
+                                    chainName: 'https://testnet.bscscan.com',
+                                    rpcUrl: 'https://data-seed-prebsc-1-s1.binance.org:8545/',
+                                    nativeCurrency: {
+                                        symbol: 'BNB'
+                                    }
+                                },
+                            ],
+                        });
+                    } catch (addError) {
+                        console.error(addError);
+                    }
+                }
+                console.error(error);
+            }
+        } else {
+            alert('MetaMask is not installed. Please consider installing it: https://metamask.io/download.html');
+        }
     }
 
     const [mobileMenuOpened, setMobileMenuOpened] = useState(false);
@@ -150,7 +189,7 @@ export default function DefaultAppBar(props) {
                     </OpenMenuButton>
                 </ToolbarMenu>
             </AppBarMenu>
-            <MobileMenu opened={mobileMenuOpened} toggle={toggleMobileMenu} />
+            <MobileMenu opened={mobileMenuOpened} login={login} shortAccount={shortAccount} data={data} toggle={toggleMobileMenu} />
         </Box>
     );
 }
