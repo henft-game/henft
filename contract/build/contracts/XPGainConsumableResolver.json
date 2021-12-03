@@ -2767,7 +2767,7 @@
                 }
               ]
             },
-            "name": "abi_decode_t_struct$_Consumable_$3424_memory_ptr",
+            "name": "abi_decode_t_struct$_Consumable_$3426_memory_ptr",
             "nodeType": "YulFunctionDefinition",
             "parameters": [
               {
@@ -2990,7 +2990,7 @@
                           }
                         ],
                         "functionName": {
-                          "name": "abi_decode_t_struct$_Consumable_$3424_memory_ptr",
+                          "name": "abi_decode_t_struct$_Consumable_$3426_memory_ptr",
                           "nodeType": "YulIdentifier",
                           "src": "3932:48:21"
                         },
@@ -3009,7 +3009,7 @@
                 }
               ]
             },
-            "name": "abi_decode_tuple_t_uint256t_struct$_Consumable_$3424_memory_ptr",
+            "name": "abi_decode_tuple_t_uint256t_struct$_Consumable_$3426_memory_ptr",
             "nodeType": "YulFunctionDefinition",
             "parameters": [
               {
@@ -5870,7 +5870,7 @@
                 }
               ]
             },
-            "name": "validator_revert_t_enum$_HeroType_$1748",
+            "name": "validator_revert_t_enum$_HeroType_$1750",
             "nodeType": "YulFunctionDefinition",
             "parameters": [
               {
@@ -5924,7 +5924,7 @@
                       }
                     ],
                     "functionName": {
-                      "name": "validator_revert_t_enum$_HeroType_$1748",
+                      "name": "validator_revert_t_enum$_HeroType_$1750",
                       "nodeType": "YulIdentifier",
                       "src": "10187:39:21"
                     },
@@ -5936,7 +5936,7 @@
                 }
               ]
             },
-            "name": "abi_decode_t_enum$_HeroType_$1748_fromMemory",
+            "name": "abi_decode_t_enum$_HeroType_$1750_fromMemory",
             "nodeType": "YulFunctionDefinition",
             "parameters": [
               {
@@ -6042,7 +6042,7 @@
                 }
               ]
             },
-            "name": "validator_revert_t_enum$_HeroRarity_$1753",
+            "name": "validator_revert_t_enum$_HeroRarity_$1755",
             "nodeType": "YulFunctionDefinition",
             "parameters": [
               {
@@ -6096,7 +6096,7 @@
                       }
                     ],
                     "functionName": {
-                      "name": "validator_revert_t_enum$_HeroRarity_$1753",
+                      "name": "validator_revert_t_enum$_HeroRarity_$1755",
                       "nodeType": "YulIdentifier",
                       "src": "10484:41:21"
                     },
@@ -6108,7 +6108,7 @@
                 }
               ]
             },
-            "name": "abi_decode_t_enum$_HeroRarity_$1753_fromMemory",
+            "name": "abi_decode_t_enum$_HeroRarity_$1755_fromMemory",
             "nodeType": "YulFunctionDefinition",
             "parameters": [
               {
@@ -6644,7 +6644,7 @@
                               }
                             ],
                             "functionName": {
-                              "name": "abi_decode_t_enum$_HeroType_$1748_fromMemory",
+                              "name": "abi_decode_t_enum$_HeroType_$1750_fromMemory",
                               "nodeType": "YulIdentifier",
                               "src": "11563:44:21"
                             },
@@ -6744,7 +6744,7 @@
                               }
                             ],
                             "functionName": {
-                              "name": "abi_decode_t_enum$_HeroRarity_$1753_fromMemory",
+                              "name": "abi_decode_t_enum$_HeroRarity_$1755_fromMemory",
                               "nodeType": "YulIdentifier",
                               "src": "11750:46:21"
                             },
@@ -7467,7 +7467,7 @@
                 }
               ]
             },
-            "name": "abi_decode_t_struct$_Hero_$1776_memory_ptr_fromMemory",
+            "name": "abi_decode_t_struct$_Hero_$1778_memory_ptr_fromMemory",
             "nodeType": "YulFunctionDefinition",
             "parameters": [
               {
@@ -7691,7 +7691,7 @@
                           }
                         ],
                         "functionName": {
-                          "name": "abi_decode_t_struct$_Hero_$1776_memory_ptr_fromMemory",
+                          "name": "abi_decode_t_struct$_Hero_$1778_memory_ptr_fromMemory",
                           "nodeType": "YulIdentifier",
                           "src": "13498:53:21"
                         },
@@ -7710,7 +7710,7 @@
                 }
               ]
             },
-            "name": "abi_decode_tuple_t_struct$_Hero_$1776_memory_ptr_fromMemory",
+            "name": "abi_decode_tuple_t_struct$_Hero_$1778_memory_ptr_fromMemory",
             "nodeType": "YulFunctionDefinition",
             "parameters": [
               {
@@ -10482,7 +10482,7 @@
           }
         ]
       },
-      "contents": "{\n\n    function allocate_unbounded() -> memPtr {\n        memPtr := mload(64)\n    }\n\n    function revert_error_dbdddcbe895c83990c08b3492a0e83918d802a52331272ac6fdb6a7c4aea3b1b() {\n        revert(0, 0)\n    }\n\n    function revert_error_c1322bf8034eace5e0b5c7295db60986aa89aae5e0ea0873e4689e076861a5db() {\n        revert(0, 0)\n    }\n\n    function cleanup_t_uint256(value) -> cleaned {\n        cleaned := value\n    }\n\n    function validator_revert_t_uint256(value) {\n        if iszero(eq(value, cleanup_t_uint256(value))) { revert(0, 0) }\n    }\n\n    function abi_decode_t_uint256(offset, end) -> value {\n        value := calldataload(offset)\n        validator_revert_t_uint256(value)\n    }\n\n    function revert_error_3538a459e4a0eb828f1aed5ebe5dc96fe59620a31d9b33e41259bb820cae769f() {\n        revert(0, 0)\n    }\n\n    function round_up_to_mul_of_32(value) -> result {\n        result := and(add(value, 31), not(31))\n    }\n\n    function panic_error_0x41() {\n        mstore(0, 35408467139433450592217433187231851964531694900788300625387963629091585785856)\n        mstore(4, 0x41)\n        revert(0, 0x24)\n    }\n\n    function finalize_allocation(memPtr, size) {\n        let newFreePtr := add(memPtr, round_up_to_mul_of_32(size))\n        // protect against overflow\n        if or(gt(newFreePtr, 0xffffffffffffffff), lt(newFreePtr, memPtr)) { panic_error_0x41() }\n        mstore(64, newFreePtr)\n    }\n\n    function allocate_memory(size) -> memPtr {\n        memPtr := allocate_unbounded()\n        finalize_allocation(memPtr, size)\n    }\n\n    function revert_error_5e8f644817bc4960744f35c15999b6eff64ae702f94b1c46297cfd4e1aec2421() {\n        revert(0, 0)\n    }\n\n    function cleanup_t_uint8(value) -> cleaned {\n        cleaned := and(value, 0xff)\n    }\n\n    function validator_revert_t_uint8(value) {\n        if iszero(eq(value, cleanup_t_uint8(value))) { revert(0, 0) }\n    }\n\n    function abi_decode_t_uint8(offset, end) -> value {\n        value := calldataload(offset)\n        validator_revert_t_uint8(value)\n    }\n\n    function cleanup_t_bool(value) -> cleaned {\n        cleaned := iszero(iszero(value))\n    }\n\n    function validator_revert_t_bool(value) {\n        if iszero(eq(value, cleanup_t_bool(value))) { revert(0, 0) }\n    }\n\n    function abi_decode_t_bool(offset, end) -> value {\n        value := calldataload(offset)\n        validator_revert_t_bool(value)\n    }\n\n    // struct SharedStructs.Consumable\n    function abi_decode_t_struct$_Consumable_$3424_memory_ptr(headStart, end) -> value {\n        if slt(sub(end, headStart), 0xa0) { revert_error_3538a459e4a0eb828f1aed5ebe5dc96fe59620a31d9b33e41259bb820cae769f() }\n        value := allocate_memory(0xa0)\n\n        {\n            // id\n\n            let offset := 0\n\n            mstore(add(value, 0x00), abi_decode_t_uint256(add(headStart, offset), end))\n\n        }\n\n        {\n            // percXPGain\n\n            let offset := 32\n\n            mstore(add(value, 0x20), abi_decode_t_uint8(add(headStart, offset), end))\n\n        }\n\n        {\n            // maxXPGain\n\n            let offset := 64\n\n            mstore(add(value, 0x40), abi_decode_t_uint8(add(headStart, offset), end))\n\n        }\n\n        {\n            // generateArenaTicket\n\n            let offset := 96\n\n            mstore(add(value, 0x60), abi_decode_t_bool(add(headStart, offset), end))\n\n        }\n\n        {\n            // generateEquipment\n\n            let offset := 128\n\n            mstore(add(value, 0x80), abi_decode_t_bool(add(headStart, offset), end))\n\n        }\n\n    }\n\n    function abi_decode_tuple_t_uint256t_struct$_Consumable_$3424_memory_ptr(headStart, dataEnd) -> value0, value1 {\n        if slt(sub(dataEnd, headStart), 192) { revert_error_dbdddcbe895c83990c08b3492a0e83918d802a52331272ac6fdb6a7c4aea3b1b() }\n\n        {\n\n            let offset := 0\n\n            value0 := abi_decode_t_uint256(add(headStart, offset), dataEnd)\n        }\n\n        {\n\n            let offset := 32\n\n            value1 := abi_decode_t_struct$_Consumable_$3424_memory_ptr(add(headStart, offset), dataEnd)\n        }\n\n    }\n\n    function cleanup_t_uint160(value) -> cleaned {\n        cleaned := and(value, 0xffffffffffffffffffffffffffffffffffffffff)\n    }\n\n    function cleanup_t_address(value) -> cleaned {\n        cleaned := cleanup_t_uint160(value)\n    }\n\n    function abi_encode_t_address_to_t_address_fromStack(value, pos) {\n        mstore(pos, cleanup_t_address(value))\n    }\n\n    function abi_encode_tuple_t_address__to_t_address__fromStack_reversed(headStart , value0) -> tail {\n        tail := add(headStart, 32)\n\n        abi_encode_t_address_to_t_address_fromStack(value0,  add(headStart, 0))\n\n    }\n\n    function validator_revert_t_address(value) {\n        if iszero(eq(value, cleanup_t_address(value))) { revert(0, 0) }\n    }\n\n    function abi_decode_t_address(offset, end) -> value {\n        value := calldataload(offset)\n        validator_revert_t_address(value)\n    }\n\n    function abi_decode_tuple_t_address(headStart, dataEnd) -> value0 {\n        if slt(sub(dataEnd, headStart), 32) { revert_error_dbdddcbe895c83990c08b3492a0e83918d802a52331272ac6fdb6a7c4aea3b1b() }\n\n        {\n\n            let offset := 0\n\n            value0 := abi_decode_t_address(add(headStart, offset), dataEnd)\n        }\n\n    }\n\n    function array_storeLengthForEncoding_t_string_memory_ptr_fromStack(pos, length) -> updated_pos {\n        mstore(pos, length)\n        updated_pos := add(pos, 0x20)\n    }\n\n    function store_literal_in_memory_32bd54b7e7f889928ef6561d1b2ac754c7580d60f6fd48c9adc0853c88f1a4de(memPtr) {\n\n        mstore(add(memPtr, 0), \"Only consumable contract can cal\")\n\n        mstore(add(memPtr, 32), \"l this method\")\n\n    }\n\n    function abi_encode_t_stringliteral_32bd54b7e7f889928ef6561d1b2ac754c7580d60f6fd48c9adc0853c88f1a4de_to_t_string_memory_ptr_fromStack(pos) -> end {\n        pos := array_storeLengthForEncoding_t_string_memory_ptr_fromStack(pos, 45)\n        store_literal_in_memory_32bd54b7e7f889928ef6561d1b2ac754c7580d60f6fd48c9adc0853c88f1a4de(pos)\n        end := add(pos, 64)\n    }\n\n    function abi_encode_tuple_t_stringliteral_32bd54b7e7f889928ef6561d1b2ac754c7580d60f6fd48c9adc0853c88f1a4de__to_t_string_memory_ptr__fromStack_reversed(headStart ) -> tail {\n        tail := add(headStart, 32)\n\n        mstore(add(headStart, 0), sub(tail, headStart))\n        tail := abi_encode_t_stringliteral_32bd54b7e7f889928ef6561d1b2ac754c7580d60f6fd48c9adc0853c88f1a4de_to_t_string_memory_ptr_fromStack( tail)\n\n    }\n\n    function abi_encode_t_uint256_to_t_uint256_fromStack(value, pos) {\n        mstore(pos, cleanup_t_uint256(value))\n    }\n\n    function abi_encode_tuple_t_uint256__to_t_uint256__fromStack_reversed(headStart , value0) -> tail {\n        tail := add(headStart, 32)\n\n        abi_encode_t_uint256_to_t_uint256_fromStack(value0,  add(headStart, 0))\n\n    }\n\n    function abi_decode_t_address_fromMemory(offset, end) -> value {\n        value := mload(offset)\n        validator_revert_t_address(value)\n    }\n\n    function abi_decode_tuple_t_address_fromMemory(headStart, dataEnd) -> value0 {\n        if slt(sub(dataEnd, headStart), 32) { revert_error_dbdddcbe895c83990c08b3492a0e83918d802a52331272ac6fdb6a7c4aea3b1b() }\n\n        {\n\n            let offset := 0\n\n            value0 := abi_decode_t_address_fromMemory(add(headStart, offset), dataEnd)\n        }\n\n    }\n\n    function store_literal_in_memory_24bcf7dc73d8aa826cd883290679f056fe5969824a1ef75a797ffd8521552741(memPtr) {\n\n        mstore(add(memPtr, 0), \"Only hero owner can add XP\")\n\n    }\n\n    function abi_encode_t_stringliteral_24bcf7dc73d8aa826cd883290679f056fe5969824a1ef75a797ffd8521552741_to_t_string_memory_ptr_fromStack(pos) -> end {\n        pos := array_storeLengthForEncoding_t_string_memory_ptr_fromStack(pos, 26)\n        store_literal_in_memory_24bcf7dc73d8aa826cd883290679f056fe5969824a1ef75a797ffd8521552741(pos)\n        end := add(pos, 32)\n    }\n\n    function abi_encode_tuple_t_stringliteral_24bcf7dc73d8aa826cd883290679f056fe5969824a1ef75a797ffd8521552741__to_t_string_memory_ptr__fromStack_reversed(headStart ) -> tail {\n        tail := add(headStart, 32)\n\n        mstore(add(headStart, 0), sub(tail, headStart))\n        tail := abi_encode_t_stringliteral_24bcf7dc73d8aa826cd883290679f056fe5969824a1ef75a797ffd8521552741_to_t_string_memory_ptr_fromStack( tail)\n\n    }\n\n    function revert_error_1b9f4a0a5773e33b91aa01db23bf8c55fce1411167c872835e7fa00a4f17d46d() {\n        revert(0, 0)\n    }\n\n    function revert_error_987264b3b1d58a9c7f8255e93e81c77d86d6299019c33110a076957a3e06e2ae() {\n        revert(0, 0)\n    }\n\n    function array_allocation_size_t_string_memory_ptr(length) -> size {\n        // Make sure we can allocate memory without overflow\n        if gt(length, 0xffffffffffffffff) { panic_error_0x41() }\n\n        size := round_up_to_mul_of_32(length)\n\n        // add length slot\n        size := add(size, 0x20)\n\n    }\n\n    function copy_memory_to_memory(src, dst, length) {\n        let i := 0\n        for { } lt(i, length) { i := add(i, 32) }\n        {\n            mstore(add(dst, i), mload(add(src, i)))\n        }\n        if gt(i, length)\n        {\n            // clear end\n            mstore(add(dst, length), 0)\n        }\n    }\n\n    function abi_decode_available_length_t_string_memory_ptr_fromMemory(src, length, end) -> array {\n        array := allocate_memory(array_allocation_size_t_string_memory_ptr(length))\n        mstore(array, length)\n        let dst := add(array, 0x20)\n        if gt(add(src, length), end) { revert_error_987264b3b1d58a9c7f8255e93e81c77d86d6299019c33110a076957a3e06e2ae() }\n        copy_memory_to_memory(src, dst, length)\n    }\n\n    // string\n    function abi_decode_t_string_memory_ptr_fromMemory(offset, end) -> array {\n        if iszero(slt(add(offset, 0x1f), end)) { revert_error_1b9f4a0a5773e33b91aa01db23bf8c55fce1411167c872835e7fa00a4f17d46d() }\n        let length := mload(offset)\n        array := abi_decode_available_length_t_string_memory_ptr_fromMemory(add(offset, 0x20), length, end)\n    }\n\n    function validator_revert_t_enum$_HeroType_$1748(value) {\n        if iszero(lt(value, 4)) { revert(0, 0) }\n    }\n\n    function abi_decode_t_enum$_HeroType_$1748_fromMemory(offset, end) -> value {\n        value := mload(offset)\n        validator_revert_t_enum$_HeroType_$1748(value)\n    }\n\n    function validator_revert_t_enum$_HeroRarity_$1753(value) {\n        if iszero(lt(value, 4)) { revert(0, 0) }\n    }\n\n    function abi_decode_t_enum$_HeroRarity_$1753_fromMemory(offset, end) -> value {\n        value := mload(offset)\n        validator_revert_t_enum$_HeroRarity_$1753(value)\n    }\n\n    function abi_decode_t_uint8_fromMemory(offset, end) -> value {\n        value := mload(offset)\n        validator_revert_t_uint8(value)\n    }\n\n    function abi_decode_t_uint256_fromMemory(offset, end) -> value {\n        value := mload(offset)\n        validator_revert_t_uint256(value)\n    }\n\n    // struct GameToken.Hero\n    function abi_decode_t_struct$_Hero_$1776_memory_ptr_fromMemory(headStart, end) -> value {\n        if slt(sub(end, headStart), 0x0140) { revert_error_3538a459e4a0eb828f1aed5ebe5dc96fe59620a31d9b33e41259bb820cae769f() }\n        value := allocate_memory(0x0140)\n\n        {\n            // name\n\n            let offset := mload(add(headStart, 0))\n            if gt(offset, 0xffffffffffffffff) { revert_error_5e8f644817bc4960744f35c15999b6eff64ae702f94b1c46297cfd4e1aec2421() }\n\n            mstore(add(value, 0x00), abi_decode_t_string_memory_ptr_fromMemory(add(headStart, offset), end))\n\n        }\n\n        {\n            // heroType\n\n            let offset := 32\n\n            mstore(add(value, 0x20), abi_decode_t_enum$_HeroType_$1748_fromMemory(add(headStart, offset), end))\n\n        }\n\n        {\n            // rarity\n\n            let offset := 64\n\n            mstore(add(value, 0x40), abi_decode_t_enum$_HeroRarity_$1753_fromMemory(add(headStart, offset), end))\n\n        }\n\n        {\n            // str\n\n            let offset := 96\n\n            mstore(add(value, 0x60), abi_decode_t_uint8_fromMemory(add(headStart, offset), end))\n\n        }\n\n        {\n            // con\n\n            let offset := 128\n\n            mstore(add(value, 0x80), abi_decode_t_uint8_fromMemory(add(headStart, offset), end))\n\n        }\n\n        {\n            // dex\n\n            let offset := 160\n\n            mstore(add(value, 0xa0), abi_decode_t_uint8_fromMemory(add(headStart, offset), end))\n\n        }\n\n        {\n            // wis\n\n            let offset := 192\n\n            mstore(add(value, 0xc0), abi_decode_t_uint8_fromMemory(add(headStart, offset), end))\n\n        }\n\n        {\n            // level\n\n            let offset := 224\n\n            mstore(add(value, 0xe0), abi_decode_t_uint8_fromMemory(add(headStart, offset), end))\n\n        }\n\n        {\n            // season\n\n            let offset := 256\n\n            mstore(add(value, 0x0100), abi_decode_t_uint8_fromMemory(add(headStart, offset), end))\n\n        }\n\n        {\n            // currXP\n\n            let offset := 288\n\n            mstore(add(value, 0x0120), abi_decode_t_uint256_fromMemory(add(headStart, offset), end))\n\n        }\n\n    }\n\n    function abi_decode_tuple_t_struct$_Hero_$1776_memory_ptr_fromMemory(headStart, dataEnd) -> value0 {\n        if slt(sub(dataEnd, headStart), 32) { revert_error_dbdddcbe895c83990c08b3492a0e83918d802a52331272ac6fdb6a7c4aea3b1b() }\n\n        {\n\n            let offset := mload(add(headStart, 0))\n            if gt(offset, 0xffffffffffffffff) { revert_error_c1322bf8034eace5e0b5c7295db60986aa89aae5e0ea0873e4689e076861a5db() }\n\n            value0 := abi_decode_t_struct$_Hero_$1776_memory_ptr_fromMemory(add(headStart, offset), dataEnd)\n        }\n\n    }\n\n    function panic_error_0x11() {\n        mstore(0, 35408467139433450592217433187231851964531694900788300625387963629091585785856)\n        mstore(4, 0x11)\n        revert(0, 0x24)\n    }\n\n    function shift_right_1_unsigned(value) -> newValue {\n        newValue :=\n\n        shr(1, value)\n\n    }\n\n    function checked_exp_helper(_power, _base, exponent, max) -> power, base {\n        power := _power\n        base  := _base\n        for { } gt(exponent, 1) {}\n        {\n            // overflow check for base * base\n            if gt(base, div(max, base)) { panic_error_0x11() }\n            if and(exponent, 1)\n            {\n                // No checks for power := mul(power, base) needed, because the check\n                // for base * base above is sufficient, since:\n                // |power| <= base (proof by induction) and thus:\n                // |power * base| <= base * base <= max <= |min| (for signed)\n                // (this is equally true for signed and unsigned exp)\n                power := mul(power, base)\n            }\n            base := mul(base, base)\n            exponent := shift_right_1_unsigned(exponent)\n        }\n    }\n\n    function checked_exp_unsigned(base, exponent, max) -> power {\n        // This function currently cannot be inlined because of the\n        // \"leave\" statements. We have to improve the optimizer.\n\n        // Note that 0**0 == 1\n        if iszero(exponent) { power := 1 leave }\n        if iszero(base) { power := 0 leave }\n\n        // Specializations for small bases\n        switch base\n        // 0 is handled above\n        case 1 { power := 1 leave }\n        case 2\n        {\n            if gt(exponent, 255) { panic_error_0x11() }\n            power := exp(2, exponent)\n            if gt(power, max) { panic_error_0x11() }\n            leave\n        }\n        if or(\n            and(lt(base, 11), lt(exponent, 78)),\n            and(lt(base, 307), lt(exponent, 32))\n        )\n        {\n            power := exp(base, exponent)\n            if gt(power, max) { panic_error_0x11() }\n            leave\n        }\n\n        power, base := checked_exp_helper(1, base, exponent, max)\n\n        if gt(power, div(max, base)) { panic_error_0x11() }\n        power := mul(power, base)\n    }\n\n    function checked_exp_t_uint256_t_uint8(base, exponent) -> power {\n        base := cleanup_t_uint256(base)\n        exponent := cleanup_t_uint8(exponent)\n\n        power := checked_exp_unsigned(base, exponent, 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff)\n\n    }\n\n    function cleanup_t_uint16(value) -> cleaned {\n        cleaned := and(value, 0xffff)\n    }\n\n    function checked_mul_t_uint16(x, y) -> product {\n        x := cleanup_t_uint16(x)\n        y := cleanup_t_uint16(y)\n\n        // overflow, if x != 0 and y > (maxValue / x)\n        if and(iszero(iszero(x)), gt(y, div(0xffff, x))) { panic_error_0x11() }\n\n        product := mul(x, y)\n    }\n\n    function panic_error_0x12() {\n        mstore(0, 35408467139433450592217433187231851964531694900788300625387963629091585785856)\n        mstore(4, 0x12)\n        revert(0, 0x24)\n    }\n\n    function checked_div_t_uint16(x, y) -> r {\n        x := cleanup_t_uint16(x)\n        y := cleanup_t_uint16(y)\n        if iszero(y) { panic_error_0x12() }\n\n        r := div(x, y)\n    }\n\n    function abi_encode_t_uint16_to_t_uint16_fromStack(value, pos) {\n        mstore(pos, cleanup_t_uint16(value))\n    }\n\n    function abi_encode_tuple_t_uint256_t_uint16__to_t_uint256_t_uint16__fromStack_reversed(headStart , value1, value0) -> tail {\n        tail := add(headStart, 64)\n\n        abi_encode_t_uint256_to_t_uint256_fromStack(value0,  add(headStart, 0))\n\n        abi_encode_t_uint16_to_t_uint16_fromStack(value1,  add(headStart, 32))\n\n    }\n\n    function store_literal_in_memory_9924ebdf1add33d25d4ef888e16131f0a5687b0580a36c21b5c301a6c462effe(memPtr) {\n\n        mstore(add(memPtr, 0), \"Ownable: caller is not the owner\")\n\n    }\n\n    function abi_encode_t_stringliteral_9924ebdf1add33d25d4ef888e16131f0a5687b0580a36c21b5c301a6c462effe_to_t_string_memory_ptr_fromStack(pos) -> end {\n        pos := array_storeLengthForEncoding_t_string_memory_ptr_fromStack(pos, 32)\n        store_literal_in_memory_9924ebdf1add33d25d4ef888e16131f0a5687b0580a36c21b5c301a6c462effe(pos)\n        end := add(pos, 32)\n    }\n\n    function abi_encode_tuple_t_stringliteral_9924ebdf1add33d25d4ef888e16131f0a5687b0580a36c21b5c301a6c462effe__to_t_string_memory_ptr__fromStack_reversed(headStart ) -> tail {\n        tail := add(headStart, 32)\n\n        mstore(add(headStart, 0), sub(tail, headStart))\n        tail := abi_encode_t_stringliteral_9924ebdf1add33d25d4ef888e16131f0a5687b0580a36c21b5c301a6c462effe_to_t_string_memory_ptr_fromStack( tail)\n\n    }\n\n    function store_literal_in_memory_245f15ff17f551913a7a18385165551503906a406f905ac1c2437281a7cd0cfe(memPtr) {\n\n        mstore(add(memPtr, 0), \"Ownable: new owner is the zero a\")\n\n        mstore(add(memPtr, 32), \"ddress\")\n\n    }\n\n    function abi_encode_t_stringliteral_245f15ff17f551913a7a18385165551503906a406f905ac1c2437281a7cd0cfe_to_t_string_memory_ptr_fromStack(pos) -> end {\n        pos := array_storeLengthForEncoding_t_string_memory_ptr_fromStack(pos, 38)\n        store_literal_in_memory_245f15ff17f551913a7a18385165551503906a406f905ac1c2437281a7cd0cfe(pos)\n        end := add(pos, 64)\n    }\n\n    function abi_encode_tuple_t_stringliteral_245f15ff17f551913a7a18385165551503906a406f905ac1c2437281a7cd0cfe__to_t_string_memory_ptr__fromStack_reversed(headStart ) -> tail {\n        tail := add(headStart, 32)\n\n        mstore(add(headStart, 0), sub(tail, headStart))\n        tail := abi_encode_t_stringliteral_245f15ff17f551913a7a18385165551503906a406f905ac1c2437281a7cd0cfe_to_t_string_memory_ptr_fromStack( tail)\n\n    }\n\n}\n",
+      "contents": "{\n\n    function allocate_unbounded() -> memPtr {\n        memPtr := mload(64)\n    }\n\n    function revert_error_dbdddcbe895c83990c08b3492a0e83918d802a52331272ac6fdb6a7c4aea3b1b() {\n        revert(0, 0)\n    }\n\n    function revert_error_c1322bf8034eace5e0b5c7295db60986aa89aae5e0ea0873e4689e076861a5db() {\n        revert(0, 0)\n    }\n\n    function cleanup_t_uint256(value) -> cleaned {\n        cleaned := value\n    }\n\n    function validator_revert_t_uint256(value) {\n        if iszero(eq(value, cleanup_t_uint256(value))) { revert(0, 0) }\n    }\n\n    function abi_decode_t_uint256(offset, end) -> value {\n        value := calldataload(offset)\n        validator_revert_t_uint256(value)\n    }\n\n    function revert_error_3538a459e4a0eb828f1aed5ebe5dc96fe59620a31d9b33e41259bb820cae769f() {\n        revert(0, 0)\n    }\n\n    function round_up_to_mul_of_32(value) -> result {\n        result := and(add(value, 31), not(31))\n    }\n\n    function panic_error_0x41() {\n        mstore(0, 35408467139433450592217433187231851964531694900788300625387963629091585785856)\n        mstore(4, 0x41)\n        revert(0, 0x24)\n    }\n\n    function finalize_allocation(memPtr, size) {\n        let newFreePtr := add(memPtr, round_up_to_mul_of_32(size))\n        // protect against overflow\n        if or(gt(newFreePtr, 0xffffffffffffffff), lt(newFreePtr, memPtr)) { panic_error_0x41() }\n        mstore(64, newFreePtr)\n    }\n\n    function allocate_memory(size) -> memPtr {\n        memPtr := allocate_unbounded()\n        finalize_allocation(memPtr, size)\n    }\n\n    function revert_error_5e8f644817bc4960744f35c15999b6eff64ae702f94b1c46297cfd4e1aec2421() {\n        revert(0, 0)\n    }\n\n    function cleanup_t_uint8(value) -> cleaned {\n        cleaned := and(value, 0xff)\n    }\n\n    function validator_revert_t_uint8(value) {\n        if iszero(eq(value, cleanup_t_uint8(value))) { revert(0, 0) }\n    }\n\n    function abi_decode_t_uint8(offset, end) -> value {\n        value := calldataload(offset)\n        validator_revert_t_uint8(value)\n    }\n\n    function cleanup_t_bool(value) -> cleaned {\n        cleaned := iszero(iszero(value))\n    }\n\n    function validator_revert_t_bool(value) {\n        if iszero(eq(value, cleanup_t_bool(value))) { revert(0, 0) }\n    }\n\n    function abi_decode_t_bool(offset, end) -> value {\n        value := calldataload(offset)\n        validator_revert_t_bool(value)\n    }\n\n    // struct SharedStructs.Consumable\n    function abi_decode_t_struct$_Consumable_$3426_memory_ptr(headStart, end) -> value {\n        if slt(sub(end, headStart), 0xa0) { revert_error_3538a459e4a0eb828f1aed5ebe5dc96fe59620a31d9b33e41259bb820cae769f() }\n        value := allocate_memory(0xa0)\n\n        {\n            // id\n\n            let offset := 0\n\n            mstore(add(value, 0x00), abi_decode_t_uint256(add(headStart, offset), end))\n\n        }\n\n        {\n            // percXPGain\n\n            let offset := 32\n\n            mstore(add(value, 0x20), abi_decode_t_uint8(add(headStart, offset), end))\n\n        }\n\n        {\n            // maxXPGain\n\n            let offset := 64\n\n            mstore(add(value, 0x40), abi_decode_t_uint8(add(headStart, offset), end))\n\n        }\n\n        {\n            // generateArenaTicket\n\n            let offset := 96\n\n            mstore(add(value, 0x60), abi_decode_t_bool(add(headStart, offset), end))\n\n        }\n\n        {\n            // generateEquipment\n\n            let offset := 128\n\n            mstore(add(value, 0x80), abi_decode_t_bool(add(headStart, offset), end))\n\n        }\n\n    }\n\n    function abi_decode_tuple_t_uint256t_struct$_Consumable_$3426_memory_ptr(headStart, dataEnd) -> value0, value1 {\n        if slt(sub(dataEnd, headStart), 192) { revert_error_dbdddcbe895c83990c08b3492a0e83918d802a52331272ac6fdb6a7c4aea3b1b() }\n\n        {\n\n            let offset := 0\n\n            value0 := abi_decode_t_uint256(add(headStart, offset), dataEnd)\n        }\n\n        {\n\n            let offset := 32\n\n            value1 := abi_decode_t_struct$_Consumable_$3426_memory_ptr(add(headStart, offset), dataEnd)\n        }\n\n    }\n\n    function cleanup_t_uint160(value) -> cleaned {\n        cleaned := and(value, 0xffffffffffffffffffffffffffffffffffffffff)\n    }\n\n    function cleanup_t_address(value) -> cleaned {\n        cleaned := cleanup_t_uint160(value)\n    }\n\n    function abi_encode_t_address_to_t_address_fromStack(value, pos) {\n        mstore(pos, cleanup_t_address(value))\n    }\n\n    function abi_encode_tuple_t_address__to_t_address__fromStack_reversed(headStart , value0) -> tail {\n        tail := add(headStart, 32)\n\n        abi_encode_t_address_to_t_address_fromStack(value0,  add(headStart, 0))\n\n    }\n\n    function validator_revert_t_address(value) {\n        if iszero(eq(value, cleanup_t_address(value))) { revert(0, 0) }\n    }\n\n    function abi_decode_t_address(offset, end) -> value {\n        value := calldataload(offset)\n        validator_revert_t_address(value)\n    }\n\n    function abi_decode_tuple_t_address(headStart, dataEnd) -> value0 {\n        if slt(sub(dataEnd, headStart), 32) { revert_error_dbdddcbe895c83990c08b3492a0e83918d802a52331272ac6fdb6a7c4aea3b1b() }\n\n        {\n\n            let offset := 0\n\n            value0 := abi_decode_t_address(add(headStart, offset), dataEnd)\n        }\n\n    }\n\n    function array_storeLengthForEncoding_t_string_memory_ptr_fromStack(pos, length) -> updated_pos {\n        mstore(pos, length)\n        updated_pos := add(pos, 0x20)\n    }\n\n    function store_literal_in_memory_32bd54b7e7f889928ef6561d1b2ac754c7580d60f6fd48c9adc0853c88f1a4de(memPtr) {\n\n        mstore(add(memPtr, 0), \"Only consumable contract can cal\")\n\n        mstore(add(memPtr, 32), \"l this method\")\n\n    }\n\n    function abi_encode_t_stringliteral_32bd54b7e7f889928ef6561d1b2ac754c7580d60f6fd48c9adc0853c88f1a4de_to_t_string_memory_ptr_fromStack(pos) -> end {\n        pos := array_storeLengthForEncoding_t_string_memory_ptr_fromStack(pos, 45)\n        store_literal_in_memory_32bd54b7e7f889928ef6561d1b2ac754c7580d60f6fd48c9adc0853c88f1a4de(pos)\n        end := add(pos, 64)\n    }\n\n    function abi_encode_tuple_t_stringliteral_32bd54b7e7f889928ef6561d1b2ac754c7580d60f6fd48c9adc0853c88f1a4de__to_t_string_memory_ptr__fromStack_reversed(headStart ) -> tail {\n        tail := add(headStart, 32)\n\n        mstore(add(headStart, 0), sub(tail, headStart))\n        tail := abi_encode_t_stringliteral_32bd54b7e7f889928ef6561d1b2ac754c7580d60f6fd48c9adc0853c88f1a4de_to_t_string_memory_ptr_fromStack( tail)\n\n    }\n\n    function abi_encode_t_uint256_to_t_uint256_fromStack(value, pos) {\n        mstore(pos, cleanup_t_uint256(value))\n    }\n\n    function abi_encode_tuple_t_uint256__to_t_uint256__fromStack_reversed(headStart , value0) -> tail {\n        tail := add(headStart, 32)\n\n        abi_encode_t_uint256_to_t_uint256_fromStack(value0,  add(headStart, 0))\n\n    }\n\n    function abi_decode_t_address_fromMemory(offset, end) -> value {\n        value := mload(offset)\n        validator_revert_t_address(value)\n    }\n\n    function abi_decode_tuple_t_address_fromMemory(headStart, dataEnd) -> value0 {\n        if slt(sub(dataEnd, headStart), 32) { revert_error_dbdddcbe895c83990c08b3492a0e83918d802a52331272ac6fdb6a7c4aea3b1b() }\n\n        {\n\n            let offset := 0\n\n            value0 := abi_decode_t_address_fromMemory(add(headStart, offset), dataEnd)\n        }\n\n    }\n\n    function store_literal_in_memory_24bcf7dc73d8aa826cd883290679f056fe5969824a1ef75a797ffd8521552741(memPtr) {\n\n        mstore(add(memPtr, 0), \"Only hero owner can add XP\")\n\n    }\n\n    function abi_encode_t_stringliteral_24bcf7dc73d8aa826cd883290679f056fe5969824a1ef75a797ffd8521552741_to_t_string_memory_ptr_fromStack(pos) -> end {\n        pos := array_storeLengthForEncoding_t_string_memory_ptr_fromStack(pos, 26)\n        store_literal_in_memory_24bcf7dc73d8aa826cd883290679f056fe5969824a1ef75a797ffd8521552741(pos)\n        end := add(pos, 32)\n    }\n\n    function abi_encode_tuple_t_stringliteral_24bcf7dc73d8aa826cd883290679f056fe5969824a1ef75a797ffd8521552741__to_t_string_memory_ptr__fromStack_reversed(headStart ) -> tail {\n        tail := add(headStart, 32)\n\n        mstore(add(headStart, 0), sub(tail, headStart))\n        tail := abi_encode_t_stringliteral_24bcf7dc73d8aa826cd883290679f056fe5969824a1ef75a797ffd8521552741_to_t_string_memory_ptr_fromStack( tail)\n\n    }\n\n    function revert_error_1b9f4a0a5773e33b91aa01db23bf8c55fce1411167c872835e7fa00a4f17d46d() {\n        revert(0, 0)\n    }\n\n    function revert_error_987264b3b1d58a9c7f8255e93e81c77d86d6299019c33110a076957a3e06e2ae() {\n        revert(0, 0)\n    }\n\n    function array_allocation_size_t_string_memory_ptr(length) -> size {\n        // Make sure we can allocate memory without overflow\n        if gt(length, 0xffffffffffffffff) { panic_error_0x41() }\n\n        size := round_up_to_mul_of_32(length)\n\n        // add length slot\n        size := add(size, 0x20)\n\n    }\n\n    function copy_memory_to_memory(src, dst, length) {\n        let i := 0\n        for { } lt(i, length) { i := add(i, 32) }\n        {\n            mstore(add(dst, i), mload(add(src, i)))\n        }\n        if gt(i, length)\n        {\n            // clear end\n            mstore(add(dst, length), 0)\n        }\n    }\n\n    function abi_decode_available_length_t_string_memory_ptr_fromMemory(src, length, end) -> array {\n        array := allocate_memory(array_allocation_size_t_string_memory_ptr(length))\n        mstore(array, length)\n        let dst := add(array, 0x20)\n        if gt(add(src, length), end) { revert_error_987264b3b1d58a9c7f8255e93e81c77d86d6299019c33110a076957a3e06e2ae() }\n        copy_memory_to_memory(src, dst, length)\n    }\n\n    // string\n    function abi_decode_t_string_memory_ptr_fromMemory(offset, end) -> array {\n        if iszero(slt(add(offset, 0x1f), end)) { revert_error_1b9f4a0a5773e33b91aa01db23bf8c55fce1411167c872835e7fa00a4f17d46d() }\n        let length := mload(offset)\n        array := abi_decode_available_length_t_string_memory_ptr_fromMemory(add(offset, 0x20), length, end)\n    }\n\n    function validator_revert_t_enum$_HeroType_$1750(value) {\n        if iszero(lt(value, 4)) { revert(0, 0) }\n    }\n\n    function abi_decode_t_enum$_HeroType_$1750_fromMemory(offset, end) -> value {\n        value := mload(offset)\n        validator_revert_t_enum$_HeroType_$1750(value)\n    }\n\n    function validator_revert_t_enum$_HeroRarity_$1755(value) {\n        if iszero(lt(value, 4)) { revert(0, 0) }\n    }\n\n    function abi_decode_t_enum$_HeroRarity_$1755_fromMemory(offset, end) -> value {\n        value := mload(offset)\n        validator_revert_t_enum$_HeroRarity_$1755(value)\n    }\n\n    function abi_decode_t_uint8_fromMemory(offset, end) -> value {\n        value := mload(offset)\n        validator_revert_t_uint8(value)\n    }\n\n    function abi_decode_t_uint256_fromMemory(offset, end) -> value {\n        value := mload(offset)\n        validator_revert_t_uint256(value)\n    }\n\n    // struct GameToken.Hero\n    function abi_decode_t_struct$_Hero_$1778_memory_ptr_fromMemory(headStart, end) -> value {\n        if slt(sub(end, headStart), 0x0140) { revert_error_3538a459e4a0eb828f1aed5ebe5dc96fe59620a31d9b33e41259bb820cae769f() }\n        value := allocate_memory(0x0140)\n\n        {\n            // name\n\n            let offset := mload(add(headStart, 0))\n            if gt(offset, 0xffffffffffffffff) { revert_error_5e8f644817bc4960744f35c15999b6eff64ae702f94b1c46297cfd4e1aec2421() }\n\n            mstore(add(value, 0x00), abi_decode_t_string_memory_ptr_fromMemory(add(headStart, offset), end))\n\n        }\n\n        {\n            // heroType\n\n            let offset := 32\n\n            mstore(add(value, 0x20), abi_decode_t_enum$_HeroType_$1750_fromMemory(add(headStart, offset), end))\n\n        }\n\n        {\n            // rarity\n\n            let offset := 64\n\n            mstore(add(value, 0x40), abi_decode_t_enum$_HeroRarity_$1755_fromMemory(add(headStart, offset), end))\n\n        }\n\n        {\n            // str\n\n            let offset := 96\n\n            mstore(add(value, 0x60), abi_decode_t_uint8_fromMemory(add(headStart, offset), end))\n\n        }\n\n        {\n            // con\n\n            let offset := 128\n\n            mstore(add(value, 0x80), abi_decode_t_uint8_fromMemory(add(headStart, offset), end))\n\n        }\n\n        {\n            // dex\n\n            let offset := 160\n\n            mstore(add(value, 0xa0), abi_decode_t_uint8_fromMemory(add(headStart, offset), end))\n\n        }\n\n        {\n            // wis\n\n            let offset := 192\n\n            mstore(add(value, 0xc0), abi_decode_t_uint8_fromMemory(add(headStart, offset), end))\n\n        }\n\n        {\n            // level\n\n            let offset := 224\n\n            mstore(add(value, 0xe0), abi_decode_t_uint8_fromMemory(add(headStart, offset), end))\n\n        }\n\n        {\n            // season\n\n            let offset := 256\n\n            mstore(add(value, 0x0100), abi_decode_t_uint8_fromMemory(add(headStart, offset), end))\n\n        }\n\n        {\n            // currXP\n\n            let offset := 288\n\n            mstore(add(value, 0x0120), abi_decode_t_uint256_fromMemory(add(headStart, offset), end))\n\n        }\n\n    }\n\n    function abi_decode_tuple_t_struct$_Hero_$1778_memory_ptr_fromMemory(headStart, dataEnd) -> value0 {\n        if slt(sub(dataEnd, headStart), 32) { revert_error_dbdddcbe895c83990c08b3492a0e83918d802a52331272ac6fdb6a7c4aea3b1b() }\n\n        {\n\n            let offset := mload(add(headStart, 0))\n            if gt(offset, 0xffffffffffffffff) { revert_error_c1322bf8034eace5e0b5c7295db60986aa89aae5e0ea0873e4689e076861a5db() }\n\n            value0 := abi_decode_t_struct$_Hero_$1778_memory_ptr_fromMemory(add(headStart, offset), dataEnd)\n        }\n\n    }\n\n    function panic_error_0x11() {\n        mstore(0, 35408467139433450592217433187231851964531694900788300625387963629091585785856)\n        mstore(4, 0x11)\n        revert(0, 0x24)\n    }\n\n    function shift_right_1_unsigned(value) -> newValue {\n        newValue :=\n\n        shr(1, value)\n\n    }\n\n    function checked_exp_helper(_power, _base, exponent, max) -> power, base {\n        power := _power\n        base  := _base\n        for { } gt(exponent, 1) {}\n        {\n            // overflow check for base * base\n            if gt(base, div(max, base)) { panic_error_0x11() }\n            if and(exponent, 1)\n            {\n                // No checks for power := mul(power, base) needed, because the check\n                // for base * base above is sufficient, since:\n                // |power| <= base (proof by induction) and thus:\n                // |power * base| <= base * base <= max <= |min| (for signed)\n                // (this is equally true for signed and unsigned exp)\n                power := mul(power, base)\n            }\n            base := mul(base, base)\n            exponent := shift_right_1_unsigned(exponent)\n        }\n    }\n\n    function checked_exp_unsigned(base, exponent, max) -> power {\n        // This function currently cannot be inlined because of the\n        // \"leave\" statements. We have to improve the optimizer.\n\n        // Note that 0**0 == 1\n        if iszero(exponent) { power := 1 leave }\n        if iszero(base) { power := 0 leave }\n\n        // Specializations for small bases\n        switch base\n        // 0 is handled above\n        case 1 { power := 1 leave }\n        case 2\n        {\n            if gt(exponent, 255) { panic_error_0x11() }\n            power := exp(2, exponent)\n            if gt(power, max) { panic_error_0x11() }\n            leave\n        }\n        if or(\n            and(lt(base, 11), lt(exponent, 78)),\n            and(lt(base, 307), lt(exponent, 32))\n        )\n        {\n            power := exp(base, exponent)\n            if gt(power, max) { panic_error_0x11() }\n            leave\n        }\n\n        power, base := checked_exp_helper(1, base, exponent, max)\n\n        if gt(power, div(max, base)) { panic_error_0x11() }\n        power := mul(power, base)\n    }\n\n    function checked_exp_t_uint256_t_uint8(base, exponent) -> power {\n        base := cleanup_t_uint256(base)\n        exponent := cleanup_t_uint8(exponent)\n\n        power := checked_exp_unsigned(base, exponent, 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff)\n\n    }\n\n    function cleanup_t_uint16(value) -> cleaned {\n        cleaned := and(value, 0xffff)\n    }\n\n    function checked_mul_t_uint16(x, y) -> product {\n        x := cleanup_t_uint16(x)\n        y := cleanup_t_uint16(y)\n\n        // overflow, if x != 0 and y > (maxValue / x)\n        if and(iszero(iszero(x)), gt(y, div(0xffff, x))) { panic_error_0x11() }\n\n        product := mul(x, y)\n    }\n\n    function panic_error_0x12() {\n        mstore(0, 35408467139433450592217433187231851964531694900788300625387963629091585785856)\n        mstore(4, 0x12)\n        revert(0, 0x24)\n    }\n\n    function checked_div_t_uint16(x, y) -> r {\n        x := cleanup_t_uint16(x)\n        y := cleanup_t_uint16(y)\n        if iszero(y) { panic_error_0x12() }\n\n        r := div(x, y)\n    }\n\n    function abi_encode_t_uint16_to_t_uint16_fromStack(value, pos) {\n        mstore(pos, cleanup_t_uint16(value))\n    }\n\n    function abi_encode_tuple_t_uint256_t_uint16__to_t_uint256_t_uint16__fromStack_reversed(headStart , value1, value0) -> tail {\n        tail := add(headStart, 64)\n\n        abi_encode_t_uint256_to_t_uint256_fromStack(value0,  add(headStart, 0))\n\n        abi_encode_t_uint16_to_t_uint16_fromStack(value1,  add(headStart, 32))\n\n    }\n\n    function store_literal_in_memory_9924ebdf1add33d25d4ef888e16131f0a5687b0580a36c21b5c301a6c462effe(memPtr) {\n\n        mstore(add(memPtr, 0), \"Ownable: caller is not the owner\")\n\n    }\n\n    function abi_encode_t_stringliteral_9924ebdf1add33d25d4ef888e16131f0a5687b0580a36c21b5c301a6c462effe_to_t_string_memory_ptr_fromStack(pos) -> end {\n        pos := array_storeLengthForEncoding_t_string_memory_ptr_fromStack(pos, 32)\n        store_literal_in_memory_9924ebdf1add33d25d4ef888e16131f0a5687b0580a36c21b5c301a6c462effe(pos)\n        end := add(pos, 32)\n    }\n\n    function abi_encode_tuple_t_stringliteral_9924ebdf1add33d25d4ef888e16131f0a5687b0580a36c21b5c301a6c462effe__to_t_string_memory_ptr__fromStack_reversed(headStart ) -> tail {\n        tail := add(headStart, 32)\n\n        mstore(add(headStart, 0), sub(tail, headStart))\n        tail := abi_encode_t_stringliteral_9924ebdf1add33d25d4ef888e16131f0a5687b0580a36c21b5c301a6c462effe_to_t_string_memory_ptr_fromStack( tail)\n\n    }\n\n    function store_literal_in_memory_245f15ff17f551913a7a18385165551503906a406f905ac1c2437281a7cd0cfe(memPtr) {\n\n        mstore(add(memPtr, 0), \"Ownable: new owner is the zero a\")\n\n        mstore(add(memPtr, 32), \"ddress\")\n\n    }\n\n    function abi_encode_t_stringliteral_245f15ff17f551913a7a18385165551503906a406f905ac1c2437281a7cd0cfe_to_t_string_memory_ptr_fromStack(pos) -> end {\n        pos := array_storeLengthForEncoding_t_string_memory_ptr_fromStack(pos, 38)\n        store_literal_in_memory_245f15ff17f551913a7a18385165551503906a406f905ac1c2437281a7cd0cfe(pos)\n        end := add(pos, 64)\n    }\n\n    function abi_encode_tuple_t_stringliteral_245f15ff17f551913a7a18385165551503906a406f905ac1c2437281a7cd0cfe__to_t_string_memory_ptr__fromStack_reversed(headStart ) -> tail {\n        tail := add(headStart, 32)\n\n        mstore(add(headStart, 0), sub(tail, headStart))\n        tail := abi_encode_t_stringliteral_245f15ff17f551913a7a18385165551503906a406f905ac1c2437281a7cd0cfe_to_t_string_memory_ptr_fromStack( tail)\n\n    }\n\n}\n",
       "id": 21,
       "language": "Yul",
       "name": "#utility.yul"
@@ -10496,60 +10496,60 @@
     "absolutePath": "project:/contracts/resolvers/XPGainConsumableResolver.sol",
     "exportedSymbols": {
       "Address": [
-        5047
+        5049
       ],
       "Context": [
-        5069
+        5071
       ],
       "Counters": [
-        5143
+        5145
       ],
       "ERC165": [
-        5370
+        5372
       ],
       "ERC721": [
-        4461
+        4463
       ],
       "ERC721URIStorage": [
-        4723
+        4725
       ],
       "GameToken": [
-        2543
+        2545
       ],
       "IConsumableResolver": [
-        3411
+        3413
       ],
       "IERC165": [
-        5382
+        5384
       ],
       "IERC721": [
-        4577
+        4579
       ],
       "IERC721Metadata": [
-        4750
+        4752
       ],
       "IERC721Receiver": [
-        4595
+        4597
       ],
       "Ownable": [
-        3645
+        3647
       ],
       "SharedStructs": [
-        3425
+        3427
       ],
       "Strings": [
-        5346
+        5348
       ],
       "XPGainConsumableResolver": [
-        3541
+        3543
       ]
     },
-    "id": 3542,
+    "id": 3544,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 3427,
+        "id": 3429,
         "literals": [
           "solidity",
           "0.8",
@@ -10561,11 +10561,11 @@
       {
         "absolutePath": "project:/node_modules/@openzeppelin/contracts/access/Ownable.sol",
         "file": "../../node_modules/@openzeppelin/contracts/access/Ownable.sol",
-        "id": 3428,
+        "id": 3430,
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
-        "scope": 3542,
-        "sourceUnit": 3646,
+        "scope": 3544,
+        "sourceUnit": 3648,
         "src": "56:71:8",
         "symbolAliases": [],
         "unitAlias": ""
@@ -10573,11 +10573,11 @@
       {
         "absolutePath": "project:/contracts/GameToken.sol",
         "file": "../GameToken.sol",
-        "id": 3429,
+        "id": 3431,
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
-        "scope": 3542,
-        "sourceUnit": 2544,
+        "scope": 3544,
+        "sourceUnit": 2546,
         "src": "128:26:8",
         "symbolAliases": [],
         "unitAlias": ""
@@ -10585,11 +10585,11 @@
       {
         "absolutePath": "project:/contracts/interfaces/IConsumableResolver.sol",
         "file": "../interfaces/IConsumableResolver.sol",
-        "id": 3430,
+        "id": 3432,
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
-        "scope": 3542,
-        "sourceUnit": 3412,
+        "scope": 3544,
+        "sourceUnit": 3414,
         "src": "155:47:8",
         "symbolAliases": [],
         "unitAlias": ""
@@ -10599,25 +10599,25 @@
         "baseContracts": [
           {
             "baseName": {
-              "id": 3431,
+              "id": 3433,
               "name": "Ownable",
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 3645,
+              "referencedDeclaration": 3647,
               "src": "241:7:8"
             },
-            "id": 3432,
+            "id": 3434,
             "nodeType": "InheritanceSpecifier",
             "src": "241:7:8"
           },
           {
             "baseName": {
-              "id": 3433,
+              "id": 3435,
               "name": "IConsumableResolver",
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 3411,
+              "referencedDeclaration": 3413,
               "src": "250:19:8"
             },
-            "id": 3434,
+            "id": 3436,
             "nodeType": "InheritanceSpecifier",
             "src": "250:19:8"
           }
@@ -10626,12 +10626,12 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "id": 3541,
+        "id": 3543,
         "linearizedBaseContracts": [
-          3541,
-          3411,
-          3645,
-          5069
+          3543,
+          3413,
+          3647,
+          5071
         ],
         "name": "XPGainConsumableResolver",
         "nameLocation": "213:24:8",
@@ -10639,12 +10639,12 @@
         "nodes": [
           {
             "constant": false,
-            "id": 3436,
+            "id": 3438,
             "mutability": "mutable",
             "name": "_gameTokenAddress",
             "nameLocation": "292:17:8",
             "nodeType": "VariableDeclaration",
-            "scope": 3541,
+            "scope": 3543,
             "src": "276:33:8",
             "stateVariable": true,
             "storageLocation": "default",
@@ -10653,7 +10653,7 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 3435,
+              "id": 3437,
               "name": "address",
               "nodeType": "ElementaryTypeName",
               "src": "276:7:8",
@@ -10667,12 +10667,12 @@
           },
           {
             "constant": false,
-            "id": 3438,
+            "id": 3440,
             "mutability": "mutable",
             "name": "_consumableAddress",
             "nameLocation": "331:18:8",
             "nodeType": "VariableDeclaration",
-            "scope": 3541,
+            "scope": 3543,
             "src": "315:34:8",
             "stateVariable": true,
             "storageLocation": "default",
@@ -10681,7 +10681,7 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 3437,
+              "id": 3439,
               "name": "address",
               "nodeType": "ElementaryTypeName",
               "src": "315:7:8",
@@ -10695,23 +10695,23 @@
           },
           {
             "body": {
-              "id": 3453,
+              "id": 3455,
               "nodeType": "Block",
               "src": "421:101:8",
               "statements": [
                 {
                   "expression": {
-                    "id": 3447,
+                    "id": 3449,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
-                      "id": 3445,
+                      "id": 3447,
                       "name": "_gameTokenAddress",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 3436,
+                      "referencedDeclaration": 3438,
                       "src": "431:17:8",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -10721,11 +10721,11 @@
                     "nodeType": "Assignment",
                     "operator": "=",
                     "rightHandSide": {
-                      "id": 3446,
+                      "id": 3448,
                       "name": "gameTokenAddress",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 3440,
+                      "referencedDeclaration": 3442,
                       "src": "451:16:8",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -10738,23 +10738,23 @@
                       "typeString": "address"
                     }
                   },
-                  "id": 3448,
+                  "id": 3450,
                   "nodeType": "ExpressionStatement",
                   "src": "431:36:8"
                 },
                 {
                   "expression": {
-                    "id": 3451,
+                    "id": 3453,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
-                      "id": 3449,
+                      "id": 3451,
                       "name": "_consumableAddress",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 3438,
+                      "referencedDeclaration": 3440,
                       "src": "477:18:8",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -10764,11 +10764,11 @@
                     "nodeType": "Assignment",
                     "operator": "=",
                     "rightHandSide": {
-                      "id": 3450,
+                      "id": 3452,
                       "name": "consumableAddress",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 3442,
+                      "referencedDeclaration": 3444,
                       "src": "498:17:8",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -10781,13 +10781,13 @@
                       "typeString": "address"
                     }
                   },
-                  "id": 3452,
+                  "id": 3454,
                   "nodeType": "ExpressionStatement",
                   "src": "477:38:8"
                 }
               ]
             },
-            "id": 3454,
+            "id": 3456,
             "implemented": true,
             "kind": "constructor",
             "modifiers": [],
@@ -10795,17 +10795,17 @@
             "nameLocation": "-1:-1:-1",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 3443,
+              "id": 3445,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 3440,
+                  "id": 3442,
                   "mutability": "mutable",
                   "name": "gameTokenAddress",
                   "nameLocation": "376:16:8",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3454,
+                  "scope": 3456,
                   "src": "368:24:8",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -10814,7 +10814,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 3439,
+                    "id": 3441,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "368:7:8",
@@ -10828,12 +10828,12 @@
                 },
                 {
                   "constant": false,
-                  "id": 3442,
+                  "id": 3444,
                   "mutability": "mutable",
                   "name": "consumableAddress",
                   "nameLocation": "402:17:8",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3454,
+                  "scope": 3456,
                   "src": "394:25:8",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -10842,7 +10842,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 3441,
+                    "id": 3443,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "394:7:8",
@@ -10858,12 +10858,12 @@
               "src": "367:53:8"
             },
             "returnParameters": {
-              "id": 3444,
+              "id": 3446,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "421:0:8"
             },
-            "scope": 3541,
+            "scope": 3543,
             "src": "356:166:8",
             "stateMutability": "nonpayable",
             "virtual": false,
@@ -10871,10 +10871,10 @@
           },
           {
             "baseFunctions": [
-              3410
+              3412
             ],
             "body": {
-              "id": 3539,
+              "id": 3541,
               "nodeType": "Block",
               "src": "637:696:8",
               "statements": [
@@ -10886,14 +10886,14 @@
                           "typeIdentifier": "t_address",
                           "typeString": "address"
                         },
-                        "id": 3466,
+                        "id": 3468,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
                         "lValueRequested": false,
                         "leftExpression": {
                           "expression": {
-                            "id": 3463,
+                            "id": 3465,
                             "name": "msg",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
@@ -10904,7 +10904,7 @@
                               "typeString": "msg"
                             }
                           },
-                          "id": 3464,
+                          "id": 3466,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -10920,11 +10920,11 @@
                         "nodeType": "BinaryOperation",
                         "operator": "==",
                         "rightExpression": {
-                          "id": 3465,
+                          "id": 3467,
                           "name": "_consumableAddress",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 3438,
+                          "referencedDeclaration": 3440,
                           "src": "682:18:8",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
@@ -10939,7 +10939,7 @@
                       },
                       {
                         "hexValue": "4f6e6c7920636f6e73756d61626c6520636f6e74726163742063616e2063616c6c2074686973206d6574686f64",
-                        "id": 3467,
+                        "id": 3469,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -10965,7 +10965,7 @@
                           "typeString": "literal_string \"Only consumable contract can call this method\""
                         }
                       ],
-                      "id": 3462,
+                      "id": 3464,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
@@ -10979,7 +10979,7 @@
                         "typeString": "function (bool,string memory) pure"
                       }
                     },
-                    "id": 3468,
+                    "id": 3470,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -10994,7 +10994,7 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 3469,
+                  "id": 3471,
                   "nodeType": "ExpressionStatement",
                   "src": "647:124:8"
                 },
@@ -11006,14 +11006,14 @@
                           "typeIdentifier": "t_address",
                           "typeString": "address"
                         },
-                        "id": 3479,
+                        "id": 3481,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
                         "lValueRequested": false,
                         "leftExpression": {
                           "expression": {
-                            "id": 3471,
+                            "id": 3473,
                             "name": "msg",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
@@ -11024,7 +11024,7 @@
                               "typeString": "msg"
                             }
                           },
-                          "id": 3472,
+                          "id": 3474,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -11042,11 +11042,11 @@
                         "rightExpression": {
                           "arguments": [
                             {
-                              "id": 3477,
+                              "id": 3479,
                               "name": "_token",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 3456,
+                              "referencedDeclaration": 3458,
                               "src": "854:6:8",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_uint256",
@@ -11064,11 +11064,11 @@
                             "expression": {
                               "arguments": [
                                 {
-                                  "id": 3474,
+                                  "id": 3476,
                                   "name": "_gameTokenAddress",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 3436,
+                                  "referencedDeclaration": 3438,
                                   "src": "827:17:8",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_address",
@@ -11083,18 +11083,18 @@
                                     "typeString": "address"
                                   }
                                 ],
-                                "id": 3473,
+                                "id": 3475,
                                 "name": "GameToken",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 2543,
+                                "referencedDeclaration": 2545,
                                 "src": "817:9:8",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_type$_t_contract$_GameToken_$2543_$",
+                                  "typeIdentifier": "t_type$_t_contract$_GameToken_$2545_$",
                                   "typeString": "type(contract GameToken)"
                                 }
                               },
-                              "id": 3475,
+                              "id": 3477,
                               "isConstant": false,
                               "isLValue": false,
                               "isPure": false,
@@ -11105,25 +11105,25 @@
                               "src": "817:28:8",
                               "tryCall": false,
                               "typeDescriptions": {
-                                "typeIdentifier": "t_contract$_GameToken_$2543",
+                                "typeIdentifier": "t_contract$_GameToken_$2545",
                                 "typeString": "contract GameToken"
                               }
                             },
-                            "id": 3476,
+                            "id": 3478,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": false,
                             "lValueRequested": false,
                             "memberName": "ownerOf",
                             "nodeType": "MemberAccess",
-                            "referencedDeclaration": 3791,
+                            "referencedDeclaration": 3793,
                             "src": "817:36:8",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_external_view$_t_uint256_$returns$_t_address_$",
                               "typeString": "function (uint256) view external returns (address)"
                             }
                           },
-                          "id": 3478,
+                          "id": 3480,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -11146,7 +11146,7 @@
                       },
                       {
                         "hexValue": "4f6e6c79206865726f206f776e65722063616e20616464205850",
-                        "id": 3480,
+                        "id": 3482,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -11172,7 +11172,7 @@
                           "typeString": "literal_string \"Only hero owner can add XP\""
                         }
                       ],
-                      "id": 3470,
+                      "id": 3472,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
@@ -11186,7 +11186,7 @@
                         "typeString": "function (bool,string memory) pure"
                       }
                     },
-                    "id": 3481,
+                    "id": 3483,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -11201,59 +11201,59 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 3482,
+                  "id": 3484,
                   "nodeType": "ExpressionStatement",
                   "src": "782:131:8"
                 },
                 {
                   "assignments": [
-                    3487
+                    3489
                   ],
                   "declarations": [
                     {
                       "constant": false,
-                      "id": 3487,
+                      "id": 3489,
                       "mutability": "mutable",
                       "name": "hero",
                       "nameLocation": "946:4:8",
                       "nodeType": "VariableDeclaration",
-                      "scope": 3539,
+                      "scope": 3541,
                       "src": "924:26:8",
                       "stateVariable": false,
                       "storageLocation": "memory",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_Hero_$1776_memory_ptr",
+                        "typeIdentifier": "t_struct$_Hero_$1778_memory_ptr",
                         "typeString": "struct GameToken.Hero"
                       },
                       "typeName": {
-                        "id": 3486,
+                        "id": 3488,
                         "nodeType": "UserDefinedTypeName",
                         "pathNode": {
-                          "id": 3485,
+                          "id": 3487,
                           "name": "GameToken.Hero",
                           "nodeType": "IdentifierPath",
-                          "referencedDeclaration": 1776,
+                          "referencedDeclaration": 1778,
                           "src": "924:14:8"
                         },
-                        "referencedDeclaration": 1776,
+                        "referencedDeclaration": 1778,
                         "src": "924:14:8",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Hero_$1776_storage_ptr",
+                          "typeIdentifier": "t_struct$_Hero_$1778_storage_ptr",
                           "typeString": "struct GameToken.Hero"
                         }
                       },
                       "visibility": "internal"
                     }
                   ],
-                  "id": 3494,
+                  "id": 3496,
                   "initialValue": {
                     "arguments": [
                       {
-                        "id": 3492,
+                        "id": 3494,
                         "name": "_token",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3456,
+                        "referencedDeclaration": 3458,
                         "src": "1003:6:8",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -11271,11 +11271,11 @@
                       "expression": {
                         "arguments": [
                           {
-                            "id": 3489,
+                            "id": 3491,
                             "name": "_gameTokenAddress",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3436,
+                            "referencedDeclaration": 3438,
                             "src": "963:17:8",
                             "typeDescriptions": {
                               "typeIdentifier": "t_address",
@@ -11290,18 +11290,18 @@
                               "typeString": "address"
                             }
                           ],
-                          "id": 3488,
+                          "id": 3490,
                           "name": "GameToken",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 2543,
+                          "referencedDeclaration": 2545,
                           "src": "953:9:8",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_type$_t_contract$_GameToken_$2543_$",
+                            "typeIdentifier": "t_type$_t_contract$_GameToken_$2545_$",
                             "typeString": "type(contract GameToken)"
                           }
                         },
-                        "id": 3490,
+                        "id": 3492,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -11312,25 +11312,25 @@
                         "src": "953:28:8",
                         "tryCall": false,
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_GameToken_$2543",
+                          "typeIdentifier": "t_contract$_GameToken_$2545",
                           "typeString": "contract GameToken"
                         }
                       },
-                      "id": 3491,
+                      "id": 3493,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "getHero",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 2256,
+                      "referencedDeclaration": 2258,
                       "src": "953:36:8",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_function_external_view$_t_uint256_$returns$_t_struct$_Hero_$1776_memory_ptr_$",
+                        "typeIdentifier": "t_function_external_view$_t_uint256_$returns$_t_struct$_Hero_$1778_memory_ptr_$",
                         "typeString": "function (uint256) view external returns (struct GameToken.Hero memory)"
                       }
                     },
-                    "id": 3493,
+                    "id": 3495,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -11341,7 +11341,7 @@
                     "src": "953:66:8",
                     "tryCall": false,
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_Hero_$1776_memory_ptr",
+                      "typeIdentifier": "t_struct$_Hero_$1778_memory_ptr",
                       "typeString": "struct GameToken.Hero memory"
                     }
                   },
@@ -11350,17 +11350,17 @@
                 },
                 {
                   "assignments": [
-                    3496
+                    3498
                   ],
                   "declarations": [
                     {
                       "constant": false,
-                      "id": 3496,
+                      "id": 3498,
                       "mutability": "mutable",
                       "name": "xpGain",
                       "nameLocation": "1037:6:8",
                       "nodeType": "VariableDeclaration",
-                      "scope": 3539,
+                      "scope": 3541,
                       "src": "1030:13:8",
                       "stateVariable": false,
                       "storageLocation": "default",
@@ -11369,7 +11369,7 @@
                         "typeString": "uint16"
                       },
                       "typeName": {
-                        "id": 3495,
+                        "id": 3497,
                         "name": "uint16",
                         "nodeType": "ElementaryTypeName",
                         "src": "1030:6:8",
@@ -11381,13 +11381,13 @@
                       "visibility": "internal"
                     }
                   ],
-                  "id": 3510,
+                  "id": 3512,
                   "initialValue": {
                     "commonType": {
                       "typeIdentifier": "t_uint16",
                       "typeString": "uint16"
                     },
-                    "id": 3509,
+                    "id": 3511,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -11399,7 +11399,7 @@
                             "typeIdentifier": "t_uint16",
                             "typeString": "uint16"
                           },
-                          "id": 3506,
+                          "id": 3508,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -11411,14 +11411,14 @@
                                   "typeIdentifier": "t_uint256",
                                   "typeString": "uint256"
                                 },
-                                "id": 3502,
+                                "id": 3504,
                                 "isConstant": false,
                                 "isLValue": false,
                                 "isPure": false,
                                 "lValueRequested": false,
                                 "leftExpression": {
                                   "hexValue": "32",
-                                  "id": 3499,
+                                  "id": 3501,
                                   "isConstant": false,
                                   "isLValue": false,
                                   "isPure": true,
@@ -11436,25 +11436,25 @@
                                 "operator": "**",
                                 "rightExpression": {
                                   "expression": {
-                                    "id": 3500,
+                                    "id": 3502,
                                     "name": "hero",
                                     "nodeType": "Identifier",
                                     "overloadedDeclarations": [],
-                                    "referencedDeclaration": 3487,
+                                    "referencedDeclaration": 3489,
                                     "src": "1057:4:8",
                                     "typeDescriptions": {
-                                      "typeIdentifier": "t_struct$_Hero_$1776_memory_ptr",
+                                      "typeIdentifier": "t_struct$_Hero_$1778_memory_ptr",
                                       "typeString": "struct GameToken.Hero memory"
                                     }
                                   },
-                                  "id": 3501,
+                                  "id": 3503,
                                   "isConstant": false,
                                   "isLValue": true,
                                   "isPure": false,
                                   "lValueRequested": false,
                                   "memberName": "level",
                                   "nodeType": "MemberAccess",
-                                  "referencedDeclaration": 1771,
+                                  "referencedDeclaration": 1773,
                                   "src": "1057:10:8",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_uint8",
@@ -11475,7 +11475,7 @@
                                   "typeString": "uint256"
                                 }
                               ],
-                              "id": 3498,
+                              "id": 3500,
                               "isConstant": false,
                               "isLValue": false,
                               "isPure": true,
@@ -11487,14 +11487,14 @@
                                 "typeString": "type(uint16)"
                               },
                               "typeName": {
-                                "id": 3497,
+                                "id": 3499,
                                 "name": "uint16",
                                 "nodeType": "ElementaryTypeName",
                                 "src": "1047:6:8",
                                 "typeDescriptions": {}
                               }
                             },
-                            "id": 3503,
+                            "id": 3505,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": false,
@@ -11513,25 +11513,25 @@
                           "operator": "*",
                           "rightExpression": {
                             "expression": {
-                              "id": 3504,
+                              "id": 3506,
                               "name": "_consumable",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 3459,
+                              "referencedDeclaration": 3461,
                               "src": "1071:11:8",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_struct$_Consumable_$3424_memory_ptr",
+                                "typeIdentifier": "t_struct$_Consumable_$3426_memory_ptr",
                                 "typeString": "struct SharedStructs.Consumable memory"
                               }
                             },
-                            "id": 3505,
+                            "id": 3507,
                             "isConstant": false,
                             "isLValue": true,
                             "isPure": false,
                             "lValueRequested": false,
                             "memberName": "percXPGain",
                             "nodeType": "MemberAccess",
-                            "referencedDeclaration": 3417,
+                            "referencedDeclaration": 3419,
                             "src": "1071:22:8",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint8",
@@ -11545,7 +11545,7 @@
                           }
                         }
                       ],
-                      "id": 3507,
+                      "id": 3509,
                       "isConstant": false,
                       "isInlineArray": false,
                       "isLValue": false,
@@ -11562,7 +11562,7 @@
                     "operator": "/",
                     "rightExpression": {
                       "hexValue": "313030",
-                      "id": 3508,
+                      "id": 3510,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": true,
@@ -11591,17 +11591,17 @@
                       "typeIdentifier": "t_uint16",
                       "typeString": "uint16"
                     },
-                    "id": 3514,
+                    "id": 3516,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftExpression": {
-                      "id": 3511,
+                      "id": 3513,
                       "name": "xpGain",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 3496,
+                      "referencedDeclaration": 3498,
                       "src": "1115:6:8",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint16",
@@ -11612,25 +11612,25 @@
                     "operator": ">",
                     "rightExpression": {
                       "expression": {
-                        "id": 3512,
+                        "id": 3514,
                         "name": "_consumable",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3459,
+                        "referencedDeclaration": 3461,
                         "src": "1124:11:8",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Consumable_$3424_memory_ptr",
+                          "typeIdentifier": "t_struct$_Consumable_$3426_memory_ptr",
                           "typeString": "struct SharedStructs.Consumable memory"
                         }
                       },
-                      "id": 3513,
+                      "id": 3515,
                       "isConstant": false,
                       "isLValue": true,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "maxXPGain",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 3419,
+                      "referencedDeclaration": 3421,
                       "src": "1124:21:8",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint8",
@@ -11643,27 +11643,27 @@
                       "typeString": "bool"
                     }
                   },
-                  "id": 3521,
+                  "id": 3523,
                   "nodeType": "IfStatement",
                   "src": "1111:91:8",
                   "trueBody": {
-                    "id": 3520,
+                    "id": 3522,
                     "nodeType": "Block",
                     "src": "1147:55:8",
                     "statements": [
                       {
                         "expression": {
-                          "id": 3518,
+                          "id": 3520,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
                           "lValueRequested": false,
                           "leftHandSide": {
-                            "id": 3515,
+                            "id": 3517,
                             "name": "xpGain",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3496,
+                            "referencedDeclaration": 3498,
                             "src": "1161:6:8",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint16",
@@ -11674,25 +11674,25 @@
                           "operator": "=",
                           "rightHandSide": {
                             "expression": {
-                              "id": 3516,
+                              "id": 3518,
                               "name": "_consumable",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 3459,
+                              "referencedDeclaration": 3461,
                               "src": "1170:11:8",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_struct$_Consumable_$3424_memory_ptr",
+                                "typeIdentifier": "t_struct$_Consumable_$3426_memory_ptr",
                                 "typeString": "struct SharedStructs.Consumable memory"
                               }
                             },
-                            "id": 3517,
+                            "id": 3519,
                             "isConstant": false,
                             "isLValue": true,
                             "isPure": false,
                             "lValueRequested": false,
                             "memberName": "maxXPGain",
                             "nodeType": "MemberAccess",
-                            "referencedDeclaration": 3419,
+                            "referencedDeclaration": 3421,
                             "src": "1170:21:8",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint8",
@@ -11705,7 +11705,7 @@
                             "typeString": "uint16"
                           }
                         },
-                        "id": 3519,
+                        "id": 3521,
                         "nodeType": "ExpressionStatement",
                         "src": "1161:30:8"
                       }
@@ -11718,17 +11718,17 @@
                       "typeIdentifier": "t_uint16",
                       "typeString": "uint16"
                     },
-                    "id": 3524,
+                    "id": 3526,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftExpression": {
-                      "id": 3522,
+                      "id": 3524,
                       "name": "xpGain",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 3496,
+                      "referencedDeclaration": 3498,
                       "src": "1216:6:8",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint16",
@@ -11739,7 +11739,7 @@
                     "operator": "==",
                     "rightExpression": {
                       "hexValue": "30",
-                      "id": 3523,
+                      "id": 3525,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": true,
@@ -11759,27 +11759,27 @@
                       "typeString": "bool"
                     }
                   },
-                  "id": 3530,
+                  "id": 3532,
                   "nodeType": "IfStatement",
                   "src": "1212:52:8",
                   "trueBody": {
-                    "id": 3529,
+                    "id": 3531,
                     "nodeType": "Block",
                     "src": "1229:35:8",
                     "statements": [
                       {
                         "expression": {
-                          "id": 3527,
+                          "id": 3529,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
                           "lValueRequested": false,
                           "leftHandSide": {
-                            "id": 3525,
+                            "id": 3527,
                             "name": "xpGain",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3496,
+                            "referencedDeclaration": 3498,
                             "src": "1243:6:8",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint16",
@@ -11790,7 +11790,7 @@
                           "operator": "=",
                           "rightHandSide": {
                             "hexValue": "31",
-                            "id": 3526,
+                            "id": 3528,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": true,
@@ -11810,7 +11810,7 @@
                             "typeString": "uint16"
                           }
                         },
-                        "id": 3528,
+                        "id": 3530,
                         "nodeType": "ExpressionStatement",
                         "src": "1243:10:8"
                       }
@@ -11821,11 +11821,11 @@
                   "expression": {
                     "arguments": [
                       {
-                        "id": 3535,
+                        "id": 3537,
                         "name": "_token",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3456,
+                        "referencedDeclaration": 3458,
                         "src": "1311:6:8",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -11833,11 +11833,11 @@
                         }
                       },
                       {
-                        "id": 3536,
+                        "id": 3538,
                         "name": "xpGain",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3496,
+                        "referencedDeclaration": 3498,
                         "src": "1319:6:8",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint16",
@@ -11859,11 +11859,11 @@
                       "expression": {
                         "arguments": [
                           {
-                            "id": 3532,
+                            "id": 3534,
                             "name": "_gameTokenAddress",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3436,
+                            "referencedDeclaration": 3438,
                             "src": "1284:17:8",
                             "typeDescriptions": {
                               "typeIdentifier": "t_address",
@@ -11878,18 +11878,18 @@
                               "typeString": "address"
                             }
                           ],
-                          "id": 3531,
+                          "id": 3533,
                           "name": "GameToken",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 2543,
+                          "referencedDeclaration": 2545,
                           "src": "1274:9:8",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_type$_t_contract$_GameToken_$2543_$",
+                            "typeIdentifier": "t_type$_t_contract$_GameToken_$2545_$",
                             "typeString": "type(contract GameToken)"
                           }
                         },
-                        "id": 3533,
+                        "id": 3535,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -11900,25 +11900,25 @@
                         "src": "1274:28:8",
                         "tryCall": false,
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_GameToken_$2543",
+                          "typeIdentifier": "t_contract$_GameToken_$2545",
                           "typeString": "contract GameToken"
                         }
                       },
-                      "id": 3534,
+                      "id": 3536,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "levelUp",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 2440,
+                      "referencedDeclaration": 2442,
                       "src": "1274:36:8",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$_t_uint256_$_t_uint16_$returns$__$",
                         "typeString": "function (uint256,uint16) external"
                       }
                     },
-                    "id": 3537,
+                    "id": 3539,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -11933,14 +11933,14 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 3538,
+                  "id": 3540,
                   "nodeType": "ExpressionStatement",
                   "src": "1274:52:8"
                 }
               ]
             },
             "functionSelector": "51220e66",
-            "id": 3540,
+            "id": 3542,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
@@ -11948,17 +11948,17 @@
             "nameLocation": "537:7:8",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 3460,
+              "id": 3462,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 3456,
+                  "id": 3458,
                   "mutability": "mutable",
                   "name": "_token",
                   "nameLocation": "562:6:8",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3540,
+                  "scope": 3542,
                   "src": "554:14:8",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -11967,7 +11967,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 3455,
+                    "id": 3457,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "554:7:8",
@@ -11980,33 +11980,33 @@
                 },
                 {
                   "constant": false,
-                  "id": 3459,
+                  "id": 3461,
                   "mutability": "mutable",
                   "name": "_consumable",
                   "nameLocation": "610:11:8",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3540,
+                  "scope": 3542,
                   "src": "578:43:8",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_Consumable_$3424_memory_ptr",
+                    "typeIdentifier": "t_struct$_Consumable_$3426_memory_ptr",
                     "typeString": "struct SharedStructs.Consumable"
                   },
                   "typeName": {
-                    "id": 3458,
+                    "id": 3460,
                     "nodeType": "UserDefinedTypeName",
                     "pathNode": {
-                      "id": 3457,
+                      "id": 3459,
                       "name": "SharedStructs.Consumable",
                       "nodeType": "IdentifierPath",
-                      "referencedDeclaration": 3424,
+                      "referencedDeclaration": 3426,
                       "src": "578:24:8"
                     },
-                    "referencedDeclaration": 3424,
+                    "referencedDeclaration": 3426,
                     "src": "578:24:8",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_Consumable_$3424_storage_ptr",
+                      "typeIdentifier": "t_struct$_Consumable_$3426_storage_ptr",
                       "typeString": "struct SharedStructs.Consumable"
                     }
                   },
@@ -12016,19 +12016,19 @@
               "src": "544:83:8"
             },
             "returnParameters": {
-              "id": 3461,
+              "id": 3463,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "637:0:8"
             },
-            "scope": 3541,
+            "scope": 3543,
             "src": "528:805:8",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "external"
           }
         ],
-        "scope": 3542,
+        "scope": 3544,
         "src": "204:1131:8",
         "usedErrors": []
       }
@@ -12039,60 +12039,60 @@
     "absolutePath": "project:/contracts/resolvers/XPGainConsumableResolver.sol",
     "exportedSymbols": {
       "Address": [
-        5047
+        5049
       ],
       "Context": [
-        5069
+        5071
       ],
       "Counters": [
-        5143
+        5145
       ],
       "ERC165": [
-        5370
+        5372
       ],
       "ERC721": [
-        4461
+        4463
       ],
       "ERC721URIStorage": [
-        4723
+        4725
       ],
       "GameToken": [
-        2543
+        2545
       ],
       "IConsumableResolver": [
-        3411
+        3413
       ],
       "IERC165": [
-        5382
+        5384
       ],
       "IERC721": [
-        4577
+        4579
       ],
       "IERC721Metadata": [
-        4750
+        4752
       ],
       "IERC721Receiver": [
-        4595
+        4597
       ],
       "Ownable": [
-        3645
+        3647
       ],
       "SharedStructs": [
-        3425
+        3427
       ],
       "Strings": [
-        5346
+        5348
       ],
       "XPGainConsumableResolver": [
-        3541
+        3543
       ]
     },
-    "id": 3542,
+    "id": 3544,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 3427,
+        "id": 3429,
         "literals": [
           "solidity",
           "0.8",
@@ -12104,11 +12104,11 @@
       {
         "absolutePath": "project:/node_modules/@openzeppelin/contracts/access/Ownable.sol",
         "file": "../../node_modules/@openzeppelin/contracts/access/Ownable.sol",
-        "id": 3428,
+        "id": 3430,
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
-        "scope": 3542,
-        "sourceUnit": 3646,
+        "scope": 3544,
+        "sourceUnit": 3648,
         "src": "56:71:8",
         "symbolAliases": [],
         "unitAlias": ""
@@ -12116,11 +12116,11 @@
       {
         "absolutePath": "project:/contracts/GameToken.sol",
         "file": "../GameToken.sol",
-        "id": 3429,
+        "id": 3431,
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
-        "scope": 3542,
-        "sourceUnit": 2544,
+        "scope": 3544,
+        "sourceUnit": 2546,
         "src": "128:26:8",
         "symbolAliases": [],
         "unitAlias": ""
@@ -12128,11 +12128,11 @@
       {
         "absolutePath": "project:/contracts/interfaces/IConsumableResolver.sol",
         "file": "../interfaces/IConsumableResolver.sol",
-        "id": 3430,
+        "id": 3432,
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
-        "scope": 3542,
-        "sourceUnit": 3412,
+        "scope": 3544,
+        "sourceUnit": 3414,
         "src": "155:47:8",
         "symbolAliases": [],
         "unitAlias": ""
@@ -12142,25 +12142,25 @@
         "baseContracts": [
           {
             "baseName": {
-              "id": 3431,
+              "id": 3433,
               "name": "Ownable",
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 3645,
+              "referencedDeclaration": 3647,
               "src": "241:7:8"
             },
-            "id": 3432,
+            "id": 3434,
             "nodeType": "InheritanceSpecifier",
             "src": "241:7:8"
           },
           {
             "baseName": {
-              "id": 3433,
+              "id": 3435,
               "name": "IConsumableResolver",
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 3411,
+              "referencedDeclaration": 3413,
               "src": "250:19:8"
             },
-            "id": 3434,
+            "id": 3436,
             "nodeType": "InheritanceSpecifier",
             "src": "250:19:8"
           }
@@ -12169,12 +12169,12 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "id": 3541,
+        "id": 3543,
         "linearizedBaseContracts": [
-          3541,
-          3411,
-          3645,
-          5069
+          3543,
+          3413,
+          3647,
+          5071
         ],
         "name": "XPGainConsumableResolver",
         "nameLocation": "213:24:8",
@@ -12182,12 +12182,12 @@
         "nodes": [
           {
             "constant": false,
-            "id": 3436,
+            "id": 3438,
             "mutability": "mutable",
             "name": "_gameTokenAddress",
             "nameLocation": "292:17:8",
             "nodeType": "VariableDeclaration",
-            "scope": 3541,
+            "scope": 3543,
             "src": "276:33:8",
             "stateVariable": true,
             "storageLocation": "default",
@@ -12196,7 +12196,7 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 3435,
+              "id": 3437,
               "name": "address",
               "nodeType": "ElementaryTypeName",
               "src": "276:7:8",
@@ -12210,12 +12210,12 @@
           },
           {
             "constant": false,
-            "id": 3438,
+            "id": 3440,
             "mutability": "mutable",
             "name": "_consumableAddress",
             "nameLocation": "331:18:8",
             "nodeType": "VariableDeclaration",
-            "scope": 3541,
+            "scope": 3543,
             "src": "315:34:8",
             "stateVariable": true,
             "storageLocation": "default",
@@ -12224,7 +12224,7 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 3437,
+              "id": 3439,
               "name": "address",
               "nodeType": "ElementaryTypeName",
               "src": "315:7:8",
@@ -12238,23 +12238,23 @@
           },
           {
             "body": {
-              "id": 3453,
+              "id": 3455,
               "nodeType": "Block",
               "src": "421:101:8",
               "statements": [
                 {
                   "expression": {
-                    "id": 3447,
+                    "id": 3449,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
-                      "id": 3445,
+                      "id": 3447,
                       "name": "_gameTokenAddress",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 3436,
+                      "referencedDeclaration": 3438,
                       "src": "431:17:8",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -12264,11 +12264,11 @@
                     "nodeType": "Assignment",
                     "operator": "=",
                     "rightHandSide": {
-                      "id": 3446,
+                      "id": 3448,
                       "name": "gameTokenAddress",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 3440,
+                      "referencedDeclaration": 3442,
                       "src": "451:16:8",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -12281,23 +12281,23 @@
                       "typeString": "address"
                     }
                   },
-                  "id": 3448,
+                  "id": 3450,
                   "nodeType": "ExpressionStatement",
                   "src": "431:36:8"
                 },
                 {
                   "expression": {
-                    "id": 3451,
+                    "id": 3453,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
-                      "id": 3449,
+                      "id": 3451,
                       "name": "_consumableAddress",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 3438,
+                      "referencedDeclaration": 3440,
                       "src": "477:18:8",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -12307,11 +12307,11 @@
                     "nodeType": "Assignment",
                     "operator": "=",
                     "rightHandSide": {
-                      "id": 3450,
+                      "id": 3452,
                       "name": "consumableAddress",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 3442,
+                      "referencedDeclaration": 3444,
                       "src": "498:17:8",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -12324,13 +12324,13 @@
                       "typeString": "address"
                     }
                   },
-                  "id": 3452,
+                  "id": 3454,
                   "nodeType": "ExpressionStatement",
                   "src": "477:38:8"
                 }
               ]
             },
-            "id": 3454,
+            "id": 3456,
             "implemented": true,
             "kind": "constructor",
             "modifiers": [],
@@ -12338,17 +12338,17 @@
             "nameLocation": "-1:-1:-1",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 3443,
+              "id": 3445,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 3440,
+                  "id": 3442,
                   "mutability": "mutable",
                   "name": "gameTokenAddress",
                   "nameLocation": "376:16:8",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3454,
+                  "scope": 3456,
                   "src": "368:24:8",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -12357,7 +12357,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 3439,
+                    "id": 3441,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "368:7:8",
@@ -12371,12 +12371,12 @@
                 },
                 {
                   "constant": false,
-                  "id": 3442,
+                  "id": 3444,
                   "mutability": "mutable",
                   "name": "consumableAddress",
                   "nameLocation": "402:17:8",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3454,
+                  "scope": 3456,
                   "src": "394:25:8",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -12385,7 +12385,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 3441,
+                    "id": 3443,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "394:7:8",
@@ -12401,12 +12401,12 @@
               "src": "367:53:8"
             },
             "returnParameters": {
-              "id": 3444,
+              "id": 3446,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "421:0:8"
             },
-            "scope": 3541,
+            "scope": 3543,
             "src": "356:166:8",
             "stateMutability": "nonpayable",
             "virtual": false,
@@ -12414,10 +12414,10 @@
           },
           {
             "baseFunctions": [
-              3410
+              3412
             ],
             "body": {
-              "id": 3539,
+              "id": 3541,
               "nodeType": "Block",
               "src": "637:696:8",
               "statements": [
@@ -12429,14 +12429,14 @@
                           "typeIdentifier": "t_address",
                           "typeString": "address"
                         },
-                        "id": 3466,
+                        "id": 3468,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
                         "lValueRequested": false,
                         "leftExpression": {
                           "expression": {
-                            "id": 3463,
+                            "id": 3465,
                             "name": "msg",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
@@ -12447,7 +12447,7 @@
                               "typeString": "msg"
                             }
                           },
-                          "id": 3464,
+                          "id": 3466,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -12463,11 +12463,11 @@
                         "nodeType": "BinaryOperation",
                         "operator": "==",
                         "rightExpression": {
-                          "id": 3465,
+                          "id": 3467,
                           "name": "_consumableAddress",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 3438,
+                          "referencedDeclaration": 3440,
                           "src": "682:18:8",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
@@ -12482,7 +12482,7 @@
                       },
                       {
                         "hexValue": "4f6e6c7920636f6e73756d61626c6520636f6e74726163742063616e2063616c6c2074686973206d6574686f64",
-                        "id": 3467,
+                        "id": 3469,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -12508,7 +12508,7 @@
                           "typeString": "literal_string \"Only consumable contract can call this method\""
                         }
                       ],
-                      "id": 3462,
+                      "id": 3464,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
@@ -12522,7 +12522,7 @@
                         "typeString": "function (bool,string memory) pure"
                       }
                     },
-                    "id": 3468,
+                    "id": 3470,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -12537,7 +12537,7 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 3469,
+                  "id": 3471,
                   "nodeType": "ExpressionStatement",
                   "src": "647:124:8"
                 },
@@ -12549,14 +12549,14 @@
                           "typeIdentifier": "t_address",
                           "typeString": "address"
                         },
-                        "id": 3479,
+                        "id": 3481,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
                         "lValueRequested": false,
                         "leftExpression": {
                           "expression": {
-                            "id": 3471,
+                            "id": 3473,
                             "name": "msg",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
@@ -12567,7 +12567,7 @@
                               "typeString": "msg"
                             }
                           },
-                          "id": 3472,
+                          "id": 3474,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -12585,11 +12585,11 @@
                         "rightExpression": {
                           "arguments": [
                             {
-                              "id": 3477,
+                              "id": 3479,
                               "name": "_token",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 3456,
+                              "referencedDeclaration": 3458,
                               "src": "854:6:8",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_uint256",
@@ -12607,11 +12607,11 @@
                             "expression": {
                               "arguments": [
                                 {
-                                  "id": 3474,
+                                  "id": 3476,
                                   "name": "_gameTokenAddress",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 3436,
+                                  "referencedDeclaration": 3438,
                                   "src": "827:17:8",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_address",
@@ -12626,18 +12626,18 @@
                                     "typeString": "address"
                                   }
                                 ],
-                                "id": 3473,
+                                "id": 3475,
                                 "name": "GameToken",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 2543,
+                                "referencedDeclaration": 2545,
                                 "src": "817:9:8",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_type$_t_contract$_GameToken_$2543_$",
+                                  "typeIdentifier": "t_type$_t_contract$_GameToken_$2545_$",
                                   "typeString": "type(contract GameToken)"
                                 }
                               },
-                              "id": 3475,
+                              "id": 3477,
                               "isConstant": false,
                               "isLValue": false,
                               "isPure": false,
@@ -12648,25 +12648,25 @@
                               "src": "817:28:8",
                               "tryCall": false,
                               "typeDescriptions": {
-                                "typeIdentifier": "t_contract$_GameToken_$2543",
+                                "typeIdentifier": "t_contract$_GameToken_$2545",
                                 "typeString": "contract GameToken"
                               }
                             },
-                            "id": 3476,
+                            "id": 3478,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": false,
                             "lValueRequested": false,
                             "memberName": "ownerOf",
                             "nodeType": "MemberAccess",
-                            "referencedDeclaration": 3791,
+                            "referencedDeclaration": 3793,
                             "src": "817:36:8",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_external_view$_t_uint256_$returns$_t_address_$",
                               "typeString": "function (uint256) view external returns (address)"
                             }
                           },
-                          "id": 3478,
+                          "id": 3480,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -12689,7 +12689,7 @@
                       },
                       {
                         "hexValue": "4f6e6c79206865726f206f776e65722063616e20616464205850",
-                        "id": 3480,
+                        "id": 3482,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -12715,7 +12715,7 @@
                           "typeString": "literal_string \"Only hero owner can add XP\""
                         }
                       ],
-                      "id": 3470,
+                      "id": 3472,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
@@ -12729,7 +12729,7 @@
                         "typeString": "function (bool,string memory) pure"
                       }
                     },
-                    "id": 3481,
+                    "id": 3483,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -12744,59 +12744,59 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 3482,
+                  "id": 3484,
                   "nodeType": "ExpressionStatement",
                   "src": "782:131:8"
                 },
                 {
                   "assignments": [
-                    3487
+                    3489
                   ],
                   "declarations": [
                     {
                       "constant": false,
-                      "id": 3487,
+                      "id": 3489,
                       "mutability": "mutable",
                       "name": "hero",
                       "nameLocation": "946:4:8",
                       "nodeType": "VariableDeclaration",
-                      "scope": 3539,
+                      "scope": 3541,
                       "src": "924:26:8",
                       "stateVariable": false,
                       "storageLocation": "memory",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_Hero_$1776_memory_ptr",
+                        "typeIdentifier": "t_struct$_Hero_$1778_memory_ptr",
                         "typeString": "struct GameToken.Hero"
                       },
                       "typeName": {
-                        "id": 3486,
+                        "id": 3488,
                         "nodeType": "UserDefinedTypeName",
                         "pathNode": {
-                          "id": 3485,
+                          "id": 3487,
                           "name": "GameToken.Hero",
                           "nodeType": "IdentifierPath",
-                          "referencedDeclaration": 1776,
+                          "referencedDeclaration": 1778,
                           "src": "924:14:8"
                         },
-                        "referencedDeclaration": 1776,
+                        "referencedDeclaration": 1778,
                         "src": "924:14:8",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Hero_$1776_storage_ptr",
+                          "typeIdentifier": "t_struct$_Hero_$1778_storage_ptr",
                           "typeString": "struct GameToken.Hero"
                         }
                       },
                       "visibility": "internal"
                     }
                   ],
-                  "id": 3494,
+                  "id": 3496,
                   "initialValue": {
                     "arguments": [
                       {
-                        "id": 3492,
+                        "id": 3494,
                         "name": "_token",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3456,
+                        "referencedDeclaration": 3458,
                         "src": "1003:6:8",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -12814,11 +12814,11 @@
                       "expression": {
                         "arguments": [
                           {
-                            "id": 3489,
+                            "id": 3491,
                             "name": "_gameTokenAddress",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3436,
+                            "referencedDeclaration": 3438,
                             "src": "963:17:8",
                             "typeDescriptions": {
                               "typeIdentifier": "t_address",
@@ -12833,18 +12833,18 @@
                               "typeString": "address"
                             }
                           ],
-                          "id": 3488,
+                          "id": 3490,
                           "name": "GameToken",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 2543,
+                          "referencedDeclaration": 2545,
                           "src": "953:9:8",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_type$_t_contract$_GameToken_$2543_$",
+                            "typeIdentifier": "t_type$_t_contract$_GameToken_$2545_$",
                             "typeString": "type(contract GameToken)"
                           }
                         },
-                        "id": 3490,
+                        "id": 3492,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -12855,25 +12855,25 @@
                         "src": "953:28:8",
                         "tryCall": false,
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_GameToken_$2543",
+                          "typeIdentifier": "t_contract$_GameToken_$2545",
                           "typeString": "contract GameToken"
                         }
                       },
-                      "id": 3491,
+                      "id": 3493,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "getHero",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 2256,
+                      "referencedDeclaration": 2258,
                       "src": "953:36:8",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_function_external_view$_t_uint256_$returns$_t_struct$_Hero_$1776_memory_ptr_$",
+                        "typeIdentifier": "t_function_external_view$_t_uint256_$returns$_t_struct$_Hero_$1778_memory_ptr_$",
                         "typeString": "function (uint256) view external returns (struct GameToken.Hero memory)"
                       }
                     },
-                    "id": 3493,
+                    "id": 3495,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -12884,7 +12884,7 @@
                     "src": "953:66:8",
                     "tryCall": false,
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_Hero_$1776_memory_ptr",
+                      "typeIdentifier": "t_struct$_Hero_$1778_memory_ptr",
                       "typeString": "struct GameToken.Hero memory"
                     }
                   },
@@ -12893,17 +12893,17 @@
                 },
                 {
                   "assignments": [
-                    3496
+                    3498
                   ],
                   "declarations": [
                     {
                       "constant": false,
-                      "id": 3496,
+                      "id": 3498,
                       "mutability": "mutable",
                       "name": "xpGain",
                       "nameLocation": "1037:6:8",
                       "nodeType": "VariableDeclaration",
-                      "scope": 3539,
+                      "scope": 3541,
                       "src": "1030:13:8",
                       "stateVariable": false,
                       "storageLocation": "default",
@@ -12912,7 +12912,7 @@
                         "typeString": "uint16"
                       },
                       "typeName": {
-                        "id": 3495,
+                        "id": 3497,
                         "name": "uint16",
                         "nodeType": "ElementaryTypeName",
                         "src": "1030:6:8",
@@ -12924,13 +12924,13 @@
                       "visibility": "internal"
                     }
                   ],
-                  "id": 3510,
+                  "id": 3512,
                   "initialValue": {
                     "commonType": {
                       "typeIdentifier": "t_uint16",
                       "typeString": "uint16"
                     },
-                    "id": 3509,
+                    "id": 3511,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -12942,7 +12942,7 @@
                             "typeIdentifier": "t_uint16",
                             "typeString": "uint16"
                           },
-                          "id": 3506,
+                          "id": 3508,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -12954,14 +12954,14 @@
                                   "typeIdentifier": "t_uint256",
                                   "typeString": "uint256"
                                 },
-                                "id": 3502,
+                                "id": 3504,
                                 "isConstant": false,
                                 "isLValue": false,
                                 "isPure": false,
                                 "lValueRequested": false,
                                 "leftExpression": {
                                   "hexValue": "32",
-                                  "id": 3499,
+                                  "id": 3501,
                                   "isConstant": false,
                                   "isLValue": false,
                                   "isPure": true,
@@ -12979,25 +12979,25 @@
                                 "operator": "**",
                                 "rightExpression": {
                                   "expression": {
-                                    "id": 3500,
+                                    "id": 3502,
                                     "name": "hero",
                                     "nodeType": "Identifier",
                                     "overloadedDeclarations": [],
-                                    "referencedDeclaration": 3487,
+                                    "referencedDeclaration": 3489,
                                     "src": "1057:4:8",
                                     "typeDescriptions": {
-                                      "typeIdentifier": "t_struct$_Hero_$1776_memory_ptr",
+                                      "typeIdentifier": "t_struct$_Hero_$1778_memory_ptr",
                                       "typeString": "struct GameToken.Hero memory"
                                     }
                                   },
-                                  "id": 3501,
+                                  "id": 3503,
                                   "isConstant": false,
                                   "isLValue": true,
                                   "isPure": false,
                                   "lValueRequested": false,
                                   "memberName": "level",
                                   "nodeType": "MemberAccess",
-                                  "referencedDeclaration": 1771,
+                                  "referencedDeclaration": 1773,
                                   "src": "1057:10:8",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_uint8",
@@ -13018,7 +13018,7 @@
                                   "typeString": "uint256"
                                 }
                               ],
-                              "id": 3498,
+                              "id": 3500,
                               "isConstant": false,
                               "isLValue": false,
                               "isPure": true,
@@ -13030,14 +13030,14 @@
                                 "typeString": "type(uint16)"
                               },
                               "typeName": {
-                                "id": 3497,
+                                "id": 3499,
                                 "name": "uint16",
                                 "nodeType": "ElementaryTypeName",
                                 "src": "1047:6:8",
                                 "typeDescriptions": {}
                               }
                             },
-                            "id": 3503,
+                            "id": 3505,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": false,
@@ -13056,25 +13056,25 @@
                           "operator": "*",
                           "rightExpression": {
                             "expression": {
-                              "id": 3504,
+                              "id": 3506,
                               "name": "_consumable",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 3459,
+                              "referencedDeclaration": 3461,
                               "src": "1071:11:8",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_struct$_Consumable_$3424_memory_ptr",
+                                "typeIdentifier": "t_struct$_Consumable_$3426_memory_ptr",
                                 "typeString": "struct SharedStructs.Consumable memory"
                               }
                             },
-                            "id": 3505,
+                            "id": 3507,
                             "isConstant": false,
                             "isLValue": true,
                             "isPure": false,
                             "lValueRequested": false,
                             "memberName": "percXPGain",
                             "nodeType": "MemberAccess",
-                            "referencedDeclaration": 3417,
+                            "referencedDeclaration": 3419,
                             "src": "1071:22:8",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint8",
@@ -13088,7 +13088,7 @@
                           }
                         }
                       ],
-                      "id": 3507,
+                      "id": 3509,
                       "isConstant": false,
                       "isInlineArray": false,
                       "isLValue": false,
@@ -13105,7 +13105,7 @@
                     "operator": "/",
                     "rightExpression": {
                       "hexValue": "313030",
-                      "id": 3508,
+                      "id": 3510,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": true,
@@ -13134,17 +13134,17 @@
                       "typeIdentifier": "t_uint16",
                       "typeString": "uint16"
                     },
-                    "id": 3514,
+                    "id": 3516,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftExpression": {
-                      "id": 3511,
+                      "id": 3513,
                       "name": "xpGain",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 3496,
+                      "referencedDeclaration": 3498,
                       "src": "1115:6:8",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint16",
@@ -13155,25 +13155,25 @@
                     "operator": ">",
                     "rightExpression": {
                       "expression": {
-                        "id": 3512,
+                        "id": 3514,
                         "name": "_consumable",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3459,
+                        "referencedDeclaration": 3461,
                         "src": "1124:11:8",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Consumable_$3424_memory_ptr",
+                          "typeIdentifier": "t_struct$_Consumable_$3426_memory_ptr",
                           "typeString": "struct SharedStructs.Consumable memory"
                         }
                       },
-                      "id": 3513,
+                      "id": 3515,
                       "isConstant": false,
                       "isLValue": true,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "maxXPGain",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 3419,
+                      "referencedDeclaration": 3421,
                       "src": "1124:21:8",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint8",
@@ -13186,27 +13186,27 @@
                       "typeString": "bool"
                     }
                   },
-                  "id": 3521,
+                  "id": 3523,
                   "nodeType": "IfStatement",
                   "src": "1111:91:8",
                   "trueBody": {
-                    "id": 3520,
+                    "id": 3522,
                     "nodeType": "Block",
                     "src": "1147:55:8",
                     "statements": [
                       {
                         "expression": {
-                          "id": 3518,
+                          "id": 3520,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
                           "lValueRequested": false,
                           "leftHandSide": {
-                            "id": 3515,
+                            "id": 3517,
                             "name": "xpGain",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3496,
+                            "referencedDeclaration": 3498,
                             "src": "1161:6:8",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint16",
@@ -13217,25 +13217,25 @@
                           "operator": "=",
                           "rightHandSide": {
                             "expression": {
-                              "id": 3516,
+                              "id": 3518,
                               "name": "_consumable",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 3459,
+                              "referencedDeclaration": 3461,
                               "src": "1170:11:8",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_struct$_Consumable_$3424_memory_ptr",
+                                "typeIdentifier": "t_struct$_Consumable_$3426_memory_ptr",
                                 "typeString": "struct SharedStructs.Consumable memory"
                               }
                             },
-                            "id": 3517,
+                            "id": 3519,
                             "isConstant": false,
                             "isLValue": true,
                             "isPure": false,
                             "lValueRequested": false,
                             "memberName": "maxXPGain",
                             "nodeType": "MemberAccess",
-                            "referencedDeclaration": 3419,
+                            "referencedDeclaration": 3421,
                             "src": "1170:21:8",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint8",
@@ -13248,7 +13248,7 @@
                             "typeString": "uint16"
                           }
                         },
-                        "id": 3519,
+                        "id": 3521,
                         "nodeType": "ExpressionStatement",
                         "src": "1161:30:8"
                       }
@@ -13261,17 +13261,17 @@
                       "typeIdentifier": "t_uint16",
                       "typeString": "uint16"
                     },
-                    "id": 3524,
+                    "id": 3526,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftExpression": {
-                      "id": 3522,
+                      "id": 3524,
                       "name": "xpGain",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 3496,
+                      "referencedDeclaration": 3498,
                       "src": "1216:6:8",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint16",
@@ -13282,7 +13282,7 @@
                     "operator": "==",
                     "rightExpression": {
                       "hexValue": "30",
-                      "id": 3523,
+                      "id": 3525,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": true,
@@ -13302,27 +13302,27 @@
                       "typeString": "bool"
                     }
                   },
-                  "id": 3530,
+                  "id": 3532,
                   "nodeType": "IfStatement",
                   "src": "1212:52:8",
                   "trueBody": {
-                    "id": 3529,
+                    "id": 3531,
                     "nodeType": "Block",
                     "src": "1229:35:8",
                     "statements": [
                       {
                         "expression": {
-                          "id": 3527,
+                          "id": 3529,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
                           "lValueRequested": false,
                           "leftHandSide": {
-                            "id": 3525,
+                            "id": 3527,
                             "name": "xpGain",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3496,
+                            "referencedDeclaration": 3498,
                             "src": "1243:6:8",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint16",
@@ -13333,7 +13333,7 @@
                           "operator": "=",
                           "rightHandSide": {
                             "hexValue": "31",
-                            "id": 3526,
+                            "id": 3528,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": true,
@@ -13353,7 +13353,7 @@
                             "typeString": "uint16"
                           }
                         },
-                        "id": 3528,
+                        "id": 3530,
                         "nodeType": "ExpressionStatement",
                         "src": "1243:10:8"
                       }
@@ -13364,11 +13364,11 @@
                   "expression": {
                     "arguments": [
                       {
-                        "id": 3535,
+                        "id": 3537,
                         "name": "_token",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3456,
+                        "referencedDeclaration": 3458,
                         "src": "1311:6:8",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -13376,11 +13376,11 @@
                         }
                       },
                       {
-                        "id": 3536,
+                        "id": 3538,
                         "name": "xpGain",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3496,
+                        "referencedDeclaration": 3498,
                         "src": "1319:6:8",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint16",
@@ -13402,11 +13402,11 @@
                       "expression": {
                         "arguments": [
                           {
-                            "id": 3532,
+                            "id": 3534,
                             "name": "_gameTokenAddress",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3436,
+                            "referencedDeclaration": 3438,
                             "src": "1284:17:8",
                             "typeDescriptions": {
                               "typeIdentifier": "t_address",
@@ -13421,18 +13421,18 @@
                               "typeString": "address"
                             }
                           ],
-                          "id": 3531,
+                          "id": 3533,
                           "name": "GameToken",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 2543,
+                          "referencedDeclaration": 2545,
                           "src": "1274:9:8",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_type$_t_contract$_GameToken_$2543_$",
+                            "typeIdentifier": "t_type$_t_contract$_GameToken_$2545_$",
                             "typeString": "type(contract GameToken)"
                           }
                         },
-                        "id": 3533,
+                        "id": 3535,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -13443,25 +13443,25 @@
                         "src": "1274:28:8",
                         "tryCall": false,
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_GameToken_$2543",
+                          "typeIdentifier": "t_contract$_GameToken_$2545",
                           "typeString": "contract GameToken"
                         }
                       },
-                      "id": 3534,
+                      "id": 3536,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "levelUp",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 2440,
+                      "referencedDeclaration": 2442,
                       "src": "1274:36:8",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$_t_uint256_$_t_uint16_$returns$__$",
                         "typeString": "function (uint256,uint16) external"
                       }
                     },
-                    "id": 3537,
+                    "id": 3539,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -13476,14 +13476,14 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 3538,
+                  "id": 3540,
                   "nodeType": "ExpressionStatement",
                   "src": "1274:52:8"
                 }
               ]
             },
             "functionSelector": "51220e66",
-            "id": 3540,
+            "id": 3542,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
@@ -13491,17 +13491,17 @@
             "nameLocation": "537:7:8",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 3460,
+              "id": 3462,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 3456,
+                  "id": 3458,
                   "mutability": "mutable",
                   "name": "_token",
                   "nameLocation": "562:6:8",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3540,
+                  "scope": 3542,
                   "src": "554:14:8",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -13510,7 +13510,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 3455,
+                    "id": 3457,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "554:7:8",
@@ -13523,33 +13523,33 @@
                 },
                 {
                   "constant": false,
-                  "id": 3459,
+                  "id": 3461,
                   "mutability": "mutable",
                   "name": "_consumable",
                   "nameLocation": "610:11:8",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3540,
+                  "scope": 3542,
                   "src": "578:43:8",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_Consumable_$3424_memory_ptr",
+                    "typeIdentifier": "t_struct$_Consumable_$3426_memory_ptr",
                     "typeString": "struct SharedStructs.Consumable"
                   },
                   "typeName": {
-                    "id": 3458,
+                    "id": 3460,
                     "nodeType": "UserDefinedTypeName",
                     "pathNode": {
-                      "id": 3457,
+                      "id": 3459,
                       "name": "SharedStructs.Consumable",
                       "nodeType": "IdentifierPath",
-                      "referencedDeclaration": 3424,
+                      "referencedDeclaration": 3426,
                       "src": "578:24:8"
                     },
-                    "referencedDeclaration": 3424,
+                    "referencedDeclaration": 3426,
                     "src": "578:24:8",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_Consumable_$3424_storage_ptr",
+                      "typeIdentifier": "t_struct$_Consumable_$3426_storage_ptr",
                       "typeString": "struct SharedStructs.Consumable"
                     }
                   },
@@ -13559,19 +13559,19 @@
               "src": "544:83:8"
             },
             "returnParameters": {
-              "id": 3461,
+              "id": 3463,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "637:0:8"
             },
-            "scope": 3541,
+            "scope": 3543,
             "src": "528:805:8",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "external"
           }
         ],
-        "scope": 3542,
+        "scope": 3544,
         "src": "204:1131:8",
         "usedErrors": []
       }
@@ -13658,12 +13658,12 @@
         }
       },
       "links": {},
-      "address": "0x5a8f3425D50d6e2253005d9FFFb70B3dDE34C7eA",
-      "transactionHash": "0x6273b1243309d777403d37cde25e09d4fb9c99901e0fef6f0ec48c45248636ab"
+      "address": "0x4F057e9a7dFD0Ca4916d90e4dc241D5DF18cf26c",
+      "transactionHash": "0x4cb2d715901d499d544b8b960ad09e8799518e71434fc0ce6e28b46582441261"
     }
   },
   "schemaVersion": "3.4.3",
-  "updatedAt": "2021-12-03T19:21:26.461Z",
+  "updatedAt": "2021-12-03T19:35:15.698Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",

@@ -194,7 +194,7 @@ const HeroCard = ({ heroInstance, token, isApprovedForAll }) => {
     }
 
     const battle = async function () {
-        await data?.battleSystem.methods.battle(token).send({ from: data?.accounts[0], gas: '500000' });
+        await data?.battleSystem.methods.battle(token).send({ from: data?.accounts[0], gas: '600000' });
         event({
             category: 'Battle System',
             action: `New Battle #${token}`,

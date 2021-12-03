@@ -63,7 +63,7 @@ const BattleResultDialog = (props) => {
                     <Loading><img src="imgs/fighting.gif" alt="fighting" />fighting...</Loading>
                 </DialogContent>
             }
-            {!!battleResult &&
+            {!loading &&
                 <Fragment>
                     <DialogContent sx={{ padding: '10px' }}>
                         <DialogContentText>
@@ -71,17 +71,17 @@ const BattleResultDialog = (props) => {
                                 Battle Result:
                             </Typography>
                             <Typography component="span" sx={{ textAlign: 'center', display: 'block' }}>
-                                {`#${battleResult.battleResult.aHeroId} vs #${battleResult.battleResult.dHeroId}`}
+                                {`#${battleResult?.battleResult.aHeroId} vs #${battleResult?.battleResult.dHeroId}`}
                             </Typography>
                         </DialogContentText>
                         <List sx={{ color: '#61422D', background: '#DCC1A1', padding: '10px', borderRadius: 1, }}>
                             <ListItem sx={{ padding: "0" }}>
                                 <ListItemAvatar>
-                                    <img className={classes.nft} src={battleResult.battleResult.tokenURI} alt={`#${battleResult.battleResult.dHeroId}`} />
+                                    <img className={classes.nft} src={battleResult?.battleResult.tokenURI} alt={`#${battleResult?.battleResult.dHeroId}`} />
                                 </ListItemAvatar>
-                                <ListItemText sx={{ textAlign: 'center', [`& .${typographyClasses.body1}`]: { fontSize: '36px', color: battleResult.battleResult.points > 0 ? '#22673C' : '#C03C3B' } }}
-                                    primary={`${battleResult.battleResult.points > 0 ? "WON" : "LOSE"}`}
-                                    secondary={`${new Date(parseInt(battleResult.battleResult.date) * 1000).toLocaleString()}`} />
+                                <ListItemText sx={{ textAlign: 'center', [`& .${typographyClasses.body1}`]: { fontSize: '36px', color: battleResult?.battleResult.points > 0 ? '#22673C' : '#C03C3B' } }}
+                                    primary={`${battleResult?.battleResult.points > 0 ? "WON" : "LOSE"}`}
+                                    secondary={`${new Date(parseInt(battleResult?.battleResult.date) * 1000).toLocaleString()}`} />
                             </ListItem>
                             <ListItem sx={{
                                 padding: '10px', background: '#FEEDD9',
@@ -104,12 +104,12 @@ const BattleResultDialog = (props) => {
                             }}>
                                 <List sx={{ padding: '0px', width: '100%' }}>
                                     <ListItem sx={{ padding: '0px' }}>
-                                        <ListItemText sx={{ [`& .${typographyClasses.body1}`]: { fontSize: '14px' } }} primary={`Points Received: ${battleResult.battleResult.points}`} />
+                                        <ListItemText sx={{ [`& .${typographyClasses.body1}`]: { fontSize: '14px' } }} primary={`Points Received: ${battleResult?.battleResult.points}`} />
                                     </ListItem>
                                     <ListItem sx={{ padding: '0px' }}>
                                         <ListItemText sx={{ [`& .${typographyClasses.body1}`]: { fontSize: '14px' } }} primary={`This mount score: 0`} />
                                     </ListItem>
-                                    {!!battleResult.consumable && battleResult.consumable.consumableType !== '-1' &&
+                                    {!!battleResult?.consumable && battleResult?.consumable.consumableType !== '-1' &&
                                         <Fragment>
                                             <ListItem sx={{ padding: '0px' }}>
                                                 <ListItemText sx={{
@@ -117,18 +117,18 @@ const BattleResultDialog = (props) => {
                                                     [`& .${typographyClasses.body2}`]: { fontSize: '14px', color: '#61422D' }
                                                 }} primary={`You received a new item,`} secondary={`you can see it in the item menu.`} />
                                                 <ListItemAvatar>
-                                                    <img className={classes.item} src={battleResult.consumable.tokenURI} alt={`#${battleResult.consumable.consumableType}`} />
+                                                    <img className={classes.item} src={battleResult?.consumable.tokenURI} alt={`#${battleResult?.consumable.consumableType}`} />
                                                 </ListItemAvatar>
                                             </ListItem>
                                         </Fragment>
                                     }
                                     <ListItem sx={{ padding: '0px' }}>
-                                        {battleResult.levelUp.currXP === '0' ?
+                                        {battleResult?.levelUp.currXP === '0' ?
                                             <ListItemText sx={{ [`& .${typographyClasses.body1}`]: { fontSize: '14px' } }}
-                                                primary={`NEW Level ${battleResult.levelUp.level} (XP:${battleResult.levelUp.currXP}/${Math.pow(2, parseInt(battleResult.levelUp.level))}) `} />
+                                                primary={`NEW Level ${battleResult?.levelUp.level} (XP:${battleResult?.levelUp.currXP}/${Math.pow(2, parseInt(battleResult?.levelUp.level))}) `} />
                                             :
                                             <ListItemText sx={{ [`& .${typographyClasses.body1}`]: { fontSize: '14px' } }}
-                                                primary={`Level ${battleResult.levelUp.level} (XP:${battleResult.levelUp.currXP}/${Math.pow(2, parseInt(battleResult.levelUp.level))}) `} />
+                                                primary={`Level ${battleResult?.levelUp.level} (XP:${battleResult?.levelUp.currXP}/${Math.pow(2, parseInt(battleResult?.levelUp.level))}) `} />
                                         }
                                     </ListItem>
                                     <ListItem sx={{ padding: '0px' }}>
@@ -142,7 +142,7 @@ const BattleResultDialog = (props) => {
                                                 background: '#61422D'
                                             }
                                         }}
-                                            variant="determinate" value={battleResult.levelUp.currXP / Math.pow(2, parseInt(battleResult.levelUp.level)) * 100} />
+                                            variant="determinate" value={battleResult?.levelUp.currXP / Math.pow(2, parseInt(battleResult?.levelUp.level)) * 100} />
                                     </ListItem>
                                 </List>
                             </ListItem>
