@@ -12,6 +12,41 @@ const Web3Provider = (props) => {
 
     const createContext = async function () {
 
+        const loadContracts = async () => {
+            const ret = {};
+
+            ret.web3 = new Web3(Web3.givenProvider || process.env.REACT_APP_WEB3_ADDRESS);
+            ret.networkId = await ret.web3.eth.net.getId();
+            ret.accounts = await ret.web3.eth.getAccounts();
+
+            ret.networkData = GameToken.networks[ret.networkId];
+            ret.networkMarketData = Market.networks[ret.networkId];
+            ret.networkBattleData = BattleSystem.networks[ret.networkId];
+            ret.networkConsumableData = Consumable.networks[ret.networkId];
+
+            if (ret.networkData) {
+                ret.contractAddress = ret.networkData.address;
+                ret.contract = new ret.web3.eth.Contract(GameToken.abi, ret.contractAddress);
+            }
+
+            if (ret.networkMarketData) {
+                ret.marketAddress = ret.networkMarketData.address;
+                ret.market = new ret.web3.eth.Contract(Market.abi, ret.marketAddress);
+            }
+
+            if (ret.networkBattleData) {
+                ret.battleSystemAddress = ret.networkBattleData.address;
+                ret.battleSystem = new ret.web3.eth.Contract(BattleSystem.abi, ret.battleSystemAddress);
+            }
+
+            if (ret.networkConsumableData) {
+                ret.consumableAddress = ret.networkConsumableData.address;
+                ret.consumable = new ret.web3.eth.Contract(Consumable.abi, ret.consumableAddress);
+            }
+
+            setData(ret);
+        }
+
         if (window.ethereum) {
 
             const loadWeb3 = async () => {
@@ -28,40 +63,9 @@ const Web3Provider = (props) => {
                     });
 
 
-                    console.log("loading contracts")
-                    const ret = {};
+                    console.log("loading contracts");
+                    loadContracts();
 
-
-                    ret.web3 = new Web3(Web3.givenProvider || process.env.REACT_APP_WEB3_ADDRESS);
-                    ret.networkId = await ret.web3.eth.net.getId();
-                    ret.accounts = await ret.web3.eth.getAccounts();
-
-                    ret.networkData = GameToken.networks[ret.networkId];
-                    ret.networkMarketData = Market.networks[ret.networkId];
-                    ret.networkBattleData = BattleSystem.networks[ret.networkId];
-                    ret.networkConsumableData = Consumable.networks[ret.networkId];
-
-                    if (ret.networkData) {
-                        ret.contractAddress = ret.networkData.address;
-                        ret.contract = new ret.web3.eth.Contract(GameToken.abi, ret.contractAddress);
-                    }
-
-                    if (ret.networkMarketData) {
-                        ret.marketAddress = ret.networkMarketData.address;
-                        ret.market = new ret.web3.eth.Contract(Market.abi, ret.marketAddress);
-                    }
-
-                    if (ret.networkBattleData) {
-                        ret.battleSystemAddress = ret.networkBattleData.address;
-                        ret.battleSystem = new ret.web3.eth.Contract(BattleSystem.abi, ret.battleSystemAddress);
-                    }
-
-                    if (ret.networkConsumableData) {
-                        ret.consumableAddress = ret.networkConsumableData.address;
-                        ret.consumable = new ret.web3.eth.Contract(Consumable.abi, ret.consumableAddress);
-                    }
-
-                    setData(ret);
 
                 } catch (error) {
                     // This error code indicates that the chain has not been added to MetaMask
@@ -100,6 +104,8 @@ const Web3Provider = (props) => {
             })
 
             await loadWeb3();
+        } else {
+            loadContracts();
         }
 
     }
