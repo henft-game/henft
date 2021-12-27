@@ -32,7 +32,7 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      {process.env.REACT_APP_USE_HASH_ROUTER ?
+      {process.env.REACT_APP_USE_HASH_ROUTER === 'true' ?
         <HashRouter>
           <Web3Provider>
             <Application />

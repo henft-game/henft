@@ -17,7 +17,7 @@ const Web3Provider = (props) => {
             const loadWeb3 = async () => {
 
                 console.log("current env: ");
-                    console.log(process.env);
+                console.log(process.env);
 
                 try {
 
@@ -60,8 +60,6 @@ const Web3Provider = (props) => {
                         ret.consumableAddress = ret.networkConsumableData.address;
                         ret.consumable = new ret.web3.eth.Contract(Consumable.abi, ret.consumableAddress);
                     }
-
-                    console.log(ret);
 
                     setData(ret);
 
