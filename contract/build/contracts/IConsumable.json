@@ -600,10 +600,10 @@
         3401
       ],
       "IERC165": [
-        5384
+        5371
       ],
       "IERC721": [
-        4579
+        4566
       ],
       "SharedStructs": [
         3427
@@ -631,7 +631,7 @@
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
         "scope": 3402,
-        "sourceUnit": 4580,
+        "sourceUnit": 4567,
         "src": "57:77:5",
         "symbolAliases": [],
         "unitAlias": ""
@@ -656,7 +656,7 @@
               "id": 3320,
               "name": "IERC721",
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 4579,
+              "referencedDeclaration": 4566,
               "src": "200:7:5"
             },
             "id": 3321,
@@ -671,8 +671,8 @@
         "id": 3401,
         "linearizedBaseContracts": [
           3401,
-          4579,
-          5384
+          4566,
+          5371
         ],
         "name": "IConsumable",
         "nameLocation": "185:11:5",
@@ -1577,10 +1577,10 @@
         3401
       ],
       "IERC165": [
-        5384
+        5371
       ],
       "IERC721": [
-        4579
+        4566
       ],
       "SharedStructs": [
         3427
@@ -1608,7 +1608,7 @@
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
         "scope": 3402,
-        "sourceUnit": 4580,
+        "sourceUnit": 4567,
         "src": "57:77:5",
         "symbolAliases": [],
         "unitAlias": ""
@@ -1633,7 +1633,7 @@
               "id": 3320,
               "name": "IERC721",
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 4579,
+              "referencedDeclaration": 4566,
               "src": "200:7:5"
             },
             "id": 3321,
@@ -1648,8 +1648,8 @@
         "id": 3401,
         "linearizedBaseContracts": [
           3401,
-          4579,
-          5384
+          4566,
+          5371
         ],
         "name": "IConsumable",
         "nameLocation": "185:11:5",
@@ -2553,7 +2553,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.4",
-  "updatedAt": "2021-12-27T12:41:27.039Z",
+  "updatedAt": "2021-12-27T19:01:38.370Z",
   "devdoc": {
     "kind": "dev",
     "methods": {

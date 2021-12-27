@@ -80,9 +80,11 @@ const Items = () => {
     const { loading, content } = useConsumables();
 
     const [consumables, setConsumables] = useState();
+    const [heroesIds, setHeroesIds] = useState();
 
     useEffect(() => {
         setConsumables(content?.consumables?.reduce(reducer, []));
+        setHeroesIds(content?.heroesIds);
     }, [content])
 
 
@@ -116,7 +118,7 @@ const Items = () => {
             for (let i = 0; i < prev.length; i++) {
                 if (currType === prev[i].type) {
                     prev[i].total++;
-                    prev[i].ids.push(prev.id);
+                    prev[i].ids.push(curr.id);
                     break;
                 }
             }
@@ -142,8 +144,8 @@ const Items = () => {
                                 {!loading &&
                                     <Fragment>
                                         <Box sx={{ height: 20 }} />
-                                        <ConsumableGridItem consumableType={'0'} consumable={consumables?.filter(con => con.type === 0)[0]} />
-                                        <ConsumableGridItem consumableType={'1'} consumable={consumables?.filter(con => con.type === 1)[0]} />
+                                        <ConsumableGridItem heroesIds={heroesIds} consumableType={'0'} consumable={consumables?.filter(con => con.type === 0)[0]} />
+                                        <ConsumableGridItem heroesIds={heroesIds} consumableType={'1'} consumable={consumables?.filter(con => con.type === 1)[0]} />
                                         <ConsumableGridItem consumableType={'2'} consumable={consumables?.filter(con => con.type === 2)[0]} />
                                         <ConsumableGridItem consumableType={'3'} consumable={consumables?.filter(con => con.type === 3)[0]} />
                                     </Fragment>

@@ -1,8 +1,9 @@
-import { Grid, Typography, Button } from '@mui/material';
+import { Grid, Typography, Button, FormControl, MenuItem, Select, InputLabel } from '@mui/material';
 import { styled } from '@mui/styles';
-import React from 'react';
+import React, { Fragment, useContext, useState } from 'react';
+import { Web3Context } from '../providers/Web3Provider';
 
-const ConsumableCard = ({ consumableType, consumable, isApprovedForAll }) => {
+const ConsumableCard = ({ consumableType, consumable, isApprovedForAll, heroesIds }) => {
 
 
     const Consumable = styled('img')(({ theme }) => ({
@@ -52,7 +53,6 @@ const ConsumableCard = ({ consumableType, consumable, isApprovedForAll }) => {
             border: '2px solid #61422D',
             borderRadius: '1',
             textTransform: 'capitalize',
-            height: '26px',
 
         },
         '&&:hover': {
@@ -74,11 +74,36 @@ const ConsumableCard = ({ consumableType, consumable, isApprovedForAll }) => {
         },
     }));
 
+    const HeroIdSelect = styled(Select)(({ theme }) => ({
+
+        color: '#61422D',
+        "&": {
+            background: '#FEEDD9',
+            borderRadius: '1',
+            color: '#61422D',
+            marginRight: 12,
+        },
+        '&:hover': {
+            borderColor: '#61422D',
+            borderRadius: '1',
+            borderWidth: '2px',
+        }
+    }));
+
     const consType = {
         '0': 'imgs/xpGain10.gif',
         '1': 'imgs/xpGain50.gif',
         '2': 'imgs/arenaTicket.gif',
         '3': 'imgs/chest.gif'
+    }
+
+    const [heroId, setHeroId] = useState();
+
+    const { data } = useContext(Web3Context);
+
+    const useConsumable = async () => {
+        await data?.consumable.methods.consume(heroId, consumable.ids.pop()).send({ from: data?.accounts[0] });
+        consumable.total--;
     }
 
     return (
@@ -105,9 +130,29 @@ const ConsumableCard = ({ consumableType, consumable, isApprovedForAll }) => {
                             <Typography sx={{ fontSize: "16px" }}>{`You have x0`}</Typography>
                         }
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid item xs={12} sx={{ marginTop: '10px' }}>
                         {!!consumable && consumable.total > 0 &&
-                            <ActionButton size="small">Use</ActionButton>
+                            <Fragment>
+                                {!!heroesIds &&
+                                    <FormControl>
+                                        <InputLabel id="hero-label">Hero</InputLabel>
+                                        <HeroIdSelect size="small"
+                                            labelId="hero-label"
+                                            id="hero-select"
+                                            value={heroId || heroesIds[0]}
+                                            label="HERO"
+                                            onChange={(e) => { setHeroId(e.target.value) }}
+                                        >
+                                            {heroesIds.map((hId, index) => {
+                                                return (
+                                                    <MenuItem key={index} sx={{ color: '#61422D', }} value={hId}>{`#${hId}`}</MenuItem>
+                                                )
+                                            })}
+                                        </HeroIdSelect>
+                                    </FormControl>
+                                }
+                                <ActionButton onClick={useConsumable}>Use</ActionButton>
+                            </Fragment>
                         }
                     </Grid>
                 </Grid>

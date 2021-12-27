@@ -18,12 +18,15 @@ const useConsumables = () => {
             const promisses = [];
 
             promisses.push(data?.consumable?.methods.getConsumablesByAddress(data?.accounts[0]).call());
+            promisses.push(data?.contract?.methods.getHeroesByAddress(data?.accounts[0]).call());
 
             Promise.all(promisses).then((values) => {
                 console.log("loading initial date consumables");
                 setContent({
                     consumables: values[0],
+                    heroesIds: values[1],
                 });
+
                 setLoading(false);
             });
         }

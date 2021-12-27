@@ -108,7 +108,7 @@ const Heroes = () => {
                                 <FilterSelect
                                     size="small"
                                     labelId="rarity-label"
-                                    id="rarity-label"
+                                    id="rarity"
                                     value={rarity}
                                     onChange={handleRarityChange}
                                     label="RARITY"

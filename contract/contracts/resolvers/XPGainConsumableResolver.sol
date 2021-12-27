@@ -23,11 +23,6 @@ contract XPGainConsumableResolver is Ownable, IConsumableResolver {
             "Only consumable contract can call this method"
         );
 
-        require(
-            msg.sender == GameToken(_gameTokenAddress).ownerOf(_token),
-            "Only hero owner can add XP"
-        );
-
         GameToken.Hero memory hero = GameToken(_gameTokenAddress).getHero(
             _token
         );
