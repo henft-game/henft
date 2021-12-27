@@ -34,6 +34,18 @@ const Heroes = () => {
         },
     }));
 
+    const CustomFormControl = styled(FormControl)(({ theme }) => ({
+        "&&": {
+            minWidth: 150,
+            marginRight: "8px"
+        },
+        [theme.breakpoints.down('sm')]: {
+            "&&": {
+                marginTop: 10
+            },
+        },
+    }));
+
     const FilterSelect = styled(Select)(({ theme }) => ({
 
         "&": {
@@ -74,7 +86,7 @@ const Heroes = () => {
                             border: "4px solid #61422D",
                             borderRadius: "4px", background: "#FEEDD9"
                         }} >
-                            <FormControl sx={{ minWidth: 150, marginRight: "8px" }}>
+                            <CustomFormControl >
                                 <InputLabel id="class-label">Class</InputLabel>
                                 <FilterSelect
                                     size="small"
@@ -90,8 +102,8 @@ const Heroes = () => {
                                     <MenuItem value={'2'}>Mage</MenuItem>
                                     <MenuItem value={'3'}>Tank</MenuItem>
                                 </FilterSelect>
-                            </FormControl>
-                            <FormControl sx={{ minWidth: 150, marginRight: "8px" }}>
+                            </CustomFormControl>
+                            <CustomFormControl >
                                 <InputLabel id="rarity-label">Rarity</InputLabel>
                                 <FilterSelect
                                     size="small"
@@ -107,7 +119,7 @@ const Heroes = () => {
                                     <MenuItem value={'2'}>Rare</MenuItem>
                                     <MenuItem value={'3'}>Legendary</MenuItem>
                                 </FilterSelect>
-                            </FormControl>
+                            </CustomFormControl>
                             <FormControlLabel sx={{ "&": { color: '#61422D' } }} onChange={(e, newValue) => setOnlySelling(newValue)} control={
                                 <Checkbox sx={{ "&": { color: '#61422D' } }} checked={onlySelling} />
                             } label="Only Selling" />
