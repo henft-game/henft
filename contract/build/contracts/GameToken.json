@@ -52679,11 +52679,48 @@
           ],
           "name": "HeroLevelUp",
           "type": "event"
+        },
+        "0x756b3854f86219a3f38542278162f1486bbf6d7c1a7505542d2398a6e13d3918": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "tokenId",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint8",
+              "name": "level",
+              "type": "uint8"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "currXP",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "attribute",
+              "type": "uint256"
+            }
+          ],
+          "name": "HeroLevelUp",
+          "type": "event"
         }
       },
       "links": {},
-      "address": "0xF69251bC3D2f17c3C1b6019D97BA57449d11781e",
-      "transactionHash": "0x4627aba18679c85301cb53786bbdceb4e7abf5d9159172bc1233ad59982bd596"
+      "address": "0xD048a8A6Ed3664622A1f8e7f4C7c7a33423b924E",
+      "transactionHash": "0xa35a5d6cd3a092aeb92eabb0378244f56d773d0e76be262c69e6c8367d0008a3"
     },
     "5777": {
       "events": {
@@ -56231,7 +56268,7 @@
     }
   },
   "schemaVersion": "3.4.4",
-  "updatedAt": "2021-12-27T12:42:42.844Z",
+  "updatedAt": "2021-12-27T13:17:20.547Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
