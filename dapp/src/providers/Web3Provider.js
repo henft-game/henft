@@ -61,6 +61,8 @@ const Web3Provider = (props) => {
                         ret.consumable = new ret.web3.eth.Contract(Consumable.abi, ret.consumableAddress);
                     }
 
+                    console.log(ret);
+
                     setData(ret);
 
                 } catch (error) {
