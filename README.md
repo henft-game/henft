@@ -45,6 +45,7 @@ truffle compile
 ### 1.2.2. Compile and migrate
 
 ```sh
+export NODE_OPTIONS=--openssl-legacy-provider
 truffle migrate --compile-all --reset --network development
 ```
 

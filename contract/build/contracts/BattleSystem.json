@@ -41135,10 +41135,16 @@
       "links": {},
       "address": "0x9306d2B859fba601e75466cb0B8542D9AddbC1EF",
       "transactionHash": "0xa5d74327c259663ba5be9f4d4f07da19d52ab25745e12f3f3c51c798758edcff"
+    },
+    "1640608325683": {
+      "events": {},
+      "links": {},
+      "address": "0xD45BE9cAc20a65BCD7545E98A3eF09E94748D2D2",
+      "transactionHash": "0xb161a1637aa326d22a2d273b97feae9679dc7bcc128e8fdc25c46209af496ae3"
     }
   },
-  "schemaVersion": "3.4.3",
-  "updatedAt": "2021-12-03T19:35:08.185Z",
+  "schemaVersion": "3.4.4",
+  "updatedAt": "2021-12-27T12:42:39.767Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
