@@ -9,7 +9,6 @@ const Home = () => {
         width: '100%',
     }));
 
-
     const Text = styled('p')(({ theme }) => ({
         lineHeight: '22px'
     }));
@@ -84,6 +83,58 @@ const Home = () => {
         }
     }));
 
+    const Featured = styled(Box)(({ theme }) => ({
+        flexGrow: 1,
+        padding: '10px',
+        border: '4px solid #61422D',
+        borderRadius: 1,
+        backgroundPosition: 'center',
+        backgroundSize: '600px',
+        background: '#FFEED4',
+        position: 'relative',
+        "&:before": {
+            top: '-26px',
+            left: '50%',
+            color: '#FFEDD9',
+            border: '4px solid rgb(97, 66, 45)',
+            content: '"Featured Hens"',
+            padding: '6px',
+            position: 'absolute',
+            fontSize: '15px',
+            background: '#DCC1A1',
+            textAlign: 'center',
+            marginLeft: '-104px',
+            borderRadius: '3px',
+            textShadow: '3px 0 0 #000, -3px 0 0 #000, 0 3px 0 #000, 0 -3px 0 #000, 2px 2px #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000',
+        }
+    }));
+
+    const Roadmap = styled(Box)(({ theme }) => ({
+        flexGrow: 1,
+        padding: '10px',
+        border: '4px solid #61422D',
+        borderRadius: 1,
+        backgroundPosition: 'center',
+        backgroundSize: '600px',
+        background: '#FFEED4',
+        position: 'relative',
+        "&:before": {
+            top: '-26px',
+            left: '50%',
+            color: '#FFEDD9',
+            border: '4px solid rgb(97, 66, 45)',
+            content: '"Roadmap"',
+            padding: '6px',
+            position: 'absolute',
+            fontSize: '15px',
+            background: '#DCC1A1',
+            textAlign: 'center',
+            marginLeft: '-60px',
+            borderRadius: '3px',
+            textShadow: '3px 0 0 #000, -3px 0 0 #000, 0 3px 0 #000, 0 -3px 0 #000, 2px 2px #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000',
+        }
+    }));
+
 
     const HeroTop1 = styled('img')(({ theme }) => ({
         position: 'absolute',
@@ -133,6 +184,18 @@ const Home = () => {
         },
     }));
 
+    const RoadmapLink = styled(Link)(({ theme }) => ({
+        padding: 10,
+        width: '100%',
+        height: '400px',
+        display: 'block',
+        borderRadius: "3px",
+        textDecoration: 'none',
+        background: "url('imgs/roadmap_sign.png') no-repeat",
+        backgroundSize: '200px',
+        backgroundPosition: 'center',
+    }));
+
     const NewsDate = styled(Avatar)(({ theme }) => ({
         '&&': {
             height: '36px',
@@ -173,7 +236,7 @@ const Home = () => {
                     <Box sx={{
                         textAlign: 'center', width: '100%',
                         background: 'linear-gradient(to right, rgba(255,0,0,0), #F4E3CC, rgba(255,0,0,0))',
-                        padding: '10px', marginTop: '10px'
+                        padding: '10px', marginTop: '20px'
                     }}>
                         <h1>What is HeNFT</h1>
 
@@ -186,10 +249,7 @@ const Home = () => {
                             love by digital art, coding, games and hens.
                         </Text>
                     </Box>
-
-
-
-                    <Grid container spacing={2} sx={{ marginTop: '10px' }}>
+                    <Grid container spacing={2} sx={{ marginTop: '20px' }}>
                         <CustomGrid item xs={12} md={6}>
                             <Top1>
                                 <Grid container>
@@ -229,6 +289,18 @@ const Home = () => {
                                     })}
                                 </List>
                             </News>
+                        </CustomGrid>
+                    </Grid>
+
+                    <Grid container spacing={2} sx={{ marginTop: '20px' }}>
+                        <CustomGrid item xs={12} md={8}>
+                            <Featured>
+                            </Featured>
+                        </CustomGrid>
+                        <CustomGrid item xs={12} md={4}>
+                            <Roadmap>
+                                <RoadmapLink to="/roadmap" />
+                            </Roadmap>
                         </CustomGrid>
                     </Grid>
                 </Grid>
