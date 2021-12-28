@@ -23,7 +23,7 @@ export default function Application() {
 
     const Footer = styled('footer')(({ theme }) => ({
         background: 'url("imgs/footer.png") repeat-x',
-        width: '100vw',
+        width: '100%',
         height: '67px',
         backgroundSize: 'contain',
         [theme.breakpoints.down('sm')]: {
