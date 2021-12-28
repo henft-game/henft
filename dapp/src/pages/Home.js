@@ -1,6 +1,6 @@
-import { Box, Grid, List, ListItem } from '@mui/material';
+import { Avatar, Box, Grid, List, ListItem, ListItemAvatar, ListItemText } from '@mui/material';
 import { styled } from '@mui/styles';
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Home = () => {
@@ -88,10 +88,10 @@ const Home = () => {
     const HeroTop1 = styled('img')(({ theme }) => ({
         position: 'absolute',
         left: '50%',
-        width: '300px',
-        height: '300px',
-        marginLeft: '-150px',
-        top: '30px',
+        width: '250px',
+        height: '250px',
+        marginLeft: '-125px',
+        top: '55px',
         [theme.breakpoints.down('sm')]: {
             top: '80px',
             width: '220px',
@@ -104,11 +104,11 @@ const Home = () => {
         background: 'url("imgs/champion.png")',
         position: 'absolute',
         left: '50%',
-        bottom: '15px',
+        bottom: '30px',
         backgroundSize: 'cover',
-        width: '400px',
-        height: '210px',
-        marginLeft: '-200px',
+        width: '350px',
+        height: '184px',
+        marginLeft: '-175px',
         [theme.breakpoints.down('sm')]: {
             bottom: '60px',
             width: '250px',
@@ -132,6 +132,32 @@ const Home = () => {
             color: "#DCC1A1",
         },
     }));
+
+    const NewsDate = styled(Avatar)(({ theme }) => ({
+        '&&': {
+            height: '36px',
+            width: '44px',
+            fontSize: '17px',
+            padding: '10px',
+            lineHight: '24px',
+            background: '#FFEED4',
+            color: '#61422D',
+        }
+    }));
+
+    const [news] = useState([
+        { title: "Giveaway 1", date: new Date(), url: "http://google.com" },
+        { title: "Giveaway 2", date: new Date(), url: "http://google.com" },
+        { title: "Giveaway 3", date: new Date(), url: "http://google.com" },
+        { title: "Giveaway 4", date: new Date(), url: "http://google.com" },
+        { title: "Giveaway 5", date: new Date(), url: "http://google.com" },
+        { title: "Giveaway 6", date: new Date(), url: "http://google.com" },
+        { title: "Giveaway 7", date: new Date(), url: "http://google.com" },
+        { title: "Giveaway 8", date: new Date(), url: "http://google.com" },
+        { title: "Giveaway 9", date: new Date(), url: "http://google.com" },
+    ])
+
+
 
     return (
         <HomeBox>
@@ -180,26 +206,27 @@ const Home = () => {
                         </CustomGrid>
                         <CustomGrid item xs={12} md={6}>
                             <News>
-                                <List sx={{ height: '384px', overflowY: 'scroll' }}>
-                                    <ListItem>Test</ListItem>
-                                    <ListItem>Test</ListItem>
-                                    <ListItem>Test</ListItem>
-                                    <ListItem>Test</ListItem>
-                                    <ListItem>Test</ListItem>
-                                    <ListItem>Test</ListItem>
-                                    <ListItem>Test</ListItem>
-                                    <ListItem>Test</ListItem>
-                                    <ListItem>Test</ListItem>
-                                    <ListItem>Test</ListItem>
-                                    <ListItem>Test</ListItem>
-                                    <ListItem>Test</ListItem>
-                                    <ListItem>Test</ListItem>
-                                    <ListItem>Test</ListItem>
-                                    <ListItem>Test</ListItem>
-                                    <ListItem>Test</ListItem>
-                                    <ListItem>Test</ListItem>
-                                    <ListItem>Test</ListItem>
-                                    <ListItem>Test</ListItem>
+                                <List sx={{ height: '384px', overflowY: 'auto' }}>
+                                    {!!news && news.map((n, index) => {
+                                        return (
+                                            <ListItem key={index} component="a" href={n.url}
+                                                sx={{
+                                                    background: '#DCC1A1',
+                                                    marginBottom: '10px', borderRadius: '4px',
+                                                    color: '#61422D', padding: '10px',
+                                                    "&:hover": {
+                                                        textShadow: "0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff",
+                                                    },
+                                                }}>
+                                                <ListItemAvatar>
+                                                    <NewsDate variant="rounded">
+                                                        {n.date.toLocaleString('en-us', { month: 'short', day: 'numeric' })}
+                                                    </NewsDate>
+                                                </ListItemAvatar>
+                                                <ListItemText sx={{ padding: '10px' }} primary={n.title} />
+                                            </ListItem>
+                                        )
+                                    })}
                                 </List>
                             </News>
                         </CustomGrid>
