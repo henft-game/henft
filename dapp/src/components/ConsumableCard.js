@@ -3,7 +3,7 @@ import { styled } from '@mui/styles';
 import React, { Fragment, useContext, useState } from 'react';
 import { Web3Context } from '../providers/Web3Provider';
 
-const ConsumableCard = ({ consumableType, consumable, isApprovedForAll, heroesIds }) => {
+const ConsumableCard = ({ consumableType, consumableInstance, isApprovedForAll, heroesIds }) => {
 
 
     const Consumable = styled('img')(({ theme }) => ({
@@ -98,12 +98,32 @@ const ConsumableCard = ({ consumableType, consumable, isApprovedForAll, heroesId
     }
 
     const [heroId, setHeroId] = useState();
+    const [consumable, setConsumable] = useState();
 
     const { data } = useContext(Web3Context);
 
     const useConsumable = async () => {
-        await data?.consumable.methods.consume(heroId, consumable.ids.pop()).send({ from: data?.accounts[0] });
-        consumable.total--;
+        await data?.consumable.methods.consume(heroId || heroesIds[0], getConsumable().ids[getConsumable().ids.length - 1]).send({ from: data?.accounts[0] });
+        if (!!consumable) {
+            setConsumable({
+                ...consumable,
+                ids: consumable.ids.splice(0, consumable.ids.length - 1),
+                total: consumable.total - 1
+            });
+        } else {
+            setConsumable({
+                ...consumableInstance,
+                ids: consumableInstance.ids.splice(0, consumableInstance.ids.length - 1),
+                total: consumableInstance.total - 1
+            });
+        }
+    }
+
+    const getConsumable = () => {
+        if (!!consumable) {
+            return consumable;
+        }
+        return consumableInstance;
     }
 
     return (
@@ -124,14 +144,14 @@ const ConsumableCard = ({ consumableType, consumable, isApprovedForAll, heroesId
                         <ActionButton size="small">Buy</ActionButton> <ActionButton size="small">Sell</ActionButton>
                     </Grid>
                     <Grid item xs={12}>
-                        {!!consumable ?
-                            <Typography sx={{ fontSize: "16px" }}>{`You have x${consumable.total}`}</Typography>
+                        {!!getConsumable() ?
+                            <Typography sx={{ fontSize: "16px" }}>{`You have x${getConsumable().total}`}</Typography>
                             :
                             <Typography sx={{ fontSize: "16px" }}>{`You have x0`}</Typography>
                         }
                     </Grid>
                     <Grid item xs={12} sx={{ marginTop: '10px' }}>
-                        {!!consumable && consumable.total > 0 &&
+                        {!!getConsumable() && getConsumable().total > 0 &&
                             <Fragment>
                                 {!!heroesIds &&
                                     <FormControl>

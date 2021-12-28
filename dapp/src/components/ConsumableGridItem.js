@@ -11,7 +11,7 @@ const ConsumableGridItem = function ({ consumableType, consumable, isApprovedFor
                     <Box sx={{ minHeight: 380 }}><img src="imgs/loading.gif" alt="loading" />loading...</Box>
                 </Grid>
             }>
-                <ConsumableCard heroesIds={heroesIds} consumableType={consumableType} consumable={consumable} isApprovedForAll={isApprovedForAll} />
+                <ConsumableCard heroesIds={heroesIds} consumableType={consumableType} consumableInstance={consumable} isApprovedForAll={isApprovedForAll} />
             </LazyLoad>
         </Grid>
     );

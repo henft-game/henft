@@ -356,7 +356,7 @@ const HeroCard = ({ heroInstance, token, isApprovedForAll }) => {
                                         {!!tokenURI ?
                                             <img className={classes.nft} src={tokenURI} alt={`#${token}`} />
                                             :
-                                            <img className={classes.nft} src="imgs/new_hen.gif" alt={`#${token}`} />
+                                            <img className={classes.nft} src="imgs/loading_hen.gif" alt={`#${token}`} />
                                         }
                                     </NftGrid>
                                     <StatusGrid item xs={12} md={6}>

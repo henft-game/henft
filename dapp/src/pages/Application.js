@@ -21,18 +21,31 @@ export default function Application() {
 
     }));
 
+    const Footer = styled('footer')(({ theme }) => ({
+        background: 'url("imgs/footer.png") repeat-x',
+        width: '100vw',
+        height: '67px',
+        backgroundSize: 'contain',
+        [theme.breakpoints.down('sm')]: {
+            backgroundSize: 'cover',
+            height: '59px',
+        },
+    }));
+
+
+
     const SubMain = styled('div')(({ theme }) => ({
         background: "url('imgs/feathers_background.png') left top repeat-x, linear-gradient(to bottom, rgb(14,192,241), rgba(255,255,255, 0)) no-repeat",
         backgroundSize: 'auto 200px',
         paddingTop: 30,
         paddingLeft: 10,
         paddingRight: 10,
-        minHeight: 'calc(100vh - 97px)',
+        minHeight: 'calc(100vh - 164px)',
         [theme.breakpoints.down('md')]: {
             paddingTop: 10,
             paddingLeft: 5,
             paddingRight: 5,
-            minHeight: 'calc(100vh - 69px)',
+            minHeight: 'calc(100vh - 128px)',
         },
     }));
 
@@ -61,6 +74,7 @@ export default function Application() {
                         <Route exact path="/about" element={<About />} />
                     </Routes>
                 </SubMain>
+                <Footer />
             </Main>
         </Fragment>
     );
