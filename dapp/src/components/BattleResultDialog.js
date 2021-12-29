@@ -106,9 +106,11 @@ const BattleResultDialog = (props) => {
                                     <ListItem sx={{ padding: '0px' }}>
                                         <ListItemText sx={{ [`& .${typographyClasses.body1}`]: { fontSize: '14px' } }} primary={`Points Received: ${battleResult?.battleResult.points}`} />
                                     </ListItem>
+                                    {/*
                                     <ListItem sx={{ padding: '0px' }}>
-                                        <ListItemText sx={{ [`& .${typographyClasses.body1}`]: { fontSize: '14px' } }} primary={`This mount score: 0`} />
+                                        <ListItemText sx={{ [`& .${typographyClasses.body1}`]: { fontSize: '14px' } }} primary={`This month score: 0`} />
                                     </ListItem>
+                                    */}
                                     {!!battleResult?.consumable && battleResult?.consumable.consumableType !== '-1' &&
                                         <Fragment>
                                             <ListItem sx={{ padding: '0px' }}>

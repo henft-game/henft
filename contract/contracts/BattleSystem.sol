@@ -74,9 +74,9 @@ contract BattleSystem is Ownable {
 
         seed2 += _bHeroId;
 
-        uint8 points = 0;
+        uint8 points = 1;
         if (_aHeroId != _bHeroId) {
-            //hero auto lose versus himself
+            //hero auto win versus himself
             points = combat(seed1, seed2, _aHeroId, _bHeroId);
         }
 
