@@ -173,14 +173,21 @@ const Home = () => {
 
     const LinkMenu = styled(Link)(({ theme }) => ({
         padding: 10,
-        border: "3px solid #040303",
-        borderRadius: "3px",
+        border: "4px solid #040303",
+        borderRadius: "4px",
         textDecoration: 'none',
         background: "linear-gradient(#FF100C, #FB6800)",
         color: "#F9E8D1",
-        textShadow: '3px 0 0 #000, -3px 0 0 #000, 0 3px 0 #000, 0 -3px 0 #000, 2px 2px #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000',
+        textShadow: '4px 0 0 #000, -4px 0 0 #000, 0 4px 0 #000, 0 -4px 0 #000, 3px 3px #000, -3px -3px 0 #000, 3px -3px 0 #000, -3px 3px 0 #000',
+        fontSize: '30px',
         "&:hover": {
             color: "#DCC1A1",
+        },
+        [theme.breakpoints.down('sm')]: {
+            border: "3px solid #040303",
+            borderRadius: "3px",
+            fontSize: '16px',
+            textShadow: '3px 0 0 #000, -3px 0 0 #000, 0 3px 0 #000, 0 -3px 0 #000, 2px 2px #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000',
         },
     }));
 
@@ -229,14 +236,14 @@ const Home = () => {
 
                     <Logo alt="top5" src="imgs/top5.png" />
 
-                    <Box sx={{ textAlign: 'center', width: '100%', padding: '10px', marginTop: '10px' }}>
+                    <Box sx={{ textAlign: 'center', width: '100%', padding: '10px', marginTop: '30px' }}>
                         <LinkMenu to="/hens">Get your own Hen</LinkMenu>
                     </Box>
 
                     <Box sx={{
                         textAlign: 'center', width: '100%',
                         background: 'linear-gradient(to right, rgba(255,0,0,0), #F4E3CC, rgba(255,0,0,0))',
-                        padding: '10px', marginTop: '20px'
+                        padding: '10px', marginTop: '30px'
                     }}>
                         <h1>What is HeNFT</h1>
 
