@@ -25,7 +25,7 @@ const Roadmap = () => {
             fontSize: '3vw',
             padding: '7px 3px 3px 7px',
             margin: '0',
-            lineHeight: '8vh',
+            lineHeight: '6vh',
             borderRadius: '4px',
         },
         [theme.breakpoints.down('sm')]: {
@@ -36,7 +36,13 @@ const Roadmap = () => {
         },
         [theme.breakpoints.up('xl')]: {
             '&&': {
-                lineHeight: '9vh !important',
+                lineHeight: '6vh !important',
+                fontSize: '2vw !important',
+            }
+        },
+        [theme.breakpoints.up('xxl')]: {
+            '&&': {
+                lineHeight: '8vh !important',
                 fontSize: '2vw !important',
             }
         },
