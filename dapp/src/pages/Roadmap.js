@@ -18,7 +18,7 @@ const Roadmap = () => {
     }));
 
     const CustomTooltip = styled(({ className, ...props }) => (
-        <Tooltip {...props} classes={{ popper: className }} />
+        <Tooltip {...props} classes={{ popper: className }} enterTouchDelay={0}/>
     ))({
         [`& .${tooltipClasses.tooltip}`]: {
             lineHeight: '24px',
