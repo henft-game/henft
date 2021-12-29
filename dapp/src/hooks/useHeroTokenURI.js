@@ -10,7 +10,7 @@ const useHeroTokenURI = (heroId) => {
 
     useEffect(() => {
 
-        if (!!heroId) {
+        if (!!heroId || heroId === 0) {
             console.log("loading tokenURI: " + heroId);
 
             setLoading(true);
