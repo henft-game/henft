@@ -91,7 +91,7 @@ const ConsumableCard = ({ consumableType, consumableInstance, isApprovedForAll, 
     }));
 
     const CustomTooltip = styled(({ className, ...props }) => (
-        <Tooltip {...props} classes={{ popper: className }} followCursor />
+        <Tooltip {...props} classes={{ popper: className }} followCursor enterTouchDelay={0} />
     ))({
         [`& .${tooltipClasses.tooltip}`]: {
             lineHeight: '24px',
