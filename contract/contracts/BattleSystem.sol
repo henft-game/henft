@@ -228,8 +228,49 @@ contract BattleSystem is Ownable {
             );
     }
 
-    function getRank(uint256 initialDate, uint256 endDate)
+    function getTop5(uint256 initialDate, uint256 endDate)
         external
+        view
+        returns (Rank[] memory)
+    {
+        Rank[] memory rank = getRank(initialDate, endDate);
+
+        Rank[] memory ret = new Rank[](5);
+
+        ret[0] = Rank(0, 0);
+        ret[1] = Rank(0, 0);
+        ret[2] = Rank(0, 0);
+        ret[3] = Rank(0, 0);
+        ret[4] = Rank(0, 0);
+        for (uint256 index = 0; index < rank.length; index++) {
+            if (rank[index].points > ret[0].points) {
+                ret[4] = ret[3];
+                ret[3] = ret[2];
+                ret[2] = ret[1];
+                ret[1] = ret[0];
+                ret[0] = rank[index];
+            } else if (rank[index].points > ret[1].points) {
+                ret[4] = ret[3];
+                ret[3] = ret[2];
+                ret[2] = ret[1];
+                ret[1] = rank[index];
+            } else if (rank[index].points > ret[2].points) {
+                ret[4] = ret[3];
+                ret[3] = ret[2];
+                ret[2] = rank[index];
+            } else if (rank[index].points > ret[3].points) {
+                ret[4] = ret[3];
+                ret[3] = rank[index];
+            } else if (rank[index].points > ret[4].points) {
+                ret[4] = rank[index];
+            }
+        }
+
+        return ret;
+    }
+
+    function getRank(uint256 initialDate, uint256 endDate)
+        public
         view
         returns (Rank[] memory)
     {

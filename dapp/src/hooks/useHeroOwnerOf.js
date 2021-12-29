@@ -1,22 +1,22 @@
 import { useContext, useEffect, useState } from 'react';
 import { Web3Context } from '../providers/Web3Provider';
 
-const useHeroTokenURI = (heroId) => {
+const useHeroOwnerOf = (heroId) => {
 
     const { data } = useContext(Web3Context);
 
     const [loading, setLoading] = useState(true);
-    const [tokenURI, setTokenURI] = useState('');
+    const [ownerOf, setOwnerOf] = useState('');
 
     useEffect(() => {
 
         if (!!heroId) {
-            console.log("loading tokenURI: " + heroId);
+            console.log("loading ownerOf: " + heroId);
 
             setLoading(true);
 
-            data?.contract?.methods.tokenURI(heroId).call().then(res => {
-                setTokenURI(res);
+            data?.contract?.methods.ownerOf(heroId).call().then(res => {
+                setOwnerOf(res);
                 setLoading(false);
 
             }).catch(e => {
@@ -25,13 +25,13 @@ const useHeroTokenURI = (heroId) => {
 
 
             return () => {
-                setTokenURI('');
+                setOwnerOf('');
             };
         }
 
     }, [heroId, data]);
 
-    return { loading, tokenURI };
+    return { loading, ownerOf };
 }
 
-export default useHeroTokenURI;
+export default useHeroOwnerOf;

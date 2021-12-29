@@ -1,9 +1,9 @@
-import { Grid, Typography, Button, FormControl, MenuItem, Select, InputLabel } from '@mui/material';
+import { Grid, Typography, Button, FormControl, MenuItem, Select, InputLabel, Tooltip, tooltipClasses } from '@mui/material';
 import { styled } from '@mui/styles';
 import React, { Fragment, useContext, useState } from 'react';
 import { Web3Context } from '../providers/Web3Provider';
 
-const ConsumableCard = ({ consumableType, consumableInstance, isApprovedForAll, heroesIds }) => {
+const ConsumableCard = ({ consumableType, consumableInstance, isApprovedForAll, heroesIds, helpText }) => {
 
 
     const Consumable = styled('img')(({ theme }) => ({
@@ -90,6 +90,16 @@ const ConsumableCard = ({ consumableType, consumableInstance, isApprovedForAll, 
         }
     }));
 
+    const CustomTooltip = styled(({ className, ...props }) => (
+        <Tooltip {...props} classes={{ popper: className }} followCursor />
+    ))({
+        [`& .${tooltipClasses.tooltip}`]: {
+            lineHeight: '24px',
+            fontSize: '15px',
+            background: '#302A25',
+        },
+    });
+
     const consType = {
         '0': 'imgs/xpGain10.gif',
         '1': 'imgs/xpGain50.gif',
@@ -133,7 +143,9 @@ const ConsumableCard = ({ consumableType, consumableInstance, isApprovedForAll, 
             border: 'none',
         }}>
             <NftGrid item xs={12} md={4}>
-                <Consumable src={consType[consumableType]} alt={consumableType} />
+                <CustomTooltip title={helpText}>
+                    <Consumable src={consType[consumableType]} alt={consumableType} />
+                </CustomTooltip>
             </NftGrid>
             <StatusGrid item xs={12} md={8}>
                 <Grid container sx={{ marginTop: "7px", textAlign: 'center' }}>

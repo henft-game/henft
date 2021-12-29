@@ -1,7 +1,10 @@
-import { Avatar, Box, Grid, List, ListItem, ListItemAvatar, ListItemText } from '@mui/material';
+import { Avatar, Box, Grid, List, ListItem, ListItemAvatar, ListItemText, Typography } from '@mui/material';
 import { styled } from '@mui/styles';
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
+import useBattleTop5 from '../hooks/useBattleTop5';
+import useHeroTokenURI from '../hooks/useHeroTokenURI';
+import useHeroOwnerOf from '../hooks/useHeroOwnerOf';
 
 const Home = () => {
 
@@ -151,6 +154,42 @@ const Home = () => {
         },
     }));
 
+    const TextHeroTop1 = styled(Typography)(({ theme }) => ({
+        '&&': {
+            fontSize: '22px',
+            marginLeft: '-114px',
+        },
+        position: 'absolute',
+        left: '50%',
+        top: '63px',
+        zIndex: '1000',
+        color: '#FFDF00',
+        textShadow: '3px 0 0 #000, -3px 0 0 #000, 0 3px 0 #000, 0 -3px 0 #000, 2px 2px #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000',
+        [theme.breakpoints.down('sm')]: {
+            top: '90px',
+            '&&': {
+                marginLeft: '-95px',
+            }
+        },
+    }));
+
+    const TextOwnerOfHeroTop1 = styled(Typography)(({ theme }) => ({
+        '&&': {
+            fontSize: '7px',
+            marginLeft: '-147px',
+        },
+        position: 'absolute',
+        left: '50%',
+        top: '380px',
+        zIndex: '1000',
+        color: '#FFDF00',
+        textShadow: '2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000, 1px 1px #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000',
+        [theme.breakpoints.down('sm')]: {
+        },
+    }));
+
+
+
     const Champion = styled('div')(({ theme }) => ({
         background: 'url("imgs/champion.png")',
         position: 'absolute',
@@ -167,9 +206,6 @@ const Home = () => {
             marginLeft: '-125px',
         },
     }));
-
-
-
 
     const LinkMenu = styled(Link)(({ theme }) => ({
         padding: 10,
@@ -228,6 +264,11 @@ const Home = () => {
     ])
 
 
+    const { content } = useBattleTop5();
+
+    const { tokenURI } = useHeroTokenURI(content?.top5[0].heroId);
+    const { ownerOf } = useHeroOwnerOf(content?.top5[0].heroId);
+
 
     return (
         <HomeBox>
@@ -263,7 +304,17 @@ const Home = () => {
                                     <Grid item xs={12}>
                                         <Grid container sx={{ color: '#61422D' }}>
                                             <Grid item sm sx={{ position: 'relative', height: '400px', width: '100%' }}>
-                                                <HeroTop1 src="imgs/0.gif" alt={`#`} />
+                                                {!!content &&
+                                                    <Fragment>
+                                                        <TextHeroTop1>{`#${content?.top5[0].heroId}`}</TextHeroTop1>
+                                                        <TextOwnerOfHeroTop1>{ownerOf}</TextOwnerOfHeroTop1>
+                                                    </Fragment>
+                                                }
+                                                {!!tokenURI ?
+                                                    <HeroTop1 src={tokenURI} alt={`#${content?.top5[0].heroId}`} />
+                                                    :
+                                                    <HeroTop1 src="imgs/loading_hen.gif" alt={`#${content?.top5[0].heroId}`} />
+                                                }
                                                 <Champion />
                                             </Grid>
                                         </Grid>

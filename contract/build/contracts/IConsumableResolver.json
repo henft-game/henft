@@ -61,18 +61,18 @@
     "absolutePath": "project:/contracts/interfaces/IConsumableResolver.sol",
     "exportedSymbols": {
       "IConsumableResolver": [
-        3413
+        3682
       ],
       "SharedStructs": [
-        3427
+        3696
       ]
     },
-    "id": 3414,
+    "id": 3683,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 3403,
+        "id": 3672,
         "literals": [
           "solidity",
           "^",
@@ -85,11 +85,11 @@
       {
         "absolutePath": "project:/contracts/library/SharedStructs.sol",
         "file": "../library/SharedStructs.sol",
-        "id": 3404,
+        "id": 3673,
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
-        "scope": 3414,
-        "sourceUnit": 3428,
+        "scope": 3683,
+        "sourceUnit": 3697,
         "src": "57:38:6",
         "symbolAliases": [],
         "unitAlias": ""
@@ -101,9 +101,9 @@
         "contractDependencies": [],
         "contractKind": "interface",
         "fullyImplemented": false,
-        "id": 3413,
+        "id": 3682,
         "linearizedBaseContracts": [
-          3413
+          3682
         ],
         "name": "IConsumableResolver",
         "nameLocation": "107:19:6",
@@ -111,7 +111,7 @@
         "nodes": [
           {
             "functionSelector": "51220e66",
-            "id": 3412,
+            "id": 3681,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -119,17 +119,17 @@
             "nameLocation": "142:7:6",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 3410,
+              "id": 3679,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 3406,
+                  "id": 3675,
                   "mutability": "mutable",
                   "name": "_token",
                   "nameLocation": "167:6:6",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3412,
+                  "scope": 3681,
                   "src": "159:14:6",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -138,7 +138,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 3405,
+                    "id": 3674,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "159:7:6",
@@ -151,33 +151,33 @@
                 },
                 {
                   "constant": false,
-                  "id": 3409,
+                  "id": 3678,
                   "mutability": "mutable",
                   "name": "_consumable",
                   "nameLocation": "215:11:6",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3412,
+                  "scope": 3681,
                   "src": "183:43:6",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_Consumable_$3426_memory_ptr",
+                    "typeIdentifier": "t_struct$_Consumable_$3695_memory_ptr",
                     "typeString": "struct SharedStructs.Consumable"
                   },
                   "typeName": {
-                    "id": 3408,
+                    "id": 3677,
                     "nodeType": "UserDefinedTypeName",
                     "pathNode": {
-                      "id": 3407,
+                      "id": 3676,
                       "name": "SharedStructs.Consumable",
                       "nodeType": "IdentifierPath",
-                      "referencedDeclaration": 3426,
+                      "referencedDeclaration": 3695,
                       "src": "183:24:6"
                     },
-                    "referencedDeclaration": 3426,
+                    "referencedDeclaration": 3695,
                     "src": "183:24:6",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_Consumable_$3426_storage_ptr",
+                      "typeIdentifier": "t_struct$_Consumable_$3695_storage_ptr",
                       "typeString": "struct SharedStructs.Consumable"
                     }
                   },
@@ -187,19 +187,19 @@
               "src": "149:83:6"
             },
             "returnParameters": {
-              "id": 3411,
+              "id": 3680,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "241:0:6"
             },
-            "scope": 3413,
+            "scope": 3682,
             "src": "133:109:6",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "external"
           }
         ],
-        "scope": 3414,
+        "scope": 3683,
         "src": "97:147:6",
         "usedErrors": []
       }
@@ -210,18 +210,18 @@
     "absolutePath": "project:/contracts/interfaces/IConsumableResolver.sol",
     "exportedSymbols": {
       "IConsumableResolver": [
-        3413
+        3682
       ],
       "SharedStructs": [
-        3427
+        3696
       ]
     },
-    "id": 3414,
+    "id": 3683,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 3403,
+        "id": 3672,
         "literals": [
           "solidity",
           "^",
@@ -234,11 +234,11 @@
       {
         "absolutePath": "project:/contracts/library/SharedStructs.sol",
         "file": "../library/SharedStructs.sol",
-        "id": 3404,
+        "id": 3673,
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
-        "scope": 3414,
-        "sourceUnit": 3428,
+        "scope": 3683,
+        "sourceUnit": 3697,
         "src": "57:38:6",
         "symbolAliases": [],
         "unitAlias": ""
@@ -250,9 +250,9 @@
         "contractDependencies": [],
         "contractKind": "interface",
         "fullyImplemented": false,
-        "id": 3413,
+        "id": 3682,
         "linearizedBaseContracts": [
-          3413
+          3682
         ],
         "name": "IConsumableResolver",
         "nameLocation": "107:19:6",
@@ -260,7 +260,7 @@
         "nodes": [
           {
             "functionSelector": "51220e66",
-            "id": 3412,
+            "id": 3681,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -268,17 +268,17 @@
             "nameLocation": "142:7:6",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 3410,
+              "id": 3679,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 3406,
+                  "id": 3675,
                   "mutability": "mutable",
                   "name": "_token",
                   "nameLocation": "167:6:6",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3412,
+                  "scope": 3681,
                   "src": "159:14:6",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -287,7 +287,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 3405,
+                    "id": 3674,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "159:7:6",
@@ -300,33 +300,33 @@
                 },
                 {
                   "constant": false,
-                  "id": 3409,
+                  "id": 3678,
                   "mutability": "mutable",
                   "name": "_consumable",
                   "nameLocation": "215:11:6",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3412,
+                  "scope": 3681,
                   "src": "183:43:6",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_Consumable_$3426_memory_ptr",
+                    "typeIdentifier": "t_struct$_Consumable_$3695_memory_ptr",
                     "typeString": "struct SharedStructs.Consumable"
                   },
                   "typeName": {
-                    "id": 3408,
+                    "id": 3677,
                     "nodeType": "UserDefinedTypeName",
                     "pathNode": {
-                      "id": 3407,
+                      "id": 3676,
                       "name": "SharedStructs.Consumable",
                       "nodeType": "IdentifierPath",
-                      "referencedDeclaration": 3426,
+                      "referencedDeclaration": 3695,
                       "src": "183:24:6"
                     },
-                    "referencedDeclaration": 3426,
+                    "referencedDeclaration": 3695,
                     "src": "183:24:6",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_Consumable_$3426_storage_ptr",
+                      "typeIdentifier": "t_struct$_Consumable_$3695_storage_ptr",
                       "typeString": "struct SharedStructs.Consumable"
                     }
                   },
@@ -336,19 +336,19 @@
               "src": "149:83:6"
             },
             "returnParameters": {
-              "id": 3411,
+              "id": 3680,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "241:0:6"
             },
-            "scope": 3413,
+            "scope": 3682,
             "src": "133:109:6",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "external"
           }
         ],
-        "scope": 3414,
+        "scope": 3683,
         "src": "97:147:6",
         "usedErrors": []
       }
@@ -361,7 +361,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.4",
-  "updatedAt": "2021-12-29T12:29:00.441Z",
+  "updatedAt": "2021-12-29T13:43:33.932Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

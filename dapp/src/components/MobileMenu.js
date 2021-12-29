@@ -1,11 +1,11 @@
 import React from 'react';
 import { Avatar, Button, Drawer, List, ListItem } from '@mui/material';
 import { styled } from '@mui/styles';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 export default function MobileMenu({ opened, data, toggle, shortAccount, login }) {
 
-    const LinkMenu = styled(Link)(({ theme }) => ({
+    const LinkMenu = styled(NavLink)(({ theme }) => ({
         borderRadius: 0,
         padding: 10,
         textDecoration: 'none',
@@ -29,11 +29,11 @@ export default function MobileMenu({ opened, data, toggle, shortAccount, login }
                         <Button sx={{ color: '#61422D' }} onClick={login} startIcon={<Avatar sx={{ width: '33px', heigth: '38px' }} src={'imgs/no_connection.png'} />}>No Wallet Connected</Button>
                     }
                 </ListItem>
-                <ListItem><LinkMenu onClick={toggle} to="/">Home</LinkMenu></ListItem>
-                <ListItem><LinkMenu onClick={toggle} to="/hens">Hens</LinkMenu></ListItem>
-                <ListItem><LinkMenu onClick={toggle} to="/roadmap">Roadmap</LinkMenu></ListItem>
-                <ListItem><LinkMenu onClick={toggle} to="/items">Items</LinkMenu></ListItem>
-                <ListItem><LinkMenu onClick={toggle} to="/about">About</LinkMenu></ListItem>
+                <ListItem><LinkMenu style={({ isActive }) => ({ textDecoration: isActive ? 'underline' : 'none', })} onClick={toggle} to="/">Home</LinkMenu></ListItem>
+                <ListItem><LinkMenu style={({ isActive }) => ({ textDecoration: isActive ? 'underline' : 'none', })} onClick={toggle} to="/hens">Hens</LinkMenu></ListItem>
+                <ListItem><LinkMenu style={({ isActive }) => ({ textDecoration: isActive ? 'underline' : 'none', })} onClick={toggle} to="/roadmap">Roadmap</LinkMenu></ListItem>
+                <ListItem><LinkMenu style={({ isActive }) => ({ textDecoration: isActive ? 'underline' : 'none', })} onClick={toggle} to="/items">Items</LinkMenu></ListItem>
+                <ListItem><LinkMenu style={({ isActive }) => ({ textDecoration: isActive ? 'underline' : 'none', })} onClick={toggle} to="/about">About</LinkMenu></ListItem>
             </List>
         </Drawer>
     )

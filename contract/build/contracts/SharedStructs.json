@@ -15,15 +15,15 @@
     "absolutePath": "project:/contracts/library/SharedStructs.sol",
     "exportedSymbols": {
       "SharedStructs": [
-        3427
+        3696
       ]
     },
-    "id": 3428,
+    "id": 3697,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 3415,
+        "id": 3684,
         "literals": [
           "solidity",
           "^",
@@ -40,9 +40,9 @@
         "contractDependencies": [],
         "contractKind": "library",
         "fullyImplemented": true,
-        "id": 3427,
+        "id": 3696,
         "linearizedBaseContracts": [
-          3427
+          3696
         ],
         "name": "SharedStructs",
         "nameLocation": "65:13:7",
@@ -50,16 +50,16 @@
         "nodes": [
           {
             "canonicalName": "SharedStructs.Consumable",
-            "id": 3426,
+            "id": 3695,
             "members": [
               {
                 "constant": false,
-                "id": 3417,
+                "id": 3686,
                 "mutability": "mutable",
                 "name": "id",
                 "nameLocation": "121:2:7",
                 "nodeType": "VariableDeclaration",
-                "scope": 3426,
+                "scope": 3695,
                 "src": "113:10:7",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -68,7 +68,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 3416,
+                  "id": 3685,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "113:7:7",
@@ -81,12 +81,12 @@
               },
               {
                 "constant": false,
-                "id": 3419,
+                "id": 3688,
                 "mutability": "mutable",
                 "name": "percXPGain",
                 "nameLocation": "139:10:7",
                 "nodeType": "VariableDeclaration",
-                "scope": 3426,
+                "scope": 3695,
                 "src": "133:16:7",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -95,7 +95,7 @@
                   "typeString": "uint8"
                 },
                 "typeName": {
-                  "id": 3418,
+                  "id": 3687,
                   "name": "uint8",
                   "nodeType": "ElementaryTypeName",
                   "src": "133:5:7",
@@ -108,12 +108,12 @@
               },
               {
                 "constant": false,
-                "id": 3421,
+                "id": 3690,
                 "mutability": "mutable",
                 "name": "maxXPGain",
                 "nameLocation": "165:9:7",
                 "nodeType": "VariableDeclaration",
-                "scope": 3426,
+                "scope": 3695,
                 "src": "159:15:7",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -122,7 +122,7 @@
                   "typeString": "uint8"
                 },
                 "typeName": {
-                  "id": 3420,
+                  "id": 3689,
                   "name": "uint8",
                   "nodeType": "ElementaryTypeName",
                   "src": "159:5:7",
@@ -135,12 +135,12 @@
               },
               {
                 "constant": false,
-                "id": 3423,
+                "id": 3692,
                 "mutability": "mutable",
                 "name": "generateArenaTicket",
                 "nameLocation": "189:19:7",
                 "nodeType": "VariableDeclaration",
-                "scope": 3426,
+                "scope": 3695,
                 "src": "184:24:7",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -149,7 +149,7 @@
                   "typeString": "bool"
                 },
                 "typeName": {
-                  "id": 3422,
+                  "id": 3691,
                   "name": "bool",
                   "nodeType": "ElementaryTypeName",
                   "src": "184:4:7",
@@ -162,12 +162,12 @@
               },
               {
                 "constant": false,
-                "id": 3425,
+                "id": 3694,
                 "mutability": "mutable",
                 "name": "generateEquipment",
                 "nameLocation": "223:17:7",
                 "nodeType": "VariableDeclaration",
-                "scope": 3426,
+                "scope": 3695,
                 "src": "218:22:7",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -176,7 +176,7 @@
                   "typeString": "bool"
                 },
                 "typeName": {
-                  "id": 3424,
+                  "id": 3693,
                   "name": "bool",
                   "nodeType": "ElementaryTypeName",
                   "src": "218:4:7",
@@ -191,12 +191,12 @@
             "name": "Consumable",
             "nameLocation": "92:10:7",
             "nodeType": "StructDefinition",
-            "scope": 3427,
+            "scope": 3696,
             "src": "85:162:7",
             "visibility": "public"
           }
         ],
-        "scope": 3428,
+        "scope": 3697,
         "src": "57:192:7",
         "usedErrors": []
       }
@@ -207,15 +207,15 @@
     "absolutePath": "project:/contracts/library/SharedStructs.sol",
     "exportedSymbols": {
       "SharedStructs": [
-        3427
+        3696
       ]
     },
-    "id": 3428,
+    "id": 3697,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 3415,
+        "id": 3684,
         "literals": [
           "solidity",
           "^",
@@ -232,9 +232,9 @@
         "contractDependencies": [],
         "contractKind": "library",
         "fullyImplemented": true,
-        "id": 3427,
+        "id": 3696,
         "linearizedBaseContracts": [
-          3427
+          3696
         ],
         "name": "SharedStructs",
         "nameLocation": "65:13:7",
@@ -242,16 +242,16 @@
         "nodes": [
           {
             "canonicalName": "SharedStructs.Consumable",
-            "id": 3426,
+            "id": 3695,
             "members": [
               {
                 "constant": false,
-                "id": 3417,
+                "id": 3686,
                 "mutability": "mutable",
                 "name": "id",
                 "nameLocation": "121:2:7",
                 "nodeType": "VariableDeclaration",
-                "scope": 3426,
+                "scope": 3695,
                 "src": "113:10:7",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -260,7 +260,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 3416,
+                  "id": 3685,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "113:7:7",
@@ -273,12 +273,12 @@
               },
               {
                 "constant": false,
-                "id": 3419,
+                "id": 3688,
                 "mutability": "mutable",
                 "name": "percXPGain",
                 "nameLocation": "139:10:7",
                 "nodeType": "VariableDeclaration",
-                "scope": 3426,
+                "scope": 3695,
                 "src": "133:16:7",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -287,7 +287,7 @@
                   "typeString": "uint8"
                 },
                 "typeName": {
-                  "id": 3418,
+                  "id": 3687,
                   "name": "uint8",
                   "nodeType": "ElementaryTypeName",
                   "src": "133:5:7",
@@ -300,12 +300,12 @@
               },
               {
                 "constant": false,
-                "id": 3421,
+                "id": 3690,
                 "mutability": "mutable",
                 "name": "maxXPGain",
                 "nameLocation": "165:9:7",
                 "nodeType": "VariableDeclaration",
-                "scope": 3426,
+                "scope": 3695,
                 "src": "159:15:7",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -314,7 +314,7 @@
                   "typeString": "uint8"
                 },
                 "typeName": {
-                  "id": 3420,
+                  "id": 3689,
                   "name": "uint8",
                   "nodeType": "ElementaryTypeName",
                   "src": "159:5:7",
@@ -327,12 +327,12 @@
               },
               {
                 "constant": false,
-                "id": 3423,
+                "id": 3692,
                 "mutability": "mutable",
                 "name": "generateArenaTicket",
                 "nameLocation": "189:19:7",
                 "nodeType": "VariableDeclaration",
-                "scope": 3426,
+                "scope": 3695,
                 "src": "184:24:7",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -341,7 +341,7 @@
                   "typeString": "bool"
                 },
                 "typeName": {
-                  "id": 3422,
+                  "id": 3691,
                   "name": "bool",
                   "nodeType": "ElementaryTypeName",
                   "src": "184:4:7",
@@ -354,12 +354,12 @@
               },
               {
                 "constant": false,
-                "id": 3425,
+                "id": 3694,
                 "mutability": "mutable",
                 "name": "generateEquipment",
                 "nameLocation": "223:17:7",
                 "nodeType": "VariableDeclaration",
-                "scope": 3426,
+                "scope": 3695,
                 "src": "218:22:7",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -368,7 +368,7 @@
                   "typeString": "bool"
                 },
                 "typeName": {
-                  "id": 3424,
+                  "id": 3693,
                   "name": "bool",
                   "nodeType": "ElementaryTypeName",
                   "src": "218:4:7",
@@ -383,12 +383,12 @@
             "name": "Consumable",
             "nameLocation": "92:10:7",
             "nodeType": "StructDefinition",
-            "scope": 3427,
+            "scope": 3696,
             "src": "85:162:7",
             "visibility": "public"
           }
         ],
-        "scope": 3428,
+        "scope": 3697,
         "src": "57:192:7",
         "usedErrors": []
       }
@@ -401,7 +401,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.4",
-  "updatedAt": "2021-12-29T12:29:00.444Z",
+  "updatedAt": "2021-12-29T13:43:33.937Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},
