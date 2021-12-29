@@ -1,7 +1,6 @@
 import React from 'react';
 import { Box, Grid, Tooltip, tooltipClasses, Typography } from '@mui/material';
 import { styled } from '@mui/styles';
-import HelpIcon from '@mui/icons-material/Help';
 
 const Roadmap = () => {
 
