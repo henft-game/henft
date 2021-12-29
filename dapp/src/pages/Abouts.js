@@ -30,7 +30,7 @@ const About = () => {
                     <h3>The Project</h3>
 
                     <Text>
-                        HeNTF is a NFT game that uses ERC 721 Standard and has all the code in the block chain,
+                        HeNFT is a NFT game that uses ERC 721 Standard and has all the code in the block chain,
                         our focus is to keep everything transparent as possible. The Hens that you buy are 100%
                         owned by you and they cannot be replicated, taken away, or destroyed. The project aims
                         to create a NFT collection divided by seasons, where each season will have 200 unique Hens.
@@ -52,7 +52,7 @@ const About = () => {
 
                     <Text>
                         People can buy HeNFT for three different reasons, first as a way of investment, the value of a hens
-                        will increase with the coin and with the project growth. Second, by the game, HeNTF is a play to
+                        will increase with the coin and with the project growth. Second, by the game, HeNFT is a play to
                         earn game where the best player every month receives a reward for its position and also will be
                         immortalized in our history/rank. And third, by the arts, pixel art collectors that have interest
                         in our art and ideas.

@@ -47125,10 +47125,16 @@
       "links": {},
       "address": "0x40d3C5B982C11AF0708199be75a7562a9864808c",
       "transactionHash": "0x2698219970de29890789aed1b1d1f91a85fa546e6ce081d0f8b1bc3e49d0bb8e"
+    },
+    "1640780761755": {
+      "events": {},
+      "links": {},
+      "address": "0x2Db6E39b14f11D179Ca2b821a62C0CB9b5Ec4C2f",
+      "transactionHash": "0x9d67acea195701ba05e82f9eb71bcbaebfa5bbb3f8f98a4211567e438828142d"
     }
   },
   "schemaVersion": "3.4.4",
-  "updatedAt": "2021-12-28T12:40:46.662Z",
+  "updatedAt": "2021-12-29T12:32:22.579Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",

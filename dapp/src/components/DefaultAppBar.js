@@ -19,12 +19,12 @@ export default function DefaultAppBar(props) {
         position: 'fixed',
         marginLeft: -120,
         left: '50%',
-        top: '1.5%',
+        top: '-11.5%',
         [theme.breakpoints.down('md')]: {
             width: 120,
             position: '',
             left: 0,
-            top: 0,
+            top: -37,
             margin: 5,
         },
     }));

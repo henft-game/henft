@@ -57,7 +57,6 @@ const HeroCard = ({ heroInstance, token, isApprovedForAll }) => {
                 top: -13,
                 left: '50%',
                 marginLeft: -25,
-                width: 55,
             }
         },
         market: {
@@ -71,7 +70,6 @@ const HeroCard = ({ heroInstance, token, isApprovedForAll }) => {
                 top: -13,
                 left: '50%',
                 marginLeft: -45,
-                width: 100,
             }
         }
     });
@@ -128,7 +126,6 @@ const HeroCard = ({ heroInstance, token, isApprovedForAll }) => {
             padding: 3,
             left: '50%',
             marginLeft: -75,
-            width: 150,
             textAlign: 'center',
             border: '1px solid #61422D',
             background: '#DCC1A1',
