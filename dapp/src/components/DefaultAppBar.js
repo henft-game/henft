@@ -5,7 +5,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import { makeStyles, styled } from '@mui/styles';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { Web3Context } from '../providers/Web3Provider';
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import IconButton from '@mui/material/IconButton';
@@ -29,7 +29,7 @@ export default function DefaultAppBar(props) {
         },
     }));
 
-    const LinkMenu = styled(Link)(({ theme }) => ({
+    const LinkMenu = styled(NavLink)(({ theme }) => ({
         borderRadius: 0,
         padding: 10,
         borderRight: "4px solid #61422D",
@@ -108,6 +108,10 @@ export default function DefaultAppBar(props) {
             borderRight: "0px",
         },
 
+        menuActived: {
+            textShadow: "0 0 7px #CCC, 0 0 10px #CCC, 0 0 21px #CCC",
+        },
+
         menuOpened: {
             "&&": {
                 right: 254,
@@ -178,11 +182,12 @@ export default function DefaultAppBar(props) {
             <AppBarMenu position="fixed" sx={{ background: "#DCC1A1", borderBottom: "4px solid #61422D", color: "#61422D" }}>
                 <ToolbarMenu>
                     <Logo alt="logo" src="imgs/logo.png" />
-                    <LinkMenu to="/">Home</LinkMenu>
-                    <LinkMenu to="/hens">Hens</LinkMenu>
-                    <LinkMenu to="/roadmap">Roadmap</LinkMenu>
-                    <LinkMenu to="/items">Items</LinkMenu>
-                    <LinkMenu className={classes.lastMenu} to="/about">About</LinkMenu>
+                    <LinkMenu style={({ isActive }) => ({ textDecoration: isActive ? 'underline' : 'none', })} to="/">Home</LinkMenu>
+                    <LinkMenu style={({ isActive }) => ({ textDecoration: isActive ? 'underline' : 'none', })} to="/hens">Hens</LinkMenu>
+                    <LinkMenu style={({ isActive }) => ({ textDecoration: isActive ? 'underline' : 'none', })} to="/roadmap">Roadmap</LinkMenu>
+                    <LinkMenu style={({ isActive }) => ({ textDecoration: isActive ? 'underline' : 'none', })} to="/items">Items</LinkMenu>
+                    <LinkMenu style={({ isActive }) => ({ textDecoration: isActive ? 'underline' : 'none', })}
+                        className={classes.lastMenu} to="/about">About</LinkMenu>
                     <Box sx={{ flexGrow: 1 }} />
                     <RightBox>
                         {!!data?.accounts && !!data?.accounts[0] ?
