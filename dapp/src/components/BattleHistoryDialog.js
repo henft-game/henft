@@ -50,8 +50,8 @@ const BattleHistoryDialog = (props) => {
                                         <ListItemAvatar>
                                             <img className={classes.nft} src={battleResult?.tokenURI} alt={`#${battleResult?.dHeroId}`} />
                                         </ListItemAvatar>
-                                        <ListItemText sx={{ textAlign: 'center', [`& .${typographyClasses.body1}`]: { fontSize: '36px', color: battleResult?.points > 0 ? '#22673C' : '#C03C3B' } }}
-                                            primary={`${battleResult?.points > 0 ? "WON" : "LOSE"}`}
+                                        <ListItemText sx={{ textAlign: 'center', [`& .${typographyClasses.body1}`]: { fontSize: '28px', color: battleResult?.points > 0 ? '#22673C' : '#C03C3B' } }}
+                                            primary={`VS #${battleResult?.dHeroId} - ${ battleResult?.points > 0 ? "WON" : "LOSE"}`}
                                             secondary={`${new Date(parseInt(battleResult?.date) * 1000).toLocaleString()}`} />
                                     </ListItem>
                                     <ListItem sx={{

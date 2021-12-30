@@ -2,15 +2,21 @@
 pragma solidity 0.8.9;
 
 import "../../node_modules/@openzeppelin/contracts/access/Ownable.sol";
-import "../GameToken.sol";
+import "../BattleSystem.sol";
 import "../interfaces/IConsumableResolver.sol";
 
-contract XPGainConsumableResolver is Ownable, IConsumableResolver {
+contract ArenaTicketConsumableResolver is Ownable, IConsumableResolver {
     address private _gameTokenAddress;
+    address private _battleSystemAddress;
     address private _consumableAddress;
 
-    constructor(address gameTokenAddress, address consumableAddress) {
+    constructor(
+        address gameTokenAddress,
+        address battleSystemAddress,
+        address consumableAddress
+    ) {
         _gameTokenAddress = gameTokenAddress;
+        _battleSystemAddress = battleSystemAddress;
         _consumableAddress = consumableAddress;
     }
 
@@ -29,20 +35,6 @@ contract XPGainConsumableResolver is Ownable, IConsumableResolver {
             "Only hero owner can add XP"
         );
 
-        GameToken.Hero memory hero = GameToken(_gameTokenAddress).getHero(
-            _token
-        );
-
-        uint16 xpGain = (uint16(2**hero.level) * _consumable.percXPGain) / 100;
-
-        if (xpGain > _consumable.maxXPGain) {
-            xpGain = _consumable.maxXPGain;
-        }
-
-        if (xpGain == 0) {
-            xpGain = 1;
-        }
-
-        GameToken(_gameTokenAddress).levelUp(_token, xpGain);
+        BattleSystem(_battleSystemAddress).freeWin(_token);
     }
 }

@@ -122,10 +122,10 @@ const Heroes = () => {
                             </CustomFormControl>
                             <FormControlLabel sx={{ "&": { color: '#61422D' } }} onChange={(e, newValue) => setOnlySelling(newValue)} control={
                                 <Checkbox sx={{ "&": { color: '#61422D' } }} checked={onlySelling} />
-                            } label="Only Selling" />
+                            } label="Only for sale" />
                             <FormControlLabel sx={{ "&": { color: '#61422D' } }} onChange={(e, newValue) => setOwnedByMe(newValue)} control={
                                 <Checkbox sx={{ "&": { color: '#61422D' } }} checked={ownedByMe} />
-                            } label="Owned By Me" />
+                            } label="Owned by me" />
                         </Grid>
                         {!!content && !!content.heroes && content.heroes
                             .map((hero, heroId) => {

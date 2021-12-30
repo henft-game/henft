@@ -148,7 +148,7 @@ const Items = () => {
                                             helpText="A hero recieve 1xp" />
                                         <ConsumableGridItem heroesIds={heroesIds} consumableType={'1'} consumable={consumables?.filter(con => con.type === 1)[0]}
                                             helpText="A hero recieve 10xp" />
-                                        <ConsumableGridItem consumableType={'2'} consumable={consumables?.filter(con => con.type === 2)[0]}
+                                        <ConsumableGridItem heroesIds={heroesIds} consumableType={'2'} consumable={consumables?.filter(con => con.type === 2)[0]}
                                             helpText="A free win" />
                                         <ConsumableGridItem consumableType={'3'} consumable={consumables?.filter(con => con.type === 3)[0]}
                                             helpText="???" />

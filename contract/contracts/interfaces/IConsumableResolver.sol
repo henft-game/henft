@@ -6,6 +6,7 @@ import "../library/SharedStructs.sol";
 interface IConsumableResolver {
     function resolve(
         uint256 _token,
-        SharedStructs.Consumable memory _consumable
+        SharedStructs.Consumable memory _consumable,
+        address caller
     ) external;
 }

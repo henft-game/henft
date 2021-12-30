@@ -39,6 +39,11 @@
           "internalType": "struct SharedStructs.Consumable",
           "name": "_consumable",
           "type": "tuple"
+        },
+        {
+          "internalType": "address",
+          "name": "caller",
+          "type": "address"
         }
       ],
       "name": "resolve",
@@ -47,7 +52,7 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.8.9+commit.e5eed63a\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_token\",\"type\":\"uint256\"},{\"components\":[{\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"},{\"internalType\":\"uint8\",\"name\":\"percXPGain\",\"type\":\"uint8\"},{\"internalType\":\"uint8\",\"name\":\"maxXPGain\",\"type\":\"uint8\"},{\"internalType\":\"bool\",\"name\":\"generateArenaTicket\",\"type\":\"bool\"},{\"internalType\":\"bool\",\"name\":\"generateEquipment\",\"type\":\"bool\"}],\"internalType\":\"struct SharedStructs.Consumable\",\"name\":\"_consumable\",\"type\":\"tuple\"}],\"name\":\"resolve\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/interfaces/IConsumableResolver.sol\":\"IConsumableResolver\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/interfaces/IConsumableResolver.sol\":{\"keccak256\":\"0x8e6543cac1136a2702bca7f9191734990c4007ff9add051b9b1c84efad5c6441\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://f7ea2f8ba58b96651923832714b00911e10f6d9381b586fd219e9893bbf539fe\",\"dweb:/ipfs/QmXpLaN4qGd9UNyUXmi6LDCqhJ7SypneExViUrAZ7PgPno\"]},\"project:/contracts/library/SharedStructs.sol\":{\"keccak256\":\"0xceb50c0eca69b090c92e877dcae1852682f7d420ce4c6e6d8b280b1c3c60f4cf\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://61dca1c7baaaefb5a7c4c798b067f074ddf2a82ca6166f879f3481fa7f95f4c6\",\"dweb:/ipfs/QmWzfoSd2YPrMvocMHWAgZ3fjKkeT6TpAT7BTa6itrhyAn\"]}},\"version\":1}",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.9+commit.e5eed63a\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_token\",\"type\":\"uint256\"},{\"components\":[{\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"},{\"internalType\":\"uint8\",\"name\":\"percXPGain\",\"type\":\"uint8\"},{\"internalType\":\"uint8\",\"name\":\"maxXPGain\",\"type\":\"uint8\"},{\"internalType\":\"bool\",\"name\":\"generateArenaTicket\",\"type\":\"bool\"},{\"internalType\":\"bool\",\"name\":\"generateEquipment\",\"type\":\"bool\"}],\"internalType\":\"struct SharedStructs.Consumable\",\"name\":\"_consumable\",\"type\":\"tuple\"},{\"internalType\":\"address\",\"name\":\"caller\",\"type\":\"address\"}],\"name\":\"resolve\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/interfaces/IConsumableResolver.sol\":\"IConsumableResolver\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/interfaces/IConsumableResolver.sol\":{\"keccak256\":\"0xd36804d5ab2735ede205fa680a7e3dc9ffd8248f4a19467a215fa634b7132859\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://f8c807ba882cb87fd03f483267a2b4e7e906c19b9af08b1112019434727f3963\",\"dweb:/ipfs/QmPnkqVNKBw8yBGb8gKfstuD8oFjY2cWW3DVfoYr9KY2HB\"]},\"project:/contracts/library/SharedStructs.sol\":{\"keccak256\":\"0xceb50c0eca69b090c92e877dcae1852682f7d420ce4c6e6d8b280b1c3c60f4cf\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://61dca1c7baaaefb5a7c4c798b067f074ddf2a82ca6166f879f3481fa7f95f4c6\",\"dweb:/ipfs/QmWzfoSd2YPrMvocMHWAgZ3fjKkeT6TpAT7BTa6itrhyAn\"]}},\"version\":1}",
   "bytecode": "0x",
   "deployedBytecode": "0x",
   "immutableReferences": {},
@@ -55,24 +60,24 @@
   "deployedGeneratedSources": [],
   "sourceMap": "",
   "deployedSourceMap": "",
-  "source": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\nimport \"../library/SharedStructs.sol\";\n\ninterface IConsumableResolver {\n    function resolve(\n        uint256 _token,\n        SharedStructs.Consumable memory _consumable\n    ) external;\n}\n",
+  "source": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\nimport \"../library/SharedStructs.sol\";\n\ninterface IConsumableResolver {\n    function resolve(\n        uint256 _token,\n        SharedStructs.Consumable memory _consumable,\n        address caller\n    ) external;\n}\n",
   "sourcePath": "/home/rfaita/game/nft-game/contract/contracts/interfaces/IConsumableResolver.sol",
   "ast": {
     "absolutePath": "project:/contracts/interfaces/IConsumableResolver.sol",
     "exportedSymbols": {
       "IConsumableResolver": [
-        3682
+        3836
       ],
       "SharedStructs": [
-        3696
+        3850
       ]
     },
-    "id": 3683,
+    "id": 3837,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 3672,
+        "id": 3824,
         "literals": [
           "solidity",
           "^",
@@ -85,11 +90,11 @@
       {
         "absolutePath": "project:/contracts/library/SharedStructs.sol",
         "file": "../library/SharedStructs.sol",
-        "id": 3673,
+        "id": 3825,
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
-        "scope": 3683,
-        "sourceUnit": 3697,
+        "scope": 3837,
+        "sourceUnit": 3851,
         "src": "57:38:6",
         "symbolAliases": [],
         "unitAlias": ""
@@ -101,17 +106,17 @@
         "contractDependencies": [],
         "contractKind": "interface",
         "fullyImplemented": false,
-        "id": 3682,
+        "id": 3836,
         "linearizedBaseContracts": [
-          3682
+          3836
         ],
         "name": "IConsumableResolver",
         "nameLocation": "107:19:6",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
-            "functionSelector": "51220e66",
-            "id": 3681,
+            "functionSelector": "c302f101",
+            "id": 3835,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -119,17 +124,17 @@
             "nameLocation": "142:7:6",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 3679,
+              "id": 3833,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 3675,
+                  "id": 3827,
                   "mutability": "mutable",
                   "name": "_token",
                   "nameLocation": "167:6:6",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3681,
+                  "scope": 3835,
                   "src": "159:14:6",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -138,7 +143,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 3674,
+                    "id": 3826,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "159:7:6",
@@ -151,77 +156,105 @@
                 },
                 {
                   "constant": false,
-                  "id": 3678,
+                  "id": 3830,
                   "mutability": "mutable",
                   "name": "_consumable",
                   "nameLocation": "215:11:6",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3681,
+                  "scope": 3835,
                   "src": "183:43:6",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_Consumable_$3695_memory_ptr",
+                    "typeIdentifier": "t_struct$_Consumable_$3849_memory_ptr",
                     "typeString": "struct SharedStructs.Consumable"
                   },
                   "typeName": {
-                    "id": 3677,
+                    "id": 3829,
                     "nodeType": "UserDefinedTypeName",
                     "pathNode": {
-                      "id": 3676,
+                      "id": 3828,
                       "name": "SharedStructs.Consumable",
                       "nodeType": "IdentifierPath",
-                      "referencedDeclaration": 3695,
+                      "referencedDeclaration": 3849,
                       "src": "183:24:6"
                     },
-                    "referencedDeclaration": 3695,
+                    "referencedDeclaration": 3849,
                     "src": "183:24:6",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_Consumable_$3695_storage_ptr",
+                      "typeIdentifier": "t_struct$_Consumable_$3849_storage_ptr",
                       "typeString": "struct SharedStructs.Consumable"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 3832,
+                  "mutability": "mutable",
+                  "name": "caller",
+                  "nameLocation": "244:6:6",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3835,
+                  "src": "236:14:6",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 3831,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "236:7:6",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
                     }
                   },
                   "visibility": "internal"
                 }
               ],
-              "src": "149:83:6"
+              "src": "149:107:6"
             },
             "returnParameters": {
-              "id": 3680,
+              "id": 3834,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "241:0:6"
+              "src": "265:0:6"
             },
-            "scope": 3682,
-            "src": "133:109:6",
+            "scope": 3836,
+            "src": "133:133:6",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "external"
           }
         ],
-        "scope": 3683,
-        "src": "97:147:6",
+        "scope": 3837,
+        "src": "97:171:6",
         "usedErrors": []
       }
     ],
-    "src": "32:213:6"
+    "src": "32:237:6"
   },
   "legacyAST": {
     "absolutePath": "project:/contracts/interfaces/IConsumableResolver.sol",
     "exportedSymbols": {
       "IConsumableResolver": [
-        3682
+        3836
       ],
       "SharedStructs": [
-        3696
+        3850
       ]
     },
-    "id": 3683,
+    "id": 3837,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 3672,
+        "id": 3824,
         "literals": [
           "solidity",
           "^",
@@ -234,11 +267,11 @@
       {
         "absolutePath": "project:/contracts/library/SharedStructs.sol",
         "file": "../library/SharedStructs.sol",
-        "id": 3673,
+        "id": 3825,
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
-        "scope": 3683,
-        "sourceUnit": 3697,
+        "scope": 3837,
+        "sourceUnit": 3851,
         "src": "57:38:6",
         "symbolAliases": [],
         "unitAlias": ""
@@ -250,17 +283,17 @@
         "contractDependencies": [],
         "contractKind": "interface",
         "fullyImplemented": false,
-        "id": 3682,
+        "id": 3836,
         "linearizedBaseContracts": [
-          3682
+          3836
         ],
         "name": "IConsumableResolver",
         "nameLocation": "107:19:6",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
-            "functionSelector": "51220e66",
-            "id": 3681,
+            "functionSelector": "c302f101",
+            "id": 3835,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -268,17 +301,17 @@
             "nameLocation": "142:7:6",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 3679,
+              "id": 3833,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 3675,
+                  "id": 3827,
                   "mutability": "mutable",
                   "name": "_token",
                   "nameLocation": "167:6:6",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3681,
+                  "scope": 3835,
                   "src": "159:14:6",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -287,7 +320,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 3674,
+                    "id": 3826,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "159:7:6",
@@ -300,60 +333,88 @@
                 },
                 {
                   "constant": false,
-                  "id": 3678,
+                  "id": 3830,
                   "mutability": "mutable",
                   "name": "_consumable",
                   "nameLocation": "215:11:6",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3681,
+                  "scope": 3835,
                   "src": "183:43:6",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_Consumable_$3695_memory_ptr",
+                    "typeIdentifier": "t_struct$_Consumable_$3849_memory_ptr",
                     "typeString": "struct SharedStructs.Consumable"
                   },
                   "typeName": {
-                    "id": 3677,
+                    "id": 3829,
                     "nodeType": "UserDefinedTypeName",
                     "pathNode": {
-                      "id": 3676,
+                      "id": 3828,
                       "name": "SharedStructs.Consumable",
                       "nodeType": "IdentifierPath",
-                      "referencedDeclaration": 3695,
+                      "referencedDeclaration": 3849,
                       "src": "183:24:6"
                     },
-                    "referencedDeclaration": 3695,
+                    "referencedDeclaration": 3849,
                     "src": "183:24:6",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_Consumable_$3695_storage_ptr",
+                      "typeIdentifier": "t_struct$_Consumable_$3849_storage_ptr",
                       "typeString": "struct SharedStructs.Consumable"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 3832,
+                  "mutability": "mutable",
+                  "name": "caller",
+                  "nameLocation": "244:6:6",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3835,
+                  "src": "236:14:6",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 3831,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "236:7:6",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
                     }
                   },
                   "visibility": "internal"
                 }
               ],
-              "src": "149:83:6"
+              "src": "149:107:6"
             },
             "returnParameters": {
-              "id": 3680,
+              "id": 3834,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "241:0:6"
+              "src": "265:0:6"
             },
-            "scope": 3682,
-            "src": "133:109:6",
+            "scope": 3836,
+            "src": "133:133:6",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "external"
           }
         ],
-        "scope": 3683,
-        "src": "97:147:6",
+        "scope": 3837,
+        "src": "97:171:6",
         "usedErrors": []
       }
     ],
-    "src": "32:213:6"
+    "src": "32:237:6"
   },
   "compiler": {
     "name": "solc",
@@ -361,7 +422,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.4",
-  "updatedAt": "2021-12-29T13:43:33.932Z",
+  "updatedAt": "2021-12-30T12:54:37.341Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

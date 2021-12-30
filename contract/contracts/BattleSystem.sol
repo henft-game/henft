@@ -15,6 +15,8 @@ contract BattleSystem is Ownable {
         string tokenURI
     );
 
+    mapping(address => bool) private _freeWinPermittedAddress;
+
     address private _gameTokenAddress;
     address private _consumableAddress;
 
@@ -49,6 +51,55 @@ contract BattleSystem is Ownable {
         onlyOwner
     {
         _consumableAddress = _newConsumableAddress;
+    }
+
+    function addFreeWinPermittedAddress(address newAddress) external onlyOwner {
+        _freeWinPermittedAddress[newAddress] = true;
+    }
+
+    function removeFreeWinPermittedAddress(address newAddress)
+        external
+        onlyOwner
+    {
+        delete _freeWinPermittedAddress[newAddress];
+    }
+
+    modifier onlyFreeWinPermittedAddress() {
+        require(
+            _freeWinPermittedAddress[_msgSender()],
+            "Only permitted address can execute this action"
+        );
+        _;
+    }
+
+    function freeWin(uint256 _aHeroId) external onlyFreeWinPermittedAddress {
+        uint8 points = 1;
+
+        address owner = GameToken(_gameTokenAddress).ownerOf(_aHeroId);
+
+        _battles[_aHeroId].push(
+            Battle(_aHeroId, _aHeroId, points, block.timestamp)
+        );
+
+        Battle memory b = _battles[_aHeroId][_battles[_aHeroId].length - 1];
+
+        GameToken(_gameTokenAddress).levelUp(_aHeroId, uint16(1));
+
+        uint256 seed1 = points;
+        uint256 seed2 = _aHeroId;
+
+        if (_consumableAddress != address(0) && b.points > 0) {
+            IConsumable(_consumableAddress).mint(_aHeroId, owner);
+        }
+
+        emit BattleEnd(
+            owner,
+            b.aHeroId,
+            b.dHeroId,
+            b.points,
+            b.date,
+            GameToken(_gameTokenAddress).tokenURI(b.dHeroId)
+        );
     }
 
     function battle(uint256 _aHeroId) external {

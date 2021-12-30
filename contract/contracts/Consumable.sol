@@ -232,7 +232,7 @@ contract Consumable is IConsumable, ERC721URIStorage, Ownable {
         );
 
         IConsumableResolver(_consumableResolversAddress[consumableType])
-            .resolve(_token, consumable);
+            .resolve(_token, consumable, msg.sender);
 
         _removeConsumable(_consumableId);
         _burn(_consumableId);
