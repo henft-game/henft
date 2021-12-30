@@ -145,11 +145,11 @@ const Items = () => {
                                     <Fragment>
                                         <Box sx={{ height: 20 }} />
                                         <ConsumableGridItem heroesIds={heroesIds} consumableType={'0'} consumable={consumables?.filter(con => con.type === 0)[0]}
-                                            helpText="A hero recieve 1xp" />
+                                            helpText="You choose one of your hens to receive 10% exp to the next level, up to 10 exp." />
                                         <ConsumableGridItem heroesIds={heroesIds} consumableType={'1'} consumable={consumables?.filter(con => con.type === 1)[0]}
-                                            helpText="A hero recieve 10xp" />
+                                            helpText="You choose one of your hens to receive 50% exp to the next level, up to 100 exp." />
                                         <ConsumableGridItem heroesIds={heroesIds} consumableType={'2'} consumable={consumables?.filter(con => con.type === 2)[0]}
-                                            helpText="A free win" />
+                                            helpText="You choose one of your hens to receive one free victory, so you gain the victory reward and the hen one victory point." />
                                         <ConsumableGridItem consumableType={'3'} consumable={consumables?.filter(con => con.type === 3)[0]}
                                             helpText="???" />
                                     </Fragment>
