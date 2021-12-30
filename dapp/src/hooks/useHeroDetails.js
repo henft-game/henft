@@ -42,13 +42,13 @@ const useHeroDetails = (heroId, reload) => {
 
         const subs = [];
 
-        subs.push(data?.market?.events.NewAuction({ filter: { tokenId: heroId + '' } }, load));
-        subs.push(data?.market?.events.CancelAuction({ filter: { tokenId: heroId + '' } }, load));
-        subs.push(data?.market?.events.NewSellingItem({ filter: { tokenId: heroId + '' } }, load));
-        subs.push(data?.market?.events.CancelSellingItem({ filter: { tokenId: heroId + '' } }, load));
-        subs.push(data?.market?.events.NewBid({ filter: { tokenId: heroId + '' } }, load));
-        subs.push(data?.market?.events.AuctionEnded({ filter: { tokenId: heroId + '' } }, load));
-        subs.push(data?.market?.events.ItemBought({ filter: { tokenId: heroId + '' } }, load));
+        subs.push(data?.market?.events.NewAuction({ fromBlock: 'latest', filter: { tokenId: heroId + '' } }, load));
+        subs.push(data?.market?.events.CancelAuction({ fromBlock: 'latest', filter: { tokenId: heroId + '' } }, load));
+        subs.push(data?.market?.events.NewSellingItem({ fromBlock: 'latest', filter: { tokenId: heroId + '' } }, load));
+        subs.push(data?.market?.events.CancelSellingItem({ fromBlock: 'latest', filter: { tokenId: heroId + '' } }, load));
+        subs.push(data?.market?.events.NewBid({ fromBlock: 'latest', filter: { tokenId: heroId + '' } }, load));
+        subs.push(data?.market?.events.AuctionEnded({ fromBlock: 'latest', filter: { tokenId: heroId + '' } }, load));
+        subs.push(data?.market?.events.ItemBought({ fromBlock: 'latest', filter: { tokenId: heroId + '' } }, load));
 
         load(false, true);
 

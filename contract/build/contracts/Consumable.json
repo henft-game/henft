@@ -47403,10 +47403,16 @@
       "links": {},
       "address": "0x9ad41949b3c14EfDb2FC6C2b5F94283d033635AF",
       "transactionHash": "0x42ec52883efb80327ca0926e74ba731155add2d6908efd5d66c26012d5c10a65"
+    },
+    "1640882162832": {
+      "events": {},
+      "links": {},
+      "address": "0x53d6D2071a4e5BC32bB48fC1AECD0C35e0307cd3",
+      "transactionHash": "0x308f47722a473849aa3c054dc8a342427ca47dd67ebc2152b2ccfa36ae2d524d"
     }
   },
   "schemaVersion": "3.4.4",
-  "updatedAt": "2021-12-30T13:33:04.446Z",
+  "updatedAt": "2021-12-30T16:40:27.233Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
