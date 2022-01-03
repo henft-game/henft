@@ -10,6 +10,10 @@ const useBattleSystemListener = (heroId, reset) => {
     useEffect(() => {
         setLoading(true);
         setBattleResult();
+
+        return () => {
+            
+        }
     }, [reset])
 
     useEffect(() => {

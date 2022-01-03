@@ -112,6 +112,9 @@ const Web3Provider = (props) => {
 
     useEffect(() => {
         createContext();
+        return () => {
+            
+        }
     }, []);
 
     return (

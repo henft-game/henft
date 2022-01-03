@@ -11,7 +11,12 @@ const BidDialog = (props) => {
 
     const [value, setValue] = useState();
 
-    useEffect(() => { setValue(Web3.utils.fromWei(props.minBid)) }, [props.minBid])
+    useEffect(() => { 
+        setValue(Web3.utils.fromWei(props.minBid)) 
+        return () => {
+            
+        }
+    }, [props.minBid])
 
     return (
 

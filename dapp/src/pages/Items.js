@@ -85,6 +85,10 @@ const Items = () => {
     useEffect(() => {
         setConsumables(content?.consumables?.reduce(reducer, []));
         setHeroesIds(content?.heroesIds);
+
+        return () => {
+
+        }
     }, [content])
 
 

@@ -54,11 +54,19 @@ export default function Application() {
     useEffect(() => {
         initGA();
         pageView({ pathname: '/', search: '' });
+
+        return () => {
+
+        }
     }, []);
 
     useEffect(() => {
         console.log(location);
         pageView(location);
+
+        return () => {
+
+        }
     }, [location])
 
     return (
