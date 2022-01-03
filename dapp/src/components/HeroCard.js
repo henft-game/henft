@@ -473,7 +473,9 @@ const HeroCard = ({ heroInstance, token, isApprovedForAll }) => {
             {!!openedBattleHistoryDialog && !!battles &&
                 <BattleHistoryDialog token={token} battles={battles} open={openedBattleHistoryDialog} handleClose={handleCloseBattleHistoryDialog} />
             }
-            <BattleResultDialog token={token} open={openedBattleResultDialog} handleClose={handleCloseBattleResultDialog} />
+            {!!openedBattleResultDialog &&
+                <BattleResultDialog token={token} open={openedBattleResultDialog} handleClose={handleCloseBattleResultDialog} />
+            }
         </Fragment>
     );
 };

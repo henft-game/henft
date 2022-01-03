@@ -21,6 +21,7 @@ const useBattleSystemListener = (heroId, reset) => {
 
             const listener = (attr) => {
                 return (err, event) => {
+                    subs[attr].unsubscribe();
                     if (!!err) {
                         console.log(err);
                     }
@@ -28,7 +29,6 @@ const useBattleSystemListener = (heroId, reset) => {
                         console.log("new event " + attr);
                         console.log(event);
                         result[attr] = event.returnValues;
-                        subs[attr].unsubscribe();
                         if (!!result.battleResult && (result.battleResult.points === '0' || !!result.consumable) && !!result.levelUp) {
                             console.log("setting new battle result " + heroId);
                             setLoading(false);
