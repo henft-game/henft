@@ -28,6 +28,7 @@ const useBattleSystemListener = (heroId, reset) => {
                         console.log("new event " + attr);
                         console.log(event);
                         result[attr] = event.returnValues;
+                        subs[attr].unsubscribe();
                         if (!!result.battleResult && (result.battleResult.points === '0' || !!result.consumable) && !!result.levelUp) {
                             console.log("setting new battle result " + heroId);
                             setLoading(false);
@@ -38,20 +39,21 @@ const useBattleSystemListener = (heroId, reset) => {
                 }
             }
 
-            const subs = [];
+            const subs = {};
 
-            subs.push(data?.battleSystem?.events.BattleEnd({fromBlock: 'latest', filter: { owner: data?.accounts[0], aHeroId: heroId + '' } }, listener('battleResult')));
-            subs.push(data?.consumable?.events.ConsumableMinted({fromBlock: 'latest', filter: { owner: data?.accounts[0], heroId: heroId + '' } }, listener('consumable')));
-            subs.push(data?.contract?.events.HeroLevelUp({fromBlock: 'latest', filter: { owner: data?.accounts[0], tokenId: heroId + '' } }, listener('levelUp')));
+            subs['battleResult'] = (data?.battleSystem?.events.BattleEnd({ fromBlock: 'latest', filter: { owner: data?.accounts[0], aHeroId: heroId + '' } }, listener('battleResult')));
+            subs['consumable'] = (data?.consumable?.events.ConsumableMinted({ fromBlock: 'latest', filter: { owner: data?.accounts[0], heroId: heroId + '' } }, listener('consumable')));
+            subs['levelUp'] = (data?.contract?.events.HeroLevelUp({ fromBlock: 'latest', filter: { owner: data?.accounts[0], tokenId: heroId + '' } }, listener('levelUp')));
 
             return () => {
                 console.log("stop battle listeners: " + heroId);
-                for (let index = 0; index < subs.length; index++) {
+                for (let index in subs) {
+                    console.log(index);
                     subs[index].unsubscribe();
                 }
             }
         }
-    }, [heroId, data]);
+    }, [heroId, data, reset]);
 
     return { loading, battleResult };
 }

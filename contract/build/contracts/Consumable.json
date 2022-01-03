@@ -47409,10 +47409,16 @@
       "links": {},
       "address": "0x53d6D2071a4e5BC32bB48fC1AECD0C35e0307cd3",
       "transactionHash": "0x308f47722a473849aa3c054dc8a342427ca47dd67ebc2152b2ccfa36ae2d524d"
+    },
+    "1641213326700": {
+      "events": {},
+      "links": {},
+      "address": "0x5Ca167583Fa356BcDf86AFFF0F8bbD3e9C24871c",
+      "transactionHash": "0xdd339754aa9ab728e4d1d553da968d6ac85a5351030ea0079d12f67067bb9c4c"
     }
   },
   "schemaVersion": "3.4.4",
-  "updatedAt": "2021-12-30T16:40:27.233Z",
+  "updatedAt": "2022-01-03T12:39:16.342Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",

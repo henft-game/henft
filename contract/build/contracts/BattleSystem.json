@@ -52480,10 +52480,16 @@
       "links": {},
       "address": "0x412c0C6Cf101bF54d9663865e4E4AB4eA8c9c787",
       "transactionHash": "0xa28cfc6a7f3e0d0ba1bbe907529ce2386373dfb70fb3db50eb54372241a45f2d"
+    },
+    "1641213326700": {
+      "events": {},
+      "links": {},
+      "address": "0x73BfD81530B6B6cE943f85d50294b02f9B0Ec3A7",
+      "transactionHash": "0x1cdafac6bedf4e2c3ab2710284b5fe016352a299b0484d4132dc57f8e5c3f1a0"
     }
   },
   "schemaVersion": "3.4.4",
-  "updatedAt": "2021-12-30T16:40:27.061Z",
+  "updatedAt": "2022-01-03T12:39:16.121Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",

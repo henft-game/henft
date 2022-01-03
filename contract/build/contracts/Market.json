@@ -34238,10 +34238,16 @@
       "links": {},
       "address": "0xBbdba166CBB085cD9dDc5A710fEF400E3acd7782",
       "transactionHash": "0x3d5e26cafbb36fc682b4844e7610a260cf45032f782833d6844f972a8b263e23"
+    },
+    "1641213326700": {
+      "events": {},
+      "links": {},
+      "address": "0xB121cEBcA154d24b642413eD5de6ef6A3dFD4de3",
+      "transactionHash": "0xaa15d4c71cb58b960b08b144d577e5b030f54fb7be2a90bab9b7db4f0a80d3c4"
     }
   },
   "schemaVersion": "3.4.4",
-  "updatedAt": "2021-12-30T16:39:54.408Z",
+  "updatedAt": "2022-01-03T12:38:37.428Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
