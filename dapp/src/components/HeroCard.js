@@ -241,6 +241,7 @@ const HeroCard = ({ heroInstance, token, isApprovedForAll }) => {
     }
 
     const { heroDetail } = useHeroDetails(token);
+
     const { tokenURI } = useHeroTokenURI(token);
 
     const [hero, setHero] = useState();

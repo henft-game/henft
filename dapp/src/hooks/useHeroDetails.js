@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { Web3Context } from '../providers/Web3Provider';
 
-const useHeroDetails = (heroId, reload) => {
+const useHeroDetails = (heroId) => {
 
     const { data } = useContext(Web3Context);
 
@@ -20,11 +20,10 @@ const useHeroDetails = (heroId, reload) => {
                 console.log(err);
             }
             if (!!event) {
+                console.log("new event: " + heroId);
+                console.log(event);
                 if (transactionsHashs.indexOf(event.transactionHash) <= -1) {
                     transactionsHashs.push(event.transactionHash);
-                    console.log(transactionsHashs);
-                    console.log("new event: " + heroId);
-                    console.log(event);
                     setLoading(true);
                     const promisses = [];
 

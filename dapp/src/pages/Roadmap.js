@@ -64,10 +64,10 @@ const Roadmap = () => {
             <Grid container>
                 <Grid item sx={{ margin: 'auto', padding: '10px', borderRadius: '4px', position: 'relative' }} xs={12} md={10} lg={8} xl={6}>
                     <Img src="imgs/roadmap.png" alt="roadmap" />
-                    <CustomTooltip title="A new page will be added, it will contain the battle history, the leaderboard of the current month and the history of previous champions.">
+                    <CustomTooltip title="The items marketplace for usable items will be added allowing users to sell and buy.">
                         <CustomHelpIcon sx={{ top: '9%', left: '61%', }}>?</CustomHelpIcon>
                     </CustomTooltip>
-                    <CustomTooltip title="">
+                    <CustomTooltip title="A new page will be added, it will contain the battle history, the leaderboard of the current month and the history of previous champions.">
                         <CustomHelpIcon sx={{ top: '18.7%', left: '92%', }}>?</CustomHelpIcon>
                     </CustomTooltip>
                     <CustomTooltip title="A whitepaper will be added with all the details and plans for season 1 and intentions for upcoming seasons.">
