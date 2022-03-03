@@ -83,6 +83,10 @@ contract GameToken is ERC721URIStorage, Ownable {
         return _heroes.length;
     }
 
+    function setBaseTokenURI(string memory _newBaseTokenURI) external onlyOwner {
+        _baseTokenURI = _newBaseTokenURI;
+    }
+
     function addLevelUpPermittedAddress(address newAddress) external onlyOwner {
         _levelUpPermittedAddress[newAddress] = true;
     }

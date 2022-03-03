@@ -85,9 +85,6 @@ contract BattleSystem is Ownable {
 
         GameToken(_gameTokenAddress).levelUp(_aHeroId, uint16(1));
 
-        uint256 seed1 = points;
-        uint256 seed2 = _aHeroId;
-
         if (_consumableAddress != address(0) && b.points > 0) {
             IConsumable(_consumableAddress).mint(_aHeroId, owner);
         }
