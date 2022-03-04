@@ -48,7 +48,7 @@ const useConsumablesDetails = (heroId, reload) => {
         subs.push(data?.marketEvents?.events.CancelSellingItem({fromBlock: 'latest', filter: { tokenId: heroId + '' } }, load));
         subs.push(data?.marketEvents?.events.NewBid({fromBlock: 'latest', filter: { tokenId: heroId + '' } }, load));
         subs.push(data?.marketEvents?.events.AuctionEnded({fromBlock: 'latest', filter: { tokenId: heroId + '' } }, load));
-        subs.push(data?.markeEvents?.events.ItemBought({fromBlock: 'latest', filter: { tokenId: heroId + '' } }, load));
+        subs.push(data?.marketEvents?.events.ItemBought({fromBlock: 'latest', filter: { tokenId: heroId + '' } }, load));
 
         load(false, true);
 

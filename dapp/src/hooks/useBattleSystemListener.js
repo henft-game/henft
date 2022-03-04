@@ -47,7 +47,11 @@ const useBattleSystemListener = (heroId, reset) => {
 
             subs['battleResult'] = (data?.battleSystemEvents?.events.BattleEnd({ fromBlock: 'latest', filter: { owner: data?.accounts[0], aHeroId: heroId + '' } }, listener('battleResult')));
             subs['consumable'] = (data?.consumableEvents?.events.ConsumableMinted({ fromBlock: 'latest', filter: { owner: data?.accounts[0], heroId: heroId + '' } }, listener('consumable')));
+<<<<<<< HEAD
             subs['levelUp'] = (data?.contractEvents?.events.HeroLevelUp({ fromBlock: 'latest', filter: { owner: data?.accounts[0], tokenId: heroId + '' } }, listener('levelUp')));
+=======
+            subs['levelUp'] = (data?.contract?Events.events.HeroLevelUp({ fromBlock: 'latest', filter: { owner: data?.accounts[0], tokenId: heroId + '' } }, listener('levelUp')));
+>>>>>>> e18184a8b3149539899621939b0bec3af8702029
 
             return () => {
                 console.log("stop battle listeners: " + heroId);
