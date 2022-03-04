@@ -15,7 +15,7 @@ const Web3Provider = (props) => {
         const loadContracts = async () => {
             const ret = {};
 
-            ret.web3 = new Web3(Web3.givenProvider || process.env.REACT_APP_WEB3_ADDRESS);
+            ret.web3 = new Web3(process.env.REACT_APP_WEB3_ADDRESS);
             ret.networkId = await ret.web3.eth.net.getId();
             ret.accounts = await ret.web3.eth.getAccounts();
 
