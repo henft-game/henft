@@ -26,12 +26,12 @@ jobs:
     - name: Build
       run: cd dapp && npm run build
       env:
-        REACT_APP_WEB3_ADDRESS: 'wss://speedy-nodes-nyc.moralis.io/e1ecffd75423799997a020d3/bsc/testnet/ws'
+        REACT_APP_WEB3_ADDRESS: 'https://speedy-nodes-nyc.moralis.io/e1ecffd75423799997a020d3/bsc/testnet/ws'
         REACT_APP_USE_HASH_ROUTER: true
         REACT_APP_CHAIN_ID: '0x61'
         REACT_APP_CHAIN_NAME: 'BSC testnet'
         REACT_APP_BLOCK_EXPLORER_URLS: 'https://testnet.bscscan.com'
-        REACT_APP_RPC_URL: 'wss://speedy-nodes-nyc.moralis.io/e1ecffd75423799997a020d3/bsc/testnet/ws'
+        REACT_APP_RPC_URL: 'https://speedy-nodes-nyc.moralis.io/e1ecffd75423799997a020d3/bsc/testnet/ws'
         REACT_APP_SYMBOL: 'BNB' 
 
     - name: Deploy
