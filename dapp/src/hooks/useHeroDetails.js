@@ -22,6 +22,7 @@ const useHeroDetails = (heroId) => {
             }
             if (!!event) {
                 console.log(event.event + ": " + heroId);
+                console.log(event.returnValues);
                 setHeroDetail({
                     auction: { minValue: event.returnValues.minValue, seller: event.returnValues.seller },
                     selling: { value: '0' },
@@ -35,6 +36,7 @@ const useHeroDetails = (heroId) => {
             }
             if (!!event) {
                 console.log(event.event + ": " + heroId);
+                console.log(event.returnValues);
                 setHeroDetail({
                     auction: { minValue: '0' },
                     selling: { value: '0' },
@@ -48,6 +50,7 @@ const useHeroDetails = (heroId) => {
             }
             if (!!event) {
                 console.log(event.event + ": " + heroId);
+                console.log(event.returnValues);
                 setHeroDetail(prev => ({
                     auction: { minValue: prev.auction.minValue, seller: prev.auction.seller, currValue: event.returnValues.currValue },
                     selling: { value: '0' },
@@ -61,6 +64,7 @@ const useHeroDetails = (heroId) => {
             }
             if (!!event) {
                 console.log(event.event + ": " + heroId);
+                console.log(event.returnValues);
                 setHeroDetail({
                     auction: { minValue: '0' },
                     selling: { value: '0' },
@@ -75,6 +79,7 @@ const useHeroDetails = (heroId) => {
             }
             if (!!event) {
                 console.log(event.event + ": " + heroId);
+                console.log(event.returnValues);
                 setHeroDetail({
                     auction: { minValue: '0' },
                     selling: { value: event.returnValues.value, seller: event.returnValues.seller },
@@ -88,6 +93,7 @@ const useHeroDetails = (heroId) => {
             }
             if (!!event) {
                 console.log(event.event + ": " + heroId);
+                console.log(event.returnValues);
                 setHeroDetail({
                     auction: { minValue: '0' },
                     selling: { value: '0' },
@@ -101,6 +107,7 @@ const useHeroDetails = (heroId) => {
             }
             if (!!event) {
                 console.log(event.event + ": " + heroId);
+                console.log(event.returnValues);
                 setHeroDetail({
                     auction: { minValue: '0' },
                     selling: { value: '0' },
