@@ -15,7 +15,26 @@ const Web3Provider = (props) => {
         const loadContracts = async () => {
             const ret = {};
 
-            ret.web3 = new Web3(Web3.givenProvider || process.env.REACT_APP_WEB3_ADDRESS);
+            const options = {
+                timeout: 30000, // ms
+                clientConfig: {
+                    // Useful if requests are large
+                    maxReceivedFrameSize: 100000000, // bytes - default: 1MiB
+                    maxReceivedMessageSize: 100000000, // bytes - default: 8MiB
+                    // Useful to keep a connection alive
+                    keepalive: true,
+                    keepaliveInterval: 60000, // ms
+                },
+                // Enable auto reconnection
+                reconnect: {
+                    auto: true,
+                    delay: 5000, // ms
+                    maxAttempts: 5,
+                    onTimeout: false,
+                },
+            };
+
+            ret.web3 = new Web3(Web3.givenProvider || process.env.REACT_APP_WEB3_ADDRESS, options);
             ret.networkId = await ret.web3.eth.net.getId();
             ret.accounts = await ret.web3.eth.getAccounts();
 
@@ -113,7 +132,7 @@ const Web3Provider = (props) => {
     useEffect(() => {
         createContext();
         return () => {
-            
+
         }
     }, []);
 
