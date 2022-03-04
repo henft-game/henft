@@ -25,26 +25,24 @@ const useHeroDetails = (heroId) => {
                 if (transactionsHashs.indexOf(event.transactionHash) <= -1) {
                     transactionsHashs.push(event.transactionHash);
                     setLoading(true);
-                    const promisses = [];
 
-                    promisses.push(data?.market?.methods.getAuction(heroId).call());
-                    promisses.push(data?.market?.methods.getSelling(heroId).call());
-                    promisses.push(data?.contract?.methods.ownerOf(heroId).call());
+                    setTimeout(() => {
+                        const promisses = [];
 
-                    Promise.all(promisses).then((values) => {
-                        console.log("loading hero detail: " + heroId);
-                        console.log({
-                            auction: values[0],
-                            selling: values[1],
-                            owner: values[2],
+                        promisses.push(data?.market?.methods.getAuction(heroId).call());
+                        promisses.push(data?.market?.methods.getSelling(heroId).call());
+                        promisses.push(data?.contract?.methods.ownerOf(heroId).call());
+
+                        Promise.all(promisses).then((values) => {
+                            console.log("loading hero detail: " + heroId);
+                            setHeroDetail({
+                                auction: values[0],
+                                selling: values[1],
+                                owner: values[2],
+                            });
+                            setLoading(false);
                         });
-                        setHeroDetail({
-                            auction: values[0],
-                            selling: values[1],
-                            owner: values[2],
-                        });
-                        setLoading(false);
-                    });
+                    }, 1000);
                 } else {
                     console.log("event ignored: " + heroId);
                 }
@@ -62,7 +60,21 @@ const useHeroDetails = (heroId) => {
         subs.push(data?.marketEvents?.events.AuctionEnded({ fromBlock: 'latest', filter: { tokenId: heroId + '' } }, load));
         subs.push(data?.marketEvents?.events.ItemBought({ fromBlock: 'latest', filter: { tokenId: heroId + '' } }, load));
 
-        load(false, true);
+        const promisses = [];
+
+        promisses.push(data?.market?.methods.getAuction(heroId).call());
+        promisses.push(data?.market?.methods.getSelling(heroId).call());
+        promisses.push(data?.contract?.methods.ownerOf(heroId).call());
+
+        Promise.all(promisses).then((values) => {
+            console.log("loading hero detail: " + heroId);
+            setHeroDetail({
+                auction: values[0],
+                selling: values[1],
+                owner: values[2],
+            });
+            setLoading(false);
+        });
 
         return () => {
             console.log("stoping hero detail listener: " + heroId);
