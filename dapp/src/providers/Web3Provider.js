@@ -15,7 +15,8 @@ const Web3Provider = (props) => {
         const loadContracts = async () => {
             const ret = {};
 
-            ret.web3 = new Web3(process.env.REACT_APP_WEB3_ADDRESS);
+            ret.web3 = new Web3(Web3.givenProvider || process.env.REACT_APP_WEB3_ADDRESS);
+            ret.web3Events = new Web3(process.env.REACT_APP_WEB3_ADDRESS);
             ret.networkId = await ret.web3.eth.net.getId();
             ret.accounts = await ret.web3.eth.getAccounts();
 
@@ -27,21 +28,25 @@ const Web3Provider = (props) => {
             if (ret.networkData) {
                 ret.contractAddress = ret.networkData.address;
                 ret.contract = new ret.web3.eth.Contract(GameToken.abi, ret.contractAddress);
+                ret.contractEvents = new ret.web3Events.eth.Contract(GameToken.abi, ret.contractAddress);
             }
 
             if (ret.networkMarketData) {
                 ret.marketAddress = ret.networkMarketData.address;
                 ret.market = new ret.web3.eth.Contract(Market.abi, ret.marketAddress);
+                ret.marketEvents = new ret.web3Events.eth.Contract(Market.abi, ret.marketAddress);
             }
 
             if (ret.networkBattleData) {
                 ret.battleSystemAddress = ret.networkBattleData.address;
                 ret.battleSystem = new ret.web3.eth.Contract(BattleSystem.abi, ret.battleSystemAddress);
+                ret.battleSystemEvents = new ret.web3Events.eth.Contract(BattleSystem.abi, ret.battleSystemAddress);
             }
 
             if (ret.networkConsumableData) {
                 ret.consumableAddress = ret.networkConsumableData.address;
                 ret.consumable = new ret.web3.eth.Contract(Consumable.abi, ret.consumableAddress);
+                ret.consumableEvents = new ret.web3Events.eth.Contract(Consumable.abi, ret.consumableAddress);
             }
 
             setData(ret);
