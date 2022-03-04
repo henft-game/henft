@@ -26,12 +26,12 @@ jobs:
     - name: Build
       run: cd dapp && npm run build
       env:
-        REACT_APP_WEB3_ADDRESS: 'https://data-seed-prebsc-2-s3.binance.org:8545'
+        REACT_APP_WEB3_ADDRESS: 'wss://apis-sj.ankr.com/503f274f90974b24a90c0513cbc79502/a0ea98874932c92ac676ea9a3213cc49/binance/full/test'
         REACT_APP_USE_HASH_ROUTER: true
         REACT_APP_CHAIN_ID: '0x61'
         REACT_APP_CHAIN_NAME: 'BSC testnet'
         REACT_APP_BLOCK_EXPLORER_URLS: 'https://testnet.bscscan.com'
-        REACT_APP_RPC_URL: 'https://data-seed-prebsc-2-s3.binance.org:8545/'
+        REACT_APP_RPC_URL: 'wss://apis-sj.ankr.com/503f274f90974b24a90c0513cbc79502/a0ea98874932c92ac676ea9a3213cc49/binance/full/test'
         REACT_APP_SYMBOL: 'BNB' 
 
     - name: Deploy

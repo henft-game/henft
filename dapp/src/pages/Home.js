@@ -74,7 +74,7 @@ const Home = () => {
             left: '50%',
             color: '#FFEDD9',
             border: '4px solid rgb(97, 66, 45)',
-            content: '"Lastest News"',
+            content: '"Latest News"',
             padding: '6px',
             position: 'absolute',
             fontSize: '15px',
