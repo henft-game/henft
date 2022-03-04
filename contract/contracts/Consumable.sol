@@ -41,6 +41,10 @@ contract Consumable is IConsumable, ERC721URIStorage, Ownable {
         _baseTokenURI = baseTokenURI;
     }
 
+    function setBaseTokenURI(string memory _newBaseTokenURI) external onlyOwner {
+        _baseTokenURI = _newBaseTokenURI;
+    }
+
     function totalSupply() external view returns (uint256) {
         return _consumables.length;
     }

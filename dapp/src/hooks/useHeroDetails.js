@@ -33,12 +33,17 @@ const useHeroDetails = (heroId) => {
 
                     Promise.all(promisses).then((values) => {
                         console.log("loading hero detail: " + heroId);
+                        console.log({
+                            auction: values[0],
+                            selling: values[1],
+                            owner: values[2],
+                        });
                         setHeroDetail({
                             auction: values[0],
                             selling: values[1],
                             owner: values[2],
                         });
-                        setLoading(true);
+                        setLoading(false);
                     });
                 } else {
                     console.log("event ignored: " + heroId);
