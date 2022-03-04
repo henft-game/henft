@@ -9,13 +9,14 @@ contract Market is Ownable {
         uint256 indexed tokenId,
         uint256 endTime,
         uint256 minValue,
+        address seller,
         address newOwner
     );
     event NewBid(uint256 indexed tokenId, uint256 value, address bidder);
     event CancelAuction(uint256 indexed tokenId, address newOwner);
     event AuctionEnded(uint256 indexed tokenId, uint256 currValue, address newOwner);
 
-    event NewSellingItem(uint256 indexed tokenId, uint256 value, address newOwner);
+    event NewSellingItem(uint256 indexed tokenId, uint256 value, address seller, address newOwner);
     event CancelSellingItem(uint256 indexed tokenId, address newOwner);
     event ItemBought(uint256 indexed tokenId, uint256 value, address newOwner);
 
@@ -95,7 +96,7 @@ contract Market is Ownable {
         _sellingHeroes[_heroId] = SellItem(_price, msg.sender);
         _sellingHeroesIds.push(_heroId);
 
-        emit NewSellingItem(_heroId, _price, address(this));
+        emit NewSellingItem(_heroId, _price, msg.sender, address(this));
     }
 
     function disallowBuy(uint256 _heroId) external {
@@ -166,7 +167,7 @@ contract Market is Ownable {
         );
         _sellingHeroesIds.push(_heroId);
 
-        emit NewAuction(_heroId, _endTime, _minPrice, address(this));
+        emit NewAuction(_heroId, _endTime, _minPrice, msg.sender, address(this));
     }
 
     function cancelAuction(uint256 _heroId) external {

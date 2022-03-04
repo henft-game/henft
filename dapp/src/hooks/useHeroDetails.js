@@ -23,7 +23,7 @@ const useHeroDetails = (heroId) => {
             if (!!event) {
                 console.log(event.event + ": " + heroId);
                 setHeroDetail({
-                    auction: { minValue: event.returnValues.minValue },
+                    auction: { minValue: event.returnValues.minValue, seller: event.returnValues.seller },
                     selling: { value: '0' },
                     owner: event.returnValues.newOwner
                 });
@@ -49,7 +49,7 @@ const useHeroDetails = (heroId) => {
             if (!!event) {
                 console.log(event.event + ": " + heroId);
                 setHeroDetail(prev => ({
-                    auction: { minValue: prev.auction.minValue, currValue: event.returnValues.currValue },
+                    auction: { minValue: prev.auction.minValue, seller: prev.auction.seller, currValue: event.returnValues.currValue },
                     selling: { value: '0' },
                     owner: prev.owner
                 }));
@@ -77,7 +77,7 @@ const useHeroDetails = (heroId) => {
                 console.log(event.event + ": " + heroId);
                 setHeroDetail({
                     auction: { minValue: '0' },
-                    selling: { value: event.returnValues.value },
+                    selling: { value: event.returnValues.value, seller: event.returnValues.seller },
                     owner: event.returnValues.newOwner
                 });
             }
