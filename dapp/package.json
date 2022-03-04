@@ -27,7 +27,7 @@
     "react-router-dom": "^6.0.2",
     "react-scripts": "4.0.3",
     "web-vitals": "^1.1.2",
-    "web3": "^1.6.0"
+    "web3": "^1.7.0"
   },
   "scripts": {
     "deploy": "gh-pages -d build",
