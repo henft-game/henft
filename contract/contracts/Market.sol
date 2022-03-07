@@ -244,7 +244,6 @@ contract Market is Ownable {
             );
         }
 
-        delete _sellingHeroesAuction[_heroId];
         _removeSellingHeroesIds(_heroId);
 
         if (_sellingHeroesAuction[_heroId].currValue > 0) {
@@ -252,6 +251,8 @@ contract Market is Ownable {
         } else {
             emit AuctionEnded(_heroId, 0, _sellingHeroesAuction[_heroId].seller);
         }
+
+        delete _sellingHeroesAuction[_heroId];
     }
 
     function _removeSellingHeroesIds(uint256 _heroId) internal {

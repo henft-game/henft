@@ -144,8 +144,10 @@ setTimeout(async ()=>{console.log('new mint'), await g.mint(1, 1, 0, 'QmaZwhsPYf
 setTimeout(async ()=>{console.log('new mint'), await g.mint(1, 2, 0, 'QmbFzryAkLyxYndVAkQWd9GTUpWczqKHoXBDdTHBUoqXkM');}, multi * 10000); multi++;
 setTimeout(async ()=>{console.log('new mint'), await g.mint(1, 3, 3, 'QmVx5aKX88TX7EeyHwMY9Sf8GekRPuE9f3HwXT9gxzQSpr');}, multi * 10000); multi++;
 
-m.allowBuy(0, 1);
-
+m.setApprovalForAll(accounts[0], true);
+for (let i = 0; i <= 8; i++) {
+  m.allowBuy(i, web3.utils.toWei('0.1'));
+}
 
 i.createAuction(0, (new Date().getTime() + 60000), web3.utils.toWei('1'));
 i.bid(0, {value: web3.utils.toWei('1'), from: accounts[8]});

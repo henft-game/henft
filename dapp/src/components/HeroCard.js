@@ -468,7 +468,7 @@ const HeroCard = ({ heroInstance, token, isApprovedForAll }) => {
             <CreateAuctionDialog token={token} open={openedCreateAuctionDialog} handleClose={handleCloseCreateAuctionDialog} createAuction={createAuction} />
             {!!openedBidDialog && !!heroDetail?.auction &&
                 <BidDialog token={token} open={openedBidDialog} handleClose={handleCloseBidDialog} bid={bid}
-                    minBid={(heroDetail?.auction?.currValue === '0' ? heroDetail?.auction?.minValue : (parseInt(heroDetail?.auction?.currValue) * 1.1) + '')}
+                    minBid={(heroDetail?.auction?.currValue === '0' ? heroDetail?.auction?.minValue : (parseInt(parseInt(heroDetail?.auction?.currValue) * 1.1)) + '')}
                 />
             }
             {!!openedBattleHistoryDialog && !!battles &&
