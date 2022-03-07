@@ -53,7 +53,7 @@ const useHeroDetails = (heroId) => {
                 console.log(event.returnValues);
                 setHeroDetail(prev => ({
                     auction: { 
-                        ...prev, 
+                        ...prev.auction, 
                         currValue: event.returnValues.value 
                     },
                     selling: { value: '0' },
