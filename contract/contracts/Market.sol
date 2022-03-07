@@ -236,12 +236,22 @@ contract Market is Ownable {
                 _sellingHeroesAuction[_heroId].lastBidAddress,
                 _heroId
             );
+        } else {
+            IERC721(_gameTokenAddress).transferFrom(
+                address(this),
+                _sellingHeroesAuction[_heroId].seller,
+                _heroId
+            );
         }
 
         delete _sellingHeroesAuction[_heroId];
         _removeSellingHeroesIds(_heroId);
 
-        emit AuctionEnded(_heroId, _sellingHeroesAuction[_heroId].currValue, _sellingHeroesAuction[_heroId].lastBidAddress);
+        if (_sellingHeroesAuction[_heroId].currValue > 0) {
+            emit AuctionEnded(_heroId, _sellingHeroesAuction[_heroId].currValue, _sellingHeroesAuction[_heroId].lastBidAddress);
+        } else {
+            emit AuctionEnded(_heroId, 0, _sellingHeroesAuction[_heroId].seller);
+        }
     }
 
     function _removeSellingHeroesIds(uint256 _heroId) internal {

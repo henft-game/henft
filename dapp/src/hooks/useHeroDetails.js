@@ -24,7 +24,7 @@ const useHeroDetails = (heroId) => {
                 console.log(event.event + ": " + heroId);
                 console.log(event.returnValues);
                 setHeroDetail({
-                    auction: { minValue: event.returnValues.minValue, seller: event.returnValues.seller },
+                    auction: { currValue: '0', minValue: event.returnValues.minValue, seller: event.returnValues.seller },
                     selling: { value: '0' },
                     owner: event.returnValues.newOwner
                 });
@@ -52,7 +52,7 @@ const useHeroDetails = (heroId) => {
                 console.log(event.event + ": " + heroId);
                 console.log(event.returnValues);
                 setHeroDetail(prev => ({
-                    auction: { minValue: prev.auction.minValue, seller: prev.auction.seller, currValue: event.returnValues.currValue },
+                    auction: { minValue: prev.auction.minValue, seller: prev.auction.seller, currValue: event.returnValues.value },
                     selling: { value: '0' },
                     owner: prev.owner
                 }));
