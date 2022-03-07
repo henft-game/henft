@@ -144,7 +144,7 @@ setTimeout(async ()=>{console.log('new mint'), await g.mint(1, 1, 0, 'QmaZwhsPYf
 setTimeout(async ()=>{console.log('new mint'), await g.mint(1, 2, 0, 'QmbFzryAkLyxYndVAkQWd9GTUpWczqKHoXBDdTHBUoqXkM');}, multi * 10000); multi++;
 setTimeout(async ()=>{console.log('new mint'), await g.mint(1, 3, 3, 'QmVx5aKX88TX7EeyHwMY9Sf8GekRPuE9f3HwXT9gxzQSpr');}, multi * 10000); multi++;
 
-m.setApprovalForAll(accounts[0], true);
+g.setApprovalForAll(m.address, true);
 for (let i = 0; i <= 8; i++) {
   m.allowBuy(i, web3.utils.toWei('0.1'));
 }
