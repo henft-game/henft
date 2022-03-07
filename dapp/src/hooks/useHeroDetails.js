@@ -51,11 +51,13 @@ const useHeroDetails = (heroId) => {
             if (!!event) {
                 console.log(event.event + ": " + heroId);
                 console.log(event.returnValues);
-                setHeroDetail(prev => ({
+                setHeroDetail(prev => {
+                    console.log(prev);
+                    return ({
                     auction: { minValue: prev.auction.minValue, seller: prev.auction.seller, currValue: event.returnValues.value },
                     selling: { value: '0' },
                     owner: prev.owner
-                }));
+                })});
             }
         }));
         subs.push(data?.marketEvents?.events.AuctionEnded({ fromBlock: 'latest', filter: { tokenId: heroId + '' } }, (err, event) => {
