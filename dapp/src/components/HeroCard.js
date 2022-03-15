@@ -1,4 +1,5 @@
-import { Card, CardActions, CardContent, CardHeader, Grid, Typography, Button, Divider, LinearProgress, ButtonGroup } from '@mui/material';
+import Blockies from 'react-blockies';
+import { Card, CardActions, CardContent, CardHeader, Grid, Typography, Button, Divider, LinearProgress, ButtonGroup, Link } from '@mui/material';
 import { linearProgressClasses } from '@mui/material/LinearProgress';
 import { makeStyles, styled } from '@mui/styles';
 import React, { Fragment, useContext, useState } from 'react';
@@ -382,14 +383,36 @@ const HeroCard = ({ heroInstance, token, isApprovedForAll }) => {
                                     <Grid item xs={12}>
                                         <Grid container sx={{ paddingTop: "4px" }}>
                                             <Grid item xs={6}>
-                                                <Typography sx={{ fontSize: "7px" }}>{`Season:${getHero().season}`}</Typography>
+                                                <Typography sx={{ fontSize: "8px", paddingTop: '4px' }}>{`Season:${getHero().season}`}</Typography>
                                             </Grid>
                                             <Grid item xs={6}>
-                                                <Typography sx={{
-                                                    fontSize: "7px", textAlign: "right"
-                                                }}>
-                                                    {`Owner: ${!!heroDetail?.owner ? shortAccount(heroDetail?.owner) : 'loading...'}`}
-                                                </Typography>
+                                                {!!heroDetail?.owner ?
+                                                    <Grid container justifyContent="flex-end">
+                                                        <Grid item>
+                                                            <Blockies
+                                                                seed={heroDetail?.owner}
+                                                                size={9}
+                                                                scale={2}
+                                                                className="identicon"
+                                                            />
+                                                        </Grid>
+                                                        <Grid item>
+                                                            <Link href={`${process.env.REACT_APP_BLOCK_EXPLORER_URLS}/address/${heroDetail?.owner}`}
+                                                                underline="hover" variant="body1"
+                                                                sx={{
+                                                                    float: 'right',
+                                                                    marginLeft: '4px',
+                                                                    fontSize: '8px',
+                                                                    paddingTop: '4px'
+                                                                }}>
+                                                                {shortAccount(heroDetail?.owner)}
+                                                            </Link>
+                                                        </Grid>
+                                                    </Grid>
+                                                    :
+                                                    <Typography sx={{ fontSize: "8px", textAlign: "right", paddingTop: '4px' }}>
+                                                        loading...
+                                                    </Typography>}
                                             </Grid>
                                         </Grid>
                                     </Grid>
