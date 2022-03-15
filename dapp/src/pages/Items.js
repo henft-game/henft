@@ -1,9 +1,13 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import Blockies from 'react-blockies';
+import React, { Fragment, useState, useEffect, useContext } from 'react';
 import { styled } from '@mui/styles';
 import useConsumables from '../hooks/useConsumables';
 import { Grid, Box } from '@mui/material';
 import ConsumableGridItem from '../components/ConsumableGridItem';
 import { Link } from 'react-router-dom';
+import { Link as NormalLink } from '@mui/material';
+import { Web3Context } from '../providers/Web3Provider';
+
 
 const Items = () => {
 
@@ -76,6 +80,8 @@ const Items = () => {
             borderRadius: '4px',
         },
     }));
+
+    const { data } = useContext(Web3Context);
 
     const { loading, content } = useConsumables();
 
@@ -156,6 +162,31 @@ const Items = () => {
                                             helpText="You choose one of your hens to receive one free victory, so you gain the victory reward and the hen one victory point." />
                                         <ConsumableGridItem consumableType={'3'} consumable={consumables?.filter(con => con.type === 3)[0]}
                                             helpText="???" />
+                                        {!!data?.marketAddress &&
+                                            <Grid container justifyContent="flex-end">
+                                                <Grid item>
+                                                    <Blockies
+                                                        seed={data?.marketAddress}
+                                                        size={9}
+                                                        scale={2}
+                                                        className="identicon"
+                                                    />
+                                                </Grid>
+                                                <Grid item>
+                                                    <NormalLink href={`${process.env.REACT_APP_BLOCK_EXPLORER_URLS}/address/${data?.marketAddress}`}
+                                                        underline="hover" variant="body1"
+                                                        sx={{
+                                                            float: 'right',
+                                                            marginLeft: '4px',
+                                                            marginRight: '10px',
+                                                            fontSize: '8px',
+                                                            paddingTop: '4px'
+                                                        }}>
+                                                        {data?.marketAddress}
+                                                    </NormalLink>
+                                                </Grid>
+                                            </Grid>
+                                        }
                                     </Fragment>
                                 }
                                 {loading &&
