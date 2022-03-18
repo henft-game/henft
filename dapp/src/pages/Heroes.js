@@ -1,10 +1,8 @@
-import Blockies from 'react-blockies';
-import { Grid, Box, Select, MenuItem, InputLabel, FormControl, FormControlLabel, Checkbox, Link } from '@mui/material';
+import { Grid, Box, Select, MenuItem, InputLabel, FormControl, FormControlLabel, Checkbox } from '@mui/material';
 import { styled } from '@mui/styles';
-import React, { Fragment, useContext, useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import useHeroes from '../hooks/useHeroes';
 import HeroGridItem from '../components/HeroGridItem';
-import { Web3Context } from '../providers/Web3Provider';
 
 const Heroes = () => {
 
@@ -61,8 +59,6 @@ const Heroes = () => {
             borderWidth: '2px',
         }
     }));
-
-    const { data } = useContext(Web3Context);
 
     const { loading, content } = useHeroes();
 
@@ -130,30 +126,6 @@ const Heroes = () => {
                             <FormControlLabel sx={{ "&": { color: '#61422D' } }} onChange={(e, newValue) => setOwnedByMe(newValue)} control={
                                 <Checkbox sx={{ "&": { color: '#61422D' } }} checked={ownedByMe} />
                             } label="Owned by me" />
-                            {!!data?.contractAddress &&
-                                <Grid container justifyContent="flex-end">
-                                    <Grid item>
-                                        <Blockies
-                                            seed={data?.contractAddress}
-                                            size={9}
-                                            scale={2}
-                                            className="identicon"
-                                        />
-                                    </Grid>
-                                    <Grid item>
-                                        <Link href={`${process.env.REACT_APP_BLOCK_EXPLORER_URLS}/address/${data?.contractAddress}`}
-                                            underline="hover" variant="body1"
-                                            sx={{
-                                                float: 'right',
-                                                marginLeft: '4px',
-                                                fontSize: '8px',
-                                                paddingTop: '4px'
-                                            }}>
-                                            {data?.contractAddress}
-                                        </Link>
-                                    </Grid>
-                                </Grid>
-                            }
                         </Grid>
                         {!!content && !!content.heroes && content.heroes
                             .map((hero, heroId) => {

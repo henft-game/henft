@@ -155,6 +155,29 @@ web3.eth.getBalance(accounts[0]);
 web3.eth.getBalance(accounts[8]);
 web3.eth.getBalance(accounts[9]);
 
+
+g = await GameToken.deployed();
+m = await Market.deployed();
+b = await BattleSystem.deployed();
+c = await Consumable.deployed();
+g = await GameToken.deployed();
+multi = 1;
+
+await g.mint(1, 3, 0, 'QmZieH9MNZC2mCQkHnRhQWUtFXqxqbARgRANNeNCo2xoEU');
+await g.mint(1, 3, 0, 'QmPbS9C2YuyoAxtSjELeKshPjvuKmmFVdkmN9EzGSHxFiH');
+await g.mint(1, 3, 0, 'QmbnRmRzSKXKCGKAD2Gwte4jL8s1L52Cpvuxuw8fedV7pK');
+await g.mint(1, 3, 0, 'Qmekp6uf2wnDKP87xR9fLbxpYyNTmXMf96WTNixVrWJeCq');
+await g.mint(1, 3, 0, 'QmSxkabuipMxJETrPeFnEMWLEzVaPet4Ua48nZ3PvHMddx');
+await g.mint(1, 3, 0, 'QmfEJr9vjKT4MnaF24PfMnTj58rAm45tuccqKohYHKSTZh');
+await g.mint(1, 3, 0, 'QmdkYNBh13452PCoaatEBXJSzgBpMCcv4epu4WVDeyQ4Xy');
+await g.mint(1, 3, 0, 'QmVFL8cAX71SmqF3ydwKoJ3tQ8nBNGyekdVDibpehrWaZY');
+await g.mint(1, 3, 0, 'QmcaxrMJ1NmS3aDfrwFHuLBJA4XwrD5BZ1acddLuw4PA9y');
+await g.mint(1, 3, 0, 'QmXvYQgAPjUfUpwpbRaKCXzQfgKeDFbGThMdjRTMnrBrEr');
+await g.mint(1, 3, 0, 'Qma61jVXpkEU3BwxVKKBktZCLywt1FGu5eqxVToi1z2dQP');
+await g.mint(1, 3, 0, 'QmUhD5MjJPRbJ3YXxxdJPejMStxPCbA2zggwY16Uvu4LTT');
+await g.mint(1, 3, 0, 'QmUqnsZ6V553rjibF7cNhTzGWtSvmDtte364HoMzt2Wamc');
+await g.mint(1, 3, 0, 'QmXjQpeHhfhGXiDcUHXZUVwqjfpJhgs3LiBCdAjuVwrZNH');
+
 ```
 
 ### 1.2.4. Debug transaction

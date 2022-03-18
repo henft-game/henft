@@ -14,9 +14,18 @@ contract Market is Ownable {
     );
     event NewBid(uint256 indexed tokenId, uint256 value, address bidder);
     event CancelAuction(uint256 indexed tokenId, address newOwner);
-    event AuctionEnded(uint256 indexed tokenId, uint256 currValue, address newOwner);
+    event AuctionEnded(
+        uint256 indexed tokenId,
+        uint256 currValue,
+        address newOwner
+    );
 
-    event NewSellingItem(uint256 indexed tokenId, uint256 value, address seller, address newOwner);
+    event NewSellingItem(
+        uint256 indexed tokenId,
+        uint256 value,
+        address seller,
+        address newOwner
+    );
     event CancelSellingItem(uint256 indexed tokenId, address newOwner);
     event ItemBought(uint256 indexed tokenId, uint256 value, address newOwner);
 
@@ -73,6 +82,31 @@ contract Market is Ownable {
         returns (SellItem memory)
     {
         return _sellingHeroes[_heroId];
+    }
+
+    function getRandomSelling(uint256 seed) external view returns (uint256) {
+        return
+            _sellingHeroesIds[rand(seed, seed, _sellingHeroesIds.length - 1)];
+    }
+
+    function getLowestSelling() external view returns (uint256) {
+        uint256 lowestId;
+        uint256 value = 0;
+        for (uint256 i = 0; i < _sellingHeroesIds.length; i++) {
+            SellItem memory currentSellItem = _sellingHeroes[
+                _sellingHeroesIds[i]
+            ];
+            if (
+                value == 0 ||
+                (currentSellItem.seller != address(0) &&
+                    currentSellItem.value <= value)
+            ) {
+                lowestId = _sellingHeroesIds[i];
+                value = currentSellItem.value;
+            }
+        }
+
+        return lowestId;
     }
 
     function allowBuy(uint256 _heroId, uint256 _price) external {
@@ -167,7 +201,13 @@ contract Market is Ownable {
         );
         _sellingHeroesIds.push(_heroId);
 
-        emit NewAuction(_heroId, _endTime, _minPrice, msg.sender, address(this));
+        emit NewAuction(
+            _heroId,
+            _endTime,
+            _minPrice,
+            msg.sender,
+            address(this)
+        );
     }
 
     function cancelAuction(uint256 _heroId) external {
@@ -247,9 +287,17 @@ contract Market is Ownable {
         _removeSellingHeroesIds(_heroId);
 
         if (_sellingHeroesAuction[_heroId].currValue > 0) {
-            emit AuctionEnded(_heroId, _sellingHeroesAuction[_heroId].currValue, _sellingHeroesAuction[_heroId].lastBidAddress);
+            emit AuctionEnded(
+                _heroId,
+                _sellingHeroesAuction[_heroId].currValue,
+                _sellingHeroesAuction[_heroId].lastBidAddress
+            );
         } else {
-            emit AuctionEnded(_heroId, 0, _sellingHeroesAuction[_heroId].seller);
+            emit AuctionEnded(
+                _heroId,
+                0,
+                _sellingHeroesAuction[_heroId].seller
+            );
         }
 
         delete _sellingHeroesAuction[_heroId];
@@ -266,7 +314,8 @@ contract Market is Ownable {
     }
 
     function _getIndexSellingHeroesIds(uint256 _heroId)
-        internal view
+        internal
+        view
         returns (uint256)
     {
         for (uint256 i = 0; i < _sellingHeroesIds.length; i++) {
@@ -275,6 +324,32 @@ contract Market is Ownable {
             }
         }
         return _sellingHeroesIds.length;
+    }
+
+    function rand(
+        uint256 seed1,
+        uint256 seed2,
+        uint256 limit
+    ) private view returns (uint256) {
+        uint256 seed = uint256(
+            keccak256(
+                abi.encodePacked(
+                    block.timestamp +
+                        block.difficulty +
+                        seed1 +
+                        seed2 +
+                        ((
+                            uint256(keccak256(abi.encodePacked(block.coinbase)))
+                        ) / (block.timestamp)) +
+                        block.gaslimit +
+                        ((uint256(keccak256(abi.encodePacked(msg.sender)))) /
+                            (block.timestamp)) +
+                        block.number
+                )
+            )
+        );
+
+        return (seed - ((seed / (limit + 1)) * (limit + 1)));
     }
 
     function receiver() external payable {}

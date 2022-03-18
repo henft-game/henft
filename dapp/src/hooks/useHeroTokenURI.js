@@ -18,7 +18,6 @@ const useHeroTokenURI = (heroId) => {
             data?.contract?.methods.tokenURI(heroId).call().then(res => {
                 setTokenURI(res);
                 setLoading(false);
-
             }).catch(e => {
                 setLoading(false);
             });

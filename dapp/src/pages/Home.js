@@ -1,10 +1,12 @@
-import { Avatar, Box, Grid, List, ListItem, ListItemAvatar, ListItemText, Typography } from '@mui/material';
+import Blockies from 'react-blockies';
+import { Avatar, Box, Grid, List, ListItem, ListItemAvatar, ListItemText, Typography, Link } from '@mui/material';
 import { styled } from '@mui/styles';
 import React, { Fragment, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link as NavLink } from 'react-router-dom';
 import useBattleTop5 from '../hooks/useBattleTop5';
 import useHeroTokenURI from '../hooks/useHeroTokenURI';
 import useHeroOwnerOf from '../hooks/useHeroOwnerOf';
+import useHeroSelling from '../hooks/useHeroSelling';
 
 const Home = () => {
 
@@ -86,13 +88,12 @@ const Home = () => {
         }
     }));
 
-    const Featured = styled(Box)(({ theme }) => ({
+    const Featured = styled(Grid)(({ theme }) => ({
         flexGrow: 1,
         padding: '10px',
+        marginBottom: '10px',
         border: '4px solid #61422D',
         borderRadius: 1,
-        backgroundPosition: 'center',
-        backgroundSize: '600px',
         background: '#FFEED4',
         position: 'relative',
         "&:before": {
@@ -137,7 +138,6 @@ const Home = () => {
             textShadow: '3px 0 0 #000, -3px 0 0 #000, 0 3px 0 #000, 0 -3px 0 #000, 2px 2px #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000',
         }
     }));
-
 
     const HeroTop1 = styled('img')(({ theme }) => ({
         position: 'absolute',
@@ -188,8 +188,6 @@ const Home = () => {
         },
     }));
 
-
-
     const Champion = styled('div')(({ theme }) => ({
         background: 'url("imgs/champion.png")',
         position: 'absolute',
@@ -207,7 +205,7 @@ const Home = () => {
         },
     }));
 
-    const LinkMenu = styled(Link)(({ theme }) => ({
+    const LinkMenu = styled(NavLink)(({ theme }) => ({
         padding: 10,
         border: "4px solid #040303",
         borderRadius: "4px",
@@ -227,15 +225,15 @@ const Home = () => {
         },
     }));
 
-    const RoadmapLink = styled(Link)(({ theme }) => ({
+    const RoadmapLink = styled(NavLink)(({ theme }) => ({
         padding: 10,
         width: '100%',
-        height: '400px',
+        height: '372px',
         display: 'block',
         borderRadius: "3px",
         textDecoration: 'none',
         background: "url('imgs/roadmap_sign.png') no-repeat",
-        backgroundSize: '200px',
+        backgroundSize: '189px',
         backgroundPosition: 'center',
     }));
 
@@ -251,6 +249,45 @@ const Home = () => {
         }
     }));
 
+    const HeroSelling = styled('img')(({ theme }) => ({
+        width: '100%',
+        borderRadius: 1,
+    }));
+
+    const TextHeroSelling = styled(Typography)(({ theme }) => ({
+        '&&': {
+            fontSize: '22px',
+        },
+        position: 'absolute',
+        left: '20px',
+        top: '20px',
+        zIndex: '1000',
+        color: '#FFF',
+        textShadow: '3px 0 0 #000, -3px 0 0 #000, 0 3px 0 #000, 0 -3px 0 #000, 2px 2px #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000',
+    }));
+
+    const LinkBuy = styled(NavLink)(({ theme }) => ({
+
+        "&&": {
+            position: 'absolute',
+            bottom: '40px',
+            right: '20px',
+            background: '#DCC1A1',
+            color: '#61422D',
+            borderColor: '#61422D',
+            textTransform: 'capitalize',
+            borderWidth: '2px',
+            padding: '10px',
+            textDecoration: 'none',
+            borderRadius: '2px',
+        },
+        '&&:hover': {
+            background: '#FFEED4',
+            borderColor: '#61422D', borderRadius: '1',
+            borderWidth: '2px',
+        }
+    }));
+
     const [news] = useState([
         { title: "Giveaway 1", date: new Date(), url: "http://google.com" },
         { title: "Giveaway 2", date: new Date(), url: "http://google.com" },
@@ -263,12 +300,21 @@ const Home = () => {
         { title: "Giveaway 9", date: new Date(), url: "http://google.com" },
     ])
 
+    const shortAccount = function (account) {
+        return `${account.substr(0, 4)}...${account.substr(-3)}`;
+    }
 
     const { content } = useBattleTop5();
 
     const { tokenURI } = useHeroTokenURI(content?.top5[0].heroId);
     const { ownerOf } = useHeroOwnerOf(content?.top5[0].heroId);
 
+    const { sellingContent } = useHeroSelling();
+
+    const randomTokenURI = useHeroTokenURI(sellingContent?.randomSellingId);
+    const ownerOfRandom = useHeroOwnerOf(sellingContent?.randomSellingId);
+    const lowestTokenURI = useHeroTokenURI(sellingContent?.lowestSellingId);
+    const ownerOfLowest = useHeroOwnerOf(sellingContent?.lowestSellingId);
 
     return (
         <HomeBox>
@@ -352,7 +398,94 @@ const Home = () => {
 
                     <Grid container spacing={2} sx={{ marginTop: '20px' }}>
                         <CustomGrid item xs={12} md={8}>
-                            <Featured>
+                            <Featured container>
+                                <Grid item xs={12} md={6} sx={{ padding: '10px', position: 'relative' }}>
+                                    <Fragment>
+                                        {!!sellingContent?.randomSellingId &&
+                                            <TextHeroSelling>{`#${sellingContent?.randomSellingId}`}</TextHeroSelling>
+                                        }
+                                        {!!randomTokenURI?.tokenURI ?
+                                            <Fragment>
+                                                <HeroSelling src={randomTokenURI?.tokenURI} alt="random selling hero" />
+                                                <LinkBuy to="/hens">BUY</LinkBuy>
+                                            </Fragment>
+                                            :
+                                            <HeroSelling src="imgs/loading_hen.gif" alt={`#`} />
+                                        }
+                                        {!!ownerOfRandom?.ownerOf ?
+                                            <Grid container justifyContent="flex-end" sx={{ marginTop: '4px' }}>
+                                                <Grid item>
+                                                    <Blockies
+                                                        seed={ownerOfRandom?.ownerOf}
+                                                        size={9}
+                                                        scale={2}
+                                                        className="identicon"
+                                                    />
+                                                </Grid>
+                                                <Grid item>
+                                                    <Link href={`${process.env.REACT_APP_BLOCK_EXPLORER_URLS}/address/${ownerOfRandom?.ownerOf}`}
+                                                        underline="hover" variant="body1"
+                                                        sx={{
+                                                            float: 'right',
+                                                            fontSize: '8px',
+                                                            paddingTop: '4px',
+                                                            marginLeft: '4px'
+                                                        }}>
+                                                        {shortAccount(ownerOfRandom?.ownerOf)}
+                                                    </Link>
+                                                </Grid>
+                                            </Grid>
+                                            :
+                                            <Typography sx={{ fontSize: "8px", textAlign: "right", paddingTop: '4px' }}>
+                                                loading...
+                                            </Typography>
+                                        }
+                                    </Fragment>
+                                </Grid>
+                                <Grid item xs={12} md={6} sx={{ padding: '10px', position: 'relative' }}>
+                                    <Fragment>
+                                        {!!sellingContent?.lowestSellingId &&
+                                            <TextHeroSelling>{`#${sellingContent?.lowestSellingId}`}</TextHeroSelling>
+                                        }
+                                        {!!lowestTokenURI?.tokenURI ?
+                                            <Fragment>
+                                                <HeroSelling src={lowestTokenURI?.tokenURI} alt="lowest selling hero" />
+                                                <LinkBuy to="/hens">BUY</LinkBuy>
+                                            </Fragment>
+                                            :
+                                            <HeroSelling src="imgs/loading_hen.gif" alt={`#`} />
+                                        }
+
+                                        {!!ownerOfLowest?.ownerOf ?
+                                            <Grid container justifyContent="flex-end" sx={{ marginTop: '4px' }}>
+                                                <Grid item>
+                                                    <Blockies
+                                                        seed={ownerOfLowest?.ownerOf}
+                                                        size={9}
+                                                        scale={2}
+                                                        className="identicon"
+                                                    />
+                                                </Grid>
+                                                <Grid item>
+                                                    <Link href={`${process.env.REACT_APP_BLOCK_EXPLORER_URLS}/address/${ownerOfLowest?.ownerOf}`}
+                                                        underline="hover" variant="body1"
+                                                        sx={{
+                                                            float: 'right',
+                                                            fontSize: '8px',
+                                                            paddingTop: '4px',
+                                                            marginLeft: '4px'
+                                                        }}>
+                                                        {shortAccount(ownerOfLowest?.ownerOf)}
+                                                    </Link>
+                                                </Grid>
+                                            </Grid>
+                                            :
+                                            <Typography sx={{ fontSize: "8px", textAlign: "right", paddingTop: '4px' }}>
+                                                loading...
+                                            </Typography>
+                                        }
+                                    </Fragment>
+                                </Grid>
                             </Featured>
                         </CustomGrid>
                         <CustomGrid item xs={12} md={4}>
