@@ -5,7 +5,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import { makeStyles, styled } from '@mui/styles';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { Web3Context } from '../providers/Web3Provider';
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import IconButton from '@mui/material/IconButton';
@@ -122,6 +122,8 @@ export default function DefaultAppBar(props) {
 
     const classes = useStyles();
 
+    const navigate = useNavigate();
+
     const { data } = useContext(Web3Context);
 
     const shortAccount = function (account) {
@@ -129,17 +131,16 @@ export default function DefaultAppBar(props) {
     }
 
     const login = async function () {
-
         if (window.ethereum) {
             try {
                 // check if the chain to connect to is installed
-                if (window.ethereum.chainId === '0x61') {
+                if (window.ethereum.chainId === process.env.REACT_APP_CHAIN_ID) {
                     await window.ethereum.send('eth_requestAccounts');
                 } else {
 
                     await window.ethereum.request({
                         method: 'wallet_switchEthereumChain',
-                        params: [{ chainId: '0x61' }], // chainId must be in hexadecimal numbers
+                        params: [{ chainId: process.env.REACT_APP_CHAIN_ID }], // chainId must be in hexadecimal numbers
                     });
                 }
             } catch (error) {
@@ -151,11 +152,11 @@ export default function DefaultAppBar(props) {
                             method: 'wallet_addEthereumChain',
                             params: [
                                 {
-                                    chainId: '0x61',
-                                    chainName: 'https://testnet.bscscan.com',
-                                    rpcUrl: 'https://data-seed-prebsc-1-s1.binance.org:8545/',
+                                    chainId: process.env.REACT_APP_CHAIN_ID,
+                                    chainName: process.env.REACT_APP_BLOCK_EXPLORER_URLS,
+                                    rpcUrl: process.env.REACT_APP_RPC_URL,
                                     nativeCurrency: {
-                                        symbol: 'BNB'
+                                        symbol: process.env.REACT_APP_SYMBOL
                                     }
                                 },
                             ],
@@ -167,7 +168,7 @@ export default function DefaultAppBar(props) {
                 console.error(error);
             }
         } else {
-            alert('MetaMask is not installed. Please consider installing it: https://metamask.io/download.html');
+            navigate('about#how_to_buy');
         }
     }
 
@@ -191,7 +192,7 @@ export default function DefaultAppBar(props) {
                     <Box sx={{ flexGrow: 1 }} />
                     <RightBox>
                         {!!data?.accounts && !!data?.accounts[0] ?
-                            <Button sx={{ color: '#61422D' }} startIcon={<Avatar sx={{ width: '33px', heigth: '38px' }} src={'imgs/connected.png'} />}>{shortAccount(data?.accounts[0])}</Button>
+                            <Button sx={{ color: '#61422D' }} onClick={login} startIcon={<Avatar sx={{ width: '33px', heigth: '38px' }} src={'imgs/connected.png'} />}>{shortAccount(data?.accounts[0])}</Button>
                             :
                             <Button sx={{ color: '#61422D' }} onClick={login} startIcon={<Avatar sx={{ width: '33px', heigth: '38px' }} src={'imgs/no_connection.png'} />}>No Wallet Connected</Button>
                         }

@@ -251,7 +251,7 @@ const Home = () => {
 
     const HeroSelling = styled('img')(({ theme }) => ({
         width: '100%',
-        borderRadius: 1,
+        borderRadius: '3px',
     }));
 
     const TextHeroSelling = styled(Typography)(({ theme }) => ({

@@ -1,6 +1,6 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-import { Card, CardContent, CardMedia, Grid, Typography } from '@mui/material';
+import { Card, CardContent, CardMedia, Grid, Typography, Link } from '@mui/material';
 import { styled } from '@mui/styles';
 
 const About = () => {
@@ -59,14 +59,25 @@ const About = () => {
 
                     <Title>The Game</Title>
 
-                    <Text>
+                    <Text id="how_to_buy">
                         In HeNFT players are able to fight using the Hens that they hold, improve their levels and for every
                         single victory receive items that can be sold in the marketplace. Keep in mind that our revenue is
                         100% based on the value of the hens sold the first time, all the other values charged in the game are
                         gas fees and values that are reverted to the game or players.
                     </Text>
 
-                    <Title>Why to Buy a HeNFT?</Title>
+                    <Title>How to buy a Hen?</Title>
+
+                    <Text>
+                        HeNTF uses BNB as currency, to buy a hen you need to have a BNB wallet, you can choose any wallet you want.
+                        If you don't know which one to use, we recommend Metamask, we have nothing to do with the wallet, but we
+                        recommend this one because it was the wallet used to test the project.
+                    </Text>
+
+                    <Text><Link target="_blank" rel="noopener" href="https://metamask.io/">Metamask website</Link></Text>
+                    <Text><Link target="_blank" rel="noopener" href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en">Metamask Google Chrome extension</Link></Text>
+
+                    <Title id="why_to_buy">Why to Buy a HeNFT?</Title>
 
                     <Text>
                         People can buy HeNFT for three different reasons, first as a way of investment, the value of a hens

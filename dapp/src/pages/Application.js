@@ -69,6 +69,21 @@ export default function Application() {
         }
     }, [location])
 
+    useEffect(() => {
+        console.log("scrolling");
+        if (location.hash === '') {
+            window.scrollTo(0, 0);
+        } else {
+            setTimeout(() => {
+                const id = location.hash.split('#')[location.hash.split('#').length - 1];
+                const element = document.getElementById(id);
+                if (element) {
+                    element.scrollIntoView();
+                }
+            }, 0);
+        }
+    }, [location.pathname, location.hash, location.key]);
+
     return (
         <Fragment>
             <DefaultAppBar />
