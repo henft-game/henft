@@ -1,5 +1,5 @@
-import Blockies from 'react-blockies';
-import { Avatar, Box, Grid, List, ListItem, ListItemAvatar, ListItemText, Typography, Link } from '@mui/material';
+import { TwitterTimelineEmbed } from 'react-twitter-embed';
+import { Avatar, Box, Grid, Typography, Link } from '@mui/material';
 import { styled } from '@mui/styles';
 import React, { Fragment, useState } from 'react';
 import { Link as NavLink } from 'react-router-dom';
@@ -237,18 +237,6 @@ const Home = () => {
         backgroundPosition: 'center',
     }));
 
-    const NewsDate = styled(Avatar)(({ theme }) => ({
-        '&&': {
-            height: '36px',
-            width: '44px',
-            fontSize: '17px',
-            padding: '10px',
-            lineHight: '24px',
-            background: '#FFEED4',
-            color: '#61422D',
-        }
-    }));
-
     const HeroSelling = styled('img')(({ theme }) => ({
         width: '100%',
         borderRadius: '3px',
@@ -288,22 +276,6 @@ const Home = () => {
         }
     }));
 
-    const [news] = useState([
-        { title: "Giveaway 1", date: new Date(), url: "http://google.com" },
-        { title: "Giveaway 2", date: new Date(), url: "http://google.com" },
-        { title: "Giveaway 3", date: new Date(), url: "http://google.com" },
-        { title: "Giveaway 4", date: new Date(), url: "http://google.com" },
-        { title: "Giveaway 5", date: new Date(), url: "http://google.com" },
-        { title: "Giveaway 6", date: new Date(), url: "http://google.com" },
-        { title: "Giveaway 7", date: new Date(), url: "http://google.com" },
-        { title: "Giveaway 8", date: new Date(), url: "http://google.com" },
-        { title: "Giveaway 9", date: new Date(), url: "http://google.com" },
-    ])
-
-    const shortAccount = function (account) {
-        return `${account.substr(0, 4)}...${account.substr(-3)}`;
-    }
-
     const { content } = useBattleTop5();
 
     const { tokenURI } = useHeroTokenURI(content?.top5[0].heroId);
@@ -312,9 +284,7 @@ const Home = () => {
     const { sellingContent } = useHeroSelling();
 
     const randomTokenURI = useHeroTokenURI(sellingContent?.randomSellingId);
-    const ownerOfRandom = useHeroOwnerOf(sellingContent?.randomSellingId);
     const lowestTokenURI = useHeroTokenURI(sellingContent?.lowestSellingId);
-    const ownerOfLowest = useHeroOwnerOf(sellingContent?.lowestSellingId);
 
     return (
         <HomeBox>
@@ -353,7 +323,12 @@ const Home = () => {
                                                 {!!content &&
                                                     <Fragment>
                                                         <TextHeroTop1>{`#${content?.top5[0].heroId}`}</TextHeroTop1>
-                                                        <TextOwnerOfHeroTop1>{ownerOf}</TextOwnerOfHeroTop1>
+                                                        <Link href={`${process.env.REACT_APP_BLOCK_EXPLORER_URLS}/address/${ownerOf}`}
+                                                            underline="hover" variant="body1"
+                                                            sx={{
+                                                            }}>
+                                                            <TextOwnerOfHeroTop1>{ownerOf}</TextOwnerOfHeroTop1>
+                                                        </Link>
                                                     </Fragment>
                                                 }
                                                 {!!tokenURI ?
@@ -370,28 +345,11 @@ const Home = () => {
                         </CustomGrid>
                         <CustomGrid item xs={12} md={6}>
                             <News>
-                                <List sx={{ height: '384px', overflowY: 'auto' }}>
-                                    {!!news && news.map((n, index) => {
-                                        return (
-                                            <ListItem key={index} component="a" href={n.url}
-                                                sx={{
-                                                    background: '#DCC1A1',
-                                                    marginBottom: '10px', borderRadius: '4px',
-                                                    color: '#61422D', padding: '10px',
-                                                    "&:hover": {
-                                                        textShadow: "0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff",
-                                                    },
-                                                }}>
-                                                <ListItemAvatar>
-                                                    <NewsDate variant="rounded">
-                                                        {n.date.toLocaleString('en-us', { month: 'short', day: 'numeric' })}
-                                                    </NewsDate>
-                                                </ListItemAvatar>
-                                                <ListItemText sx={{ padding: '10px' }} primary={n.title} />
-                                            </ListItem>
-                                        )
-                                    })}
-                                </List>
+                                <TwitterTimelineEmbed
+                                    sourceType="profile"
+                                    screenName="HeNTF_game"
+                                    options={{ height: 400 }}
+                                />
                             </News>
                         </CustomGrid>
                     </Grid>
@@ -412,34 +370,6 @@ const Home = () => {
                                             :
                                             <HeroSelling src="imgs/loading_hen.gif" alt={`#`} />
                                         }
-                                        {!!ownerOfRandom?.ownerOf ?
-                                            <Grid container justifyContent="flex-end" sx={{ marginTop: '4px' }}>
-                                                <Grid item>
-                                                    <Blockies
-                                                        seed={ownerOfRandom?.ownerOf}
-                                                        size={9}
-                                                        scale={2}
-                                                        className="identicon"
-                                                    />
-                                                </Grid>
-                                                <Grid item>
-                                                    <Link href={`${process.env.REACT_APP_BLOCK_EXPLORER_URLS}/address/${ownerOfRandom?.ownerOf}`}
-                                                        underline="hover" variant="body1"
-                                                        sx={{
-                                                            float: 'right',
-                                                            fontSize: '8px',
-                                                            paddingTop: '4px',
-                                                            marginLeft: '4px'
-                                                        }}>
-                                                        {shortAccount(ownerOfRandom?.ownerOf)}
-                                                    </Link>
-                                                </Grid>
-                                            </Grid>
-                                            :
-                                            <Typography sx={{ fontSize: "8px", textAlign: "right", paddingTop: '4px' }}>
-                                                loading...
-                                            </Typography>
-                                        }
                                     </Fragment>
                                 </Grid>
                                 <Grid item xs={12} md={6} sx={{ padding: '10px', position: 'relative' }}>
@@ -454,35 +384,6 @@ const Home = () => {
                                             </Fragment>
                                             :
                                             <HeroSelling src="imgs/loading_hen.gif" alt={`#`} />
-                                        }
-
-                                        {!!ownerOfLowest?.ownerOf ?
-                                            <Grid container justifyContent="flex-end" sx={{ marginTop: '4px' }}>
-                                                <Grid item>
-                                                    <Blockies
-                                                        seed={ownerOfLowest?.ownerOf}
-                                                        size={9}
-                                                        scale={2}
-                                                        className="identicon"
-                                                    />
-                                                </Grid>
-                                                <Grid item>
-                                                    <Link href={`${process.env.REACT_APP_BLOCK_EXPLORER_URLS}/address/${ownerOfLowest?.ownerOf}`}
-                                                        underline="hover" variant="body1"
-                                                        sx={{
-                                                            float: 'right',
-                                                            fontSize: '8px',
-                                                            paddingTop: '4px',
-                                                            marginLeft: '4px'
-                                                        }}>
-                                                        {shortAccount(ownerOfLowest?.ownerOf)}
-                                                    </Link>
-                                                </Grid>
-                                            </Grid>
-                                            :
-                                            <Typography sx={{ fontSize: "8px", textAlign: "right", paddingTop: '4px' }}>
-                                                loading...
-                                            </Typography>
                                         }
                                     </Fragment>
                                 </Grid>

@@ -32,7 +32,8 @@ jobs:
         REACT_APP_CHAIN_NAME: 'BSC testnet'
         REACT_APP_BLOCK_EXPLORER_URLS: 'https://testnet.bscscan.com'
         REACT_APP_RPC_URL: 'https://data-seed-prebsc-2-s2.binance.org:8545/'
-        REACT_APP_SYMBOL: 'BNB' 
+        REACT_APP_SYMBOL: 'BNB'
+        TWITTER_ACCOUNT: 'HeNTF_game'
 
     - name: Deploy
       run: |
