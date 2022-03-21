@@ -1,7 +1,7 @@
 import { TwitterTimelineEmbed } from 'react-twitter-embed';
-import { Avatar, Box, Grid, Typography, Link } from '@mui/material';
+import { Box, Grid, Typography, Link } from '@mui/material';
 import { styled } from '@mui/styles';
-import React, { Fragment, useState } from 'react';
+import React, { Fragment } from 'react';
 import { Link as NavLink } from 'react-router-dom';
 import useBattleTop5 from '../hooks/useBattleTop5';
 import useHeroTokenURI from '../hooks/useHeroTokenURI';
@@ -347,7 +347,8 @@ const Home = () => {
                             <News>
                                 <TwitterTimelineEmbed
                                     sourceType="profile"
-                                    screenName="HeNTF_game"
+                                    noHeader="true"
+                                    screenName={`${process.env.TWITTER_ACCOUNT}`}
                                     options={{ height: 400 }}
                                 />
                             </News>
