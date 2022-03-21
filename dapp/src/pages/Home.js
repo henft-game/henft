@@ -348,7 +348,7 @@ const Home = () => {
                                 <TwitterTimelineEmbed
                                     sourceType="profile"
                                     noHeader="true"
-                                    screenName={`${process.env.TWITTER_ACCOUNT}`}
+                                    screenName={`${process.env.REACT_APP_TWITTER_ACCOUNT}`}
                                     options={{ height: 400 }}
                                 />
                             </News>
