@@ -70,7 +70,6 @@ export default function Application() {
     }, [location])
 
     useEffect(() => {
-        console.log("scrolling");
         if (location.hash === '') {
             window.scrollTo(0, 0);
         } else {

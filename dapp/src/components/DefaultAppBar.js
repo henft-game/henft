@@ -168,6 +168,7 @@ export default function DefaultAppBar(props) {
                 console.error(error);
             }
         } else {
+            setMobileMenuOpened(false);
             navigate('about#how_to_buy');
         }
     }
