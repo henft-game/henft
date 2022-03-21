@@ -161,7 +161,6 @@ m = await Market.deployed();
 b = await BattleSystem.deployed();
 c = await Consumable.deployed();
 g = await GameToken.deployed();
-multi = 1;
 
 await g.mint(1, 3, 0, 'QmZieH9MNZC2mCQkHnRhQWUtFXqxqbARgRANNeNCo2xoEU');
 await g.mint(1, 3, 0, 'QmPbS9C2YuyoAxtSjELeKshPjvuKmmFVdkmN9EzGSHxFiH');
