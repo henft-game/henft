@@ -135,7 +135,7 @@ export default function DefaultAppBar(props) {
             try {
                 // check if the chain to connect to is installed
                 if (window.ethereum.chainId === process.env.REACT_APP_CHAIN_ID) {
-                    await window.ethereum.send('eth_requestAccounts');
+                    await window.ethereum.request({ method: 'eth_requestAccounts' });
                 } else {
 
                     await window.ethereum.request({

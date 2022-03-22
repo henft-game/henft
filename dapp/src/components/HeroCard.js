@@ -14,6 +14,7 @@ import BattleResultDialog from './BattleResultDialog';
 import useHeroDetails from '../hooks/useHeroDetails';
 import useHeroTokenURI from '../hooks/useHeroTokenURI';
 import { event } from '../services/tracking';
+import MustBeLoggedDialog from './MustBeLoggedDialog';
 
 const HeroCard = ({ heroInstance, token, isApprovedForAll }) => {
 
@@ -168,11 +169,15 @@ const HeroCard = ({ heroInstance, token, isApprovedForAll }) => {
     }
 
     const buy = async function () {
-        await data?.market.methods.buy(token).send({ from: data?.accounts[0], value: heroDetail?.selling?.value });
-        event({
-            category: 'Marketplace',
-            action: `Buy #${token}: ${parseFloat(data?.web3.utils.fromWei(heroDetail?.selling?.value))}`,
-        });
+        if (!!data?.accounts && !!data?.accounts[0]) {
+            await data?.market.methods.buy(token).send({ from: data?.accounts[0], value: heroDetail?.selling?.value });
+            event({
+                category: 'Marketplace',
+                action: `Buy #${token}: ${parseFloat(data?.web3.utils.fromWei(heroDetail?.selling?.value))}`,
+            });
+        } else {
+            openMustBeLoggedDialog();
+        }
     }
 
     const cancelAuction = async function () {
@@ -202,13 +207,17 @@ const HeroCard = ({ heroInstance, token, isApprovedForAll }) => {
     }
 
     const bid = async function (value) {
-        await data?.market.methods.bid(token).send({ from: data?.accounts[0], value: data?.web3.utils.toWei(value) });
-        event({
-            category: 'Marketplace',
-            action: `New Bid #${token}: ${parseFloat(value)}`,
-        });
+        if (!!data?.accounts && !!data?.accounts[0]) {
+            await data?.market.methods.bid(token).send({ from: data?.accounts[0], value: data?.web3.utils.toWei(value) });
+            event({
+                category: 'Marketplace',
+                action: `New Bid #${token}: ${parseFloat(value)}`,
+            });
 
-        handleCloseBidDialog();
+            handleCloseBidDialog();
+        } else {
+            openMustBeLoggedDialog();
+        }
     }
 
     const createAuction = async function (auctionEnd, value) {
@@ -241,7 +250,7 @@ const HeroCard = ({ heroInstance, token, isApprovedForAll }) => {
         return heroInstance;
     }
 
-    const { heroDetail } = useHeroDetails(token);
+    const { loadingHeroDetail, heroDetail } = useHeroDetails(token);
 
     const { tokenURI } = useHeroTokenURI(token);
 
@@ -310,6 +319,17 @@ const HeroCard = ({ heroInstance, token, isApprovedForAll }) => {
     const handleCloseBattleResultDialog = () => {
         setOpenedBattleResultDialog(false);
         loadHero();
+    }
+
+    const [openedMustBeLoggedDialog, setOpenedMustBeLoggedDialog] = useState(false);
+
+    const openMustBeLoggedDialog = async () => {
+        setOpenedMustBeLoggedDialog(true);
+
+    }
+
+    const handleCloseMustBeLoggedDialog = () => {
+        setOpenedMustBeLoggedDialog(false);
     }
 
     const shortAccount = function (account) {
@@ -431,7 +451,7 @@ const HeroCard = ({ heroInstance, token, isApprovedForAll }) => {
                                     }
                                 </ButtonGroup>
                             </Grid>
-                            {!!data?.accounts && !!data?.accounts[0] &&
+                            {!loadingHeroDetail &&
                                 <Grid item xs={12} md="auto">
                                     {(heroDetail?.owner === data?.accounts[0] || heroDetail?.selling?.seller === data?.accounts[0] || heroDetail?.auction?.seller === data?.accounts[0]) ?
                                         <ButtonGroup size="small" aria-label="small button group" className={classes.market}>
@@ -451,7 +471,7 @@ const HeroCard = ({ heroInstance, token, isApprovedForAll }) => {
                                             {heroDetail?.auction?.minValue !== '0' && heroDetail?.auction?.currValue === '0' &&
                                                 <ActionButton size="small" onClick={() => { cancelAuction() }}>Cancel Auction</ActionButton>
                                             }
-                                            {heroDetail?.auction?.minValue !== '0' && heroDetail?.auction?.currValue !== '0' &&
+                                            {heroDetail?.auction?.minValue !== '0' && !!heroDetail?.auction?.currValue && heroDetail?.auction?.currValue !== '0' &&
                                                 <ActionButton size="small">
                                                     {`Curr. Value  ${data?.web3.utils.fromWei(heroDetail?.auction?.currValue, 'ether')}`}
                                                 </ActionButton>
@@ -499,6 +519,9 @@ const HeroCard = ({ heroInstance, token, isApprovedForAll }) => {
             }
             {!!openedBattleResultDialog &&
                 <BattleResultDialog token={token} open={openedBattleResultDialog} handleClose={handleCloseBattleResultDialog} />
+            }
+            {!!openedMustBeLoggedDialog &&
+                <MustBeLoggedDialog open={openedMustBeLoggedDialog} handleClose={handleCloseMustBeLoggedDialog} />
             }
         </Fragment>
     );

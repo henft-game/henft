@@ -5,7 +5,7 @@ const useHeroDetails = (heroId) => {
 
     const { data } = useContext(Web3Context);
 
-    const [loading, setLoading] = useState(true);
+    const [loadingHeroDetail, setLoading] = useState(true);
     const [heroDetail, setHeroDetail] = useState();
 
 
@@ -149,7 +149,7 @@ const useHeroDetails = (heroId) => {
 
     }, [data, heroId]);
 
-    return { loading, heroDetail };
+    return { loadingHeroDetail, heroDetail };
 }
 
 export default useHeroDetails;

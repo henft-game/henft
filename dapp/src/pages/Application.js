@@ -81,6 +81,10 @@ export default function Application() {
                 }
             }, 0);
         }
+
+        return () => {
+
+        }
     }, [location.pathname, location.hash, location.key]);
 
     return (
