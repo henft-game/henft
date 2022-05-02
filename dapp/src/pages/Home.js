@@ -190,10 +190,10 @@ const Home = () => {
 
     const TextOfHeroTop1 = styled(Typography)(({ theme }) => ({
         '&&': {
-            fontSize: '9px',
+            fontSize: '11px',
         },
         position: 'absolute',
-        top: '20px',
+        top: '14px',
         zIndex: '1000',
         [theme.breakpoints.down('sm')]: {
         },
