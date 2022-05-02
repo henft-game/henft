@@ -188,6 +188,17 @@ const Home = () => {
         },
     }));
 
+    const TextOfHeroTop1 = styled(Typography)(({ theme }) => ({
+        '&&': {
+            fontSize: '9px',
+        },
+        position: 'absolute',
+        top: '20px',
+        zIndex: '1000',
+        [theme.breakpoints.down('sm')]: {
+        },
+    }));
+
     const Champion = styled('div')(({ theme }) => ({
         background: 'url("imgs/champion.png")',
         position: 'absolute',
@@ -329,6 +340,7 @@ const Home = () => {
                                                             }}>
                                                             <TextOwnerOfHeroTop1>{ownerOf}</TextOwnerOfHeroTop1>
                                                         </Link>
+                                                        <TextOfHeroTop1>This is the hen with the most pvp wins in the past month. All hail the champion!</TextOfHeroTop1>
                                                     </Fragment>
                                                 }
                                                 {!!tokenURI ?

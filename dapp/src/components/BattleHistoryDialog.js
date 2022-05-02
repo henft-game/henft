@@ -42,16 +42,25 @@ const BattleHistoryDialog = (props) => {
                     Battle History of Hero #{props.token}
                 </DialogContentText>
                 <List sx={{ width: '100%', background: '#FEEDD9' }}>
+                    {!props.battles && props.battles.length <= 0 &&
+                        <ListItem sx={{ padding: '0px 0px 10px 0px' }}>
+                            <List sx={{ width: '100%', color: '#61422D', background: '#DCC1A1', padding: '10px', borderRadius: 1, }}>
+                                <ListItem sx={{ padding: "0" }}>
+                                    This hen has never attacked anyone.
+                                </ListItem>
+                            </List>
+                        </ListItem>
+                    }
                     {!!props.battles && props.battles.map((battleResult, battleIndex) => {
                         return (
-                            <ListItem key={battleIndex} sx={{padding: '0px 0px 10px 0px'}}>
+                            <ListItem key={battleIndex} sx={{ padding: '0px 0px 10px 0px' }}>
                                 <List sx={{ width: '100%', color: '#61422D', background: '#DCC1A1', padding: '10px', borderRadius: 1, }}>
                                     <ListItem sx={{ padding: "0" }}>
                                         <ListItemAvatar>
                                             <img className={classes.nft} src={battleResult?.tokenURI} alt={`#${battleResult?.dHeroId}`} />
                                         </ListItemAvatar>
                                         <ListItemText sx={{ textAlign: 'center', [`& .${typographyClasses.body1}`]: { fontSize: '28px', color: battleResult?.points > 0 ? '#22673C' : '#C03C3B' } }}
-                                            primary={`VS #${battleResult?.dHeroId} - ${ battleResult?.points > 0 ? "WON" : "LOSE"}`}
+                                            primary={`VS #${battleResult?.dHeroId} - ${battleResult?.points > 0 ? "WON" : "LOSE"}`}
                                             secondary={`${new Date(parseInt(battleResult?.date) * 1000).toLocaleString()}`} />
                                     </ListItem>
                                     <ListItem sx={{

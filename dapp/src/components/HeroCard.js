@@ -268,9 +268,9 @@ const HeroCard = ({ heroInstance, token, isApprovedForAll }) => {
 
     const [openedCreateAuctionDialog, setOpenedCreateAuctionDialog] = useState(false);
 
-    const openCreateAuctionDialog = () => {
-        setOpenedCreateAuctionDialog(true);
-    }
+    // const openCreateAuctionDialog = () => {
+    //     setOpenedCreateAuctionDialog(true);
+    // }
 
     const handleCloseCreateAuctionDialog = () => {
         setOpenedCreateAuctionDialog(false);
@@ -447,7 +447,7 @@ const HeroCard = ({ heroInstance, token, isApprovedForAll }) => {
                                 <ButtonGroup size="small" aria-label="small button group" className={classes.battle}>
                                     <ActionButton size="small" onClick={() => { openBattleHistoryDialog() }}>History</ActionButton>
                                     {!!data?.accounts && !!data?.accounts[0] && heroDetail?.owner === data?.accounts[0] &&
-                                        <ActionButton size="small" onClick={() => { battle() }}>New</ActionButton>
+                                        <ActionButton size="small" onClick={() => { battle() }}>Fight</ActionButton>
                                     }
                                 </ButtonGroup>
                             </Grid>
@@ -460,9 +460,9 @@ const HeroCard = ({ heroInstance, token, isApprovedForAll }) => {
                                                     <ActionButton size="small" onClick={() => { isApprovedForAll ? openSellDialog(token) : openConfirmMarketDialog() }}>
                                                         Sell
                                                     </ActionButton>
-                                                    <ActionButton size="small" onClick={() => { isApprovedForAll ? openCreateAuctionDialog(token) : openConfirmMarketDialog() }}>
+                                                    {/* <ActionButton size="small" onClick={() => { isApprovedForAll ? openCreateAuctionDialog(token) : openConfirmMarketDialog() }}>
                                                         Auction
-                                                    </ActionButton>
+                                                    </ActionButton> */}
                                                 </Fragment>
                                             }
                                             {heroDetail?.selling?.value !== '0' &&
@@ -473,7 +473,7 @@ const HeroCard = ({ heroInstance, token, isApprovedForAll }) => {
                                             }
                                             {heroDetail?.auction?.minValue !== '0' && !!heroDetail?.auction?.currValue && heroDetail?.auction?.currValue !== '0' &&
                                                 <ActionButton size="small">
-                                                    {`Curr. Value  ${data?.web3.utils.fromWei(heroDetail?.auction?.currValue, 'ether')}`}
+                                                    {`Curr. Value  ${data?.web3.utils.fromWei(heroDetail?.auction?.currValue)}`}
                                                 </ActionButton>
                                             }
                                         </ButtonGroup>
@@ -483,7 +483,7 @@ const HeroCard = ({ heroInstance, token, isApprovedForAll }) => {
                                                 <ButtonGroup size="small" aria-label="small button group" className={classes.market}>
                                                     {heroDetail?.auction?.minValue === '0' && heroDetail?.selling?.value !== '0' &&
                                                         <ActionButton size="small" onClick={() => { buy() }}>
-                                                            {`BUY ${data?.web3.utils.fromWei(heroDetail?.selling?.value, 'ether')}`}
+                                                            {`BUY ${data?.web3.utils.fromWei(heroDetail?.selling?.value)} ${process.env.REACT_APP_SYMBOL}`}
                                                         </ActionButton>
                                                     }
                                                     {heroDetail?.auction?.minValue !== '0' && heroDetail?.selling?.value === '0' && heroDetail?.auction?.endTime >= new Date().getTime() &&

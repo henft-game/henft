@@ -193,9 +193,9 @@ export default function DefaultAppBar(props) {
                     <Box sx={{ flexGrow: 1 }} />
                     <RightBox>
                         {!!data?.accounts && !!data?.accounts[0] ?
-                            <Button sx={{ color: '#61422D' }} onClick={login} startIcon={<Avatar sx={{ width: '33px', heigth: '38px' }} src={'imgs/connected.png'} />}>{shortAccount(data?.accounts[0])}</Button>
+                            <Button sx={{ color: '#61422D' }} onClick={login} startIcon={<Avatar sx={{ width: '33px', heigth: '38px' }} alt="connected" src={'imgs/connected.png'} />}>{shortAccount(data?.accounts[0])}</Button>
                             :
-                            <Button sx={{ color: '#61422D' }} onClick={login} startIcon={<Avatar sx={{ width: '33px', heigth: '38px' }} src={'imgs/no_connection.png'} />}>No Wallet Connected</Button>
+                            <Button sx={{ color: '#61422D' }} onClick={login} startIcon={<Avatar sx={{ width: '33px', heigth: '38px' }} alt="disconnected" src={'imgs/no_connection.png'} />}>No Wallet Connected</Button>
                         }
                     </RightBox>
                     <OpenMenuButton className={mobileMenuOpened ? classes.menuOpened : null} onClick={toggleMobileMenu}>
