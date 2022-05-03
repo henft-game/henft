@@ -42,7 +42,7 @@ const BattleHistoryDialog = (props) => {
                     Battle History of Hero #{props.token}
                 </DialogContentText>
                 <List sx={{ width: '100%', background: '#FEEDD9' }}>
-                    {!props.battles && props.battles.length <= 0 &&
+                    {!!props.battles && props.battles.length <= 0 &&
                         <ListItem sx={{ padding: '0px 0px 10px 0px' }}>
                             <List sx={{ width: '100%', color: '#61422D', background: '#DCC1A1', padding: '10px', borderRadius: 1, }}>
                                 <ListItem sx={{ padding: "0" }}>
