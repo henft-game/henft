@@ -1,8 +1,18 @@
-import { Grid, Box, Select, MenuItem, InputLabel, FormControl, FormControlLabel, Checkbox } from '@mui/material';
+import {
+    Grid, Box
+} from '@mui/material';
 import { styled } from '@mui/styles';
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useMemo, useState } from 'react';
 import useHeroes from '../hooks/useHeroes';
 import HeroGridItem from '../components/HeroGridItem';
+import HeroesFilters from '../components/HeroesFilters';
+import { useLocation } from 'react-router-dom';
+
+function useQuery() {
+    const { search } = useLocation();
+
+    return useMemo(() => new URLSearchParams(search), [search]);
+}
 
 const Heroes = () => {
 
@@ -34,110 +44,47 @@ const Heroes = () => {
         },
     }));
 
-    const CustomFormControl = styled(FormControl)(({ theme }) => ({
-        "&&": {
-            minWidth: 150,
-            marginRight: "8px"
-        },
-        [theme.breakpoints.down('sm')]: {
-            "&&": {
-                marginTop: 10
-            },
-        },
-    }));
 
-    const FilterSelect = styled(Select)(({ theme }) => ({
+    let query = useQuery();
 
-        "&": {
-            background: '#DCC1A1',
-            borderRadius: '1',
-            color: '#61422D',
-        },
-        '&:hover': {
-            borderColor: '#61422D',
-            borderRadius: '1',
-            borderWidth: '2px',
-        }
-    }));
+    useEffect(() => {
+        setFilter({
+            type: '-1',
+            rarity: '-1',
+            onlySelling: false,
+            ownedByMe: false, 
+            heroId: query.get('heroId') || ''
+        });
+    }, [query])
 
     const { loading, content } = useHeroes();
 
-    const [type, setType] = useState('-1');
-    const [rarity, setRarity] = useState('-1');
-    const [onlySelling, setOnlySelling] = useState(false);
-    const [ownedByMe, setOwnedByMe] = useState(false);
+    const [filter, setFilter] = useState({
+        type: '-1',
+        rarity: '-1',
+        heroId: '',
+        onlySelling: false,
+        ownedByMe: false,
+    });
 
-    const handleRarityChange = (event) => {
-        setRarity(event.target.value);
-    };
-    const handleTypeChange = (event) => {
-        setType(event.target.value);
-    };
     return (
         <HeroesBox>
             <Grid container>
                 <HeroesGrid item xs={12} md={12} lg={10} xl={8}>
                     <Grid container spacing={2}>
-                        <Grid item xs={12} md={12} lg={12} xl={12} sx={{
-                            "&&": {
-                                margin: "16px 0 0 16px ",
-                                padding: "24px 16px 16px 16px"
-                            },
-                            border: "4px solid #61422D",
-                            borderRadius: "4px", background: "#FEEDD9"
-                        }} >
-                            <CustomFormControl >
-                                <InputLabel id="class-label">Class</InputLabel>
-                                <FilterSelect
-                                    size="small"
-                                    labelId="class-label"
-                                    id="class"
-                                    value={type}
-                                    onChange={handleTypeChange}
-                                    label="CLASS"
-                                >
-                                    <MenuItem value={'-1'}>All</MenuItem>
-                                    <MenuItem value={'0'}>Fighter</MenuItem>
-                                    <MenuItem value={'1'}>Rogue</MenuItem>
-                                    <MenuItem value={'2'}>Mage</MenuItem>
-                                    <MenuItem value={'3'}>Tank</MenuItem>
-                                </FilterSelect>
-                            </CustomFormControl>
-                            <CustomFormControl >
-                                <InputLabel id="rarity-label">Rarity</InputLabel>
-                                <FilterSelect
-                                    size="small"
-                                    labelId="rarity-label"
-                                    id="rarity"
-                                    value={rarity}
-                                    onChange={handleRarityChange}
-                                    label="RARITY"
-                                >
-                                    <MenuItem value={'-1'}>All</MenuItem>
-                                    <MenuItem value={'0'}>Common</MenuItem>
-                                    <MenuItem value={'1'}>Uncommon</MenuItem>
-                                    <MenuItem value={'2'}>Rare</MenuItem>
-                                    <MenuItem value={'3'}>Legendary</MenuItem>
-                                </FilterSelect>
-                            </CustomFormControl>
-                            <FormControlLabel sx={{ "&": { color: '#61422D' } }} onChange={(e, newValue) => setOnlySelling(newValue)} control={
-                                <Checkbox sx={{ "&": { color: '#61422D' } }} checked={onlySelling} />
-                            } label="Only for sale" />
-                            <FormControlLabel sx={{ "&": { color: '#61422D' } }} onChange={(e, newValue) => setOwnedByMe(newValue)} control={
-                                <Checkbox sx={{ "&": { color: '#61422D' } }} checked={ownedByMe} />
-                            } label="Owned by me" />
-                        </Grid>
+                        <HeroesFilters filter={filter} setFilter={setFilter} />
                         {!!content && !!content.heroes && content.heroes
-                            .map((hero, heroId) => {
+                            .map((hero, hId) => {
                                 return (
-                                    <Fragment key={heroId}>
-                                        {(type === '-1' || hero.heroType === type) &&
-                                            (rarity === '-1' || hero.rarity === rarity) &&
-                                            (!onlySelling || content.sellingHeroesIds.indexOf(heroId + '') > -1) &&
-                                            (!ownedByMe || content.ownedByMe.indexOf(heroId + '') > -1) &&
+                                    <Fragment key={hId}>
+                                        {(filter.type === '-1' || hero.heroType === filter.type) &&
+                                            (filter.rarity === '-1' || hero.rarity === filter.rarity) &&
+                                            (filter.heroId === '' || (hId + '') === filter.heroId) &&
+                                            (!filter.onlySelling || content.sellingHeroesIds.indexOf(hId + '') > -1) &&
+                                            (!filter.ownedByMe || content.ownedByMe.indexOf(hId + '') > -1) &&
                                             <HeroGridItem
                                                 hero={hero}
-                                                token={heroId}
+                                                token={hId}
                                                 isApprovedForAll={content.isApprovedForAll} />
                                         }
                                     </Fragment>

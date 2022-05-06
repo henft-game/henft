@@ -378,7 +378,7 @@ const Home = () => {
                                         {!!randomTokenURI?.tokenURI ?
                                             <Fragment>
                                                 <HeroSelling src={randomTokenURI?.tokenURI} alt="random selling hero" />
-                                                <LinkBuy to="/hens">BUY</LinkBuy>
+                                                <LinkBuy to={`/hens?heroId=${sellingContent?.randomSellingId}`}>BUY</LinkBuy>
                                             </Fragment>
                                             :
                                             <HeroSelling src="imgs/loading_hen.gif" alt={`#`} />
@@ -393,7 +393,7 @@ const Home = () => {
                                         {!!lowestTokenURI?.tokenURI ?
                                             <Fragment>
                                                 <HeroSelling src={lowestTokenURI?.tokenURI} alt="lowest selling hero" />
-                                                <LinkBuy to="/hens">BUY</LinkBuy>
+                                                <LinkBuy to={`/hens?heroId=${sellingContent?.lowestSellingId}`}>BUY</LinkBuy>
                                             </Fragment>
                                             :
                                             <HeroSelling src="imgs/loading_hen.gif" alt={`#`} />
