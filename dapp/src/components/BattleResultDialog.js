@@ -15,7 +15,9 @@ const Transition = forwardRef((props, ref) => {
 const BattleResultDialog = (props) => {
 
     const Loading = styled('div')(({ theme }) => ({
+        maxWidth: '260px',
         margin: 'auto',
+        textAlign: 'center',
     }));
 
     const useStyles = makeStyles({
@@ -56,11 +58,22 @@ const BattleResultDialog = (props) => {
             scroll="body" maxWidth="false"
             disableEscapeKeyDown={loading}
             open={props.open}
-            onClose={resetState} TransitionComponent={Transition}>
+            onClose={(_, reason) => {
+                if (reason !== 'backdropClick') {
+                    resetState();
+                }
+            }}
+            TransitionComponent={Transition}>
 
             {loading &&
                 <DialogContent sx={{ padding: '10px' }}>
-                    <Loading><img src="imgs/fighting.gif" alt="fighting" />fighting...</Loading>
+                    <Loading>
+                        <img src="imgs/fighting.gif" alt="fighting" />
+                        <Typography component="p">fighting...</Typography>
+                        <Typography component="span" sx={{ display: 'block', fontSize: '8px', padding: '5px' }}>
+                            We are sending the request to the blockchain, this may take a while. If it takes too long, please refresh the page.
+                        </Typography>
+                    </Loading>
                 </DialogContent>
             }
             {!!battleResult &&

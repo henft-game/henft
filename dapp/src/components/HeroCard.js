@@ -198,11 +198,16 @@ const HeroCard = ({ heroInstance, token, isApprovedForAll }) => {
 
     const battle = async function () {
         openBattleResultDialog();
-        await data?.battleSystem.methods.battle(token).send({ from: data?.accounts[0], gas: '600000' });
-        event({
-            category: 'Battle System',
-            action: `New Battle #${token}`,
-        });
+        try {
+            await data?.battleSystem.methods.battle(token).send({ from: data?.accounts[0], gas: '600000' });
+            event({
+                category: 'Battle System',
+                action: `New Battle #${token}`,
+            });
+        } catch (e) {
+            console.log(e);
+            closeBattleResultDialog();
+        }
 
     }
 
@@ -235,12 +240,17 @@ const HeroCard = ({ heroInstance, token, isApprovedForAll }) => {
     }
 
     const allowBuy = async function (value) {
-        await data?.market.methods.allowBuy(token, data?.web3.utils.toWei(value)).send({ from: data?.accounts[0] });
-        event({
-            category: 'Marketplace',
-            action: `New Selling #${token}: ${parseFloat(value)}`,
-        });
-        handleCloseSellDialog();
+        try {
+            await data?.market.methods.allowBuy(token, data?.web3.utils.toWei(value)).send({ from: data?.accounts[0] });
+            event({
+                category: 'Marketplace',
+                action: `New Selling #${token}: ${parseFloat(value)}`,
+            });
+            handleCloseSellDialog();
+        } catch (e) {
+            console.log(e);
+            handleCloseSellDialog();
+        }
     }
 
     const getHero = function () {
@@ -313,7 +323,10 @@ const HeroCard = ({ heroInstance, token, isApprovedForAll }) => {
 
     const openBattleResultDialog = async () => {
         setOpenedBattleResultDialog(true);
+    }
 
+    const closeBattleResultDialog = async () => {
+        setOpenedBattleResultDialog(false);
     }
 
     const handleCloseBattleResultDialog = () => {

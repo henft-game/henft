@@ -1,5 +1,5 @@
 import { TwitterTimelineEmbed } from 'react-twitter-embed';
-import { Box, Grid, Typography, Link } from '@mui/material';
+import { Box, Grid, Typography, Link, Tooltip, tooltipClasses } from '@mui/material';
 import { styled } from '@mui/styles';
 import React, { Fragment } from 'react';
 import { Link as NavLink } from 'react-router-dom';
@@ -188,17 +188,6 @@ const Home = () => {
         },
     }));
 
-    const TextOfHeroTop1 = styled(Typography)(({ theme }) => ({
-        '&&': {
-            fontSize: '11px',
-        },
-        position: 'absolute',
-        top: '14px',
-        zIndex: '1000',
-        [theme.breakpoints.down('sm')]: {
-        },
-    }));
-
     const Champion = styled('div')(({ theme }) => ({
         background: 'url("imgs/champion.png")',
         position: 'absolute',
@@ -287,6 +276,16 @@ const Home = () => {
         }
     }));
 
+    const CustomTooltip = styled(({ className, ...props }) => (
+        <Tooltip {...props} classes={{ popper: className }} followCursor enterTouchDelay={0} />
+    ))({
+        [`& .${tooltipClasses.tooltip}`]: {
+            lineHeight: '24px',
+            fontSize: '15px',
+            background: '#302A25',
+        },
+    });
+
     const { content } = useBattleTop5();
 
     const { tokenURI } = useHeroTokenURI(content?.top5[0].heroId);
@@ -340,11 +339,12 @@ const Home = () => {
                                                             }}>
                                                             <TextOwnerOfHeroTop1>{ownerOf}</TextOwnerOfHeroTop1>
                                                         </Link>
-                                                        <TextOfHeroTop1>This is the hen with the most pvp wins in the past month. All hail the champion!</TextOfHeroTop1>
                                                     </Fragment>
                                                 }
                                                 {!!tokenURI ?
-                                                    <HeroTop1 src={tokenURI} alt={`#${content?.top5[0].heroId}`} />
+                                                    <CustomTooltip title="This is the hen with the most pvp wins in the past month. All hail the champion!">
+                                                        <HeroTop1 src={tokenURI} alt={`#${content?.top5[0].heroId}`} />
+                                                    </CustomTooltip>
                                                     :
                                                     <HeroTop1 src="imgs/loading_hen.gif" alt={`#${content?.top5[0].heroId}`} />
                                                 }
