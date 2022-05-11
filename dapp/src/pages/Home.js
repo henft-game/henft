@@ -258,7 +258,7 @@ const Home = () => {
 
         "&&": {
             position: 'absolute',
-            bottom: '40px',
+            bottom: '20px',
             right: '20px',
             background: '#DCC1A1',
             color: '#61422D',
@@ -266,7 +266,7 @@ const Home = () => {
             textTransform: 'capitalize',
             padding: '10px',
             textDecoration: 'none',
-            borderRadius: '2px',
+            borderRadius: '4px',
         },
         '&&:hover': {
             background: '#FFEED4',
