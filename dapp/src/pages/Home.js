@@ -183,7 +183,7 @@ const Home = () => {
         top: '380px',
         zIndex: '1000',
         color: '#FFDF00',
-        textShadow: '2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000, 1px 1px #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000',
+        textShadow: '1px 0 0 #000, -1px 0 0 #000, 0 1px 0 #000, 0 -1px 0 #000, 1px 1px #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000',
         [theme.breakpoints.down('sm')]: {
         },
     }));
