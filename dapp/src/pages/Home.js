@@ -262,17 +262,14 @@ const Home = () => {
             right: '20px',
             background: '#DCC1A1',
             color: '#61422D',
-            borderColor: '#61422D',
+            border: '2px solid #61422D',
             textTransform: 'capitalize',
-            borderWidth: '2px',
             padding: '10px',
             textDecoration: 'none',
             borderRadius: '2px',
         },
         '&&:hover': {
             background: '#FFEED4',
-            borderColor: '#61422D', borderRadius: '1',
-            borderWidth: '2px',
         }
     }));
 
