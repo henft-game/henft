@@ -122,6 +122,14 @@ contract BattleSystem is Ownable {
 
         seed2 += _bHeroId;
 
+        if (_aHeroId == _bHeroId) {
+            if (_bHeroId + 1 >= GameToken(_gameTokenAddress).totalSupply()) {
+                _bHeroId = 0;
+            } else {
+                _bHeroId++;
+            }
+        }
+
         uint8 points = 1;
         if (_aHeroId != _bHeroId) {
             //hero auto win versus himself

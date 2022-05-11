@@ -107,25 +107,31 @@ const ConsumableCard = ({ consumableType, consumableInstance, isApprovedForAll, 
         '3': 'imgs/chest.gif'
     }
 
+    const [using, setUsing] = useState(false);
     const [heroId, setHeroId] = useState();
     const [consumable, setConsumable] = useState();
 
     const { data } = useContext(Web3Context);
 
     const useConsumable = async () => {
-        await data?.consumable.methods.consume(heroId || heroesIds[0], getConsumable().ids[getConsumable().ids.length - 1]).send({ from: data?.accounts[0] });
-        if (!!consumable) {
-            setConsumable({
-                ...consumable,
-                ids: consumable.ids.splice(0, consumable.ids.length - 1),
-                total: consumable.total - 1
-            });
-        } else {
-            setConsumable({
-                ...consumableInstance,
-                ids: consumableInstance.ids.splice(0, consumableInstance.ids.length - 1),
-                total: consumableInstance.total - 1
-            });
+        setUsing(true);
+        try {
+            await data?.consumable.methods.consume(heroId || heroesIds[0], getConsumable().ids[getConsumable().ids.length - 1]).send({ from: data?.accounts[0] });
+            if (!!consumable) {
+                setConsumable({
+                    ...consumable,
+                    ids: consumable.ids.splice(0, consumable.ids.length - 1),
+                    total: consumable.total - 1
+                });
+            } else {
+                setConsumable({
+                    ...consumableInstance,
+                    ids: consumableInstance.ids.splice(0, consumableInstance.ids.length - 1),
+                    total: consumableInstance.total - 1
+                });
+            }
+        } finally {
+            setUsing(false);
         }
     }
 
@@ -149,12 +155,12 @@ const ConsumableCard = ({ consumableType, consumableInstance, isApprovedForAll, 
             </NftGrid>
             <StatusGrid item xs={12} md={8}>
                 <Grid container sx={{ marginTop: "7px", textAlign: 'center' }}>
-                    <Grid item xs={12}>
+                    {/* <Grid item xs={12}>
                         <Typography sx={{ fontSize: "13px" }}>{`0 available at the moment`}</Typography>
                     </Grid>
                     <Grid item xs={12}>
                         <ActionButton size="small">Buy</ActionButton> <ActionButton size="small">Sell</ActionButton>
-                    </Grid>
+                    </Grid> */}
                     <Grid item xs={12}>
                         {!!getConsumable() ?
                             <Typography sx={{ fontSize: "16px" }}>{`You have x${getConsumable().total}`}</Typography>
@@ -168,7 +174,9 @@ const ConsumableCard = ({ consumableType, consumableInstance, isApprovedForAll, 
                                 {!!heroesIds &&
                                     <FormControl>
                                         <InputLabel id="hero-label">Hero</InputLabel>
-                                        <HeroIdSelect size="small"
+                                        <HeroIdSelect
+                                            disabled={using}
+                                            size="small"
                                             labelId="hero-label"
                                             id="hero-select"
                                             value={heroId || heroesIds[0]}
@@ -183,7 +191,7 @@ const ConsumableCard = ({ consumableType, consumableInstance, isApprovedForAll, 
                                         </HeroIdSelect>
                                     </FormControl>
                                 }
-                                <ActionButton onClick={useConsumable}>Use</ActionButton>
+                                <ActionButton disabled={using} onClick={useConsumable}>Use</ActionButton>
                             </Fragment>
                         }
                     </Grid>

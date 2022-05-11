@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, Fragment } from 'react';
 
 import {
     Slide, Dialog, DialogContent, DialogContentText,
@@ -56,12 +56,21 @@ const BattleHistoryDialog = (props) => {
                             <ListItem key={battleIndex} sx={{ padding: '0px 0px 10px 0px' }}>
                                 <List sx={{ width: '100%', color: '#61422D', background: '#DCC1A1', padding: '10px', borderRadius: 1, }}>
                                     <ListItem sx={{ padding: "0" }}>
-                                        <ListItemAvatar>
-                                            <img className={classes.nft} src={battleResult?.tokenURI} alt={`#${battleResult?.dHeroId}`} />
-                                        </ListItemAvatar>
-                                        <ListItemText sx={{ textAlign: 'center', [`& .${typographyClasses.body1}`]: { fontSize: '28px', color: battleResult?.points > 0 ? '#22673C' : '#C03C3B' } }}
-                                            primary={`VS #${battleResult?.dHeroId} - ${battleResult?.points > 0 ? "WON" : "LOSE"}`}
-                                            secondary={`${new Date(parseInt(battleResult?.date) * 1000).toLocaleString()}`} />
+                                        {props.token + '' === battleResult?.dHeroId + '' &&
+                                            <ListItemText sx={{ textAlign: 'center', [`& .${typographyClasses.body1}`]: { fontSize: '28px', color: battleResult?.points > 0 ? '#22673C' : '#C03C3B' } }}
+                                                primary={`FREE WIN`}
+                                                secondary={`${new Date(parseInt(battleResult?.date) * 1000).toLocaleString()}`} />
+                                        }
+                                        {props.token + '' !== battleResult?.dHeroId + '' &&
+                                            <Fragment>
+                                                <ListItemAvatar>
+                                                    <img className={classes.nft} src={battleResult?.tokenURI} alt={`#${battleResult?.dHeroId}`} />
+                                                </ListItemAvatar>
+                                                <ListItemText sx={{ textAlign: 'center', [`& .${typographyClasses.body1}`]: { fontSize: '28px', color: battleResult?.points > 0 ? '#22673C' : '#C03C3B' } }}
+                                                    primary={`VS #${battleResult?.dHeroId} - ${battleResult?.points > 0 ? "WON" : "LOSE"}`}
+                                                    secondary={`${new Date(parseInt(battleResult?.date) * 1000).toLocaleString()}`} />
+                                            </Fragment>
+                                        }
                                     </ListItem>
                                     <ListItem sx={{
                                         padding: '10px', background: '#FEEDD9',
